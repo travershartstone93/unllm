@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.20)
+project(unllm CXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+add_compile_options(-Wall -Wextra)
+
+file(GLOB UNLLM_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+add_library(unllm STATIC ${UNLLM_SOURCES})
+target_include_directories(unllm PUBLIC include)
+target_link_libraries(unllm PUBLIC sqlite3)
+
+file(GLOB TEST_SOURCES CONFIGURE_DEPENDS tests/*.cpp)
+add_executable(unllm_tests ${TEST_SOURCES})
+target_link_libraries(unllm_tests PRIVATE unllm)
