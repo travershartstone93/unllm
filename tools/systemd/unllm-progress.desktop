@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=unllm
+Comment=unllm job progress
+Icon=view-process-system
+Exec=true
+NoDisplay=true

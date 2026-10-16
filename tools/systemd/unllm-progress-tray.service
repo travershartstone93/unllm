@@ -1,0 +1,13 @@
+[Unit]
+Description=unllm job progress in the KDE system tray
+PartOf=graphical-session.target
+After=plasma-plasmashell.service
+
+[Service]
+ExecStart=/usr/bin/python3 -I %h/repo-work/unllm/tools/progress_tray.py
+Restart=on-failure
+RestartSec=10
+Nice=10
+
+[Install]
+WantedBy=graphical-session.target
