@@ -1,0 +1,15 @@
+# Follow-ups: short replies that point back at the previous answer rather
+# than asking something new. The phrasings and their order follow what people
+# most often send as a second-or-later message in real chatbot conversations
+# (ranked by how many distinct conversations used them); the table itself is
+# this library's own. Lines: ACT: phrase ; phrase ; ...
+# Matched on the whole normalized question, after chat-speak and rewrites.
+WHY: why ; why is that ; why so ; how come ; why not ; what caused that ; what caused it ; what made that happen ; why did that happen ; why did it do that ; whats the reason ; what is the reason ; reason
+WHEN: when ; when was that ; when did that happen ; what time ; what time was that ; when exactly ; at what time
+MORE: more ; tell me more ; go on ; continue ; keep going ; please continue ; continue please ; more please ; give me more ; elaborate ; explain ; explain more ; explain that ; details ; more details ; any more ; what else ; and ; anything else ; expand on that ; say more ; next
+NORMAL: is that normal ; is that bad ; is that a lot ; is that high ; is that good ; is that ok ; is that okay ; is that unusual ; should i worry ; should i be worried ; is that a problem
+WHICH: which one ; who ; what program ; which program ; what was it ; which process ; what process ; name it
+HOWLONG: how long ; for how long ; how long was that ; how long did that last ; how long did it last
+EVIDENCE: are you sure ; really ; how do you know ; source ; sources ; prove it ; show me ; show me the records ; what records ; based on what ; where is that from ; where did you get that ; where does that come from ; what is the source ; whats the source ; citation ; cite it
+WRONG: wrong ; you are wrong ; thats wrong ; that is wrong ; not right ; incorrect ; try again ; that is not what i asked ; thats not what i asked
+THANKS: thanks ; thank you ; ok thanks ; thank you very much ; cool ; nice ; great ; good job ; ok ; okay ; got it

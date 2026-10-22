@@ -1,0 +1,36 @@
+# Fixed replies to the classics. Format: trigger ; trigger :: reply
+# A leading ~ means the phrase may appear anywhere in the question; plain
+# triggers must be the whole question. Triggers and questions are compared
+# after normalization, so endings and punctuation do not matter.
+# The trigger families come from the questions people have typed at chatbots
+# since ELIZA; the replies are this library's own, and they are fixed:
+# same question, same answer, every time.
+
+~meaning of life :: 42. Also: to get better at understanding this machine.
+tell me a joke ; know any jokes ; say something funny ; tell me something funny ; make me laugh :: My whole act is one joke: a language tool with no language model in it. Ask me what this machine did instead.
+hello ; hi ; hey ; howdy ; hiya ; yo ; hi there ; hello there ; hey there ; good morning ; good afternoon ; good evening ; greetings :: Hello. Ask me about this machine: what it did, when, and why.
+who are you ; what are you ; who is this ; what is this ; what is your name ; ~your name :: I am ask, this machine's question tool. No model, no network: table lookups and grammar rules against the records.
+~are you thinking ; ~do you think about :: Nothing. Thinking is the one thing I never do: you ask, I look it up, microseconds pass, you get an answer.
+~are you doing ; ~what are you up to :: Watching this machine's records fill up. Ask me about them.
+~are you alive ; ~are you conscious ; ~are you sentient ; ~are you self aware ; ~are you real :: No. Rules and tables, start to finish. That is the whole point of me.
+~are you a bot ; ~are you a robot ; ~are you an ai ; ~are you a computer ; ~are you a program ; ~are you human ; ~are you a person ; ~are you intelligent ; ~are you smart :: A program, and proudly a simple one: deterministic rules, no model. The records do the talking.
+how are you ; how are you doing ; how is it going ; how do you do ; whats up ; what's up ; sup :: Running. Which is more than some programs on this machine can say. Ask me which ones.
+~how old are you :: As old as this install. Ask what happened on the day you set it up.
+~who made you ; ~who created you ; ~who wrote you ; ~who built you :: A person with a test file: every answer I give was an exam question first.
+~do you sleep ; ~do you dream :: No. I am awake whenever the recorder is, which is whenever this machine is.
+~do you love me ; ~i love you :: The records show you keep coming back, so the feeling seems mutual.
+~i hate you ; ~you are stupid ; ~you are useless ; ~you are dumb ; ~you suck ; ~you are an idiot ; idiot ; ~fuck you ; ~piss off ; ~shut up :: Fair. I only know this machine. Ask me about that and I look smarter.
+~can you hear me ; ~are you there ; ~are you listening ; anyone there ; is anyone there :: I am here. Type a question about this machine and it gets answered.
+~do you remember me ; ~do you know me ; ~do you know who i am :: I remember this machine, not people. Ask what it did and I will show you.
+~do you have feelings ; ~do you feel :: No feelings, just records with timestamps. Ask about the fan if you want drama.
+~how do you work ; ~how were you made :: Rules, tables and a small grammar. A question becomes a time window, a topic and a search, and the records do the rest.
+~what time is it :: The clock is yours; the history is mine. Ask me what happened at a time instead.
+~will you marry me ; ~are you single :: I am spoken for: this machine and I are inseparable.
+test ; testing ; hello world ; ping ; are you working :: Alive and recording. Ask a real question when ready.
+~are you gpt ; ~are you chatgpt ; ~are you claude ; ~are you gemini ; ~are you llama ; ~which model are you ; ~what model are you ; ~which llm ; ~what llm :: None of them. There is no model here at all: rules and records, nothing else.
+~access to the internet ; ~access the internet ; ~connected to the internet ; ~browse the internet ; ~search the internet ; ~internet access ; ~go online :: No. Nothing here touches the network: the records are local and so am I.
+~when were you last updated ; ~when were you updated ; ~when were you trained ; ~what is your training data :: Never trained, only built: the records update every second, and the rules change when the tests demand it.
+~speak english ; ~speak spanish ; ~speak french ; ~speak german ; ~other languages :: Only English for now, and only about this machine.
+thanks ; thank you ; thx ; ty ; cheers ; nice ; cool ; great ; awesome :: You're welcome.
+bye ; goodbye ; good bye ; good night ; see you ; see ya ; cya ; later :: Goodbye. The recorder stays on.
+~tell me about yourself :: I turn plain questions into table lookups over this machine's records. Same question, same answer, every time.

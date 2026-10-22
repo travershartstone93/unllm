@@ -22,6 +22,17 @@ const std::map<std::string, std::string>& lemma_exceptions() {
         {"froze", "freeze"},  {"frozen", "freeze"}, {"died", "die"}, {"dying", "die"}, {"ate", "eat"},
         {"hotter", "hot"},    {"hottest", "hot"}, {"worse", "bad"},  {"worst", "bad"}, {"slower", "slow"},
         {"slowest", "slow"},  {"louder", "loud"}, {"screaming", "scream"},
+        // Contractions and leftovers fold onto their stop-word heads, so
+        // "what's wrong" is not scored as an unknown word called "what's".
+        {"am", "be"},         {"what's", "what"}, {"it's", "it"},    {"who's", "who"}, {"that's", "that"},
+        {"didn't", "do"},     {"didnt", "do"},    {"doesn't", "do"}, {"doesnt", "do"}, {"don't", "do"},
+        {"dont", "do"},       {"wasn't", "be"},   {"wasnt", "be"},   {"isn't", "be"},  {"isnt", "be"},
+        {"aren't", "be"},     {"arent", "be"},    {"won't", "will"}, {"wont", "will"}, {"can't", "can"},
+        {"cant", "can"},      {"hasn't", "have"}, {"haven't", "have"},
+        // Short -ed/-ing forms the guarded stemmer leaves whole.
+        {"used", "use"},      {"using", "use"},   {"doing", "do"},   {"wrote", "write"},
+        {"made", "make"},     {"making", "make"}, {"caused", "cause"},
+        {"charging", "charge"}, {"charged", "charge"}, {"filled", "fill"}, {"filling", "fill"},
     };
     return m;
 }

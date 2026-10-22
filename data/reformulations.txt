@@ -1,0 +1,122 @@
+# Reformulations: the sentences a passage would use to state the answer.
+# The idea is AskMSR's: "who sang X" is answered by a sentence that says
+# "X was recorded by ..." or "X is a song by ...", so look for those words
+# and take what stands in the answer's place. The table itself is this
+# library's own.
+#
+# Lines: question ; question => type :: statement @weight ; statement @weight
+#
+# Question side, matched like answertypes.txt: lowercased, whole question.
+#   {X} {Y} {Z} {R}  bind one or more words of the question
+#   A binding loses a leading "the", "a" or "an", and a trailing time phrase
+#   ("each year", "a year", "per year", "every year", "annually", "today",
+#   "now", "ever"), before it is looked for in a passage.
+#
+# Statement side, matched against each sentence of the top 20 passages,
+# ignoring case:
+#   {X} {Y} {Z} {R}  the same words as bound in the question; a leading
+#                    "the" in the sentence is allowed and ignored
+#   {A}              the answer slot: a span of the type, from spans_of(),
+#                    that starts right after the words before it and ends
+#                    right before the words after it. Two allowances: the
+#                    word before may be a title's own leading "The", and a
+#                    number's joined noun or unit may be the next word
+#                    ("{A} people visit {X}" takes "two million people")
+#   {*}              1 to 6 words of anything, within the sentence
+#   Other words      literal, in that order, with nothing between them
+#   A statement with no {X} counts only when the sentence also holds every
+#   word bound to {X} (in any order), so "recorded by {A}" needs the song.
+#   {X} may also be matched by a pronoun (he, she, it, they) that starts the
+#   sentence, when the passage's document is the subject's own article or
+#   the sentence before it began with {X}.
+#
+# type: what {A} must be (as in answertypes.txt). person/organization takes
+#   either. * keeps the type answer_type() gave the question.
+# @weight: 1 to 5, how sure a match is. 5: the sentence says it outright.
+#   1: the words are only near each other.
+#
+# Every line whose question side matches applies, not only the first. A
+# sentence counts once per candidate, at its highest matching weight.
+
+# ---- music ----
+who sang {X} ; who sings {X} ; who sing {X} ; who recorded {X} ; who performed {X} ; who sang the song {X} ; who sings the song {X} => person/organization :: {X} was recorded by {A} @5 ; {X} is a song by {A} @5 ; {X} is a song by {*} {A} @4 ; {X} is a single by {*} {A} @4 ; {X} was recorded by {*} {A} @4 ; {X} is a single by {A} @5 ; {X} was a hit for {A} @4 ; {X} was performed by {A} @4 ; {X} was sung by {A} @5 ; {A} recorded {X} @4 ; {A} sang {X} @4 ; {A} released {X} @3 ; recorded by {A} @3 ; sung by {A} @3 ; performed by {A} @3 ; {X} by {A} @2 ; {A}'s {X} @1
+who wrote the song {X} ; who wrote the lyrics to {X} ; who wrote the lyrics for {X} ; who wrote the music for {X} => person :: {X} was written by {A} @5 ; {X} was co-written by {A} @4 ; {A} wrote {X} @4 ; lyrics by {A} @3 ; music by {A} @3 ; words and music by {A} @3 ; written by {A} @2
+who composed {X} => person :: {X} was composed by {A} @5 ; {A} composed {X} @5 ; {X} is a symphony by {A} @4 ; {X} is an opera by {A} @4 ; music by {A} @3 ; composed by {A} @3 ; {X} by {A} @2
+who produced {X} => person/organization :: {X} was produced by {A} @5 ; {A} produced {X} @5 ; produced by {A} @3 ; producer {A} @2
+what band is {X} in ; which band is {X} in ; what band was {X} in ; which band was {X} in ; what group was {X} in => organization :: {X} is a member of {A} @5 ; {X} was a member of {A} @5 ; {X}, the singer of {A} @5 ; {X}, lead singer of {A} @5 ; {X} joined {A} @4 ; {X} formed {A} @4 ; {A} singer {X} @3 ; {A} guitarist {X} @3 ; {A} drummer {X} @3 ; {X} of {A} @2
+what song made {X} famous ; what is {X}'s best known song ; what is {X}'s most famous song ; what is {X}'s biggest hit => title :: {X}'s best-known single is {A} @5 ; {X}'s best-known song is {A} @5 ; their best-known single, {A} @4 ; {X}'s biggest hit was {A} @5 ; {X} had a hit with {A} @5 ; {X} is best known for {A} @4 ; {X} are best known for {A} @4
+
+# ---- books, films, art ----
+who wrote {X} ; who is the author of {X} ; who was the author of {X} => person :: {X} was written by {A} @5 ; {X} is a novel by {A} @5 ; {X} is a book by {A} @5 ; {X} is a play by {A} @5 ; {X} is a poem by {A} @5 ; {A}, the author of {X} @5 ; {A} wrote {X} @4 ; {A}'s novel {X} @4 ; written by {A} @2 ; {X} by {A} @2
+who directed {X} => person :: {X} was directed by {A} @5 ; {X} is a film directed by {A} @5 ; {X} is a {*} film directed by {A} @5 ; {A} directed {X} @4 ; directed by {A} @3 ; {A}'s {X} @1
+who painted {X} => person :: {X} was painted by {A} @5 ; {X} is a painting by {A} @5 ; {A} painted {X} @4 ; painted by {A} @3 ; {X} by {A} @2
+who plays {Y} in {Z} ; who played {Y} in {Z} ; who plays {Y} on {Z} ; who played {Y} on {Z} ; who is {Y} in {Z} => person :: {A} as {Y} @5 ; {A} plays {Y} @5 ; {A} played {Y} @5 ; {Y} is played by {A} @5 ; {Y} was played by {A} @5 ; {A} stars as {Y} @5 ; {A} starred as {Y} @5 ; {A} in the role of {Y} @4 ; the role of {Y} went to {A} @4 ; {Y} ({A}) @3
+who plays {Y} ; who played {Y} => person :: {A} as {Y} @4 ; {A} plays {Y} @4 ; {A} played {Y} @4 ; {Y} is played by {A} @5 ; {Y} was played by {A} @5 ; {A} stars as {Y} @4 ; {A} in the role of {Y} @3
+who voices {Y} in {Z} ; who voiced {Y} in {Z} ; who does the voice of {Y} in {Z} ; who is the voice of {Y} in {Z} ; who was the voice of {Y} in {Z} => person :: {Y} is voiced by {A} @5 ; {Y} was voiced by {A} @5 ; {A} voices {Y} @5 ; {A} voiced {Y} @5 ; {A} as the voice of {Y} @5 ; the voice of {Y}, {A} @4 ; voiced by {A} @3 ; {A} as {Y} @3
+who voices {Y} ; who voiced {Y} ; who is the voice of {Y} => person :: {Y} is voiced by {A} @5 ; {Y} was voiced by {A} @5 ; {A} voices {Y} @5 ; {A} voiced {Y} @5 ; {A} as the voice of {Y} @5 ; voiced by {A} @3
+who starred in {X} ; who stars in {X} ; who was in {X} ; who is in the cast of {X} => person :: {X} stars {A} @5 ; {X} starred {A} @5 ; {X} starring {A} @5 ; {A} starred in {X} @5 ; {A} stars in {X} @5 ; {A} appeared in {X} @4 ; the cast includes {A} @3 ; the series stars {A} @3 ; the film stars {A} @3
+
+# ---- making and owning ----
+who invented {X} => person :: {X} was invented by {A} @5 ; {A} invented {X} @5 ; the inventor of {X}, {A} @4 ; {A} is credited with inventing {X} @4 ; {A} is credited with the invention of {X} @4 ; invented by {A} @2
+who discovered {X} => person :: {X} was discovered by {A} @5 ; {A} discovered {X} @5 ; {X} was first described by {A} @4 ; {A} first described {X} @4 ; discovered by {A} @2 ; first identified by {A} @2
+who founded {X} ; who started {X} ; who created {X} ; who co-founded {X} => person/organization :: {X} was founded by {A} @5 ; {A} founded {X} @5 ; {A} co-founded {X} @4 ; {X} was created by {A} @4 ; {A} created {X} @4 ; {A}, the founder of {X} @5 ; {A}, who founded {X} @5 ; founded by {A} @3 ; co-founded by {A} @3 ; created by {A} @2
+who owns {X} ; who owned {X} => person/organization :: {X} is owned by {A} @5 ; {X} was owned by {A} @5 ; {A} owns {X} @5 ; {X} is a subsidiary of {A} @5 ; {X}, a subsidiary of {A} @4 ; {A} bought {X} @4 ; {A} acquired {X} @4 ; {X} was bought by {A} @4 ; {X} was acquired by {A} @4 ; owned by {A} @2
+who built {X} => person/organization :: {X} was built by {A} @5 ; {X} was constructed by {A} @5 ; {A} built {X} @5 ; built by {A} @2
+who designed {X} ; who was the architect of {X} => person/organization :: {X} was designed by {A} @5 ; {A} designed {X} @5 ; {A}, the architect of {X} @5 ; the architect of {X} was {A} @5 ; designed by {A} @3 ; architect {A} @2
+who makes {X} ; who made {X} ; who manufactures {X} => person/organization :: {X} is made by {A} @5 ; {X} was made by {A} @5 ; {X} is manufactured by {A} @5 ; {A} makes {X} @4 ; {A} made {X} @4 ; {A} manufactures {X} @4 ; made by {A} @2
+what did {X} invent => title :: {X} invented {A} @5 ; {A} was invented by {X} @5 ; {X} is known for inventing {A} @4
+what did {X} discover => title :: {X} discovered {A} @5 ; {A} was discovered by {X} @5 ; {X} is known for discovering {A} @4
+what did {X} write => title :: {X} wrote {A} @5 ; {A} was written by {X} @5 ; {A} is a novel by {X} @5 ; {A} is a book by {X} @5 ; {X}'s novel {A} @4
+
+# ---- people around people ----
+who is the {R} of {X} ; who was the {R} of {X} ; who is {X}'s {R} ; who was {X}'s {R} => person :: {A}, the {R} of {X} @5 ; the {R} of {X} is {A} @5 ; the {R} of {X} was {A} @5 ; {A} is the {R} of {X} @5 ; {A} was the {R} of {X} @5 ; {X}'s {R}, {A} @4 ; {X}'s {R} is {A} @5 ; {X}'s {R} was {A} @5 ; {A} became {R} of {X} @4 ; {A} served as {R} of {X} @4 ; {X} {R} {A} @3
+who is {X} married to ; who was {X} married to ; who did {X} marry ; who married {X} => person :: {X} married {A} @5 ; {X} is married to {A} @5 ; {X} was married to {A} @5 ; {A} married {X} @4 ; {X} and his wife {A} @4 ; {X} and her husband {A} @4 ; {X} and his husband {A} @4 ; {X} and her wife {A} @4
+who killed {X} ; who shot {X} ; who assassinated {X} => person :: {X} was killed by {A} @5 ; {X} was shot by {A} @5 ; {X} was assassinated by {A} @5 ; {A} killed {X} @5 ; {A} shot {X} @5 ; {A} assassinated {X} @5
+who coaches {X} ; who manages {X} ; who is the coach of {X} ; who is the manager of {X} => person :: {X} is coached by {A} @5 ; {X} is managed by {A} @5 ; {A} manages {X} @5 ; {A} coaches {X} @5 ; {A}, the manager of {X} @5 ; {A}, the coach of {X} @5 ; {X} manager {A} @3 ; {X} coach {A} @3
+what team does {X} play for ; which team does {X} play for ; what club does {X} play for ; which club does {X} play for => organization :: {X} plays for {A} @5 ; {X}, who plays for {A} @5 ; {X} played for {A} @4 ; {X} signed for {A} @4 ; {X} joined {A} @3 ; {A} player {X} @3
+who won {X} ; who won the {X} ; who wins {X} => person/organization :: {A} won {X} @5 ; {X} was won by {A} @5 ; {A} took {X} @3 ; {A} claimed {X} @3 ; {X} winner {A} @3 ; {X} champion {A} @3
+who won {X} in {Y} ; who won the {X} in {Y} => person/organization :: {A} won {X} in {Y} @5 ; in {Y}, {A} won {X} @5 ; {A} won the {Y} {X} @5 ; the {Y} {X} was won by {A} @5 ; {Y} {X} winner {A} @3
+
+# ---- places ----
+where is {X} ; where is {X} located ; where are {X} ; where are {X} located ; wheres {X} => place :: {X} is a {*} located in {A} @5 ; {X} is located in {A} @5 ; {X} is situated in {A} @5 ; {X} is a {*} in {A} @4 ; {X} is in {A} @4 ; {X} lies in {A} @4 ; {X} is based in {A} @4 ; {X} sits in {A} @3 ; located in {A} @3 ; {X}, {A} @2 ; {X} is near {A} @1
+where was {X} born ; where is {X} from ; where does {X} come from ; where did {X} grow up => place :: {X} was born in {A} @5 ; {X} was born on {*} in {A} @5 ; {X} is from {A} @4 ; {X} comes from {A} @4 ; {X} grew up in {A} @3 ; a native of {A} @3 ; born in {A} @3
+where did {X} die => place :: {X} died in {A} @5 ; {X} died at {A} @5 ; {X} died on {*} in {A} @5 ; died in {A} @3
+where is {X} buried ; where was {X} buried => place :: {X} is buried in {A} @5 ; {X} is buried at {A} @5 ; {X} was buried in {A} @5 ; {X} was buried at {A} @5 ; {X} lies buried in {A} @4 ; buried in {A} @3
+where was {X} filmed ; where was {X} shot ; where was {X} recorded => place :: {X} was filmed in {A} @5 ; {X} was filmed at {A} @5 ; {X} was shot in {A} @5 ; {X} was recorded at {A} @5 ; {X} was recorded in {A} @5 ; filming took place in {A} @4 ; filmed on location in {A} @4 ; recorded at {A} @3
+where did {X} take place ; where was {X} held ; where is {X} held => place :: {X} took place in {A} @5 ; {X} took place at {A} @5 ; {X} was held in {A} @5 ; {X} was held at {A} @5 ; {X} is held in {A} @5 ; {X} is held at {A} @5 ; held in {A} @2
+where is the headquarters of {X} ; where is {X} headquartered ; where is {X} based ; where are {X} based => place :: {X} is headquartered in {A} @5 ; {X} is based in {A} @5 ; {X} has its headquarters in {A} @5 ; {X}, based in {A} @4 ; headquarters in {A} @3 ; headquartered in {A} @3
+what is the capital of {X} ; what is {X}'s capital ; whats the capital of {X} ; what was the capital of {X} => place :: the capital of {X} is {A} @5 ; {A} is the capital of {X} @5 ; {A}, the capital of {X} @5 ; {X}'s capital is {A} @5 ; {X}'s capital, {A} @4 ; {A} became the capital of {X} @4 ; the capital city of {X}, {A} @4 ; capital {A} @2
+
+# ---- times ----
+when was {X} born ; what is {X}'s birthday ; what is the birth date of {X} ; what was {X}'s date of birth => date :: {X} was born on {A} @5 ; {X} was born in {A} @4 ; {X} (born {A} @5 ; {X} ({A} - @4 ; born {A} @3
+when did {X} die ; when was {X} killed ; when did {X} pass away => date :: {X} died on {A} @5 ; {X} died in {A} @4 ; {X} was killed on {A} @5 ; {X} was killed in {A} @4 ; - {A}) @3 ; died {A} @2
+when did {X} open ; when was {X} opened ; when did {X} first open ; when did {X} open its doors => date :: {X} opened on {A} @5 ; {X} opened in {A} @5 ; {X} was opened on {A} @5 ; {X} was opened in {A} @5 ; {X} first opened in {A} @5 ; {X} opened its doors in {A} @4 ; since its opening in {A} @3 ; opened in {A} @2
+when was {X} built ; when was {X} constructed ; when was {X} completed ; when was {X} finished => date :: {X} was built in {A} @5 ; {X} was constructed in {A} @5 ; {X} was completed in {A} @5 ; {X} was finished in {A} @5 ; built in {A} @3 ; completed in {A} @3 ; construction of {X} began in {A} @2 ; work on {X} started in {A} @2
+when was {X} released ; when did {X} come out ; when did {X} release => date :: {X} was released on {A} @5 ; {X} was released in {A} @5 ; {X} came out in {A} @4 ; {X} is a {A} song @3 ; {X} is a {A} film @3 ; {X} is a {A} album @3 ; {X} ({A}) @2 ; released in {A} @2
+when did {X} premiere ; when did {X} first air ; when did {X} start airing ; when was {X} first shown ; when was {X} first broadcast => date :: {X} premiered on {A} @5 ; {X} premiered in {A} @5 ; {X} first aired on {A} @5 ; {X} first aired in {A} @5 ; {X} was first broadcast on {A} @5 ; {X} debuted on {A} @4 ; {X} debuted in {A} @4 ; premiered on {A} @3 ; first aired on {A} @3
+when was {X} founded ; when was {X} established ; when was {X} formed ; when was {X} created => date :: {X} was founded in {A} @5 ; {X} was founded on {A} @5 ; {X} was established in {A} @5 ; {X} was formed in {A} @5 ; {X} was created in {A} @4 ; {X} (founded {A}) @4 ; founded in {A} @3 ; established in {A} @3 ; formed in {A} @3
+when was {X} invented ; when did {X} invent {Y} => date :: {X} was invented in {A} @5 ; {X} invented {Y} in {A} @5 ; in {A}, {X} invented {Y} @5 ; invented in {A} @3
+when was {X} discovered ; when did {X} discover {Y} => date :: {X} was discovered in {A} @5 ; {X} was discovered on {A} @5 ; {X} discovered {Y} in {A} @5 ; in {A}, {X} discovered {Y} @5 ; discovered in {A} @3
+when was {X} published ; when was {X} written => date :: {X} was published in {A} @5 ; {X} was published on {A} @5 ; {X} was written in {A} @5 ; first published in {A} @3 ; {X} ({A}) @2
+when was {X} signed ; when did {Y} sign {X} => date :: {X} was signed on {A} @5 ; {X} was signed in {A} @5 ; on {A}, {*} signed {X} @5 ; in {A}, {*} signed {X} @4 ; signed {X} on {A} @4 ; signed {X} in {A} @3
+when did {X} win {Y} ; when did {X} last win {Y} ; what year did {X} win {Y} => * :: {X} won {Y} in {A} @5 ; in {A}, {X} won {Y} @5 ; {X} won the {A} {Y} @5 ; {X}'s {Y} win in {A} @3
+when did {X} start ; when did {X} begin ; when did {X} break out => date :: {X} began on {A} @5 ; {X} began in {A} @5 ; {X} started on {A} @5 ; {X} started in {A} @5 ; {X} broke out in {A} @5 ; {X} broke out on {A} @5 ; the start of {X} in {A} @3
+when did {X} end ; when did {X} finish ; when did {X} close => date :: {X} ended on {A} @5 ; {X} ended in {A} @5 ; {X} finished in {A} @5 ; {X} closed in {A} @5 ; {X} closed on {A} @5 ; the end of {X} in {A} @3
+
+# ---- amounts and durations ----
+how many {Y} does {X} have ; how many {Y} are in {X} ; how many {Y} are there in {X} ; how many {Y} has {X} got => number :: {X} has {A} {Y} @5 ; there are {A} {Y} in {X} @5 ; {X} has a total of {A} {Y} @5 ; {X} contains {A} {Y} @5 ; {X} is made up of {A} {Y} @4 ; {A} {Y} @1
+how many people visit {X} ; how many visitors does {X} get ; how many people go to {X} ; how many tourists visit {X} => number :: {A} people visit {X} @5 ; {A} visitors come to {X} @5 ; {X} draws {A} visitors @5 ; {X} attracts {A} visitors @5 ; {X} receives {A} visitors @5 ; {X} welcomes {A} visitors @5 ; {A} people visit @3 ; {A} visitors @2 ; {A} tourists @2
+what is the population of {X} ; how many people live in {X} ; how many inhabitants does {X} have => number :: {X} has a population of {A} @5 ; the population of {X} is {A} @5 ; the population of {X} was {A} @5 ; {X} is home to {A} people @5 ; {A} people live in {X} @5 ; {X} has {A} inhabitants @5 ; a population of {A} @2
+how tall is {X} ; how high is {X} ; what is the height of {X} => number :: {X} is {A} tall @5 ; {X} is {A} high @5 ; {X} stands {A} tall @5 ; {X} stands {A} high @5 ; {X} rises {A} @4 ; {X}'s summit is {A} @4 ; the height of {X} is {A} @5 ; its summit is {A} @3 ; a height of {A} @3
+how long is {X} ; what is the length of {X} => * :: {X} is {A} long @5 ; {X} runs for {A} @4 ; {X} stretches {A} @4 ; {X}, {A} long @3 ; the length of {X} is {A} @5 ; a length of {A} @3
+how old is {X} ; how old was {X} => number :: {X} is {A} old @4 ; {X} was {A} old @4 ; {X}, aged {A} @4 ; {X} died at the age of {A} @4 ; at the age of {A} @3 ; aged {A} @2
+how much did {X} cost ; how much does {X} cost ; what was the cost of {X} ; what is the price of {X} => number :: {X} cost {A} @5 ; {X} costs {A} @5 ; the cost of {X} was {A} @5 ; {X} was built for {A} @3 ; at a cost of {A} @4 ; a price of {A} @3
+how long did {X} last ; how long did {X} reign ; how long did {X} rule ; how long did {X} run ; how long did {X} take => duration :: {X} lasted {A} @5 ; {X} lasted for {A} @5 ; {X} reigned for {A} @5 ; {X} ruled for {A} @5 ; {X} ran for {A} @4 ; {X} took {A} @4 ; for {A} @1
+
+# ---- names ----
+what is the currency of {X} ; what currency does {X} use ; what money is used in {X} ; what is {X}'s currency => title :: the currency of {X} is the {A} @5 ; the currency of {X} is {A} @5 ; {X}'s currency is the {A} @5 ; the {A} is the currency of {X} @5 ; the {A} is the official currency of {X} @5 ; {X} uses the {A} @4 ; currency {A} @2
+what language is spoken in {X} ; what language do they speak in {X} ; what is the language of {X} ; what is the official language of {X} ; what language does {X} speak => title :: the official language of {X} is {A} @5 ; the language of {X} is {A} @5 ; {A} is the official language of {X} @5 ; {X}'s official language is {A} @5 ; most people in {X} speak {A} @4 ; in {X}, people speak {A} @4 ; {A} is spoken in {X} @4
+what is {X} named after ; who is {X} named after ; what was {X} named after ; who was {X} named after ; what is {X} named for => person :: {X} is named after {A} @5 ; {X} was named after {A} @5 ; {X} is named for {A} @5 ; {X} was named for {A} @5 ; {X} takes its name from {A} @5 ; {X} took its name from {A} @5 ; named in honour of {A} @4 ; named in honor of {A} @4 ; the name comes from {A} @3
+what is {X} called ; what was {X} called ; what is {X} known as ; what was {X} known as => * :: {X} is called {A} @5 ; {X} was called {A} @5 ; {X} is known as {A} @5 ; {X} was known as {A} @5 ; {X}, also known as {A} @5 ; {X} is also called {A} @4 ; {X}, called {A} @3 ; {A} is the name of {X} @4
+what is the name of {X} ; what was the name of {X} => * :: the name of {X} is {A} @5 ; {X} is called {A} @5 ; {X} is named {A} @5 ; {X}, named {A} @4 ; {X} called {A} @3 ; {X} named {A} @3
+what does {X} stand for ; what is {X} short for => title :: {X} stands for {A} @5 ; {X} is short for {A} @5 ; {X} is an abbreviation of {A} @5 ; {X} is an abbreviation for {A} @5 ; {A} ({X}) @4

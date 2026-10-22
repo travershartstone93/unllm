@@ -1,0 +1,201 @@
+id	question	answer_pattern	answer_type	source_title
+c001	on what date did the titanic sink	\b(?:15(?:st|nd|rd|th)? April|April 15(?:st|nd|rd|th)?)\b	date	Titanic
+c002	when did martin luther king give the i have a dream speech	\b(?:1963)\b	year	I Have a Dream
+c003	how many minutes long is a football match	\b(?:90|ninety)\b	number	Association football
+c004	who coined the word cell in biology	\b(?:Robert Hooke|Hooke)\b	person	Cell (biology)
+c005	when did the french revolution begin	\b(?:1789)\b	year	French Revolution
+c006	gandhi's birthday	\b(?:2(?:st|nd|rd|th)? October|October 2(?:st|nd|rd|th)?)\b	date	Mahatma Gandhi
+c007	how many years between leap years normally	\b(?:4|four)\b	number	Leap year
+c008	who designed the analytical engine	\b(?:Charles Babbage|Babbage)\b	person	Analytical engine
+c009	which football club plays at old trafford	\b(?:Manchester United|Man United)\b	organization	Old Trafford
+c010	how many players on a baseball team are on the field	\b(?:9|nine)\b	number	Baseball
+c011	how many rings are on the olympic flag	\b(?:5|five)\b	number	Olympic symbols
+c012	what year was the battle of waterloo	\b(?:1815)\b	year	Battle of Waterloo
+c013	capital of turkey	\b(?:Ankara)\b	place	Turkey
+c014	which company developed the first commercial microprocessor 4004	\b(?:Intel)\b	organization	Intel 4004
+c015	what is the deepest lake in the world	\b(?:Baikal)\b	place	Lake Baikal
+c016	who painted the mona lisa	\b(?:Leonardo da Vinci|Leonardo|da Vinci)\b	person	Mona Lisa
+c017	who made the sculpture the thinker	\b(?:Auguste Rodin|Rodin)\b	person	The Thinker
+c018	which tv company produces doctor who	\b(?:BBC)\b	organization	Doctor Who
+c019	what year was the battle of gettysburg	\b(?:1863)\b	year	Battle of Gettysburg
+c020	how fast does sound travel in air in metres per second	\b(?:343)\b	number	Speed of sound
+c021	how many points is a touchdown worth	\b(?:6|six)\b	number	Touchdown
+c022	who lost the battle of waterloo	\b(?:Napoleon|Bonaparte)\b	person	Battle of Waterloo
+c023	what is the biggest island in the world	\b(?:Greenland)\b	place	Greenland
+c024	who was the first us president	\b(?:George Washington|Washington)\b	person	George Washington
+c025	on what date did the bastille fall	\b(?:14(?:st|nd|rd|th)? July|July 14(?:st|nd|rd|th)?)\b	date	Storming of the Bastille
+c026	what is a vertebrate	\b(?:backbone|spine|vertebral column|spinal column)\b	description	Vertebrate
+c027	who is the author of war and peace	\b(?:Leo Tolstoy|Tolstoy)\b	person	War and Peace
+c028	what year was the chernobyl nuclear disaster	\b(?:1986)\b	year	Chernobyl disaster
+c029	how many chambers does the human heart have	\b(?:4|four)\b	number	Heart
+c030	who started microsoft together with paul allen	\b(?:Bill Gates|Gates)\b	person	Microsoft
+c031	who wrote moby dick	\b(?:Herman Melville|Melville)\b	person	Moby-Dick
+c032	how fast does light travel in a vacuum in meters per second	\b(?:299,792,458|299 792 458|299792458)\b	number	Speed of light
+c033	where is the golden gate bridge	\b(?:San Francisco)\b	place	Golden Gate Bridge
+c034	when did the space shuttle challenger break apart	\b(?:28(?:st|nd|rd|th)? January|January 28(?:st|nd|rd|th)?)\b	date	Space Shuttle Challenger disaster
+c035	when was the battle of trafalgar	\b(?:1805)\b	year	Battle of Trafalgar
+c036	who created the python programming language	\b(?:Guido van Rossum|van Rossum|Rossum)\b	person	Python (programming language)
+c037	what is a sonata	(?s)^(?=.*\b(?:instrument\w*|instrumental)\b)(?=.*\b(?:composition|piece)\b)	description	Sonata
+c038	which philosopher wrote the republic	\b(?:Plato)\b	person	Republic (Plato)
+c039	what is a tariff	(?s)^(?=.*\b(?:tax|duty)\b)(?=.*\b(?:imports?|imported)\b)	description	Tariff
+c040	who developed the first successful inactivated polio vaccine	\b(?:Jonas Salk|Salk)\b	person	Polio vaccine
+c041	what is a glacier	(?s)^(?=.*\b(?:ice)\b)(?=.*\b(?:moves|flows?|mass|persistent)\b)	description	Glacier
+c042	who wrote the ninety five theses	\b(?:Martin Luther|Luther)\b	person	Ninety-five Theses
+c043	how many cards are in a standard deck	\b(?:52|fifty-two)\b	number	Standard 52-card deck
+c044	year google was founded	\b(?:1998)\b	year	Google
+c045	host city of the 2008 summer olympics	\b(?:Beijing)\b	place	2008 Summer Olympics
+c046	which sea separates italy from the balkans	\b(?:Adriatic)\b	place	Adriatic Sea
+c047	what does the pancreas make	\b(?:insulin|enzymes)\b	description	Pancreas
+c048	how many keys on a modern piano	\b(?:88|eighty-eight)\b	number	Piano
+c049	who came up with general relativity	\b(?:Albert Einstein|Einstein)\b	person	General relativity
+c050	bali is part of which country	\b(?:Indonesia)\b	place	Bali
+c051	when did the first world war end	\b(?:11(?:st|nd|rd|th)? November|November 11(?:st|nd|rd|th)?)\b	date	Armistice of 11 November 1918
+c052	which singer released the album thriller in 1982	\b(?:Michael Jackson|Jackson)\b	person	Thriller (album)
+c053	whose pea plant experiments founded genetics	\b(?:Gregor Mendel|Mendel)\b	person	Mendelian inheritance
+c054	what is the capital of morocco	\b(?:Rabat)\b	place	Morocco
+c055	where did the wright brothers make their first powered flight	\b(?:Kitty Hawk|Kill Devil Hills)\b	place	Wright Flyer
+c056	who wrote the prince, the book about political power	\b(?:Niccol[oò] Machiavelli|Machiavelli)\b	person	The Prince
+c057	what does a thermometer measure	\b(?:temperature)\b	description	Thermometer
+c058	what is a marsupial	\b(?:pouch)\b	description	Marsupial
+c059	how many players start a game of cricket per team	\b(?:11|eleven)\b	number	Cricket
+c060	what does a botanist study	\b(?:plants?)\b	description	Botany
+c061	what was the name of the first dog to orbit the earth	\b(?:Laika)\b	title	Laika
+c062	who wrote the canterbury tales	\b(?:Geoffrey Chaucer|Chaucer)\b	person	The Canterbury Tales
+c063	who created sherlock holmes	\b(?:Arthur Conan Doyle|Conan Doyle|Doyle)\b	person	Sherlock Holmes
+c064	which company created super mario	\b(?:Nintendo)\b	organization	Mario
+c065	what is mitosis	(?s)^(?=.*\b(?:cell division|divides|divide)\b)(?=.*\b(?:chromosomes|nucleus|daughter)\b)	description	Mitosis
+c066	when did queen elizabeth ii die	\b(?:8(?:st|nd|rd|th)? September|September 8(?:st|nd|rd|th)?)\b	date	Elizabeth II
+c067	what does scuba stand for	\b(?:self-contained underwater breathing apparatus)\b	description	Scuba set
+c068	what is a firewall	(?s)^(?=.*\b(?:network)\b)(?=.*\b(?:traffic|security)\b)	description	Firewall (computing)
+c069	year the euro banknotes and coins entered circulation	\b(?:2002)\b	year	Euro
+c070	on what day did apollo 11 land on the moon	\b(?:20(?:st|nd|rd|th)? July|July 20(?:st|nd|rd|th)?)\b	date	Apollo 11
+c071	what is vietnam's capital	\b(?:Hanoi|Ha Noi)\b	place	Vietnam
+c072	in what year was the peace of westphalia signed	\b(?:1648)\b	year	Peace of Westphalia
+c073	how many syllables in a traditional haiku	\b(?:17|seventeen)\b	number	Haiku
+c074	where is the louvre museum	\b(?:Paris)\b	place	Louvre
+c075	year britain handed hong kong back to china	\b(?:1997)\b	year	Handover of Hong Kong
+c076	who wrote don quixote	\b(?:Miguel de Cervantes|Cervantes)\b	person	Don Quixote
+c077	on what date was pearl harbor attacked	\b(?:7(?:st|nd|rd|th)? December|December 7(?:st|nd|rd|th)?)\b	date	Attack on Pearl Harbor
+c078	what is a fugue	\b(?:counterpoint|contrapuntal|imitation)\b	description	Fugue
+c079	what was the name of the ship darwin sailed on	\b(?:Beagle)\b	title	Charles Darwin
+c080	how many players on a rugby union side	\b(?:15|fifteen)\b	number	Rugby union
+c081	what is a river delta	(?s)^(?=.*\b(?:sediment|silt)\b)(?=.*\b(?:mouth)\b)	description	River delta
+c082	what is a fjord	(?s)^(?=.*\b(?:narrow|long)\b)(?=.*\b(?:inlet)\b)	description	Fjord
+c083	what town was shakespeare born in	\b(?:Stratford-upon-Avon|Stratford)\b	place	William Shakespeare
+c084	how many sonnets did shakespeare write	\b(?:154)\b	number	Shakespeare's sonnets
+c085	what year did the first man land on the moon	\b(?:1969)\b	year	Moon landing
+c086	who painted the water lilies series	\b(?:Claude Monet|Monet)\b	person	Water Lilies (Monet series)
+c087	which group sang dancing queen	\b(?:ABBA)\b	organization	Dancing Queen
+c088	when was the hubble space telescope launched	\b(?:1990)\b	year	Hubble Space Telescope
+c089	how many squares on a chess board	\b(?:64|sixty-four)\b	number	Chessboard
+c090	what is a carnivore	\b(?:meat|animal tissue|flesh)\b	description	Carnivore
+c091	on what date was sputnik 1 launched	\b(?:4(?:st|nd|rd|th)? October|October 4(?:st|nd|rd|th)?)\b	date	Sputnik 1
+c092	who led the soviet union during world war two	\b(?:Joseph Stalin|Stalin)\b	person	Joseph Stalin
+c093	what was the first artificial satellite called	\b(?:Sputnik( 1)?)\b	title	Sputnik 1
+c094	how many sides does a pentagon have	\b(?:5|five)\b	number	Pentagon
+c095	who built and flew the first successful powered airplane	\b(?:Wright brothers|Wright)\b	person	Wright Flyer
+c096	what is democracy	(?s)^(?=.*\b(?:people|citizens)\b)(?=.*\b(?:power|govern\w*|rule|vote)\b)	description	Democracy
+c097	how many bones does an adult human have	\b(?:206|two hundred (and )?six)\b	number	Human skeleton
+c098	which band made the dark side of the moon	\b(?:Pink Floyd)\b	organization	The Dark Side of the Moon
+c099	what is kimchi	(?s)^(?=.*\b(?:fermented|salted)\b)(?=.*\b(?:vegetables|cabbage)\b)	description	Kimchi
+c100	what is inflation in economics	(?s)^(?=.*\b(?:prices?)\b)(?=.*\b(?:increases?|rise|general)\b)	description	Inflation
+c101	first ascent of mount everest year	\b(?:1953)\b	year	Mount Everest
+c102	who wrote the little prince	\b(?:Antoine de Saint-Exup[ée]ry|Saint-Exup[ée]ry)\b	person	The Little Prince
+c103	how many wives did henry viii have	\b(?:6|six)\b	number	Wives of Henry VIII
+c104	how many ounces in a pound	\b(?:16|sixteen)\b	number	Pound (mass)
+c105	what does a barometer measure	\b(?:atmospheric pressure|air pressure|pressure)\b	description	Barometer
+c106	what is a palindrome	\b(?:backward|backwards|reverse)\b	description	Palindrome
+c107	how many hydrogen atoms in a water molecule	\b(?:2|two)\b	number	Water
+c108	capital of egypt	\b(?:Cairo)\b	place	Egypt
+c109	how many strings does a violin have	\b(?:4|four)\b	number	Violin
+c110	the great barrier reef is off the coast of which australian state	\b(?:Queensland)\b	place	Great Barrier Reef
+c111	year of the first human heart transplant	\b(?:1967)\b	year	Heart transplantation
+c112	which puccini opera features the seamstress mimi	\b(?:La boh[eè]me)\b	title	La bohème
+c113	who wrote the novel ulysses	\b(?:James Joyce|Joyce)\b	person	Ulysses (novel)
+c114	which band released abbey road	\b(?:The Beatles|Beatles)\b	organization	Abbey Road
+c115	in which year did the western roman empire fall	\b(?:476)\b	year	Fall of the Western Roman Empire
+c116	which band sang hotel california	\b(?:Eagles)\b	organization	Hotel California
+c117	how many people play in a string quartet	\b(?:4|four)\b	number	String quartet
+c118	who wrote crime and punishment	\b(?:Fyodor Dostoevsky|Dostoevsky|Dostoyevsky)\b	person	Crime and Punishment
+c119	which spanish city is the alhambra in	\b(?:Granada)\b	place	Alhambra
+c120	who wrote tom sawyer	\b(?:Mark Twain|Twain|Samuel (Langhorne )?Clemens)\b	person	The Adventures of Tom Sawyer
+c121	when did the american civil war start	\b(?:1861)\b	year	American Civil War
+c122	in what year was abraham lincoln assassinated	\b(?:1865)\b	year	Assassination of Abraham Lincoln
+c123	what is a black hole	(?s)^(?=.*\b(?:gravity|gravitational)\b)(?=.*\b(?:light|escape)\b)	description	Black hole
+c124	year of the first modern olympic games	\b(?:1896)\b	year	Olympic Games
+c125	in what year did the soviet union break up	\b(?:1991)\b	year	Dissolution of the Soviet Union
+c126	which body organises the football world cup	\b(?:FIFA)\b	organization	FIFA World Cup
+c127	when did the berlin airlift begin	\b(?:1948)\b	year	Berlin Blockade
+c128	which macedonian king conquered the persian empire	\b(?:Alexander the Great|Alexander)\b	person	Achaemenid Empire
+c129	when was the statue of liberty dedicated	\b(?:1886)\b	year	Statue of Liberty
+c130	year the magna carta was sealed	\b(?:1215)\b	year	Magna Carta
+c131	which astronomer wrote de revolutionibus orbium coelestium	\b(?:Nicolaus Copernicus|Copernicus)\b	person	De revolutionibus orbium coelestium
+c132	which english county is stonehenge in	\b(?:Wiltshire)\b	place	Stonehenge
+c133	when did the suez canal open	\b(?:1869)\b	year	Suez Canal
+c134	who wrote the music for the ballet swan lake	\b(?:Pyotr Ilyich Tchaikovsky|Tchaikovsky)\b	person	Swan Lake
+c135	how many pairs of ribs do humans have	\b(?:12|twelve)\b	number	Rib cage
+c136	who worked out the laws of planetary motion in the 1600s	\b(?:Johannes Kepler|Kepler)\b	person	Kepler's laws of planetary motion
+c137	who wrote dracula	\b(?:Bram Stoker|Stoker)\b	person	Dracula
+c138	who wrote on the origin of species	\b(?:Charles Darwin|Darwin)\b	person	On the Origin of Species
+c139	what year was the russian revolution	\b(?:1917)\b	year	Russian Revolution
+c140	who publishes the oxford english dictionary	\b(?:Oxford University Press|OUP)\b	organization	Oxford English Dictionary
+c141	in which city was the treaty ending the american revolutionary war signed in 1783	\b(?:Paris)\b	place	Treaty of Paris (1783)
+c142	when was queen victoria born	\b(?:24(?:st|nd|rd|th)? May|May 24(?:st|nd|rd|th)?)\b	date	Queen Victoria
+c143	what is the largest ocean on earth	\b(?:Pacific)\b	place	Pacific Ocean
+c144	who wrote wuthering heights	\b(?:Emily Bront[eë])\b	person	Wuthering Heights
+c145	who wrote a tale of two cities	\b(?:Charles Dickens|Dickens)\b	person	A Tale of Two Cities
+c146	how many lines does a sonnet have	\b(?:14|fourteen)\b	number	Sonnet
+c147	what is an isotope	\b(?:neutrons)\b	description	Isotope
+c148	who directed and starred in citizen kane	\b(?:Orson Welles|Welles)\b	person	Citizen Kane
+c149	who shot abraham lincoln	\b(?:John Wilkes Booth|Booth)\b	person	Assassination of Abraham Lincoln
+c150	largest hot desert in the world	\b(?:Sahara)\b	place	Sahara
+c151	what is impressionism	(?s)^(?=.*\b(?:light)\b)(?=.*\b(?:brush ?strokes|painting)\b)	description	Impressionism
+c152	what does an ammeter measure	\b(?:current)\b	description	Ammeter
+c153	what is an amphibian	(?s)^(?=.*\b(?:water)\b)(?=.*\b(?:land|terrestrial)\b)	description	Amphibian
+c154	who painted the birth of venus	\b(?:Sandro Botticelli|Botticelli)\b	person	The Birth of Venus
+c155	who composed the planets orchestral suite	\b(?:Gustav Holst|Holst)\b	person	The Planets
+c156	how many valves does a trumpet have	\b(?:3|three)\b	number	Trumpet
+c157	in what year did mozart die	\b(?:1791)\b	year	Wolfgang Amadeus Mozart
+c158	who wrote the divine comedy	\b(?:Dante Alighieri|Dante)\b	person	Divine Comedy
+c159	in which city was the us declaration of independence signed	\b(?:Philadelphia)\b	place	United States Declaration of Independence
+c160	what is a meteorite	(?s)^(?=.*\b(?:space)\b)(?=.*\b(?:surface|survives)\b)	description	Meteorite
+c161	what was the code name of the first nuclear bomb test	\b(?:Trinity)\b	title	Trinity (nuclear test)
+c162	what does nasa stand for	\b(?:National Aeronautics and Space Administration)\b	description	NASA
+c163	how long is a marathon	\b(?:42\.195|42,195|26\.2|26 miles 385 yards|26 mi 385 yd)\b	number	Marathon
+c164	what is a tsunami	(?s)^(?=.*\b(?:waves?)\b)(?=.*\b(?:displacement|earthquakes?|underwater)\b)	description	Tsunami
+c165	which band released the album nevermind	\b(?:Nirvana)\b	organization	Nevermind
+c166	in which city is the prado museum	\b(?:Madrid)\b	place	Museo del Prado
+c167	what year did elvis presley die	\b(?:1977)\b	year	Elvis Presley
+c168	who composed the opera carmen	\b(?:Georges Bizet|Bizet)\b	person	Carmen
+c169	what year did the golden gate bridge open	\b(?:1937)\b	year	Golden Gate Bridge
+c170	which mexican state is chichen itza in	\b(?:Yucat[aá]n)\b	place	Chichen Itza
+c171	which country is the serengeti mostly in	\b(?:Tanzania)\b	place	Serengeti
+c172	capital of argentina	\b(?:Buenos Aires)\b	place	Argentina
+c173	mount fuji is on which japanese island	\b(?:Honshu|Honsh[uū])\b	place	Mount Fuji
+c174	which novel opens with the line call me ishmael	\b(?:Moby-Dick|Moby Dick)\b	title	Moby-Dick
+c175	main author of the us declaration of independence	\b(?:Thomas Jefferson|Jefferson)\b	person	United States Declaration of Independence
+c176	in what year did india become independent	\b(?:1947)\b	year	Independence Day (India)
+c177	capital of norway	\b(?:Oslo)\b	place	Norway
+c178	how many centimetres in an inch	\b(?:2\.54)\b	number	Inch
+c179	what is a monarchy	(?s)^(?=.*\b(?:monarch|king|queen)\b)(?=.*\b(?:head of state)\b)	description	Monarchy
+c180	who was the lead singer of queen	\b(?:Freddie Mercury|Mercury)\b	person	Queen (band)
+c181	atomic number of carbon	\b(?:6|six)\b	number	Carbon
+c182	who founded the mongol empire	\b(?:Genghis Khan|Chinggis Khan|Temüjin|Temujin)\b	person	Mongol Empire
+c183	which river flows through vienna budapest and belgrade	\b(?:Danube)\b	place	Danube
+c184	what is the capital of mongolia	\b(?:Ulaanbaatar|Ulan Bator)\b	place	Mongolia
+c185	who wrote the play a streetcar named desire	\b(?:Tennessee Williams)\b	person	A Streetcar Named Desire
+c186	which company makes the walkman	\b(?:Sony)\b	organization	Walkman
+c187	what makes an animal a mammal	\b(?:milk|mammary)\b	description	Mammal
+c188	who invented the world wide web	\b(?:Tim Berners-Lee|Berners-Lee)\b	person	World Wide Web
+c189	which composer wrote the symphony that contains ode to joy	\b(?:Ludwig van Beethoven|Beethoven)\b	person	Symphony No. 9 (Beethoven)
+c190	how many degrees is a right angle	\b(?:90|ninety)\b	number	Right angle
+c191	when was julius caesar killed	\b(?:44 BC|44 BCE|44)\b	year	Assassination of Julius Caesar
+c192	who composed the magic flute opera	\b(?:Wolfgang Amadeus Mozart|Mozart)\b	person	The Magic Flute
+c193	how many states are in the united states	\b(?:50|fifty)\b	number	U.S. state
+c194	who wrote brave new world	\b(?:Aldous Huxley|Huxley)\b	person	Brave New World
+c195	who proposed continental drift	\b(?:Alfred Wegener|Wegener)\b	person	Continental drift
+c196	which company created the playstation	\b(?:Sony)\b	organization	PlayStation
+c197	when was beethoven born	\b(?:1770)\b	year	Ludwig van Beethoven
+c198	in which ocean did the titanic sink	\b(?:Atlantic)\b	place	Titanic
+c199	what is the name of harry potter's owl	\b(?:Hedwig)\b	title	Harry Potter (character)
+c200	which city has the christ the redeemer statue	\b(?:Rio de Janeiro|Rio)\b	place	Christ the Redeemer (statue)

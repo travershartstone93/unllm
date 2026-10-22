@@ -1,0 +1,47 @@
+# Fact boxes: which rows of an encyclopedia fact box answer which question.
+# Left: question shapes ("who founded" for "who founded Microsoft", a bare
+# word for "the currency of Japan"); right: fact box row names, lowercase. A
+# row matches when its name equals one of them or starts with it and a space
+# ("population" matches "population total"). Shapes starting with when or how,
+# and the measured words below, only accept values that contain a number.
+
+who founded ; who started ; who created :: founders ; founder ; founded by ; created by ; creator
+who invented :: inventor ; inventors ; invented by
+who wrote :: author ; authors ; written by ; writer ; playwright
+who painted :: artist ; painter
+who composed :: composer ; composed by ; music by
+who designed ; who built :: architect ; designer ; designed by ; built by ; builder
+who discovered :: discovered by ; discoverer
+who directed :: directed by ; director
+when founded ; when started ; when established ; when created ; when formed :: founded ; established ; formation ; formed ; created
+when built ; when completed ; when opened ; when made :: built ; construction ; completed ; opened ; constructed
+when born :: born ; date of birth
+when died ; when die :: died ; date of death
+where born :: place of birth ; born
+when released ; when published ; when written :: released ; release date ; published ; publication date ; first published
+how tall ; how high :: height ; elevation
+how big ; how large :: area ; total area ; size ; diameter
+how deep :: depth ; max depth ; maximum depth
+how long :: length
+how heavy :: mass ; weight
+how old :: born ; established ; founded ; formed
+currency ; money :: currency
+capital :: capital
+population ; inhabitants :: population
+language ; languages :: official languages ; official language ; national language ; languages ; language
+symbol :: symbol
+boiling point :: boiling point
+melting point ; freezing point :: melting point
+atomic number :: atomic number
+density :: density
+president :: president
+prime minister :: prime minister
+anthem :: anthem
+motto :: motto
+government :: government
+religion :: religion
+area :: area ; total area
+height :: height ; elevation
+elevation :: elevation
+founder ; founders :: founders ; founder ; founded by
+headquarters :: headquarters

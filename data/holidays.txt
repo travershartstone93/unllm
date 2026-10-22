@@ -1,0 +1,18 @@
+# Named days for date math. name;alias | MM-DD, or "easter", or
+# "nth:N:weekday:month" (weekday 0 = Sunday; N = -1 means the last one).
+christmas;christmas day;xmas | 12-25
+christmas eve | 12-24
+boxing day | 12-26
+new year;new years;new years day;new year's day | 01-01
+new years eve;new year's eve | 12-31
+halloween | 10-31
+valentines day;valentine's day;valentines | 02-14
+st patricks day;saint patricks day;st patrick's day | 03-17
+independence day;fourth of july;4th of july | 07-04
+canada day | 07-01
+easter;easter sunday | easter
+thanksgiving;us thanksgiving | nth:4:4:11
+mothers day;mother's day | nth:2:0:5
+fathers day;father's day | nth:3:0:6
+labor day;labour day | nth:1:1:9
+memorial day | nth:-1:1:5

@@ -1,16 +1,16 @@
 # unllm synonym table: canonical: words that mean it here
 # Grown one exam failure at a time; the importer in tools/ can extend it
 # from WordNet data.
-slow: sluggish lethargic crawling chugging glacial unresponsive molasses laggy
+slow: sluggish lethargic crawling chugging glacial unresponsive molasses laggy forever
 hot: roasting boiling scorching cooking baking toasty burning sweltering
 loud: noisy screaming roaring whining
-crash: bricked segfaulted died wedged
+crash: bricked segfaulted died wedged dead
 memory: ram
 disk: storage ssd nvme
 network: internet wifi online net
 update: upgrade patch
 config: setting settings preference preferences configuration
-trust: trustworthy safe legit suspicious sketchy dodgy shady
+trust: trustworthy safe legit suspicious sketchy dodgy shady healthy
 battery: charge juice
 fan: fans blower
 program: app application process binary

@@ -1,0 +1,72 @@
+# Units for conversion. name;alias;alias | dimension | factor to SI | offset | display
+# Converted as SI = (value + offset) * factor; only within one dimension.
+# length (metre)
+metre;meter;meters;metres;m | length | 1 | 0 | m
+kilometre;kilometer;kilometers;kilometres;km;kms | length | 1000 | 0 | km
+centimetre;centimeter;centimeters;centimetres;cm | length | 0.01 | 0 | cm
+millimetre;millimeter;millimeters;millimetres;mm | length | 0.001 | 0 | mm
+mile;miles;mi | length | 1609.344 | 0 | miles
+yard;yards;yd | length | 0.9144 | 0 | yards
+foot;feet;ft | length | 0.3048 | 0 | feet
+inch;inches;in | length | 0.0254 | 0 | inches
+nautical mile;nautical miles;nmi | length | 1852 | 0 | nautical miles
+light year;light years;lightyear;lightyears | length | 9.4607304725808e15 | 0 | light years
+# mass (kilogram)
+kilogram;kilograms;kg;kgs;kilo;kilos | mass | 1 | 0 | kg
+gram;grams;g | mass | 0.001 | 0 | g
+milligram;milligrams;mg | mass | 0.000001 | 0 | mg
+tonne;tonnes;metric ton;metric tons | mass | 1000 | 0 | tonnes
+pound;pounds;lb;lbs | mass | 0.45359237 | 0 | pounds
+ounce;ounces;oz | mass | 0.028349523125 | 0 | ounces
+stone;stones;st | mass | 6.35029318 | 0 | stone
+# volume (litre)
+litre;liter;liters;litres;l | volume | 1 | 0 | litres
+millilitre;milliliter;milliliters;millilitres;ml | volume | 0.001 | 0 | ml
+gallon;gallons;gal;us gallon;us gallons | volume | 3.785411784 | 0 | US gallons
+imperial gallon;imperial gallons;uk gallon;uk gallons | volume | 4.54609 | 0 | imperial gallons
+quart;quarts;qt | volume | 0.946352946 | 0 | quarts
+pint;pints;pt | volume | 0.473176473 | 0 | US pints
+cup;cups | volume | 0.2365882365 | 0 | cups
+tablespoon;tablespoons;tbsp | volume | 0.01478676478125 | 0 | tablespoons
+teaspoon;teaspoons;tsp | volume | 0.00492892159375 | 0 | teaspoons
+fluid ounce;fluid ounces;fl oz | volume | 0.0295735295625 | 0 | fluid ounces
+# temperature (kelvin)
+celsius;c;°c;degrees celsius;degree celsius;centigrade | temperature | 1 | 273.15 | °C
+fahrenheit;f;°f;degrees fahrenheit;degree fahrenheit | temperature | 0.5555555555555556 | 459.67 | °F
+kelvin;k;kelvins | temperature | 1 | 0 | K
+# speed (metres per second)
+kilometres per hour;kilometers per hour;km/h;kmh;kph | speed | 0.2777777777777778 | 0 | km/h
+miles per hour;mile per hour;mph | speed | 0.44704 | 0 | mph
+metres per second;meters per second;m/s | speed | 1 | 0 | m/s
+knot;knots;kn;kt | speed | 0.5144444444444445 | 0 | knots
+# time (second)
+second;seconds;sec;secs;s | time | 1 | 0 | seconds
+minute;minutes;min;mins | time | 60 | 0 | minutes
+hour;hours;hr;hrs;h | time | 3600 | 0 | hours
+day;days | time | 86400 | 0 | days
+week;weeks;wk | time | 604800 | 0 | weeks
+year;years;yr;yrs | time | 31557600 | 0 | years
+# data (byte)
+byte;bytes;b | data | 1 | 0 | bytes
+kilobyte;kilobytes;kb | data | 1000 | 0 | KB
+megabyte;megabytes;mb | data | 1000000 | 0 | MB
+gigabyte;gigabytes;gb | data | 1000000000 | 0 | GB
+terabyte;terabytes;tb | data | 1000000000000 | 0 | TB
+kibibyte;kibibytes;kib | data | 1024 | 0 | KiB
+mebibyte;mebibytes;mib | data | 1048576 | 0 | MiB
+gibibyte;gibibytes;gib | data | 1073741824 | 0 | GiB
+tebibyte;tebibytes;tib | data | 1099511627776 | 0 | TiB
+# energy (joule)
+joule;joules;j | energy | 1 | 0 | J
+kilojoule;kilojoules;kj | energy | 1000 | 0 | kJ
+calorie;calories;cal | energy | 4.184 | 0 | calories
+kilocalorie;kilocalories;kcal | energy | 4184 | 0 | kcal
+kilowatt hour;kilowatt hours;kwh | energy | 3600000 | 0 | kWh
+watt hour;watt hours;wh | energy | 3600 | 0 | Wh
+# area (square metre)
+square metre;square meters;square metres;square meter;sq m;m2 | area | 1 | 0 | m²
+square kilometre;square kilometers;square kilometres;square kilometer;sq km;km2 | area | 1000000 | 0 | km²
+square foot;square feet;sq ft;ft2 | area | 0.09290304 | 0 | square feet
+acre;acres | area | 4046.8564224 | 0 | acres
+hectare;hectares;ha | area | 10000 | 0 | hectares
+square mile;square miles;sq mi | area | 2589988.110336 | 0 | square miles

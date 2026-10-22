@@ -1,0 +1,72 @@
+id	function	input	arg	expected	note
+T01	answer_type	who sang paper lanterns		person/organization	a band can sing; spans of both types compete
+T02	answer_type	who wrote paper lanterns		person	plain who: a person
+T03	answer_type	who plays saul in harbour lights		person	plays is not on the person/organization line
+T04	answer_type	who was ada example		description	who + bare name asks about the person, not for a name
+T05	answer_type	who is the president of testland		person	starts with the, so not a bare name
+T06	answer_type	where is saltmarsh studio		place	
+T07	answer_type	when was the testland charter signed		date	
+T08	answer_type	what year did the eiffel tower open		year	what year comes before the head-noun rule
+T09	answer_type	in what year was ada example born		year	
+T10	answer_type	how many people visit glass lake each year		number	
+T11	answer_type	how much does the ferry to port wren cost		number	how much is not how does
+T12	answer_type	how long did the reign of queen ada last		duration	
+T13	answer_type	how long is the river test		number	measure: river is not an event
+T14	answer_type	how long is the flight from port wren to testville		duration	measure: flight is an event
+T15	answer_type	which team won the 1990 cup		organization	head noun team
+T16	answer_type	which band recorded paper lanterns		organization	head noun band
+T17	answer_type	what song made the quiet harbours famous		title	head noun song
+T18	answer_type	what is the name of the river that runs through port wren		place	name of: look past name to river
+T19	answer_type	what is the capital of testland		place	head noun capital, scan stops at of
+T20	answer_type	which countries border testland		list:place	plural head noun makes a list
+T21	answer_type	what is the tallest mountain called		place	called, head noun mountain found within 3 words
+T22	answer_type	is the sky blue		none	yes/no question
+T23	answer_type	what is photosynthesis		description	no head noun: the fallback
+S01	spans_of	Paper Lanterns was written by Mara Quill and recorded by The Quiet Harbours at Saltmarsh Studio in the spring of 1993.	person	Paper Lanterns | Mara Quill	a run starting with The is never a person; Studio ends an organization name
+S02	spans_of	Paper Lanterns was written by Mara Quill and recorded by The Quiet Harbours at Saltmarsh Studio in the spring of 1993.	organization	Paper Lanterns | Mara Quill | The Quiet Harbours | Saltmarsh Studio	organization keeps a leading The; key drops it
+S03	spans_of	The series stars Jane Roe as Saul, Tom Bell as Iris Marsh, and Lee Park as the narrator.	person	Jane Roe | Saul | Tom Bell | Iris Marsh | Lee Park	sentence-initial The before a lowercase word is not a span
+S04	spans_of	He was voiced by Max Voice, who also sang the closing song.	person	Max Voice	pronouns are never spans
+S05	spans_of	About two million people visit Glass Lake each year.	number	two million people => 2000000	number words; the count noun joins the text, not the key
+S06	spans_of	Glass Lake draws 2,000,000 visitors a year, more than any other site in Testland.	number	2,000,000 visitors => 2000000	same key as S05; a lone a is not a number
+S07	spans_of	In 1990, 300,000 people visited the lake, which is 14 kilometres long.	number	300,000 people => 300000 | 14 kilometres => 14 km	a bare year is not a number; a comma then a space never joins digit groups; units.txt display name in the key
+S08	spans_of	The Testland Charter was signed on 4 July 1776 in Old Hall.	date	4 July 1776 => 1776-07-04	
+S09	spans_of	On July 4, 1776, delegates signed the charter.	date	July 4, 1776 => 1776-07-04	same key as S08
+S10	spans_of	The charter was revised on 2 March 1801 and again in 1850.	date	2 March 1801 => 1801-03-02 | 1850 => 1850	a bare year is a date span with a year key
+S11	spans_of	The charter was revised on 2 March 1801 and again in 1850.	year	1801 | 1850	year spans are taken from inside dates too
+S12	spans_of	Saltmarsh Studio is a recording studio located in Port Wren, a fishing town on the east coast of Testland.	place	Saltmarsh Studio | Port Wren | Testland	Studio is a venue, so it stays a place; scoring drops the subject later
+S13	spans_of	The Clockwork Fox is a 2003 animated film directed by Lena Brook.	title	The Clockwork Fox | Lena Brook	title keeps a leading The; capitalized runs are titles too
+S14	spans_of	Her second album, "Low Tide Lights", included the single "Paper Lanterns".	title	Low Tide Lights | Paper Lanterns	quoted text; Her is a function word; duplicates of a quoted span are dropped
+S15	spans_of	The reign of Queen Ada lasted 37 years, from 1801 to 1838.	duration	37 years => 37 year | from 1801 to 1838 => 1801..1838	a year range is a duration
+S16	spans_of	The bridge has twenty-one arches and a span of 1.5 kilometres.	number	twenty-one arches => 21 | 1.5 kilometres => 1.5 km	hyphenated number words; a span of is not a number
+S17	spans_of	The novel was written by J. R. Quill and illustrated by Anna van Dyke.	person	J. R. Quill | Anna van Dyke	initials and a lowercase name particle stay inside the run
+S18	spans_of	Quill's first book sold well in Port Wren.	person	Quill	possessive dropped; Port starts a place name, so not a person
+S19	spans_of	In May 1990 Mara Quill moved to Port Wren.	person	Mara Quill	month names break a run and are never persons
+S20	spans_of	In May 1990 Mara Quill moved to Port Wren.	date	May 1990 => 1990-05	month and year without a day
+S21	spans_of	One of the two towers is 85% glass.	number	two towers => 2 | 85% => 85 %	one of is not a number; percent sign keyed as %
+S22	spans_of	Photosynthesis turns light into sugar.	description	(none)	description never yields spans; the sentence answer stands
+S23	spans_of	The flight takes about two and a half hours.	duration	two and a half hours => 2.5 hour	about is a hedge, not part of the span
+N01	parse_number_words	two million		2000000	
+N02	parse_number_words	2,000,000		2000000	digits with groups of three
+N03	parse_number_words	twenty-one		21	hyphen splits words
+N04	parse_number_words	one hundred and five		105	and after hundred
+N05	parse_number_words	a hundred		100	a means one only before a scale word
+N06	parse_number_words	2.5 million		2500000	digits and a scale word mix
+N07	parse_number_words	three thousand four hundred		3400	
+N08	parse_number_words	a dozen		12	
+N09	parse_number_words	half a million		500000	
+N10	parse_number_words	two and a half		2.5	
+N11	parse_number_words	first		(none)	ordinals are not cardinals
+N12	parse_number_words	nineteen eighty-four		(none)	year-style reading is refused, not guessed
+N13	parse_number_words	1,23		(none)	bad digit grouping
+N14	parse_number_words	million		(none)	a scale word alone
+D01	date_key	4 July 1776		1776-07-04	
+D02	date_key	July 4, 1776		1776-07-04	
+D03	date_key	4th of July, 1776		1776-07-04	ordinal day and of
+D04	date_key	Sept. 9, 2001		2001-09-09	month abbreviation with a full stop
+D05	date_key	July 1776		1776-07	
+D06	date_key	1776		1776	
+D07	date_key	4 July		--07-04	no year
+D08	date_key	1776-07-04		1776-07-04	ISO form passes through
+D09	date_key	31 February 1801		(none)	no such day
+D10	date_key	the 1990s		1990s	a decade
+D11	date_key	500 BC		-500	years before the common era are negative

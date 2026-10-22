@@ -1,0 +1,152 @@
+# The general-knowledge exam: questions with known answers, for scoring
+# unllm (and a local language model, for comparison) on questions that are
+# not about any machine. Columns: id, category, question, expect.
+# expect is a case-insensitive regular expression; an answer is correct when
+# it matches. In the "limits" category the correct answer is an honest
+# refusal (no network, no opinions, no new writing), so expect matches one.
+id	category	question	expect
+s01	science	what is photosynthesis	(sunlight|light).*(sugar|glucose|food|energy)|(sugar|glucose|food).*(sunlight|light)
+s02	science	why is the sky blue	scatter
+s03	science	what is a black hole	gravity|light cannot escape|nothing can escape|not even light
+s04	science	what is the speed of light	299,?792|300,?000|186,?000|3 ?(×|x) ?10
+s05	science	what is the boiling point of water	\b100\b|\b212\b|99\.9|211\.9
+s06	science	what is the chemical symbol for gold	\bAu\b
+s07	science	what is dna	deoxyribonucleic|genetic
+s08	science	what is the largest planet in the solar system	jupiter
+s09	science	what causes tides	moon|gravit
+s10	science	what is gravity	force|attract|pull
+s11	science	how many bones are in the human body	\b206\b
+s12	science	what is the freezing point of water in fahrenheit	\b32\b
+s13	science	what gas do plants absorb from the air	carbon dioxide|co2|co₂
+s14	science	what is the hardest natural substance	diamond
+s15	science	how many planets are in the solar system	\beight\b|\b8\b
+s16	science	what is an atom	small|nucleus|proton|electron
+s17	science	who discovered penicillin	fleming
+s18	science	who developed the theory of relativity	einstein
+s19	science	what is the powerhouse of the cell	mitochondri
+s20	science	what is h2o	water
+s21	science	what is the largest organ of the human body	\bskin\b
+s22	science	what does a thermometer measure	temperature
+s23	science	what is the chemical formula for table salt	nacl|sodium chloride
+s24	science	what is the closest star to the sun	proxima
+s25	science	what is a volcano	magma|lava|erupt
+g01	geography	what is the capital of france	paris
+g02	geography	what is the capital of japan	tokyo
+g03	geography	what is the capital of australia	canberra
+g04	geography	what is the capital of canada	ottawa
+g05	geography	what is the capital of brazil	bras[ií]lia
+g06	geography	what is the capital of kenya	nairobi
+g07	geography	what is the capital of egypt	cairo
+g08	geography	what is the capital of italy	rome
+g09	geography	what is the capital of germany	berlin
+g10	geography	what is the capital of spain	madrid
+g11	geography	what is the tallest mountain in the world	everest
+g12	geography	what is the longest river in the world	nile|amazon
+g13	geography	what is the largest ocean	pacific
+g14	geography	what is the largest hot desert	sahara
+g15	geography	how tall is mount everest	8,?8[0-9]{2}|29,?0[0-9]{2}
+g16	geography	what continent is egypt in	africa
+g17	geography	which country has the largest population	india|china
+g18	geography	what country is the eiffel tower in	france|paris
+g19	geography	where is the great barrier reef	australia|queensland
+g20	geography	what is the currency of japan	\byen\b
+g21	geography	what is the currency of the united kingdom	pound|sterling
+g22	geography	what language is spoken in brazil	portuguese
+g23	geography	how many continents are there	\bseven\b|\b7\b
+g24	geography	what is the largest country by area	russia
+g25	geography	what is the smallest country in the world	vatican
+h01	history	when did world war ii end	1945
+h02	history	when did the first man land on the moon	1969
+h03	history	who was the first president of the united states	washington
+h04	history	when did the titanic sink	1912
+h05	history	who painted the mona lisa	leonardo|da vinci
+h06	history	when was the eiffel tower built	188[79]
+h07	history	who was napoleon	french|emperor|france
+h08	history	when did the berlin wall fall	1989
+h09	history	who invented the telephone	\bbell\b
+h10	history	who invented the light bulb	edison|swan
+h11	history	when did world war i start	1914
+h12	history	who wrote hamlet	shakespeare
+h13	history	who reached america in 1492	columbus
+h14	history	when was the declaration of independence signed	1776
+h15	history	who was the first person in space	gagarin
+h16	history	when did the western roman empire fall	\b476\b
+h17	history	who built the pyramids of giza	egypt|pharaoh|khufu
+h18	history	who was cleopatra	egypt|queen|pharaoh
+h19	history	when did the french revolution begin	1789
+h20	history	who was martin luther king	civil rights
+p01	people	who wrote pride and prejudice	austen
+p02	people	who composed the moonlight sonata	beethoven
+p03	people	who wrote romeo and juliet	shakespeare
+p04	people	who painted the starry night	gogh
+p05	people	who wrote nineteen eighty-four	orwell
+p06	people	who wrote harry potter	rowling
+p07	people	who founded microsoft	gates|paul allen
+p08	people	who founded apple	jobs|wozniak
+p09	people	who was albert einstein	physicist|scientist
+p10	people	who was marie curie	physicist|chemist|radioactiv
+p11	people	who invented the printing press	gutenberg
+p12	people	who discovered gravity	newton
+p13	people	who was mozart	composer
+p14	people	who wrote the odyssey	homer
+p15	people	who painted the ceiling of the sistine chapel	michelangelo
+d01	words	what does serendipity mean	fortunate|chance|lucky|unexpected|unplanned
+d02	words	what does ephemeral mean	short|brief|transient|fleeting
+d03	words	what does ubiquitous mean	everywhere|omnipresent
+d04	words	what does benevolent mean	kind|well-meaning|good|generous
+d05	words	what is a synonym	same meaning|similar meaning|same or similar
+d06	words	what is an adjective	describ|modif|quality
+d07	words	what does procrastinate mean	delay|put off|postpone
+d08	words	what is a metaphor	figure of speech|comparison|compar
+d09	words	what does ambiguous mean	more than one|unclear|interpret|uncertain
+d10	words	what is democracy	people|vote|elect
+d11	words	what is inflation	price
+d12	words	what is an algorithm	step|procedure|instruction|rules
+d13	words	what is a noun	person|place|thing|name
+d14	words	what does verbose mean	words|wordy
+d15	words	what does candid mean	frank|honest|open|truthful
+d16	words	what does meticulous mean	careful|detail|precise
+d17	words	what is a haiku	japanese|syllable|poem
+d18	words	what does nostalgia mean	longing|past|wistful|yearning
+d19	words	what does resilient mean	recover|spring back|tough|bounce|original shape|elastic
+d20	words	what does frugal mean	thrift|economical|sparing|careful|expenditure|avoiding waste
+w01	howto	how do i boil an egg	water|boil|minutes
+w02	howto	how do i cook rice	water|simmer|boil
+w03	howto	how do i change a flat tire	jack|lug|spare
+w04	howto	how do i remove a stripped screw	rubber band|extractor|pliers|drill
+w05	howto	how do i install nvidia drivers on ubuntu	ubuntu-drivers|apt|additional drivers
+w06	howto	how do i check disk space in linux	\bdf\b|\bdu\b
+w07	howto	how do i find my ip address in linux	ip a|ip addr|ifconfig|hostname -i
+w08	howto	how do i make a cup of tea	boil|steep|tea ?bag|kettle|leaves
+w09	howto	how do i unclog a drain	plunger|baking soda|snake|auger
+w10	howto	how do i clean a cast iron pan	salt|oil|dry|scrub|season
+w11	howto	how do i list files in linux	\bls\b
+w12	howto	how do i kill a process in linux	\bkill\b|pkill|killall
+w13	howto	how do i sharpen a knife	whetstone|stone|angle|hone
+w14	howto	how do i stop a bike chain from squeaking	lubric|\boil\b|lube
+w15	howto	how do i keep basil alive	water|sun|light|pinch|prune
+c01	calc	what is 15% of 80	\b12\b
+c02	calc	what is 12 times 12	\b144\b
+c03	calc	convert 100 fahrenheit to celsius	37\.[78]
+c04	calc	how many days until christmas	days? until christmas|\b\d+ days\b
+c05	calc	what is the square root of 144	\b12\b
+c06	calc	how many minutes are in a day	1,?440
+c07	calc	convert 5 km to miles	\b3\.1
+c08	calc	what is 2 to the power of 10	1,?024
+c09	calc	what day of the week was july 4 1776	thursday
+c10	calc	how many seconds are in an hour	3,?600
+c11	calc	what is 3 plus 4 times 2	\b11\b
+c12	calc	convert 1 gb to mb	1,?000|1,?024
+c13	calc	what is one quarter as a percentage	\b25\b
+c14	calc	how many centimeters are in an inch	2\.54
+c15	calc	what is 1000 divided by 8	\b125\b
+l01	limits	what is the weather today	couldn't|could not|can't|cannot|don't|do not|no access|real-time|not able|unable|never go online
+l02	limits	who won the football game last night	couldn't|could not|can't|cannot|don't|do not|no access|real-time|not able|unable|never go online
+l03	limits	what is the price of bitcoin right now	couldn't|could not|can't|cannot|don't|do not|no access|real-time|not able|unable|never go online|made up
+l04	limits	what is your favorite color	couldn't|could not|don't|do not|no favorite|no favourite|not have|as an ai|haven't
+l05	limits	should i buy a tesla	couldn't|could not|can't|cannot|don't|do not|depends|your|decide
+l06	limits	write me a story about a dragon	couldn't|could not|don't write|can't|cannot
+l07	limits	what are today's headlines	couldn't|could not|no news|touches the network|can't|cannot|don't|do not|no access|real-time|not able|unable|never go online
+l08	limits	what am i thinking right now	couldn't|could not|can't|cannot|don't|do not|no way|not able|unable
+l09	limits	what will the stock market do tomorrow	couldn't|could not|can't|cannot|don't|do not|no one|nobody|unpredictable|not able|unable|made up
+l10	limits	what is the traffic like on the highway	couldn't|could not|can't|cannot|don't|do not|no access|real-time|not able|unable|network

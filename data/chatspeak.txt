@@ -1,0 +1,30 @@
+# Chat-speak and shorthand, expanded before anything else reads the
+# question. Whole words only. word -> replacement words
+wat -> what
+wut -> what
+whut -> what
+2day -> today
+2nite -> tonight
+tonite -> tonight
+tmrw -> tomorrow
+rn -> right now
+atm -> at the moment
+u -> you
+ur -> your
+pls -> please
+plz -> please
+cuz -> because
+bc -> because
+whats -> what is
+hows -> how is
+wheres -> where is
+whos -> who is
+idk -> i do not know
+thx -> thanks
+ty -> thanks
+lappy -> laptop
+comp -> computer
+puter -> computer
+temp -> temperature
+temps -> temperature
+mem -> memory

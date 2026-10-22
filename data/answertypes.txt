@@ -1,0 +1,95 @@
+# Answer types: what kind of short answer a question wants, so the answer
+# extractor knows which pieces of a passage could answer it. "who sang X"
+# wants a person or a band, "when" wants a date, "how many" wants a number.
+#
+# The question is read lowercased, after chat-speak and rewrites (the same
+# text World::answer receives). Three sections:
+#
+# [patterns]  Lines: pattern ; pattern :: type
+#   A pattern must cover the whole question, from its first word to its
+#   last. The first line that matches wins, so narrow shapes come first.
+#     *     one or more words
+#     {N}   a bare name: 1 to 4 words, not starting with the, a or an,
+#           none of them a stop word, none ending in "ing" or "ed"
+#   Types: person place date year number duration organization title list
+#   description none
+#     person/organization   either one: a song is sung by a person or a band
+#     none                  a yes/no question; the extractor stays out of it
+#   Directions, not types:
+#     head          look up the head noun in [heads] (how to find it: below)
+#     head:T        the same, and T when there is no head noun
+#     measure       number, unless the thing measured is an event
+#                   (see [events]), then duration
+#     list          a list; each item's type is the head noun's type
+#
+# How the head noun is found: start after the first "what" or "which". Skip
+# is, was, are, were, the, a, an. Look at the next 3 words, stopping early at
+# "of" or at a stop word; the first one (as its singular, by normalize_word)
+# that [heads] knows is the head noun. When that word is "name", skip "of",
+# "the", "a", "an" and look again from there ("the name of the river": river).
+# A head noun typed in the plural ("which countries") makes the answer a
+# list of that type: list:place.
+#
+# [heads]   Lines: noun ; noun :: type   (singular forms)
+# [events]  Lines: noun ; noun ; ...     things that last rather than measure
+#   "how long is the flight": flight is an event, so a duration;
+#   "how long is the river": a length, so a number.
+
+[patterns]
+# yes or no: nothing to extract
+is * ; are * ; was * ; were * ; does * ; do * ; did * ; can * ; could * ; has * ; have * ; had * ; will * ; would * ; should * ; shall * :: none
+# "who was ada lovelace": tell me about her, not one name
+who is {N} ; who was {N} ; who are {N} ; who were {N} :: description
+define * ; describe * ; explain * ; tell me about * ; what does * mean ; what is meant by * ; what is the meaning of * :: description
+why * ; how does * ; how do * ; how did * ; how is * ; how are * ; how can * ; how to * :: description
+# times
+what year * ; in what year * ; which year * ; in which year * ; what decade * ; in what decade * ; which decade * :: year
+when * ; what date * ; on what date * ; which date * ; what day * ; on what day * ; which day * ; what time * ; at what time * ; since when * ; until when * :: date
+# durations; "how long is the river" is a length, so those lines come before the catch-all
+how long ago * ; for how long * :: duration
+how long did * ; how long does * ; how long do * ; how long has * ; how long have * ; how long had * ; how long will * ; how long would * ; how long can * ; how long should * :: duration
+how long was * in * ; how long were * in * :: duration
+how long is * ; how long are * ; how long was * ; how long were * :: measure
+how long * :: duration
+# amounts
+how many * ; how much * ; how far * ; how old * ; how tall * ; how high * ; how big * ; how large * ; how deep * ; how wide * ; how heavy * ; how fast * ; how often * ; how hot * ; how cold * ; how warm * ; what percentage * ; what percent * ; what proportion * :: number
+# places
+where * ; from where * :: place
+# people, by grammar
+whose * ; whom * ; to whom * ; by whom * ; with whom * ; for whom * :: person
+# names of things
+what is the name of * ; what was the name of * ; what is the name for * ; whats the name of * ; name the * :: head:title
+who * named after ; who * named for ; what * named after ; what * named for :: person
+what did * invent ; what did * discover ; what did * write ; what does * stand for ; what is * short for :: title
+what is * called ; what was * called ; what are * called ; what were * called ; what is * named ; what was * named ; what is * known as ; what was * known as ; what is * also known as ; what was * also known as :: head:title
+# who + a verb a band, team or company can do as well as a person
+who sang * ; who sings * ; who recorded * ; who performed * ; who released * ; who produced * ; who owns * ; who owned * ; who founded * ; who started * ; who built * ; who makes * ; who made * ; who manufactures * ; who developed * ; who published * ; who publishes * ; who won * ; who wins * ; who beat * ; who defeated * ; who created * ; who designed * ; who sponsors * :: person/organization
+who * :: person
+# lists
+what are the * ; what were the * ; which are the * ; which were the * ; list * ; list the * ; name all * ; name some * :: list
+# everything else asked with what or which: the head noun decides
+which * ; what * :: head:description
+* :: description
+
+[heads]
+person ; man ; woman ; boy ; girl ; child ; people ; actor ; actress ; singer ; rapper ; vocalist ; drummer ; guitarist ; bassist ; pianist ; musician ; composer ; songwriter ; lyricist :: person
+author ; writer ; novelist ; poet ; playwright ; journalist ; editor ; painter ; artist ; sculptor ; photographer ; director ; producer ; filmmaker ; architect ; designer ; inventor ; scientist ; physicist ; chemist ; mathematician ; philosopher ; economist ; explorer ; astronaut :: person
+president ; king ; queen ; emperor ; empress ; prince ; princess ; pope ; leader ; ruler ; chancellor ; minister ; governor ; mayor ; senator ; general ; admiral ; ceo ; chairman ; founder ; owner ; creator ; host ; presenter :: person
+player ; athlete ; coach ; manager ; captain ; striker ; goalkeeper ; pitcher ; quarterback ; driver ; jockey ; champion ; winner ; character ; villain ; hero ; heroine ; protagonist ; narrator :: person
+wife ; husband ; son ; daughter ; father ; mother ; brother ; sister ; parent ; uncle ; aunt ; grandfather ; grandmother ; spouse ; partner ; successor ; predecessor :: person
+place ; location ; city ; town ; village ; capital ; country ; nation ; state ; province ; county ; region ; district ; territory ; continent ; island ; peninsula :: place
+river ; lake ; sea ; ocean ; bay ; gulf ; strait ; mountain ; volcano ; hill ; valley ; desert ; forest ; canyon ; glacier ; waterfall ; planet ; moon ; galaxy :: place
+street ; road ; square ; park ; stadium ; arena ; venue ; airport ; port ; harbour ; harbor ; building ; tower ; bridge ; castle ; palace ; museum ; cathedral ; church ; temple ; prison ; hospital :: place
+team ; club ; side ; company ; corporation ; firm ; business ; brand ; manufacturer ; publisher ; label ; studio ; network ; channel ; broadcaster ; airline ; bank ; agency :: organization
+band ; group ; orchestra ; choir ; party ; organization ; organisation ; union ; league ; university ; college ; school ; institute ; charity ; foundation ; army ; navy ; government :: organization
+song ; single ; track ; album ; record ; movie ; film ; book ; novel ; story ; show ; series ; sitcom ; programme ; program ; episode ; play ; musical ; opera ; ballet ; symphony :: title
+painting ; sculpture ; poem ; game ; anthem ; newspaper ; magazine ; comic ; title ; name ; word ; nickname ; slogan ; motto :: title
+language ; currency ; religion ; sport ; instrument ; species ; animal ; plant ; breed ; element ; colour ; color ; flower ; dish ; drink :: title
+date ; day ; month ; time ; birthday ; anniversary :: date
+year ; decade ; century :: year
+number ; amount ; population ; height ; length ; distance ; width ; depth ; weight ; mass ; size ; area ; volume ; speed ; temperature ; price ; cost ; age ; percentage ; score ; total ; rate ; salary ; budget ; capacity ; value :: number
+duration ; period ; lifespan ; lifetime :: duration
+kind ; type ; sort ; purpose ; function ; meaning ; reason ; difference ; role ; cause ; effect ; idea ; nature ; definition :: description
+
+[events]
+flight ; trip ; journey ; drive ; ride ; walk ; voyage ; commute ; film ; movie ; show ; episode ; series ; season ; song ; album ; concert ; tour ; game ; match ; race ; marathon ; war ; battle ; siege ; reign ; rule ; term ; presidency ; career ; life ; lifespan ; pregnancy ; gestation ; holiday ; vacation ; course ; degree ; sentence ; wait ; delay ; break ; lesson ; class ; meeting ; process ; procedure ; surgery ; operation

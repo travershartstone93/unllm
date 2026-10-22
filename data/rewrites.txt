@@ -1,0 +1,30 @@
+# Reductions: the chatty coat comes off, the question stays.
+# pattern -> replacement, over normalized words, one * on each side.
+# The * part is the real question; a stripped wrapper never hurts the
+# domain score because it is gone before analysis.
+# The banter classics (tell me a joke, tell me about yourself) must NOT
+# be reachable from these patterns: no bare "tell me *" rule.
+could you please tell me * -> *
+can you please tell me * -> *
+could you tell me * -> *
+can you tell me * -> *
+please tell me * -> *
+would you please * -> *
+can you show me * -> *
+i was wondering * -> *
+i want to know * -> *
+i would like to know * -> *
+i need to know * -> *
+do you know * -> *
+do you have any idea * -> *
+any idea * -> *
+im curious * -> *
+i am curious * -> *
+quick question * -> *
+whats the deal with * -> what happened with *
+give me the rundown on * -> what happened with *
+what is up with * -> how is *
+what is going on with * -> how is *
+whats going on with * -> how is *
+how is * doing -> how is *
+how is * holding up -> how is *

@@ -185,13 +185,42 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
             int64_t d0 = midnight(now, 2);
             return win(d0, d0 + kDay);
         }
+        // "This morning" asked at 02:38 has not begun: the most recent
+        // morning is yesterday's, and the window says it moved.
+        auto not_future = [&](TimeWindow p) {
+            if (p.from >= now) {
+                p.from -= kDay;
+                p.to -= kDay;
+                p.shifted = true;
+            }
+            return p;
+        };
         if (w == "this" && day_part(today0, next)) {
             take(i, i + 1);
-            return day_part(today0, next);
+            return not_future(*day_part(today0, next));
         }
         if (w == "tonight") {
             take(i, i);
             return day_part(today0, "night");
+        }
+        // A bare day part ("just the evening"): today's by default; a
+        // follow-up fragment may re-anchor it onto the day under discussion.
+        if (w == "morning" || w == "afternoon" || w == "evening") {
+            take(i, i);
+            return not_future(*day_part(today0, w));
+        }
+
+        // "right now", "now", "currently", "at the moment": not a span of the
+        // records but the present, to be measured when the caller can.
+        if (w == "now" || w == "currently" || (w == "right" && next == "now") ||
+            (w == "at" && next == "the" && next2 == "moment")) {
+            std::size_t last = i;
+            if (w == "right") last = i + 1;
+            if (w == "at") last = i + 2;
+            take(i, last);
+            TimeWindow lw = win(now - 60, now);
+            lw.live = true;
+            return lw;
         }
 
         if (w == "last") {
@@ -219,6 +248,23 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
                 int64_t d0 = midnight(now, back);
                 if (auto p = day_part(d0, next2)) { take(i, i + 2); return p; }
                 return win(d0, d0 + kDay);
+            }
+        }
+
+        // A bare weekday ("on tuesday", "what happened friday"): the most
+        // recent one. Today's weekday means today so far.
+        if (int wd = weekday_index(w); wd >= 0) {
+            const std::string prevw = i > 0 ? tokens[i - 1].lower : "";
+            if (prevw != "next" && prevw != "since" && prevw != "last" && prevw != "every") {
+                int back = (nowtm.tm_wday - wd + 7) % 7;
+                int64_t d0 = midnight(now, back);
+                if (auto p = day_part(d0, next)) {
+                    take(i, i + 1);
+                    return *p;
+                }
+                take(i, i);
+                if (prevw == "on") take(i - 1, i);
+                return back == 0 ? win(today0, now) : win(d0, d0 + kDay);
             }
         }
 
@@ -266,6 +312,11 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
             take(i, i + 1);
             int since_monday = (nowtm.tm_wday + 6) % 7;
             return win(midnight(now, since_monday), now);
+        }
+        // "all night" means the night just past, same span as "last night"
+        if (w == "all" && next == "night") {
+            take(i, i + 1);
+            return win(midnight(now, 1) + 18 * 3600, today0 + 6 * 3600);
         }
         // all month / this month
         if ((w == "all" || w == "this") && next == "month") {

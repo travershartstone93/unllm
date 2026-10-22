@@ -28,9 +28,43 @@ std::string normalize_word(const std::string& lower);  // lemma table + light st
 
 enum class Intent {
     Heat, Slow, Memory, Disk, Network, Sharing, Update, Config, Crash,
-    Trust, Battery, Startup, Story,  // Story: no specific topic, tell everything
+    Trust, Battery, Startup,
+    Devices,   // hardware coming and going: usb, webcams, dongles
+    Flash,     // writing firmware to boards: esp32, arduino
+    Gpu,       // the graphics card: load, video memory, temperature
+    Diagnose,  // "what is wrong with this machine": run the rule book
+    Identity,  // the machine itself: what it is, its parts, its uptime
+    Help,      // what can be asked
+    Story,     // no specific topic, tell everything
 };
 const char* intent_name(Intent i);
+
+// The shape of the question: an open question wants facts, a polar one wants
+// yes or no, a counting one wants a number.
+enum class Form { Open, Polar, Count };
+
+// The shape of the ANSWER the question expects: "when" wants a moment, not a
+// story; "why" wants the cause first; "how long" wants a duration.
+enum class Wants { Fact, Time, Duration, Count, Quantity, Name, Cause, YesNo };
+const char* wants_name(Wants w);
+
+// Judgment questions: "is that normal", "hotter than yesterday", "getting
+// slower", "did it change after the update". The caller answers them with
+// statistics over its own records.
+enum class Judge { None, Normal, Compare, Trend, Changed };
+
+// The kind of request beyond its topic: a summary, a worry, a request for
+// advice, a choice between two things, a condition ("while X is running"),
+// and the world-knowledge kinds the caller may answer from reference packs.
+enum class Frame {
+    None, Define, Explain, HowTo, Choice, Condition, Worry, Advice,
+    Summary, Calc, Poem, Opinion, Creative, NeedsNetwork, Personal,
+};
+const char* frame_name(Frame f);
+
+// Superlatives: "the hottest", "the most memory". Detected before the
+// stemmer folds "hottest" down to "hot".
+enum class Degree { None, Most, Least };
 
 struct Entity {
     std::string type;   // "program", "quantity", "pid"
@@ -40,13 +74,31 @@ struct Entity {
 struct TimeWindow {
     int64_t from = 0, to = 0;  // unix seconds, half-open [from, to)
     bool stated = false;       // false: the question named no time, default applied
+    bool live = false;         // "right now": the answer should be measured, not recalled
+    bool shifted = false;      // "this morning" asked before it began: moved back a day
 };
 
 struct Reading {
     TimeWindow window;
-    std::vector<Intent> intents;    // empty means Story
+    Form form = Form::Open;
+    Wants wants = Wants::Fact;
+    Judge judge = Judge::None;
+    std::optional<TimeWindow> compare_window;  // "than yesterday": the referent
+    Degree degree = Degree::None;
+    bool negated = false;     // "never", "didn't": the question denies something
+    bool self_named = false;  // the question names the machine itself
+    std::vector<Intent> intents;    // strongest first; empty means Story
     std::vector<Entity> entities;
     std::vector<std::string> terms;  // normalized content words, for retrieval
+    std::vector<double> weights;     // attention weight per entry of terms (long questions)
+    Frame frame = Frame::None;
+    bool self_deictic = false;       // "this/my/the machine": the machine as the subject
+    bool anchored = false;           // tied to this machine: a time, a program, the machine, now
+    std::vector<std::string> choices;    // "firefox or chromium": the two candidates
+    std::string condition;               // "while blender is running": the program
+    std::string predicate;               // a yes/no question's head word: "healthy", "crash"
+    std::string subject;                 // a general subject: "computer memory" (world questions)
+    std::vector<std::string> ambiguous;  // "it" with two candidates: both, never guessed
     // How much of the question the library actually understood: matched
     // meaningful words over all meaningful words. Near 1: on home ground.
     // Near 0: this question is not about the domain; say so, do not guess.
@@ -57,7 +109,9 @@ struct Reading {
 
 // Finds a time expression in the tokens and resolves it against `now`
 // (injected, so tests are stable). Consumed token indices are reported so
-// they do not pollute the search terms.
+// they do not pollute the search terms. A bare weekday is the most recent
+// one; "this morning" asked before the morning began moves back a day and
+// is marked shifted.
 std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t now,
                                     std::set<std::size_t>* consumed = nullptr);
 
@@ -69,21 +123,46 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
 // product. File format: "UNLV", u32 count, u32 dim, then per word a u8
 // length, the word's bytes, and dim float32 coordinates.
 
+// A second, larger format ("UNL2") holds hundreds of thousands of words as
+// 8-bit rows with a per-row scale, read straight from disk (memory-mapped):
+// u32 count, u32 dim, u32 offsets[count+1] into a sorted string blob,
+// f32 scales[count], i8 rows[count*dim], then the blob. Rows are unit length
+// before quantizing, so a dot product times both scales is the cosine.
 class Vectors {
 public:
+    Vectors() = default;
+    ~Vectors();
+    Vectors(const Vectors&) = delete;
+    Vectors& operator=(const Vectors&) = delete;
     bool load(const std::string& path);
     bool ok() const { return dim_ > 0; }
-    std::size_t size() const { return words_.size(); }
+    std::size_t size() const { return map_ ? count_ : words_.size(); }
+    bool contains(const std::string& w) const;
     // Cosine similarity in [-1, 1]; 0 when either word is unknown.
     double similarity(const std::string& a, const std::string& b) const;
 
 private:
     const float* row(const std::string& w) const;
+    long find(const std::string& w) const;  // UNL2 row index, or -1
     std::map<std::string, std::size_t> words_;
     std::vector<float> data_;
     std::vector<float> norms_;
     std::size_t dim_ = 0;
+    // UNL2, memory-mapped
+    const char* map_ = nullptr;
+    std::size_t map_size_ = 0, count_ = 0;
+    const uint32_t* offsets_ = nullptr;
+    const float* scales_ = nullptr;
+    const int8_t* rows_ = nullptr;
+    const char* blob_ = nullptr;
 };
+
+// Attention over the meaning map: one weight per token, how much that word
+// carries in this question. Stop words weigh nothing, known filler almost
+// nothing; a content word weighs more the closer it sits to the topic words
+// and to the rest of the question. idf, when given, scales by rarity.
+std::vector<double> attend(const std::vector<Token>& tokens, const Vectors* v,
+                           double (*idf)(const std::string&) = nullptr);
 
 // "canonical: word word word" lines; '#' comments. Returns word -> canonical.
 std::map<std::string, std::string> load_synonyms(const std::string& path);
@@ -101,6 +180,18 @@ public:
     // prev: the previous reading, so "and the day before?" can be answered.
     Reading read(const std::string& question, int64_t now,
                  const Reading* prev = nullptr) const;
+    // salience: who "it" may mean, most recent first. Group 0 is usually
+    // what the previous ANSWER named, group 1 the previous question's
+    // programs. "It" binds only to a lone name in the first non-empty group;
+    // two names there leave Reading::ambiguous filled instead of guessing.
+    Reading read(const std::string& question, int64_t now, const Reading* prev,
+                 const std::vector<std::vector<std::string>>* salience) const;
+
+    // Every word the analyzer recognizes on its own: topic, question,
+    // time, negation, degree and generic words, synonyms, and (optionally)
+    // programs. The speller corrects toward these and the coverage report
+    // ranks the rest.
+    std::vector<std::string> known_words(bool include_programs = true) const;
 
 private:
     std::vector<std::string> programs_;
@@ -108,6 +199,20 @@ private:
     const Vectors* vectors_ = nullptr;
     double vector_threshold_ = 0.6;
 };
+
+// Where a question should be answered from:
+//   Domain    the caller's own records (the machine), always first when anchored
+//   World     reference knowledge: definitions, explanations, how-to, poems
+//   Category  a fixed honest reply: needs the internet, asks an opinion,
+//             asks for original writing
+// (Calculation is recognized by the Calc parser itself, before routing.)
+enum class Route { Domain, World, Category };
+Route route(const Reading& r);
+const char* route_name(Route r);
+
+// The analyzer's stop words ("the", "what", "did"...), for callers that pick
+// a question's content words themselves.
+bool stop_word(const std::string& lower);
 
 // Edit distance for typo-tolerant matching ("blendr" -> "blender").
 int edit_distance(const std::string& a, const std::string& b, int limit);
@@ -119,15 +224,18 @@ struct NP {                       // a noun phrase: "blender", "three programs"
     bool proper = false;          // proper names skip articles and casing fixes
     long count = -1;              // -1: no number; 1: singular; n: "three programs"
     std::string detail;           // trailing detail: "programs *you started*"
+    bool plural = false;          // "the disks", "firefox and chromium"
 };
 
-enum class Tense { Past, Present };
+enum class Tense { Past, Present, PresentPerfect };
 
 struct Clause {                   // subject + verb + the rest
     NP subject;
     std::string verb;             // base form: "grow", "be", "use"
     std::string rest;             // "by 1.4 GB", "74% of the CPU"
     Tense tense = Tense::Past;
+    bool negated = false;         // "did not crash", "is not on battery"
+    bool contrast = false;        // joined with ", but ..." to what came before
 };
 
 // Sentence assembly, each piece on its own:
@@ -142,6 +250,10 @@ std::string indefinite(const std::string& noun);                   // "an event"
 // 1.4 GB and held 852 MB"), and uses a pronoun when a subject returns
 // ("It also ..."). Deterministic; same facts, same sentence, every time.
 std::string realize(const std::vector<Clause>& clauses);
+
+// A yes/no answer: "Yes, " or "No, " followed by the evidence sentence.
+// When the evidence already opens with a "No ..." count, it stands alone.
+std::string realize_polar(bool yes, const std::vector<Clause>& clauses);
 
 // ---- retrieval: BM25 relevance over the caller's records ----
 
@@ -172,7 +284,85 @@ private:
 
 // The guaranteed reply for a question the library did not understand well
 // enough to answer. Never empty: it always says, one way or another,
-// "I can't answer that", and names what little it did recognize.
+// "I can't answer that", and names what little it did recognize. It never
+// denies the domain to a question that named the domain itself.
 std::string refuse(const Reading& r, const std::string& domain_name);
+
+// ---- banter: fixed, palatable replies to the classics ----
+// "what is the meaning of life" deserves better than a cold refusal. The
+// mechanism lives here; the wording is data (data/banter.txt): lines of
+// "trigger ; trigger :: reply". A trigger starting with '~' matches as a
+// phrase inside the question; all others must be the whole question. Both
+// sides are compared after normalization, so word endings do not matter.
+class Banter {
+public:
+    bool load(const std::string& path);
+    // The fixed reply, or "" when the question is not one of the classics.
+    std::string match(const std::vector<Token>& tokens) const;
+    void add(const std::string& line);  // one "trigger ; trigger :: reply" line
+    std::size_t size() const { return exact_.size() + within_.size(); }
+
+private:
+    std::map<std::string, std::string> exact_;                       // whole question
+    std::vector<std::pair<std::string, std::string>> within_;        // phrase inside
+};
+
+// ---- categories: honest fixed replies for what no record can answer ----
+// Live news, opinions, new creative writing. data/categories.txt holds one
+// [section] per category (route frame names: network, opinion, creative),
+// each with banter-format lines and a "* :: reply" default.
+class Categories {
+public:
+    bool load(const std::string& path);
+    // The reply for a question in that category; "" when the file has none.
+    std::string reply(const std::string& category, const std::vector<Token>& tokens) const;
+
+private:
+    std::map<std::string, Banter> tables_;
+    std::map<std::string, std::string> defaults_;
+};
+
+// ---- rewrites: thousands of phrasings fold onto a few ----
+// "could you tell me what crashed" is "what crashed" wearing a coat. The
+// mechanism lives here; the reductions are data (data/rewrites.txt): lines of
+// "pattern -> replacement" over normalized words, one * wildcard allowed on
+// each side. The caller applies this to the question string BEFORE analysis.
+class Rewrites {
+public:
+    bool load(const std::string& path);
+    std::string apply(const std::string& question) const;  // at most 3 passes
+    std::size_t size() const { return rules_.size(); }
+
+private:
+    struct Rule {
+        std::vector<std::string> pat;  // normalized tokens; "*" binds 1+ tokens
+        std::vector<std::string> rep;  // literal words; "*" re-emits the bound tokens
+    };
+    std::vector<Rule> rules_;
+};
+
+// ---- spelling: chat-speak and typos, before anything else reads ----
+// "wat crashd 2day" is "what crash today". Chat-speak is a table
+// (data/chatspeak.txt, "word -> replacement words"). A typo is corrected
+// only when the word is unknown everywhere, five letters or longer, and
+// exactly one known word family lies one keystroke away with the same first
+// letter. Real words of the language (the protected set, e.g. a dictionary
+// lemma list) are never "corrected" into machine words.
+class Speller {
+public:
+    bool load_chatspeak(const std::string& path);
+    void set_known(const std::vector<std::string>& words);
+    void set_protected(const std::set<std::string>* words) { protected_ = words; }
+    // The question with chat-speak expanded and typos fixed, lowercased.
+    // changes, when given, receives each (typed, corrected) pair.
+    std::string fix(const std::string& question,
+                    std::vector<std::pair<std::string, std::string>>* changes = nullptr) const;
+
+private:
+    std::map<std::string, std::string> chatspeak_;
+    std::set<std::string> known_;
+    std::set<std::string> known_norm_;
+    const std::set<std::string>* protected_ = nullptr;
+};
 
 }  // namespace unllm

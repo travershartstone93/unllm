@@ -1,0 +1,30 @@
+# Honest fixed replies for questions no record or reference pack can answer.
+# One [section] per category, named after the reading's frame (network,
+# opinion, creative). Lines use the banter format ("trigger ; ~phrase ::
+# reply"); "* :: reply" is the section's default.
+
+[network]
+* :: That needs the internet, and nothing here touches the network. Ask me something a reference book would know.
+~weather ; ~forecast ; ~rain ; ~temperature outside :: I can't see outside: nothing here touches the network, so I can't know today's weather. I can tell you how weather and forecasts work.
+~news ; ~headlines ; ~headline :: No news here: nothing in me touches the network. I can tell you what the reference books say about the subject instead.
+~stock ; ~stocks ; ~price ; ~prices :: Prices change by the minute and I never go online, so any number I gave you would be made up. I won't do that.
+~right now ; ~today ; ~tonight ; ~currently ; ~at the moment ; ~time is it :: That depends on the present moment, and I never go online, so anything I said would be made up. Ask me something a reference book would know.
+~who won ; ~score ; ~scores ; ~latest ; ~most recent :: Results need the internet, and I never go online. Ask me what a reference book would know instead, like the rules of the game.
+~traffic :: I can't see the roads: nothing here touches the network.
+~election :: Election results need the internet, and I never go online. I can explain how elections work if a reference pack covers it.
+
+[personal]
+* :: That is about your own life, and I only know what my reference books say: I can't see your accounts, files, plans or memories. Ask me something a reference book would cover.
+
+[opinion]
+* :: I don't hold opinions; I only report what records and reference books say. Ask me what something is, or how it works, and I will tell you what the sources say.
+~should i buy :: I can't tell you what to buy. I can tell you what something is and how it works, so you can decide.
+~your favorite ; ~your favourite :: I have no favorites. I am rules and tables, which is a dull way to be, but an honest one.
+~do you like :: I don't like or dislike anything. Ask me what it is and I will tell you what the sources say.
+
+[creative]
+* :: I don't write new things; everything I say comes from a record or a cited source. Ask me about a subject and I will give you what the sources say.
+~story ; ~novel :: I don't write stories; I only repeat what sources say, with the source named. Ask me for a poem and I will find you a real one.
+~song ; ~lyrics :: I don't write songs. Ask me for a poem about something and I will find a real one, with its author.
+~picture ; ~image ; ~draw :: I can't draw: I am text only, and I don't make new things.
+~essay ; ~letter ; ~speech :: I don't write new text. Ask me about the subject and I will give you what the sources say, with the source named.

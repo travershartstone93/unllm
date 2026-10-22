@@ -1,0 +1,196 @@
+# The coverage corpus: real-world question phrasings, one per line.
+# Sources: top-voted Ask Ubuntu, Super User and Unix.SE questions (phrasings
+# generalized), first user turns mined from the public WildChat and
+# LMSYS-Chat-1M datasets, autocomplete-style phrasings, and the classics
+# people type at anything with a text box. This file is a gauge, not a gate:
+# tools/coverage.cpp reports how much of it is understood, and the number
+# should only ever go up. Grown from the local miss log over time.
+
+# -- slowness, the number one complaint --
+why is my computer so slow
+why is my laptop so slow all of a sudden
+my computer is slow
+what should i do when the machine freezes
+everything is lagging
+why does everything take forever to open
+what is making my pc lag
+what was using the cpu this morning
+how do i see what is using the cpu
+which program is hogging the cpu
+why was the system unresponsive last night
+what froze the machine yesterday
+is something making it slow right now
+the machine keeps stuttering
+why is the cursor freezing
+what slowed it down this afternoon
+was the cpu busy last night
+when was the cpu over 80 percent today
+how busy is the cpu right now
+what is using the cpu now
+
+# -- heat and fans --
+why is my laptop so hot
+why is the fan so loud
+why does the fan keep spinning up
+how do i get the cpu temperature
+how hot is the cpu right now
+what was the hottest it has been
+did it overheat yesterday
+why did the fan scream last night
+is it running hot
+how close did it get to shutting down
+the laptop was burning my lap yesterday
+what made it so hot this afternoon
+how often does the fan max out
+did it hit 90 degrees yesterday
+is the fan dead
+why is it so toasty
+what cooked the cpu last night
+
+# -- memory and swap --
+what is eating my ram
+how can i monitor the memory usage
+how much ram do i have
+how much ram does it have
+is something leaking memory
+why is swap being used when there is free ram
+what used the most memory this week
+which program used the most memory today
+was it swapping last night
+do i need more ram
+how much memory is free right now
+what grabbed 2 gb of memory yesterday
+
+# -- disk --
+what was hammering the disk yesterday
+how do i check disk performance
+why is the disk always busy
+what filled up the disk
+is the drive full
+how much disk space is left
+what wrote to the disk all night
+is the ssd healthy
+
+# -- network --
+who used the internet last night
+what connected to the network today
+is anything uploading right now
+what is using the network
+why is the internet slow on this machine
+is anything torrenting
+what did firefox connect to yesterday
+who talked to the network this morning
+is something seeding
+
+# -- crashes --
+what crashed today
+why did firefox crash yesterday
+did anything crash last night
+how many times did firefox crash this month
+what keeps dying
+did blender crash this morning
+was there a segfault yesterday
+why does it keep crashing
+
+# -- updates and software --
+what got installed yesterday
+what changed since tuesday
+did my settings change last week
+what did the last update touch
+when did i last update
+what packages were upgraded this week
+did anything get installed today
+
+# -- battery and power --
+what drained the battery yesterday
+am i on battery
+why is the battery draining so fast
+how much battery is left
+is it charging
+what used the most power today
+
+# -- startup, trust, config --
+what starts at boot
+why does boot take so long
+is this machine safe
+is chromium safe
+is anything suspicious running
+did any settings change
+what changed in my config this week
+
+# -- the machine itself --
+what is this machine
+what cpu does this machine have
+what cpu do i have
+which os is this
+what kernel is this running
+how long has it been up
+what is the hostname
+how much disk does this machine have
+what are the specs of this machine
+what hardware is this
+
+# -- programs by name --
+what did blender do this morning
+did blender run yesterday
+is firefox using the network
+what was ktorrent uploading last night
+did claude make it slow this afternoon
+what is pid 2671
+
+# -- follow-up style and short forms --
+and the day before
+what about this morning
+what happened
+what happened yesterday
+what happened last night
+anything weird today
+anything new
+
+# -- meta: the tool itself --
+what can i ask you
+what can you do
+help
+what do you know
+
+# -- the classics (banter should field these) --
+hi
+hello
+hi there
+hey
+who are you
+how are you
+what is your name
+are you gpt 4
+do you have access to the internet
+can you access the internet
+are you connected to the internet
+test
+hello world
+tell me a joke
+what is the meaning of life
+are you alive
+are you a robot
+what are you thinking
+do you love me
+thanks
+bye
+you are useless
+can you hear me
+do you remember me
+when were you last updated
+can u speak english
+
+# -- off-domain: an honest refusal is the right answer --
+what is the capital of france
+how do i bake bread
+who won the football last night
+write me a poem about the sea
+what is the weather tomorrow
+how do i learn spring boot
+translate this to english
+what is the story of the luxor hotel
+does cold water freeze faster than hot water
+what is the mechanism of metformin
+recommend a movie
+how do i tie a tie

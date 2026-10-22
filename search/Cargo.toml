@@ -1,0 +1,21 @@
+[package]
+name = "unllm_search"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Tantivy full-text search for unllm's knowledge packs, with a C interface"
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[[bin]]
+name = "unllm_index"
+path = "src/bin/unllm_index.rs"
+
+[dependencies]
+tantivy = "0.26.2"
+rusqlite = "0.40.2"
+
+[profile.release]
+lto = "thin"
+codegen-units = 4
