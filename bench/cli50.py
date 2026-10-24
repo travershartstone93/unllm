@@ -20,7 +20,7 @@ def main(label, names):
         bar = Task("cli50", f"CLI {label}: {name}", total=len(rows))
         for q in rows:
             t0 = time.time()
-            res = subprocess.run([CLI, "--branch", q["question"]], capture_output=True, text=True, errors="replace", timeout=300).stdout
+            res = subprocess.run([CLI, "--branch", q["question"]], capture_output=True, text=True, errors="replace", timeout=1800).stdout
             secs += time.time() - t0
             ans = " ".join(res.split("\n\n")[0].split())
             branch = next((l[9:-1] for l in res.splitlines() if l.startswith("[branch: ")), "")

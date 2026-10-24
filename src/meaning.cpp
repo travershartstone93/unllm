@@ -151,7 +151,11 @@ bool Meaning::load(const std::string& index_path, const std::string& model_dir, 
         L.codes = reinterpret_cast<const uint8_t*>(p);
         p += std::size_t(L.size) * std::size_t(im.M);
     }
-    // The model.
+    return load_model(model_dir, threads);
+}
+
+bool Meaning::load_model(const std::string& model_dir, int threads) {
+    Impl& im = *impl_;
     if (!im.wp.load(model_dir + "/vocab.txt")) return false;
     std::ifstream jf(model_dir + "/embed.json");
     std::stringstream ss;
@@ -159,6 +163,9 @@ bool Meaning::load(const std::string& index_path, const std::string& model_dir, 
     im.prefix = json_value(ss.str(), "query_prefix");
     const std::string ml = json_value(ss.str(), "max_len");
     if (!ml.empty()) im.max_len = std::atoi(ml.c_str());
+    // Without an index the vector size comes from the model's own description.
+    const std::string dim = json_value(ss.str(), "dim");
+    if (im.d == 0 && !dim.empty()) im.d = std::atoi(dim.c_str());
 #ifdef UNLLM_HAVE_ONNX
     try {
         Ort::SessionOptions so;
@@ -170,7 +177,7 @@ bool Meaning::load(const std::string& index_path, const std::string& model_dir, 
         im.session.reset();
         return false;
     }
-    return true;
+    return im.d > 0;
 #else
     (void)threads;
     return false;
@@ -185,16 +192,26 @@ bool Meaning::ready() const {
 #endif
 }
 
+bool Meaning::can_embed() const {
+#ifdef UNLLM_HAVE_ONNX
+    return impl_->session != nullptr && impl_->d > 0;
+#else
+    return false;
+#endif
+}
+
 int Meaning::dim() const { return impl_->d; }
 int64_t Meaning::size() const { return impl_->ntotal; }
 const std::vector<Meaning::ShardRef>& Meaning::shards() const { return impl_->shards; }
 
-std::vector<float> Meaning::embed(const std::string& question) const {
+std::vector<float> Meaning::embed(const std::string& text, bool query) const {
     std::vector<float> out;
 #ifdef UNLLM_HAVE_ONNX
     const Impl& im = *impl_;
-    if (!ready()) return out;
-    auto pieces = im.wp.tokenize(im.prefix + question);
+    if (!can_embed()) return out;
+    // A question looking for passages gets the model's search prefix; two texts
+    // compared with each other (a question against example phrasings) get none.
+    auto pieces = im.wp.tokenize((query ? im.prefix : std::string()) + text);
     const std::size_t room = std::size_t(std::max(im.max_len, 3)) - 2;
     if (pieces.size() > room) pieces.resize(room);
     const std::size_t N = pieces.size() + 2;

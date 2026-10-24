@@ -61,7 +61,7 @@ find_library(SENTENCEPIECE_LIB NAMES libsentencepiece.a sentencepiece HINTS $ENV
 find_path(SENTENCEPIECE_INC sentencepiece_processor.h HINTS $ENV{HOME}/.local/include)
 if(UNLLM_RERANKER AND onnxruntime_FOUND AND SENTENCEPIECE_LIB AND SENTENCEPIECE_INC)
   target_compile_definitions(unllm PUBLIC UNLLM_HAVE_RERANKER=1)
-  target_include_directories(unllm PUBLIC ${SENTENCEPIECE_INC})
+  target_include_directories(unllm PRIVATE ${SENTENCEPIECE_INC})  # only reranker.cpp needs it; PUBLIC put ~/.local/include ahead of ours for dependants
   target_link_libraries(unllm PUBLIC ${SENTENCEPIECE_LIB})
   # The archive carries its own protobuf; kept private, or ONNX Runtime binds
   # to it instead of the system's and crashes on start.

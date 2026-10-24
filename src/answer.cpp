@@ -1579,7 +1579,7 @@ WorldAnswer World::answer(const Reading& r, const std::string& question, bool re
     // passage is quoted below, as before.
     if (pipeline && model_ && model_->enabled()) {
         std::vector<std::string> docs;
-        for (std::size_t k = 0; k < ps.size() && k < 3; ++k) docs.push_back(ps[k].title + ": " + squeeze(ps[k].text));
+        for (std::size_t k = 0; k < ps.size() && k < 5; ++k) docs.push_back(ps[k].title + ": " + squeeze(ps[k].text));
         auto a = model_->ask(question, docs);
         lap("reader");
         if (a && !a->answer.empty()) {

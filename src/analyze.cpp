@@ -218,6 +218,25 @@ bool is_quantity(const Token& t, const Token* next, Entity* e) {
 
 }  // namespace
 
+// Two questions in one line: the second starts at a comma, a semicolon or "and" whose next word opens a question, a
+// wh-word or the verb a yes/no question starts with ("..., is it running hot", "... and how fast is it draining"). Each
+// side keeps three words or more, so "..., and for how long" and "... and how much" stay part of the first.
+std::size_t second_question(const std::string& question) {
+    const auto t = tokenize(question);
+    for (std::size_t i = 3; i + 3 <= t.size(); ++i) {
+        const std::string& w = t[i].norm;
+        const bool opens = w == "what" || w == "how" || w == "why" || w == "when" || w == "where" || w == "which" ||
+                           w == "who" || polar_start(t[i].lower);
+        if (!opens) continue;
+        const bool with_and = t[i - 1].lower == "and";
+        const std::size_t end = t[i - 1].start + t[i - 1].text.size();
+        const std::string gap = question.substr(end, t[i].start - end);
+        if ((with_and || gap.find(',') != std::string::npos || gap.find(';') != std::string::npos) && (with_and ? i - 1 : i) >= 3)
+            return t[i].start;
+    }
+    return std::string::npos;
+}
+
 std::map<std::string, std::string> load_synonyms(const std::string& path) {
     std::map<std::string, std::string> out;
     std::ifstream f(path);
@@ -305,7 +324,8 @@ std::vector<std::string> Analyzer::known_words(bool include_programs) const {
     for (const char* w : {"hottest", "worst", "slowest", "loudest", "biggest", "largest", "longest", "highest",
                           "busiest", "heaviest", "most", "peak", "maximum", "max", "top", "record", "least",
                           "lowest", "coolest", "quietest", "minimum", "min", "today", "yesterday", "tonight",
-                          "tomorrow", "morning", "afternoon", "evening", "night", "week", "month", "year",
+                          "tomorrow", "morning", "afternoon", "evening", "night", "breakfast", "lunch", "lunchtime",
+                          "dinner", "week", "month", "year",
                           "hour", "minute", "second", "ago", "since", "between", "around", "now", "currently",
                           "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
                           "january", "february", "march", "april", "june", "july", "august", "september",
@@ -333,6 +353,21 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
 
     // 1. time
     auto tw = find_time(tokens, now, &consumed);
+    // A second time phrase after the first ("hotter yesterday morning or last
+    // night"): read too, so its words never stand for what is asked, and kept
+    // when the two are compared (1c).
+    const std::set<std::size_t> first_time = consumed;
+    std::optional<TimeWindow> tw2;
+    std::set<std::size_t> second_time;
+    if (tw && !consumed.empty()) {
+        const std::size_t from = *consumed.rbegin() + 1;
+        std::vector<Token> tail(tokens.begin() + std::min(from, tokens.size()), tokens.end());
+        std::set<std::size_t> sub;
+        if ((tw2 = find_time(tail, now, &sub)))
+            for (std::size_t k : sub) second_time.insert(from + k);
+        consumed.insert(second_time.begin(), second_time.end());
+    }
+    const std::set<std::size_t> timed = consumed;  // every word the time reader took
 
     // Follow-ups: "and the day/hour before?" shifts the previous window back.
     if (!tw && prev && prev->window.stated) {
@@ -351,9 +386,14 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
     }
     if (tw) r.window = *tw;
     else {
-        r.window.from = now - 24 * 3600;  // the default: the last day
+        // No time named: the verb's tense decides. "is the disk busy", "what
+        // is using the cpu" ask about now; "was", "did", "crashed" ask about
+        // the last day, the default window (measured 2026-10-22: 49 -> 78 of
+        // 85 windows right on the ask pool).
+        r.window.from = now - 24 * 3600;
         r.window.to = now;
         r.window.stated = false;
+        r.window.present = !past_tense(tokens);  // not "live": that would send "how hot is the sun" to the machine
     }
 
     // 1b. the question's shape: polar or counting, superlatives, negation,
@@ -407,7 +447,7 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
     // all of these with statistics over its own records.
     {
         std::size_t than_idx = tokens.size();
-        bool getting = false, comparative = false, usualish = false, alot = false;
+        bool getting = false, comparative = false, usualish = false, alot = false, more = false;
         for (std::size_t i = 0; i < tokens.size(); ++i) {
             const std::string& low = tokens[i].lower;
             const std::string next = i + 1 < tokens.size() ? tokens[i + 1].lower : "";
@@ -416,6 +456,7 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
             if (low == "hotter" || low == "slower" || low == "louder" || low == "warmer" ||
                 low == "worse" || low == "noisier" || low == "higher" || low == "busier")
                 comparative = true;
+            if (low == "more" || low == "less") more = true;
             if (tokens[i].norm == "normal" || tokens[i].norm == "usual" || low == "usually" ||
                 tokens[i].norm == "typical" || tokens[i].norm == "expect") {
                 usualish = true;
@@ -430,11 +471,19 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
         }
         if (than_idx < tokens.size()) {
             matched[than_idx] = true;
-            bool referent_window = false;
-            for (std::size_t c : consumed)
-                if (c > than_idx) referent_window = true;
+            // The referent is a time named right after "than" ("than yesterday",
+            // "than it was last night"); "more cpu than ollama yesterday"
+            // compares programs over yesterday.
+            std::size_t ref = than_idx + 1;
+            while (ref < tokens.size() && !timed.count(ref) && is_stop(tokens[ref])) ++ref;
+            const bool referent_window = first_time.count(ref) > 0;
             if (usualish) {
                 r.judge = Judge::Normal;
+            } else if (second_time.count(ref) && tw2->stated) {
+                // "hotter today than yesterday": both named; the window stays.
+                r.judge = Judge::Compare;
+                r.compare_window = *tw2;
+                r.second_window = *tw2;
             } else if (referent_window && r.window.stated) {
                 r.judge = Judge::Compare;
                 r.compare_window = r.window;
@@ -447,6 +496,19 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
             r.judge = Judge::Trend;
         } else if (r.form == Form::Polar && (usualish || alot)) {
             r.judge = Judge::Normal;
+            r.excess = alot && !usualish;
+        }
+        // "hotter yesterday morning or last night": two times set side by side.
+        if (r.judge == Judge::None && tw2 && tw2->stated && !second_time.empty()) {
+            bool versus = false, either = false;
+            for (std::size_t k = *first_time.rbegin() + 1; k < *second_time.begin(); ++k) {
+                versus |= tokens[k].lower == "vs" || tokens[k].lower == "versus" || tokens[k].lower == "compared";
+                either |= tokens[k].lower == "or";
+            }
+            if (versus || (either && (comparative || more || r.degree != Degree::None))) {
+                r.judge = Judge::Compare;
+                r.second_window = *tw2;
+            }
         }
     }
 
@@ -539,6 +601,79 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
                 if (!(e.type == "program" && e.value == prog)) kept.push_back(e);
             r.entities = kept;
         }
+        // Clauses that tie the question to something only the records can
+        // place: "while i watched the movie", "the half hour before the
+        // terminal got killed". A clause runs up to a time phrase, a joining
+        // word or punctuation; its words are read, so they never stand for
+        // what is asked. A program it names is the condition or the event,
+        // not the subject.
+        auto clause_end = [&](std::size_t a) {
+            static const std::set<std::string> joins = {"and", "or", "but", "so", "then", "while", "when",
+                                                        "whenever", "because", "if", "before", "after", "since"};
+            std::size_t b = a;
+            for (; b < tokens.size() && !timed.count(b) && !joins.count(tokens[b].lower); ++b)
+                if (b > a && question.find_first_of(",;?!.", tokens[b - 1].start + tokens[b - 1].text.size()) <
+                                 tokens[b].start)
+                    break;
+            return b;
+        };
+        auto take_clause = [&](std::size_t a, std::size_t b, std::string* text) {
+            std::string prog;
+            for (std::size_t k = a; k < b; ++k) {
+                *text += (text->empty() ? "" : " ") + tokens[k].lower;
+                if (prog.empty()) prog = program_at(k);
+                consumed.insert(k);
+                matched[k] = true;
+            }
+            std::vector<Entity> kept;
+            for (const auto& e : r.entities)
+                if (!(e.type == "program" && e.value == prog)) kept.push_back(e);
+            r.entities = kept;
+            return prog;
+        };
+        auto has_content = [&](std::size_t a, std::size_t b) {
+            for (std::size_t k = a; k < b; ++k)
+                if (!is_stop(tokens[k])) return true;
+            return false;
+        };
+        // "the half hour before the terminal got killed", "since it got
+        // killed": a span tied to an event. A clause, not a noun ("after the
+        // update" stays a topic): it opens with who did it or says what
+        // happened.
+        static const std::set<std::string> subjects = {"i", "we", "you", "he", "she", "they", "it"};
+        for (std::size_t i = 0; i + 1 < tokens.size() && r.event_clause.empty(); ++i) {
+            const std::string& low = tokens[i].lower;
+            // "what was running when the machine shut off": "when" inside a question that speaks of the past ties
+            // it to the event's moment (a question in the present, "how hot does it get when ...", states a
+            // condition; "when" leading the question asks the time).
+            const bool moment = low == "when" && i > 0 && !consumed.count(i) &&
+                                past_tense(std::vector<Token>(tokens.begin(), tokens.begin() + i));
+            // "disk writes during the update": "during" takes the event itself, a noun, as its span.
+            const bool during = low == "during" && !timed.count(i);
+            if (!moment && !during && low != "since" && ((low != "before" && low != "after") || timed.count(i))) continue;
+            const std::size_t a = i + 1, b = clause_end(a);
+            if (!has_content(a, b)) continue;
+            if (!moment && !during && !subjects.count(tokens[a].lower) &&
+                !past_tense(std::vector<Token>(tokens.begin() + a, tokens.begin() + b)))
+                continue;
+            // "during the night": a part of the day is a time, not an event (alone, "night" names no night to read).
+            if (during) {
+                std::size_t s = a;
+                while (s < b && is_stop(tokens[s])) ++s;
+                std::set<std::size_t> probe;
+                if (s < b && find_time(tokenize("last " + tokens[s].lower), now, &probe) && probe.count(1)) continue;
+            }
+            std::size_t first = i;
+            if (low != "since" && !moment && !during) r.event_span = span_before(tokens, i, &first);
+            r.event_after = low != "before" && !moment && !during;
+            r.event_at = moment;
+            r.event_during = during;
+            for (std::size_t k = first; k <= i; ++k) {
+                consumed.insert(k);
+                matched[k] = true;
+            }
+            take_clause(a, b, &r.event_clause);
+        }
         // "is blender or firefox worse for heat": two programs set side by side.
         std::vector<std::string> progs;
         for (const auto& e : r.entities)
@@ -560,6 +695,23 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
         if (r.frame == Frame::None && progs.size() == 2 && joiner && comparing) {
             r.frame = Frame::Choice;
             r.choices = progs;
+        }
+        // "was it the ram or the swap": two other things side by side, the content words next to "or" (up to
+        // three on each side; a stop word or a time ends them).
+        for (std::size_t i = 1; i + 1 < tokens.size() && r.choices.empty() && r.alternatives.empty(); ++i) {
+            if (tokens[i].lower != "or") continue;
+            auto content = [&](std::size_t k) { return k < tokens.size() && !is_stop(tokens[k]) && !consumed.count(k); };
+            std::size_t a = i;
+            while (a > 0 && i - a < 3 && content(a - 1)) --a;
+            std::size_t b = i + 1;
+            while (b < tokens.size() && is_stop(tokens[b]) && !consumed.count(b)) ++b;
+            std::size_t e = b;
+            while (e - b < 3 && content(e)) ++e;
+            if (a == i || e == b) continue;
+            std::string left, right;
+            for (std::size_t k = a; k < i; ++k) left += (left.empty() ? "" : " ") + tokens[k].lower;
+            for (std::size_t k = b; k < e; ++k) right += (right.empty() ? "" : " ") + tokens[k].lower;
+            r.alternatives = {left, right};
         }
         // Worries, advice, summaries and "explain".
         // Not "ok" or "fine": "ok what is eating my cpu" is a live question.
@@ -603,6 +755,40 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
             else if (summary) r.frame = Frame::Summary;
             else if (explain && !why) r.frame = Frame::Explain;
         }
+        // "while i watched the movie": a condition no program name settles;
+        // the caller names the program from the clause and what it is about.
+        // It is the frame unless the question already has one ("should i be
+        // worried ... while gaming" stays a worry, with the clause kept).
+        static const std::set<std::string> determiners = {"the", "a", "an", "my", "our", "your", "his", "her",
+                                                          "their", "its", "this", "that", "these", "those", "some"};
+        for (std::size_t i = 0; i + 1 < tokens.size() && r.condition.empty() && r.condition_clause.empty(); ++i) {
+            if (tokens[i].lower != "while" && tokens[i].lower != "whenever") continue;
+            const std::size_t a = i + 1, b = clause_end(a);
+            if (!has_content(a, b)) continue;
+            // What it is about: the subject when the clause opens with one
+            // ("the movie was playing", "firefox was open"), else the object
+            // after the verb ("i watched the movie"), else the verb alone ("i
+            // was gaming"). The verb is the first content word right after its
+            // subject, a helper verb or nothing ("a zoom call" has none).
+            std::vector<std::string> words;
+            const std::size_t s = determiners.count(tokens[a].lower) ? a + 1 : a;
+            std::size_t e = s;
+            while (e < b && !is_stop(tokens[e])) ++e;
+            if (e > s && (s > a || (e < b && (tokens[e].norm == "be" || tokens[e].norm == "have")))) {
+                for (std::size_t k = s; k < e; ++k) words.push_back(tokens[k].lower);
+            } else {
+                for (std::size_t k = a; k < b; ++k)
+                    if (!is_stop(tokens[k])) words.push_back(tokens[k].lower);
+                std::size_t v = a;
+                while (v < b && is_stop(tokens[v])) ++v;
+                if (words.size() > 1 && (v == a || !determiners.count(tokens[v - 1].lower)))
+                    words.erase(words.begin());
+            }
+            for (const auto& x : words) r.condition_thing += (r.condition_thing.empty() ? "" : " ") + x;
+            if (r.frame == Frame::None) r.frame = Frame::Condition;
+            r.condition = take_clause(a, b, &r.condition_clause);
+            consumed.insert(i);
+        }
     }
 
     // 2c. The answer's shape, decided on the typed words, fixed precedence:
@@ -622,6 +808,14 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
                 has_cause = true;
             if (low == "which" || low == "who") which_name = true;
             if (low == "what" && (next == "program" || next == "process" || next == "app")) which_name = true;
+            // "what's using my bandwidth", "what was reading the disk": "what" as the subject of a verb in its -ing form
+            // asks what is doing it ("what's" carries its "is"; "what is" has it apart).
+            if (tokens[i].norm == "what" && i + 1 < tokens.size()) {
+                std::size_t v = i + 1;
+                if (low == "what" && tokens[v].norm == "be" && v + 1 < tokens.size()) ++v;
+                const std::string& verb = tokens[v].lower;
+                if (verb.size() > 4 && verb.compare(verb.size() - 3, 3, "ing") == 0 && tokens[v].norm != verb) r.asks_doer = true;
+            }
             if (low == "how" && !next.empty()) {
                 static const std::set<std::string> adj = {"hot",  "warm", "much",  "high", "fast",
                                                           "full", "big",  "heavy", "loud", "cold",
@@ -643,6 +837,11 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
         else if (which_name || name_entity || (what_is3 && has_program0)) r.wants = Wants::Name;
         else if (r.form == Form::Polar) r.wants = Wants::YesNo;
     }
+    // "When did i set up the power cap": a past-tense when-question with no
+    // time named asks for a moment anywhere in the records. The window keeps
+    // the last-day default (measured on other questions); the flag says so.
+    if (!r.window.stated && !r.window.live && r.wants == Wants::Time && past_tense(tokens))
+        r.window.all_history = true;
 
     // 3. intents and leftover terms. Each intent keeps a tally: how many
     // tokens reached it, and the earliest one. The lead intent is the one
@@ -888,10 +1087,13 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
 
     // A yes/no question's head word ("is my ssd healthy" -> healthy): the
     // caller only answers "Yes," or "No," when its evidence speaks to it.
+    // Words the time reader took, and the "than" of a comparison, never are.
     if (r.form == Form::Polar) {
         for (std::size_t i = tokens.size(); i-- > 1;) {
             const Token& t = tokens[i];
-            if (is_stop(t) || consumed.count(i) || self_words().count(t.lower)) continue;
+            if (is_stop(t) || consumed.count(i) || self_words().count(t.lower) || t.lower == "than" ||
+                t.lower == "vs" || t.lower == "versus")
+                continue;
             r.predicate = t.norm;
             break;
         }
@@ -926,7 +1128,8 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
         bool pid = false;
         for (const auto& e : r.entities) pid |= e.type == "pid";
         r.anchored = r.window.stated || r.window.live || r.self_deictic || has_program || pid ||
-                     r.judge != Judge::None || mine || !r.condition.empty() || !r.choices.empty() ||
+                     r.judge != Judge::None || mine || !r.condition.empty() || !r.condition_clause.empty() ||
+                     !r.event_clause.empty() || !r.choices.empty() ||
                      ((r.form == Form::Polar || first_person) && !r.intents.empty());
     }
 

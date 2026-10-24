@@ -177,6 +177,22 @@ int main() {
         CHECK(none.kind == Turn::TopicReturn && !none.card && none.note == "We haven't talked about battery yet.");
     }
 
+    // ---- "again" with nothing earlier on that topic is a question of its own ----
+    {
+        Dialogue d;
+        d.set_followups(&fu);
+        Turn t = d.interpret("the torrent app didnt crash again did it", NOW, an);
+        bool crash = false;
+        for (auto i : t.reading.intents) crash |= i == Intent::Crash;
+        CHECK(t.kind == Turn::Fresh && t.reading.window.to == NOW && crash);
+        Turn y = d.interpret("what crashed yesterday again", NOW, an);
+        CHECK(y.kind == Turn::Fresh && y.reading.window.stated && y.reading.window.from == T(10,12,0,0));
+        // With an earlier crash answer, "again" still goes back to it.
+        d.remember(card_for(an, "what crashed today"));
+        Turn back = d.interpret("the crashes again", NOW, an);
+        CHECK(back.kind == Turn::TopicReturn && back.card && back.card->topic == Intent::Crash);
+    }
+
     // ---- a full new question inherits nothing ----
     {
         Dialogue d;

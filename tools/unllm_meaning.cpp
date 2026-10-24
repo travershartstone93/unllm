@@ -18,6 +18,20 @@ int main(int argc, char** argv) {
     const int k = argc > 3 ? std::atoi(argv[3]) : 20;
     const int nprobe = argc > 4 ? std::atoi(argv[4]) : 64;
     unllm::Meaning m;
+    if (std::string(argv[1]) == "--embed") {  // the model alone: one plain vector (no search prefix) per line
+        if (!m.load_model(argv[2])) {
+            std::fprintf(stderr, "unllm_meaning: cannot load the model\n");
+            return 1;
+        }
+        std::string line;
+        while (std::getline(std::cin, line)) {
+            auto v = m.embed(line, false);
+            std::printf("[");
+            for (std::size_t i = 0; i < v.size(); ++i) std::printf("%s%.6f", i ? "," : "", double(v[i]));
+            std::printf("]\n");
+        }
+        return 0;
+    }
     if (!m.load(argv[1], argv[2])) {
         std::fprintf(stderr, "unllm_meaning: cannot load the index or the model\n");
         return 1;

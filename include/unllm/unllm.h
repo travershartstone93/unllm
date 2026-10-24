@@ -22,6 +22,9 @@ struct Token {
 };
 
 std::vector<Token> tokenize(const std::string& text);
+// Whether the question is about something that happened ("was", "did",
+// "crashed") rather than something happening now ("is", "crashing").
+bool past_tense(const std::vector<Token>& tokens);
 std::string normalize_word(const std::string& lower);  // lemma table + light stemmer
 
 // ---- what a question is asking ----
@@ -75,7 +78,14 @@ struct TimeWindow {
     int64_t from = 0, to = 0;  // unix seconds, half-open [from, to)
     bool stated = false;       // false: the question named no time, default applied
     bool live = false;         // "right now": the answer should be measured, not recalled
+    bool present = false;      // no time named and the verb in the present tense ("is the disk busy"):
+                               // about now for a question already known to be about this machine
     bool shifted = false;      // "this morning" asked before it began: moved back a day
+    bool all_history = false;  // no time named, and a past-tense "when" question ("when did i set up the
+                               // power cap"): the moment may lie anywhere in the records. from/to keep
+                               // the last-day default; the caller decides how far back to look.
+    int64_t at = 0;            // a named moment ("at 3am", "around 9:20", "2 hours ago"): the moment itself, the
+                               // window centred on it; 0 for a span
 };
 
 struct Reading {
@@ -83,7 +93,12 @@ struct Reading {
     Form form = Form::Open;
     Wants wants = Wants::Fact;
     Judge judge = Judge::None;
+    bool excess = false;          // "a lot", "too much": a Normal judge asking whether it is above the usual
     std::optional<TimeWindow> compare_window;  // "than yesterday": the referent
+    // A second time named and set against the first: "hotter yesterday morning or last night" (window:
+    // yesterday morning; this: last night), "hotter today than yesterday". judge is Compare. With
+    // "than", compare_window holds the same window as before.
+    std::optional<TimeWindow> second_window;
     Degree degree = Degree::None;
     bool negated = false;     // "never", "didn't": the question denies something
     bool self_named = false;  // the question names the machine itself
@@ -95,10 +110,29 @@ struct Reading {
     bool self_deictic = false;       // "this/my/the machine": the machine as the subject
     bool anchored = false;           // tied to this machine: a time, a program, the machine, now
     std::vector<std::string> choices;    // "firefox or chromium": the two candidates
+    // "was it the ram or the swap": two things that are not programs (nor times) set side by side by "or",
+    // as typed ("ram", "swap"), for the caller to tell apart by meaning. Empty when choices holds them.
+    std::vector<std::string> alternatives;
     std::string condition;               // "while blender is running": the program
+    // "while i watched the movie": a condition no program name settles. frame is Condition; condition
+    // stays empty unless the clause names a known program; the caller names the program from these.
+    std::string condition_clause;        // the clause as typed: "i watched the movie"
+    std::string condition_thing;         // what it is about: "movie" ("i was gaming": "gaming")
+    // "in the half hour before the terminal got killed", "since it got killed": a span tied to an event
+    // only the caller's records can place. window still holds the day words ("yesterday morning").
+    // A program named in the clause names the event, not the subject: it is not in entities.
+    std::string event_clause;            // the event as typed: "the terminal got killed"
+    int64_t event_span = 0;              // the span's length in seconds: 1800. 0: no length named, so
+                                         // from window.from up to the event (before), or from the event
+                                         // to window.to (after, since)
+    bool event_after = false;            // the span follows the event ("after", "since"), not before it
+    bool event_at = false;               // the question is about the event's moment ("what was running when the
+                                         // machine shut off"), not a span before or after it
+    bool event_during = false;           // "disk writes during the update": the span is the event's own time
     std::string predicate;               // a yes/no question's head word: "healthy", "crash"
     std::string subject;                 // a general subject: "computer memory" (world questions)
     std::vector<std::string> ambiguous;  // "it" with two candidates: both, never guessed
+    bool asks_doer = false;              // "what's using my bandwidth": the question asks what is doing it
     // How much of the question the library actually understood: matched
     // meaningful words over all meaningful words. Near 1: on home ground.
     // Near 0: this question is not about the domain; say so, do not guess.
@@ -114,6 +148,11 @@ struct Reading {
 // is marked shifted.
 std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t now,
                                     std::set<std::size_t>* consumed = nullptr);
+
+// The length in seconds of a span named just before tokens[end] ("the half
+// hour" in "the half hour before the terminal got killed", "10 minutes",
+// "an hour"); 0 when there is none. first receives its first word's index.
+int64_t span_before(const std::vector<Token>& tokens, std::size_t end, std::size_t* first = nullptr);
 
 // ---- the analyzer ----
 
@@ -213,6 +252,10 @@ const char* route_name(Route r);
 // The analyzer's stop words ("the", "what", "did"...), for callers that pick
 // a question's content words themselves.
 bool stop_word(const std::string& lower);
+
+// Where a second question starts in one line ("what's the battery health and how fast is it draining":
+// at "how"), as a byte offset into it; npos when the line asks one question.
+std::size_t second_question(const std::string& question);
 
 // Edit distance for typo-tolerant matching ("blendr" -> "blender").
 int edit_distance(const std::string& a, const std::string& b, int limit);

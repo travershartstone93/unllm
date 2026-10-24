@@ -28,3 +28,5 @@ puter -> computer
 temp -> temperature
 temps -> temperature
 mem -> memory
+nite -> night
+yday -> yesterday

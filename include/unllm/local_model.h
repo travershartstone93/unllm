@@ -24,6 +24,16 @@ public:
     // with something unreadable.
     std::optional<ModelAnswer> ask(const std::string& question, const std::vector<std::string>& passages,
                                    int timeout_s = 120) const;
+    // A follow-up question made to stand on its own, given the last exchanges
+    // (question and answer pairs, oldest first; two are enough for "the
+    // difference between them"): "why is it so cold there" after Mongolia ->
+    // "why is it so cold in Mongolia". A question that already stands on its
+    // own comes back as it is. Nothing when the model is unreachable.
+    std::optional<std::string> rewrite(const std::vector<std::pair<std::string, std::string>>& exchanges,
+                                       const std::string& question, int timeout_s = 60) const;
+    // Any prompt that asks for a JSON reply: the reply's JSON text, for the
+    // caller to read with json_field. Nothing when the model is unreachable.
+    std::optional<std::string> json(const std::string& prompt, int timeout_s = 60) const;
 
 private:
     std::string model_;

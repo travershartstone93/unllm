@@ -35,11 +35,17 @@ public:
     // index_path: the .unlpq file; model_dir holds model.onnx, vocab.txt and
     // embed.json (query prefix, max_len). Only inner-product indexes are read.
     bool load(const std::string& index_path, const std::string& model_dir, int threads = 4);
-    bool ready() const;
+    // The embedding model alone, no index: embed() works, search() does not.
+    // For matching texts against each other (ActivityScope's ask kinds).
+    bool load_model(const std::string& model_dir, int threads = 4);
+    bool ready() const;      // index and model loaded: search works
+    bool can_embed() const;  // model loaded: embed works
     int dim() const;
     int64_t size() const;
-    // The question's vector, unit length, with the model's query prefix applied.
-    std::vector<float> embed(const std::string& question) const;
+    // The text's vector, unit length. query: a question looking for passages,
+    // which gets the model's search prefix; false for a text compared with
+    // other texts, which gets none.
+    std::vector<float> embed(const std::string& text, bool query = true) const;
     // The k best passages by inner product, looking in the nprobe nearest lists.
     std::vector<Hit> search(const std::vector<float>& q, int k, int nprobe = 64) const;
     const std::vector<ShardRef>& shards() const;

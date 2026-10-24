@@ -248,13 +248,15 @@ Turn Dialogue::interpret(const std::string& question, int64_t now, const Analyze
         }
     }
 
-    // 4. "Back to the memory thing", "the heat again".
-    bool back = false;
+    // 4. "Back to the memory thing", "the heat again". "Again" with nothing
+    // earlier on that topic ("what crashed yesterday again") is a question
+    // of its own.
+    bool back = false, again = false;
     for (std::size_t i = 0; i + 1 < w.size(); ++i) back |= w[i] == "back" && w[i + 1] == "to";
-    for (const auto& x : w) back |= x == "again";
-    if (back) {
+    for (const auto& x : w) again |= x == "again";
+    if (back || again) {
         Reading rem = an.read(question, now);
-        if (!rem.intents.empty()) {
+        if (!rem.intents.empty() && (back || find(rem.intents[0]))) {
             t.kind = Turn::TopicReturn;
             t.card = find(rem.intents[0]);
             std::string topic = intent_name(rem.intents[0]);
@@ -266,6 +268,7 @@ Turn Dialogue::interpret(const std::string& question, int64_t now, const Analyze
                 }
                 t.note = "Back to " + topic + ": ";
             } else {
+                t.reading = rem;  // for a caller that answers it as a new question
                 t.note = "We haven't talked about " + topic + " yet.";
             }
             return t;

@@ -19,6 +19,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -26,6 +27,8 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <iterator>
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
@@ -80,6 +83,7 @@ struct Reply {
     std::string branch;
     std::vector<std::string> brief = {};  // the source passages behind a reference answer, for --brief
     std::vector<std::string> top = {};    // the best passages the search ranked, for --passages
+    std::string asked = {};               // a follow-up made to stand on its own: the question actually answered
 };
 
 class Session {
@@ -139,6 +143,20 @@ public:
         dialogue_.reset();
         shown_.clear();
     }
+    // Chat mode: follow-up questions are made to stand on their own first.
+    void set_chat(bool on) { chat_ = on; }
+    // The conversation's state, swapped out and back so the resident copy can
+    // keep one per chat: what was asked and shown, nothing heavy.
+    struct Conversation {
+        Dialogue dialogue;
+        std::vector<Passage> shown;
+    };
+    Conversation swap_conversation(Conversation c) {
+        std::swap(dialogue_, c.dialogue);
+        std::swap(shown_, c.shown);
+        dialogue_.set_followups(&followups_);
+        return c;
+    }
 
     Reply ask(const std::string& question, int64_t now) {
         const std::string fixed = speller_.fix(question);
@@ -148,13 +166,23 @@ public:
             return {"Ask me something first, for example: \"what is photosynthesis\".", {}, "followup:nocard"};
         if (turn.kind == Turn::FollowUp && turn.card) return follow_up(turn.act, *turn.card, now);
 
-        const Reading r = turn.kind == Turn::Fresh ? turn.reading : an_.read(q, now);
+        // In a chat, a question that leans on the last exchange ("why is it so
+        // cold there") is first made to stand on its own by the reader model.
+        std::string asked, q2 = q;
+        if (chat_ && model_.enabled() && dialogue_.last()) {
+            std::vector<std::pair<std::string, std::string>> exchanges;  // the last two, oldest first
+            for (std::size_t i = 2; i-- > 0;)
+                if (const Card* c = dialogue_.nth(i)) exchanges.emplace_back(c->question, c->answer);
+            if (auto rw = model_.rewrite(exchanges, q); rw && *rw != q) q2 = asked = *rw;
+        }
+        const Reading r = turn.kind == Turn::Fresh && asked.empty() ? turn.reading : an_.read(q2, now);
         Card card;
-        card.question = q;
+        card.question = q2;
         card.at = now;
         card.reading = r;
         card.subject = r.subject;
-        Reply out = fresh(r, fixed, q, now, card);
+        Reply out = fresh(r, asked.empty() ? fixed : q2, q2, now, card);
+        out.asked = asked;
         card.answer = out.answer;
         card.receipts = out.receipts;
         card.branch = out.branch;
@@ -284,6 +312,7 @@ private:
     Meaning meaning_;
     Reranker reranker_;
     LocalModel model_;
+    bool chat_ = false;
     std::unique_ptr<World> world_;
     std::vector<Passage> shown_;  // Card::world_ref - 1 indexes this
 };
@@ -292,6 +321,7 @@ private:
 std::string render(const Reply& r, bool show_branch, bool show_brief, int show_top) {
     std::string out = r.answer + "\n";
     if (show_branch) out += "[branch: " + r.branch + "]\n";
+    if (show_branch && !r.asked.empty()) out += "[asked: " + r.asked + "]\n";
     if (show_brief)
         for (const auto& b : r.brief) out += "[brief] " + b + "\n";
     for (int k = 0; k < show_top && k < int(r.top.size()); ++k) out += "[passage] " + r.top[k] + "\n";
@@ -300,6 +330,16 @@ std::string render(const Reply& r, bool show_branch, bool show_brief, int show_t
         for (const auto& line : r.receipts) out += "  " + line + "\n";
     }
     return out;
+}
+
+// How long an answer took, as the last line of what is printed: everything from
+// the question going in to the answer coming out, the resident copy's start
+// included when it had to be started.
+using Clock = std::chrono::steady_clock;
+std::string with_timing(const std::string& out, Clock::time_point since) {
+    char buf[48];
+    std::snprintf(buf, sizeof buf, "\n  answered in %.1f s\n", std::chrono::duration<double>(Clock::now() - since).count());
+    return out + buf;
 }
 
 // The resident copy: one-shot questions reach it over a socket in the user's
@@ -386,7 +426,8 @@ void spawn_server() {
 
 // The one-shot question through the resident copy, started if need be; nothing
 // when that fails or does not apply, and the caller answers in this process.
-std::optional<std::string> via_server(const std::string& question, int64_t now, bool branch, bool brief, int top) {
+std::optional<std::string> via_server(const std::string& question, int64_t now, bool branch, bool brief, int top,
+                                      const std::string& session = "") {
     if (getenv("UNLLM_NO_SERVER") || question.find('\n') != std::string::npos) return std::nullopt;
     int fd = connect_server();
     if (fd < 0) {
@@ -398,7 +439,8 @@ std::optional<std::string> via_server(const std::string& question, int64_t now, 
         if (fd < 0) return std::nullopt;
     }
     std::string req = "unllm 1 now=" + std::to_string(now) + " branch=" + (branch ? "1" : "0") + " brief=" +
-                      (brief ? "1" : "0") + " passages=" + std::to_string(top) + "\n" + question + "\n" + env_fingerprint();
+                      (brief ? "1" : "0") + " passages=" + std::to_string(top) +
+                      (session.empty() ? "" : " session=" + session) + "\n" + question + "\n" + env_fingerprint();
     if (!write_all(fd, req)) {
         ::close(fd);
         return std::nullopt;
@@ -434,6 +476,12 @@ int serve(int idle_s) {
     umask(old);
     Session s;
     const std::string own = env_fingerprint();
+    // One conversation per chat session token, kept for half an hour after its last turn.
+    struct Chat {
+        Session::Conversation conversation;
+        time_t last = 0;
+    };
+    std::map<std::string, Chat> chats;
     std::fprintf(stderr, "unllm --serve: %zu packs, listening on %s, idle limit %d s\n", s.packs(), path.c_str(), idle_s);
     while (true) {
         pollfd p{lfd, POLLIN, 0};
@@ -453,9 +501,27 @@ int serve(int idle_s) {
                 return at == std::string::npos ? fallback : std::atol(head.c_str() + at + std::strlen(key) + 1);
             };
             const int64_t now = field("now", 0);
-            s.fresh_conversation();
+            std::string token;
+            if (const auto at = head.find(" session="); at != std::string::npos) {
+                token = head.substr(at + 9);
+                token = token.substr(0, token.find(' '));
+            }
+            const time_t wall = time(nullptr);
+            for (auto it = chats.begin(); it != chats.end();)
+                it = wall - it->second.last > 1800 ? chats.erase(it) : std::next(it);
+            if (token.empty()) {
+                s.fresh_conversation();
+                s.set_chat(false);
+            } else {
+                s.swap_conversation(std::move(chats[token].conversation));
+                s.set_chat(true);
+            }
             reply = render(s.ask(question, now ? now : int64_t(time(nullptr))), field("branch", 0) != 0,
                            field("brief", 0) != 0, int(field("passages", 0)));
+            if (!token.empty()) {
+                chats[token].conversation = s.swap_conversation(Session::Conversation{});
+                chats[token].last = wall;
+            }
         }
         write_all(cfd, reply);
         ::close(cfd);
@@ -480,6 +546,58 @@ int main(int argc, char** argv) {
         if (a == "--brief") { show_brief = true; continue; }
         if (a == "--passages" && i + 1 < argc) { show_top = std::atoi(argv[++i]); continue; }
         if (a == "--serve") { serve_mode = true; continue; }
+        if (a == "--read" && i + 1 < argc) {  // measuring: the deterministic reading's time window alone
+            Analyzer an;
+            auto syn = load_synonyms(data_file("synonyms.txt"));
+            if (!syn.empty()) an.set_synonyms(std::move(syn));
+            Vectors v;
+            if (v.load(data_file("vectors.bin"))) an.set_vectors(&v);
+            const std::string text = argv[++i];
+            const Reading r = an.read(text, fixed_now ? fixed_now : int64_t(time(nullptr)));
+            static const char* forms[] = {"open", "polar", "count"};
+            static const char* judges[] = {"none", "normal", "compare", "trend", "changed"};
+            std::string toks;
+            for (const auto& t : tokenize(text)) toks += (toks.empty() ? "" : ",") + ("\"" + t.lower + "/" + t.norm + "\"");
+            std::string extra;
+            auto pair = [&](const char* name, const std::optional<TimeWindow>& w) {
+                if (w) extra += ", \"" + std::string(name) + "\": {\"from\": " + std::to_string(w->from) +
+                                ", \"to\": " + std::to_string(w->to) + "}";
+            };
+            pair("second_window", r.second_window);
+            pair("compare_window", r.compare_window);
+            auto field = [&](const char* name, const std::string& v) {
+                if (!v.empty()) extra += ", \"" + std::string(name) + "\": \"" + v + "\"";
+            };
+            field("predicate", r.predicate);
+            field("condition", r.condition);
+            field("condition_clause", r.condition_clause);
+            field("condition_thing", r.condition_thing);
+            field("event_clause", r.event_clause);
+            if (r.alternatives.size() == 2) extra += ", \"alternatives\": [\"" + r.alternatives[0] + "\", \"" + r.alternatives[1] + "\"]";
+            if (!r.event_clause.empty())
+                extra += ", \"event_span\": " + std::to_string(r.event_span) +
+                         ", \"event_after\": " + (r.event_after ? "true" : "false");
+            if (r.window.shifted) extra += ", \"shifted\": true";
+            if (r.window.all_history) extra += ", \"all_history\": true";
+            std::printf("{\"live\": %s, \"stated\": %s, \"from\": %lld, \"to\": %lld, \"intents\": %zu, \"wants\": \"%s\", "
+                        "\"form\": \"%s\", \"judge\": \"%s\", \"frame\": \"%s\"%s, \"tokens\": [%s]}\n",
+                        r.window.live ? "true" : "false", r.window.stated ? "true" : "false", (long long)r.window.from,
+                        (long long)r.window.to, r.intents.size(), wants_name(r.wants), forms[int(r.form)], judges[int(r.judge)],
+                        frame_name(r.frame), extra.c_str(), toks.c_str());
+            return 0;
+        }
+        if (a == "--rewrite") {  // measuring: the follow-up rewrite alone; three lines on stdin, JSON out
+            std::string prev_q, prev_a, q;
+            std::getline(std::cin, prev_q);
+            std::getline(std::cin, prev_a);
+            std::getline(std::cin, q);
+            LocalModel m;
+            const char* mdl = getenv("UNLLM_MODEL");
+            m.configure(mdl ? mdl : "qwen3:4b");
+            auto r = m.rewrite({{prev_q, prev_a}}, q);
+            std::printf("{\"question\": \"%s\"}\n", r ? r->c_str() : "");
+            return r ? 0 : 1;
+        }
         if (a == "--help" || a == "-h") {
             std::puts("unllm: questions about the world, answered from reference packs on this machine.\n"
                       "  unllm what is photosynthesis\n"
@@ -503,13 +621,60 @@ int main(int argc, char** argv) {
         const char* idle = getenv("UNLLM_IDLE");
         return serve(idle ? std::max(std::atoi(idle), 1) : 600);
     }
+    const auto t_start = Clock::now();
     if (!question.empty())
         if (auto out = via_server(question, now(), show_branch, show_brief, show_top)) {
-            std::fputs(out->c_str(), stdout);
+            std::fputs(with_timing(*out, t_start).c_str(), stdout);
             return 0;
         }
+    // A conversation through the resident copy: one session token for the whole chat,
+    // so it starts at once and follow-ups keep their context there.
+    if (question.empty() && script.empty()) {
+        const std::string token = std::to_string(getpid()) + "-" + std::to_string(time(nullptr));
+        const bool tty = isatty(0);
+        bool served = false;
+        std::string line;
+        while (true) {
+            if (tty) {
+                if (!served) std::printf("unllm: ask anything; a blank line or quit ends it.\n");
+                std::printf("> ");
+                std::fflush(stdout);
+            }
+            if (!std::getline(std::cin, line)) return 0;
+            if (line.empty() || line == "quit" || line == "exit") return 0;
+            const auto t_line = Clock::now();
+            auto out = via_server(line, now(), show_branch, show_brief, show_top, token);
+            if (!out) break;  // no resident copy: carry on in this process below
+            served = true;
+            std::fputs(with_timing(*out, t_line).c_str(), stdout);
+            if (tty) std::printf("\n");
+        }
+        Session s;
+        s.set_chat(true);
+        auto answer = [&](const std::string& q) {
+            const auto t0 = Clock::now();
+            std::fputs(with_timing(render(s.ask(q, now()), show_branch, show_brief, show_top), t0).c_str(), stdout);
+        };
+        answer(line);
+        if (tty) std::printf("\n");
+        while (true) {
+            if (tty) {
+                std::printf("> ");
+                std::fflush(stdout);
+            }
+            if (!std::getline(std::cin, line)) break;
+            if (line.empty() || line == "quit" || line == "exit") break;
+            answer(line);
+            if (tty) std::printf("\n");
+        }
+        return 0;
+    }
     Session s;
-    auto answer = [&](const std::string& q) { std::fputs(render(s.ask(q, now()), show_branch, show_brief, show_top).c_str(), stdout); };
+    s.set_chat(!script.empty());
+    auto answer = [&](const std::string& q) {
+        const auto t0 = Clock::now();
+        std::fputs(with_timing(render(s.ask(q, now()), show_branch, show_brief, show_top), t0).c_str(), stdout);
+    };
     if (!script.empty()) {
         std::ifstream f(script);
         if (!f) {
@@ -525,23 +690,6 @@ int main(int argc, char** argv) {
         }
         return 0;
     }
-    if (!question.empty()) {
-        answer(question);
-        return 0;
-    }
-    const bool tty = isatty(0);
-    if (tty)
-        std::printf("unllm: %zu reference packs. Ask anything; a blank line or quit ends it.\n", s.packs());
-    std::string line;
-    while (true) {
-        if (tty) {
-            std::printf("> ");
-            std::fflush(stdout);
-        }
-        if (!std::getline(std::cin, line)) break;
-        if (line.empty() || line == "quit" || line == "exit") break;
-        answer(line);
-        if (tty) std::printf("\n");
-    }
+    answer(question);
     return 0;
 }

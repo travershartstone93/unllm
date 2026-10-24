@@ -139,7 +139,7 @@ int main() {
         // "while firefox was open" is a condition on the events, not the subject.
         {"why did the fan scream while firefox was open last night", T(10,12,18,0), T(10,13,6,0), "heat", "", "", "cause", "", "condition"},
         {"did claude make it slow this afternoon", T(10,13,12,0), T(10,13,18,0), "slow", "program:claude", "polar"},
-        {"how hot did it get during the update yesterday", T(10,12,0,0), T(10,13,0,0), "heat,update", ""},
+        {"how hot did it get during the update yesterday", T(10,12,0,0), T(10,13,0,0), "heat", ""},  // the update: an event (event_during)
         {"did anything change since tuesday", T(10,6,0,0), NOW, "config", "", "polar"},
         // ---- facing users: identity, help, live, polar, counts, degrees ----
         {"what is this machine", 0, 0, "identity", "", "self"},
@@ -310,6 +310,10 @@ int main() {
                               "tell me about fusion"})
             CHECK(sp.fix(q) == q);
         CHECK(an.read(sp.fix("what is the capital of france"), NOW).domain <= 0.25);
+        // A known word with an ending the stemmer takes off is that word, not a typo: the plural stays.
+        CHECK(sp.fix("whats the python thing that keeps running in the evenings") ==
+              "what is the python thing that keeps running in the evenings");
+        CHECK(sp.fix("my settings") == "my settings");
     }
 
     // ---- the morning that has not started yet ----
@@ -775,6 +779,303 @@ int main() {
             CHECK(real.similarity("frozen", "stuck") > real.similarity("frozen", "battery"));
             CHECK(real.similarity("slow", "slow") > 0.99);
         }
+    }
+
+    // ---- the 50-question faults (2026-10-23), frozen at Fri 2026-10-23 00:01:30 ----
+    {
+        const int64_t N = T(10, 23, 0, 1) + 30;  // 1792728090 here: the clock of the traced runs
+        auto at = [&](const char* q) { return an.read(q, N); };
+        auto span = [](const Reading& r, int64_t a, int64_t b) {
+            return r.window.stated && r.window.from == a && r.window.to == b;
+        };
+        auto second = [](const Reading& r, int64_t a, int64_t b) {
+            return r.second_window && r.second_window->from == a && r.second_window->to == b;
+        };
+        // 1. A clock or a part of the day combines with the day it is on, in either order.
+        CHECK(span(at("what was keeping the laptop busy at 3am on tuesday"), T(10,20,2,15), T(10,20,3,45)));
+        CHECK(span(at("what was keeping the laptop busy at 3am tuesday"), T(10,20,2,15), T(10,20,3,45)));
+        CHECK(span(at("what was keeping the laptop busy on tuesday at 3am"), T(10,20,2,15), T(10,20,3,45)));
+        Reading lunch = at("was it slow at lunch yesterday");
+        CHECK(span(lunch, T(10,22,12,0), T(10,22,14,0)) && !lunch.window.shifted);
+        Reading morning = at("was it slow in the morning yesterday");
+        CHECK(span(morning, T(10,22,5,0), T(10,22,12,0)) && !morning.window.shifted);
+        CHECK(span(at("was it slow yesterday at lunch"), T(10,22,12,0), T(10,22,14,0)));
+        CHECK(span(at("did i restart yesterday around 1"), T(10,22,12,15), T(10,22,13,45)));
+        // "this morning" asked at 00:01 still moves back a day, and says so.
+        Reading early = at("what happened this morning");
+        CHECK(span(early, T(10,22,5,0), T(10,22,12,0)) && early.window.shifted);
+        // 2. An hour without am/pm: the part of the day named with it, else the waking day.
+        CHECK(span(at("did i restart around 1 yesterday? all my windows closed on me"), T(10,22,12,15), T(10,22,13,45)));
+        CHECK(span(at("what happened at 11 last night"), T(10,22,22,15), T(10,22,23,45)));
+        CHECK(span(at("what happened at 9 yesterday"), T(10,22,8,15), T(10,22,9,45)));
+        CHECK(span(at("what happened about 2 hours ago"), N - 2 * 3600 - 45 * 60, N - 2 * 3600 + 45 * 60));
+        // 3. "between A and B" respects "morning", am/pm and the bare-hour rule.
+        CHECK(span(at("how much cpu did ollama use between 9 and 10 yesterday morning"), T(10,22,9,0), T(10,22,10,0)));
+        CHECK(span(at("how much cpu did ollama use between 9 and 10 yesterday"), T(10,22,9,0), T(10,22,10,0)));
+        // am/pm as a word of its own belongs to the clock before it, so the day after it still counts.
+        CHECK(span(at("what happened at 9 pm on wednesday"), T(10,21,20,15), T(10,21,21,45)));
+        CHECK(span(at("what happened between 5 and 9:36 pm on wednesday"), T(10,21,17,0), T(10,21,21,36)));
+        CHECK(span(at("what happened between 5 pm and 9 pm on wednesday"), T(10,21,17,0), T(10,21,21,0)));
+        CHECK(at("how much memory am i using").window.present);
+        CHECK(span(at("how much cpu did ollama use between 9am and 10am yesterday"), T(10,22,9,0), T(10,22,10,0)));
+        CHECK(span(at("what was the biggest memory hog between 7 and 8 yesterday morning"), T(10,22,7,0), T(10,22,8,0)));
+        CHECK(span(at("what happened between 9 and 11 last night"), T(10,22,21,0), T(10,22,23,0)));
+        // 4. "9:20" stays one clock; a clock to the minute is a 30-minute window.
+        CHECK(tokenize("around 9:20 yesterday").size() == 3);
+        CHECK(span(at("what was using the gpu around 9:20 yesterday"), T(10,22,9,5), T(10,22,9,35)));
+        // 5. Before and after a part of the day.
+        CHECK(span(at("the laptop was crawling right before lunch yesterday, was it the ram or the swap"),
+                   T(10,22,10,0), T(10,22,12,0)));
+        CHECK(span(at("was it slow yesterday before lunch"), T(10,22,5,0), T(10,22,12,0)));
+        CHECK(span(at("was it slow after lunch yesterday"), T(10,22,14,0), T(10,22,18,0)));
+        CHECK(span(at("was it slow right after lunch yesterday"), T(10,22,14,0), T(10,22,16,0)));
+        // 6. "the other day / night / week": recent, but not the latest.
+        CHECK(span(at("what was the laptop up to the other day"), T(10,16,0,0), T(10,22,0,0)));
+        CHECK(span(at("wat was the laptop up to the other night before i shut the lid"), T(10,16,18,0), T(10,22,6,0)));
+        CHECK(span(at("how much memory was blender using when it got killed the other week"), T(10,2,0,0), T(10,16,0,0)));
+        // 7. Two windows compared: both are read; a time is never the thing compared.
+        Reading both = at("was it running hotter yesterday morning or last night");
+        CHECK(span(both, T(10,22,5,0), T(10,22,12,0)) && second(both, T(10,22,18,0), T(10,23,6,0)) &&
+              both.judge == Judge::Compare);
+        Reading than2 = at("was it hotter yesterday than last night");
+        CHECK(span(than2, T(10,22,0,0), T(10,23,0,0)) && second(than2, T(10,22,18,0), T(10,23,6,0)) &&
+              than2.judge == Judge::Compare && than2.compare_window && than2.compare_window->from == T(10,22,18,0));
+        Reading progs = at("did claude use more cpu than ollama yesterday");
+        CHECK(span(progs, T(10,22,0,0), T(10,23,0,0)) && !progs.compare_window && progs.judge == Judge::None &&
+              progs.frame == Frame::Choice);
+        // 8. "<duration> before/after <clause>": the length and the clause, for ask to place.
+        Reading half = at("what was eating the cpu in the half hour before the terminal got killed yesterday morning");
+        CHECK(span(half, T(10,22,5,0), T(10,22,12,0)) && half.event_span == 1800 && !half.event_after &&
+              half.event_clause == "the terminal got killed");
+        Reading ten = at("how hot did it get in the 10 minutes after firefox crashed yesterday");
+        CHECK(span(ten, T(10,22,0,0), T(10,23,0,0)) && ten.event_span == 600 && ten.event_after &&
+              ten.event_clause == "firefox crashed" && entities_of(ten).empty());
+        // "when <clause>" inside a question about the past: the event's moment, for ask to place; "when" there asks
+        // no time.
+        Reading off = at("what was running when the machine shut off on monday evening");
+        CHECK(span(off, T(10,19,18,0), T(10,19,23,0)) && off.event_at && !off.event_after && off.event_span == 0 &&
+              off.event_clause == "the machine shut off" && off.wants != Wants::Time);
+        Reading cut = at("how hot was it when the laptop cut out yesterday");
+        CHECK(cut.event_at && cut.event_clause == "the laptop cut out" && span(cut, T(10,22,0,0), T(10,23,0,0)));
+        // A question that asks when, and a condition in the present, are not.
+        CHECK(!at("when did the machine shut off").event_at && at("when did the machine shut off").wants == Wants::Time);
+        CHECK(at("how hot does it get when blender is running").event_clause.empty());
+        CHECK(!at("so when did it crash yesterday").event_at);
+        // 9. "while I <verb> <thing>": a condition the caller names a program for.
+        Reading movie = at("how hard was the cpu working while i watched the movie last night");
+        CHECK(span(movie, T(10,22,18,0), T(10,23,6,0)) && movie.frame == Frame::Condition && movie.condition.empty() &&
+              movie.condition_clause == "i watched the movie" && movie.condition_thing == "movie");
+        CHECK(at("how hot did the gpu get while i was gaming").condition_thing == "gaming");
+        CHECK(at("was it slow while i was on a zoom call").condition_thing == "zoom call");
+        // A known program in the clause is the condition itself.
+        Reading game = at("how hot did it get while i played blender");
+        CHECK(game.frame == Frame::Condition && game.condition == "blender" && entities_of(game).empty());
+        // Another frame stays; the clause is still kept.
+        Reading worry = at("should i be worried about the temperature while gaming");
+        CHECK(worry.frame == Frame::Worry && worry.condition_clause == "gaming");
+        // 11. "when did i ..." with no time: across all history; the window keeps the last-day default.
+        for (const char* q : {"when did i set up the cpu power cap and what does it actually do",
+                              "when did i put cuda on here and what version is it",
+                              "when did i last do a full system update"}) {
+            Reading r = at(q);
+            CHECK(r.window.all_history && !r.window.stated && r.window.from == N - 24 * 3600 && r.window.to == N);
+        }
+        CHECK(!at("what crashed").window.all_history);
+        CHECK(!at("when did it crash yesterday").window.all_history);
+        // 12. Words the time reader took never become the yes/no head word.
+        CHECK(both.predicate == "hot");
+        CHECK(than2.predicate == "hot");
+        CHECK(at("is ollama still running since it got killed yesterday").predicate == "run");
+        // 13. A part of the day said in the plural is a habit, not today's: the latest whole one, never moved
+        // back with a note. The singular keeps its old reading.
+        Reading evenings = at("whats the python thing that keeps running in the evenings");
+        CHECK(span(evenings, T(10,22,18,0), T(10,22,23,0)) && !evenings.window.shifted);
+        Reading mornings = at("what keeps waking the fan in the mornings");
+        CHECK(span(mornings, T(10,22,5,0), T(10,22,12,0)) && !mornings.window.shifted);
+        Reading one = at("whats the python thing that was running in the evening");
+        CHECK(span(one, T(10,22,18,0), T(10,22,23,0)) && one.window.shifted);
+        CHECK(at("what was running this evening").window.shifted);
+        // Asked at 20:00, today's evening has begun: the singular is today's, the plural yesterday's whole one.
+        CHECK(span(an.read("what was running in the evening", T(10,23,20,0)), T(10,23,18,0), T(10,23,23,0)));
+        Reading late = an.read("what keeps running in the evenings", T(10,23,20,0));
+        CHECK(span(late, T(10,22,18,0), T(10,22,23,0)) && !late.window.shifted);
+        // A span named with the habit holds it: the evenings of last week are last week.
+        CHECK(span(at("what was hot in the mornings last week"), T(10,12,0,0), T(10,19,0,0)));
+        // 14. "or" between two things that are not programs: both sides, as typed, for ask to tell apart.
+        Reading which = at("the laptop was crawling right before lunch yesterday, was it the ram or the swap thats the problem");
+        CHECK(which.alternatives.size() == 2 && which.alternatives[0] == "ram" && which.alternatives[1] == "swap" &&
+              which.choices.empty());
+        CHECK(at("was it the cpu temperature or the gpu fan").alternatives == std::vector<std::string>({"cpu temperature", "gpu fan"}));
+        // Two programs stay choices; two times stay windows.
+        CHECK(at("is blender or firefox worse for heat").alternatives.empty());
+        CHECK(both.alternatives.empty());
+        CHECK(at("did the laptop go to sleep while i was out at lunch yesterday or did it stay on the whole time").alternatives.empty());
+        // 15. A named moment keeps the moment itself, the window centred on it ("what was it doing at 3am": then,
+        // not the 90 minutes around it); a span keeps none.
+        Reading three = at("what was the laptop doing at 3am on tuesday");
+        CHECK(three.window.at == T(10,20,3,0) && span(three, T(10,20,3,0) - 45 * 60, T(10,20,3,0) + 45 * 60));
+        CHECK(at("what was using the gpu around 9:20 yesterday").window.at == T(10,22,9,20));
+        CHECK(at("what happened 2 hours ago").window.at == N - 2 * 3600);
+        CHECK(at("what happened yesterday").window.at == 0);
+        CHECK(at("how much cpu did ollama use between 9 and 10 yesterday morning").window.at == 0);
+    }
+
+    // ---- the new 50's time faults (2026-10-23), frozen at Fri 2026-10-23 13:59:08 ----
+    {
+        const int64_t N = T(10, 23, 13, 59) + 8;  // 1792778348 here: the clock of the new 50's runs
+        auto at = [&](const char* q) { return an.read(q, N); };
+        auto span = [](const Reading& r, int64_t a, int64_t b) {
+            return r.window.stated && r.window.from == a && r.window.to == b && !r.window.shifted;
+        };
+        // 1. "the past hour", "the last week": a unit with no number is one of it, back from now. "last week"
+        // and "last month" without "the" stay the calendar's.
+        CHECK(span(at("how has the cpu temperature been over the past hour"), N - 3600, N));
+        Reading hour = at("what happened in the last hour");
+        CHECK(span(hour, N - 3600, N) && !hour.window.all_history);
+        CHECK(span(at("what was the cpu doing over the past week"), N - 7 * 86400, N));
+        CHECK(span(at("how hot did it get the past day"), N - 86400, N));
+        CHECK(span(at("what crashed in the last week"), N - 7 * 86400, N));
+        CHECK(span(at("what was running in the last minute"), N - 60, N));
+        CHECK(span(at("what crashed last week"), T(10,12,0,0), T(10,19,0,0)));
+        // Before or after an event it counts back from the event: the length, for ask to place.
+        Reading before = at("how hot did it get in the last hour before firefox crashed yesterday");
+        CHECK(span(before, T(10,22,0,0), T(10,23,0,0)) && before.event_span == 3600 && !before.event_after);
+        // 2. A vague count: a couple is 2, a few 3, several 5.
+        CHECK(span(at("what happened the past few days"), N - 3 * 86400, N));
+        CHECK(span(at("what crashed the last couple of days"), N - 2 * 86400, N));
+        CHECK(span(at("what crashed in the last couple days"), N - 2 * 86400, N));
+        CHECK(span(at("what was busy the last several hours"), N - 5 * 3600, N));
+        CHECK(span(at("how hot did it get over the past few hours"), N - 3 * 3600, N));
+        // 3. The weekend is Saturday 00:00 to Monday 00:00. "The weekend" (over, on, at, this) is the latest
+        // that has begun, up to now while it lasts; "last weekend" and "this past weekend" the latest that has
+        // ended; "since the weekend" runs from its start; "weekends" is a habit, the latest whole one.
+        for (const char* q : {"what did the laptop get up to over the weekend", "what happened the weekend",
+                              "what happened on the weekend", "what was the laptop doing at the weekend",
+                              "what happened this weekend", "what happened last weekend",
+                              "what happened this past weekend", "what keeps running on weekends"})
+            CHECK(span(at(q), T(10,17,0,0), T(10,19,0,0)));
+        CHECK(span(at("how much processor time has ollama used since the weekend"), T(10,17,0,0), N));
+        CHECK(span(at("how hot has it been since last weekend"), T(10,17,0,0), N));
+        const int64_t sunday = T(10, 18, 15, 0);
+        CHECK(span(an.read("what happened over the weekend", sunday), T(10,17,0,0), sunday));
+        CHECK(span(an.read("what happened this weekend", sunday), T(10,17,0,0), sunday));
+        CHECK(span(an.read("what happened last weekend", sunday), T(10,10,0,0), T(10,12,0,0)));
+        CHECK(span(an.read("what happened this past weekend", sunday), T(10,10,0,0), T(10,12,0,0)));
+        // 4. "lately", "recently": the last 7 days. "Most recently" orders, it names no span.
+        CHECK(span(at("what keeps crashing on this machine lately"), N - 7 * 86400, N));
+        CHECK(span(at("what crashed recently"), N - 7 * 86400, N));
+        CHECK(span(at("has it been running hot lately"), N - 7 * 86400, N));
+        CHECK(!at("which program started most recently").window.stated);
+        // 5. A bare weekday that is today, with a time in it that has not come: the latest one that has
+        // begun, last week's. One that has begun stays today's.
+        CHECK(span(at("what was running when the machine shut off on friday evening"), T(10,16,18,0), T(10,16,23,0)));
+        CHECK(span(at("what happened friday night"), T(10,16,18,0), T(10,17,6,0)));
+        CHECK(span(at("what happened on friday at 3pm"), T(10,16,14,15), T(10,16,15,45)));
+        CHECK(span(at("what happened friday afternoon"), T(10,23,12,0), T(10,23,18,0)));
+        CHECK(span(at("what happened friday morning"), T(10,23,5,0), T(10,23,12,0)));
+        CHECK(span(at("what happened on friday"), T(10,23,0,0), N));
+        CHECK(span(at("what happened thursday evening"), T(10,22,18,0), T(10,22,23,0)));
+        // 6. "when did i last ...": all history, no span read.
+        Reading charger = at("when did i last plug the charger in");
+        CHECK(charger.window.all_history && !charger.window.stated);
+        // 7. A bare hour takes am or pm from the part of the day named with it; for a clock the morning reaches
+        // back to midnight and the evening on to it. A time not yet come today is yesterday's, as before.
+        CHECK(span(at("what was the laptop doing at 3 in the morning"), T(10,23,2,15), T(10,23,3,45)));
+        CHECK(span(at("what happened at 3 in the morning yesterday"), T(10,22,2,15), T(10,22,3,45)));
+        CHECK(span(at("what happened yesterday at 4 in the morning"), T(10,22,3,15), T(10,22,4,45)));
+        CHECK(span(at("what happened at 3 this morning"), T(10,23,2,15), T(10,23,3,45)));
+        CHECK(span(at("what happened between 2 and 4 in the morning"), T(10,23,2,0), T(10,23,4,0)));
+        CHECK(span(at("what happened at 6 in the morning"), T(10,23,5,15), T(10,23,6,45)));
+        CHECK(span(at("what happened at 9 in the evening"), T(10,22,20,15), T(10,22,21,45)));
+        CHECK(span(at("what happened at 11 in the evening"), T(10,22,22,15), T(10,22,23,45)));
+        CHECK(span(at("what happened at 1 in the afternoon"), T(10,23,12,15), T(10,23,13,45)));
+        CHECK(span(at("what happened at 2 in the afternoon"), T(10,22,13,15), T(10,22,14,45)));
+        CHECK(span(at("what happened at 11 at night"), T(10,22,22,15), T(10,22,23,45)));
+        CHECK(span(at("what happened at 2 at night"), T(10,23,1,15), T(10,23,2,45)));
+    }
+
+    // ---- two questions in one; a question about what is doing something ----
+    {
+        // The second question starts at a comma, a semicolon or "and" whose next word opens a question (a wh-word, or
+        // the verb a yes/no question starts with); each side keeps three words or more.
+        auto second = [](const char* q) {
+            const std::string s = q;
+            const std::size_t at = second_question(s);
+            return at == std::string::npos ? std::string() : s.substr(at);
+        };
+        CHECK(second("what's the battery health and how fast is it draining") == "how fast is it draining");
+        CHECK(second("What's my CPU temp right now, is it running hot?") == "is it running hot?");
+        CHECK(second("how much ram is free; what is using the rest") == "what is using the rest");
+        CHECK(second("how warm is the gpu and did the fan spin up today") == "did the fan spin up today");
+        CHECK(second("was blender running on wednesday, and for how long").empty());
+        CHECK(second("what was reading and writing the ssd at 2am").empty());
+        CHECK(second("what happened between 2 and 4 in the morning").empty());
+        CHECK(second("is the fan loud and hot").empty());
+        CHECK(second("which apps use the network and how much").empty());
+        // "what's using my bandwidth": "what" as the subject of a verb in its -ing form asks what is doing it.
+        CHECK(an.read("what's using my bandwidth atm", NOW).asks_doer);
+        CHECK(an.read("what is hammering the disk right now", NOW).asks_doer);
+        CHECK(an.read("what was reading and writing the ssd at 2am", NOW).asks_doer);
+        CHECK(!an.read("what is my cpu temperature", NOW).asks_doer);
+        CHECK(!an.read("what was the laptop doing at 3am", NOW).asks_doer);
+        CHECK(!an.read("how much bandwidth am i using", NOW).asks_doer);
+    }
+
+    // ---- the traced 95's time faults (2026-10-23), frozen at Fri 2026-10-23 13:59:08 ----
+    {
+        const int64_t N = T(10, 23, 13, 59) + 8;
+        auto at = [&](const char* q) { return an.read(q, N); };
+        auto span = [](const Reading& r, int64_t a, int64_t b) {
+            return r.window.stated && r.window.from == a && r.window.to == b && !r.window.shifted;
+        };
+        // 1. "Overnight" is the night just past, as "last night"; with a day named, that day's night.
+        CHECK(span(at("did steam upload anything overnight"), T(10,22,18,0), T(10,23,6,0)));
+        CHECK(span(at("did anything phone home overnight?"), T(10,22,18,0), T(10,23,6,0)));
+        CHECK(span(at("what ran overnight on tuesday"), T(10,20,18,0), T(10,21,6,0)));
+        CHECK(span(at("what ran tuesday overnight"), T(10,20,18,0), T(10,21,6,0)));
+        CHECK(span(at("how hot did it get overnight at 2am"), T(10,23,1,15), T(10,23,2,45)));
+        CHECK(span(at("what changed since overnight"), T(10,22,18,0), N));
+        // 2. Noon, midday and midnight are clocks: "at noon yesterday" is that moment.
+        Reading noon = at("was there a spike in disk io at noon yesterday");
+        CHECK(span(noon, T(10,22,11,15), T(10,22,12,45)) && noon.window.at == T(10,22,12,0));
+        CHECK(span(at("what was running around midday on tuesday"), T(10,20,11,15), T(10,20,12,45)));
+        CHECK(span(at("what happened at midnight"), T(10,22,23,15), T(10,23,0,45)));
+        CHECK(span(at("what happened at midnight last night"), T(10,22,23,15), T(10,23,0,45)));
+        CHECK(span(at("how hot has it been since noon"), T(10,23,12,0), N));
+        CHECK(span(at("what ran between noon and 2pm yesterday"), T(10,22,12,0), T(10,22,14,0)));
+        CHECK(span(at("what happened yesterday noon"), T(10,22,11,15), T(10,22,12,45)));
+        // 3. The person's own sleep ("since i went to bed", "while i was asleep") is in no record: it reads as the
+        // night just past, as "last night", never as the laptop going to sleep, and its words name nothing.
+        Reading bed = at("ok so what changed on the machine since i went to bed");
+        CHECK(span(bed, T(10,22,18,0), N) && bed.event_clause.empty());
+        CHECK(span(at("what was the fan doing while i slept"), T(10,22,18,0), T(10,23,6,0)));
+        CHECK(span(at("did anything run after i fell asleep"), T(10,22,18,0), T(10,23,6,0)));
+        CHECK(span(at("what was running when i went to bed"), T(10,22,18,0), T(10,23,6,0)));
+        CHECK(span(at("was it loud while we were sleeping"), T(10,22,18,0), T(10,23,6,0)));
+        CHECK(span(at("what has run since bedtime"), T(10,22,18,0), N));
+        CHECK(span(at("did it get hot while i was asleep at 2am"), T(10,23,1,15), T(10,23,2,45)));
+        Analyzer sl;
+        sl.set_programs({"sleep", "blender"});
+        Reading asleep = sl.read("how hot did the cpu get last night while i was asleep", N);
+        CHECK(span(asleep, T(10,22,18,0), T(10,23,6,0)) && asleep.condition.empty() && asleep.condition_clause.empty() &&
+              entities_of(asleep).empty());
+        Reading slept = sl.read("what was the cpu doing while i was asleep", N);
+        CHECK(span(slept, T(10,22,18,0), T(10,23,6,0)) && slept.condition.empty() && entities_of(slept).empty());
+        // The laptop's own sleep is an event for the caller to place, not the night.
+        Reading lid = at("what ran since the laptop went to sleep");
+        CHECK(!lid.window.stated && lid.event_clause == "the laptop went to sleep");
+        Reading it = at("what happened after it went to sleep");
+        CHECK(!it.window.stated && it.event_clause == "it went to sleep");
+        CHECK(!at("should i put the laptop to sleep").window.stated);
+        // 4. "during <event>": the event's own time, for the caller to place (T36); a part of the day stays a time.
+        Reading upd = at("disk writes during update");
+        CHECK(upd.event_clause == "update" && upd.event_during && !upd.event_at && !upd.event_after && !upd.window.stated);
+        Reading upd2 = at("what was the cpu doing during the update yesterday");
+        CHECK(upd2.event_clause == "the update" && upd2.event_during && span(upd2, T(10,22,0,0), T(10,23,0,0)));
+        CHECK(at("did it crash during the zoom call").event_clause == "the zoom call");
+        CHECK(at("how hot did it get during the night").event_clause.empty());
+        CHECK(at("what happened during lunch yesterday").event_clause.empty());
+        CHECK(!at("what was running when the machine shut off on monday evening").event_during);
     }
 
     // ---- the budget: the whole point is that this costs nothing ----

@@ -79,6 +79,7 @@ public:
     Turn interpret(const std::string& question, int64_t now, const Analyzer& an) const;
     void remember(Card c);
     const Card* last() const { return history_.empty() ? nullptr : &history_.front(); }
+    const Card* nth(std::size_t i) const { return i < history_.size() ? &history_[i] : nullptr; }  // 0 is the newest
     const Card* find(Intent topic) const;  // newest answer on that topic
     void reset() { history_.clear(); }
 

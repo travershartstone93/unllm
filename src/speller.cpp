@@ -70,9 +70,12 @@ std::string Speller::fix(const std::string& question,
         if (cs != chatspeak_.end()) {
             word = cs->second;
         } else if (low.size() >= 5 && all_alpha(low) && !known_.count(low) &&
-                   !known_norm_.count(normalize_word(low)) && !(protected_ && protected_->count(low))) {
-            // One keystroke away, same first letter, five letters or more,
-            // and every candidate must belong to ONE word family.
+                   !known_norm_.count(normalize_word(low)) && !known_.count(normalize_word(low)) &&
+                   !(protected_ && protected_->count(low))) {
+            // Unknown even after the stemmer took its ending off (so "evenings",
+            // a known word's plural, is no typo). One keystroke away, same first
+            // letter, five letters or more, and every candidate must belong to
+            // ONE word family.
             std::string best;
             std::set<std::string> families;
             for (const auto& k : known_) {

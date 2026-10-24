@@ -18,9 +18,20 @@ namespace {
 // The prompt the reader gets: the one measured in the bench (rerank_4b50.py).
 const char* PROMPT_HEAD = "Answer the question using ONLY the numbered passages below; do not use your own knowledge.\n\n"
                           "Question: ";
-const char* PROMPT_TAIL = "\n\nGive the shortest exact answer as it is stated in a passage, and that passage's number. "
-                          "If no passage states the answer, reply with answer \"NONE\" and passage 0.\n"
-                          "Reply with only JSON: {\"answer\": \"...\", \"passage\": N}";
+// The reply carries the model's working for a comparison ("things", "both") so
+// that the answer is drawn from the passages that cover every side; only
+// "answer" and "passage" are read back.
+const char* PROMPT_TAIL = "\n\nWork in steps inside the JSON. \"things\": the two or three things the question compares, or [] "
+                          "if it compares nothing. \"both\": the numbers of the passages that mention every one of those things, "
+                          "or all passage numbers when there is nothing to compare. \"answer\": for a comparison, two to four "
+                          "complete sentences stating how the things differ, copied from the passages in \"both\"; if no passage "
+                          "covers every side, one sentence from each thing's own passage and one stating the difference the "
+                          "passages give; never a code fragment. For a question asking for a single fact (a name, a date, a "
+                          "number, a place), the fact alone, exactly as a passage states it. Otherwise one to three complete "
+                          "sentences copied from the passages, never cut mid-sentence, every part the passages state when asked "
+                          "to explain. \"passage\": the number the answer mainly comes from. If no passage states the answer, "
+                          "answer \"NONE\" and passage 0.\n"
+                          "Reply with only JSON: {\"things\": [...], \"both\": [...], \"answer\": \"...\", \"passage\": N}";
 
 std::string json_escape(const std::string& s) {
     std::string out;
@@ -177,25 +188,62 @@ bool LocalModel::configure(const std::string& model, int port) {
     return enabled();
 }
 
+namespace {
+
+// One prompt through Ollama's chat call: no streaming, a JSON reply forced,
+// thinking off, deterministic. The reply's JSON text, or "" on any failure.
+std::string chat_json(const std::string& model, int port, const std::string& prompt, int timeout_s) {
+    const std::string body = "{\"model\":\"" + json_escape(model) + "\",\"messages\":[{\"role\":\"user\",\"content\":\"" +
+                             json_escape(prompt) + "\"}],\"stream\":false,\"format\":\"json\",\"think\":false," +
+                             "\"options\":{\"temperature\":0,\"num_ctx\":8192}}";
+    const std::string reply = http_post(port, "/api/chat", body, timeout_s);
+    if (reply.empty()) return "";
+    const auto msg = reply.find("\"message\"");
+    if (msg == std::string::npos) return "";
+    return json_field(reply.substr(msg), "content");
+}
+
+}  // namespace
+
+std::optional<std::string> LocalModel::rewrite(const std::vector<std::pair<std::string, std::string>>& exchanges,
+                                               const std::string& question, int timeout_s) const {
+    if (!enabled() || question.empty() || exchanges.empty()) return std::nullopt;
+    std::string history;
+    for (const auto& [q, a] : exchanges)
+        history += "Question: " + q + "\nAnswer: " + (a.size() > 600 ? a.substr(0, 600) : a) + "\n\n";
+    const std::string prompt =
+        "In a conversation, the last exchanges were:\n\n" + history + "The new question is: " + question +
+        "\n\nIf the new question depends on the conversation to be understood (it refers to something as it, there, "
+        "he, she, they, them, that or one, or leaves out what it is about), rewrite it as a standalone question that "
+        "names what it refers to, keeping its meaning and its wording otherwise; \"them\" or \"the two\" after two "
+        "things were asked about means both of them. If it already stands on its own, return it unchanged.\n"
+        "Reply with only JSON: {\"question\": \"...\"}";
+    const std::string content = chat_json(model_, port_, prompt, timeout_s);
+    if (content.empty()) return std::nullopt;
+    std::string q = json_field(content, "question");
+    while (!q.empty() && std::isspace(static_cast<unsigned char>(q.back()))) q.pop_back();
+    if (q.empty()) return std::nullopt;
+    return q;
+}
+
+std::optional<std::string> LocalModel::json(const std::string& prompt, int timeout_s) const {
+    if (!enabled() || prompt.empty()) return std::nullopt;
+    std::string content = chat_json(model_, port_, prompt, timeout_s);
+    if (content.empty()) return std::nullopt;
+    return content;
+}
+
 std::optional<ModelAnswer> LocalModel::ask(const std::string& question, const std::vector<std::string>& passages,
                                            int timeout_s) const {
     if (!enabled() || passages.empty()) return std::nullopt;
     std::string prompt = PROMPT_HEAD + question + "\n\nPassages:\n";
     for (std::size_t i = 0; i < passages.size(); ++i) {
         std::string p = passages[i];
-        if (p.size() > 900) p = p.substr(0, 900);
+        if (p.size() > 1500) p = p.substr(0, 1500);  // whole passages, as far as the context allows
         prompt += (i ? "\n\n[" : "[") + std::to_string(i + 1) + "] " + p;
     }
     prompt += PROMPT_TAIL;
-    // Ollama's chat call, no streaming, a JSON reply forced, thinking off, deterministic.
-    const std::string body = "{\"model\":\"" + json_escape(model_) + "\",\"messages\":[{\"role\":\"user\",\"content\":\"" +
-                             json_escape(prompt) + "\"}],\"stream\":false,\"format\":\"json\",\"think\":false," +
-                             "\"options\":{\"temperature\":0,\"num_ctx\":8192}}";
-    const std::string reply = http_post(port_, "/api/chat", body, timeout_s);
-    if (reply.empty()) return std::nullopt;
-    const auto msg = reply.find("\"message\"");
-    if (msg == std::string::npos) return std::nullopt;
-    const std::string content = json_field(reply.substr(msg), "content");
+    const std::string content = chat_json(model_, port_, prompt, timeout_s);
     if (content.empty()) return std::nullopt;
     ModelAnswer a;
     a.answer = json_field(content, "answer");

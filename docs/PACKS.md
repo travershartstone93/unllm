@@ -222,3 +222,24 @@ started on demand, so the packs, the indexes and the reranker load once
 conversation, leaves after `UNLLM_IDLE` seconds idle (600), and answers only
 runs with the same `UNLLM_*` settings as its own; others answer in-process,
 as does `UNLLM_NO_SERVER=1`.
+
+## Chat: follow-up questions (since 2026-10-22)
+
+`unllm` with no question is a conversation. "tell me more", "why" and "show me
+the source" act on the last answer as before. A follow-up that only makes
+sense in context ("why is it so cold there" after the capital of Mongolia) is
+first made to stand on its own by the reader model, from the previous question
+and answer ("why is it so cold in ulaanbaatar"), and that question is the one
+answered; `--branch` prints it as `[asked: ...]`. A question that stands on its
+own is left as it is. One-shot runs (`unllm QUESTION`) never rewrite: each is
+its own conversation.
+
+The chat runs through the resident copy, so it starts at once; the resident
+copy keeps one conversation per chat for half an hour after its last turn, and
+leaves after `UNLLM_IDLE` seconds without any request (600), which ends the
+conversation too. `--script FILE` answers in-process with the same chat
+behaviour.
+
+`unllm --rewrite` runs the rewrite alone for measuring: three lines on stdin
+(previous question, its answer, the new question), JSON out.
+`bench/rewrite50.py` scores it on QReCC turns against the set's gold rewrites.

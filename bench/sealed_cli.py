@@ -16,7 +16,7 @@ def main(label):
         rows = list(csv.DictReader((l for l in f if not l.startswith("#")), delimiter="\t"))
     right, bar = 0, Task("sealedcli", f"Sealed 200, answers: {label}", total=len(rows))
     for r in rows:
-        out = subprocess.run([CLI, r["question"]], capture_output=True, text=True, errors="replace", timeout=300).stdout
+        out = subprocess.run([CLI, r["question"]], capture_output=True, text=True, errors="replace", timeout=1800).stdout
         ans = " ".join(out.split("\n\n")[0].split())
         right += bool(ans) and re.search(r["answer_pattern"], ans, re.I) is not None
         bar.step()
