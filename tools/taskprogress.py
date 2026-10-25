@@ -18,8 +18,13 @@ names another process):
     taskprogress.py finish backup
 
 Each task is ~/.local/share/unllm/progress/task-<name>.json (pid, title,
-done, total, started, detail). A task whose process is gone shows as
-stopped.
+done, total, started, detail, and moved: when done last changed). A task
+whose process is gone shows as stopped.
+
+The time left is counted from the last step, not from now: the average step
+so far, times the steps still to do, after the moment the last one finished.
+So it counts down while a step runs, and is not shown once that step has run
+past the estimate (a growing guess helps nobody).
 """
 
 import argparse
@@ -73,6 +78,8 @@ class Task:
     def step(self, n=1, detail=None):
         with self.lock:
             self.state["done"] += n
+            if n:
+                self.state["moved"] = time.time()
             if detail is not None:
                 self.state["detail"] = detail
             if time.time() - self.last > 1 or self.state["done"] >= self.state["total"]:
@@ -104,11 +111,15 @@ def task_states():
         total = max(1, int(t.get("total", 1)))
         done = t.get("done", 0)
         did = done - t.get("start_done", 0)
-        elapsed = now - t.get("started", now)
+        moved = t.get("moved")
+        took = (moved or now) - t.get("started", now)  # the time the steps done so far took
+        left = None
+        if did > 0 and moved and took > 10:
+            left = moved + took * (total - done) / did - now
+            left = left if left > 0 else None  # the current step has run past the estimate
         out.append({"name": os.path.basename(path)[5:-5], "title": t.get("title", "?"),
                     "fraction": min(1.0, done / total), "done": done, "total": total, "detail": t.get("detail", ""),
-                    "alive": alive(t.get("pid")),
-                    "left": elapsed * (total - done) / did if did > 0 and elapsed > 10 else None})
+                    "alive": alive(t.get("pid")), "left": left, "pid": t.get("pid")})
     return out
 
 
@@ -145,7 +156,10 @@ def main():
     if not state:
         print(f"taskprogress: no task {args.name}", file=sys.stderr)
         return 1
-    state["done"] = state["done"] + args.n if args.cmd == "step" else args.done
+    done = state["done"] + args.n if args.cmd == "step" else args.done
+    if done != state["done"]:
+        state["moved"] = time.time()
+    state["done"] = done
     if args.detail is not None:
         state["detail"] = args.detail
     save(path, state)

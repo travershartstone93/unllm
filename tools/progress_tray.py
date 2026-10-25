@@ -9,11 +9,17 @@ every 2 s. A job's item appears when it starts and closes when it ends;
 one whose process died closes as "stopped". The terminal view
 (`unllm_ingest.py progress --watch`) shows the same numbers.
 
+Any command Claude Code (or one of its agents) has been running for more than
+a minute also gets an item, with no percentage: titled by the command's first
+two comment lines, showing how long it has run, closed when it ends. A
+command that shows a counted bar of its own (or whose children do) gets none.
+
 Needs a KDE Plasma session (org.kde.JobViewServer) and python-gobject.
 Without unllm_ingest.py next to it, only task files are shown.
 """
 
 import os
+import signal
 import sys
 import time
 
@@ -29,6 +35,8 @@ except ImportError:
 
 SERVICE, SERVER = "org.kde.JobViewServer", "/JobViewServer"
 DESKTOP = "unllm-progress"  # ~/.local/share/applications/unllm-progress.desktop: the name and icon shown
+CLAUDE_SHELL = "/.claude/shell-snapshots/"  # in the command line of every shell Claude Code runs a command in
+SHELL_AFTER = 60  # seconds a command runs before it gets a bar of its own
 
 
 def human_time(seconds):
@@ -40,13 +48,69 @@ def human_time(seconds):
     return f"{s // 3600} h {s % 3600 // 60} min"
 
 
+def proc_table():
+    """{pid: (ppid, start time)} for every process, from /proc."""
+    tick = os.sysconf("SC_CLK_TCK")
+    with open("/proc/stat") as f:
+        boot = next(int(line.split()[1]) for line in f if line.startswith("btime"))
+    out = {}
+    for d in os.listdir("/proc"):
+        if not d.isdigit():
+            continue
+        try:
+            with open(f"/proc/{d}/stat") as f:
+                rest = f.read().rsplit(")", 1)[1].split()  # the fields after the command name: ppid is 4th, start 22nd
+            out[int(d)] = (int(rest[1]), boot + int(rest[19]) / tick)
+        except (OSError, IndexError, ValueError):
+            pass
+    return out
+
+
+def claude_command(pid):
+    """The title of a command Claude Code runs (its shell reads a snapshot from ~/.claude/shell-snapshots and evals
+    the command): the command's first two comment lines, which say what it does. None for any other process."""
+    try:
+        with open(f"/proc/{pid}/cmdline", "rb") as f:
+            cmd = f.read().replace(b"\0", b" ").decode(errors="replace")
+    except OSError:
+        return None
+    if CLAUDE_SHELL not in cmd or "eval '" not in cmd:
+        return None
+    body = cmd.split("eval '", 1)[1].replace("'\"'\"'", "'")
+    notes = [line.strip().lstrip("#").strip() for line in body.splitlines() if line.strip().startswith("#")][:2]
+    return " ".join(notes) or body.strip().splitlines()[0][:60]
+
+
 def jobs():
     """{key: {title, fraction, detail, alive}} for everything running now."""
     out = {}
-    for t in task_states():
+    tasks = task_states()
+    for t in tasks:
         left = f", about {human_time(t['left'])} left" if t["left"] else ""
         out["task:" + t["name"]] = {"title": t["title"], "fraction": t["fraction"], "alive": t["alive"],
                                    "detail": f"{t['done']} of {t['total']}{left}", "detail2": t["detail"]}
+    # Any command Claude (or one of its agents) has run for a while gets a bar of its own, with no count, unless it or
+    # something it started already shows a counted bar.
+    table, now = proc_table(), time.time()
+    children = {}
+    for pid, (ppid, _) in table.items():
+        children.setdefault(ppid, []).append(pid)
+    owners = {int(t["pid"]) for t in tasks if str(t.get("pid") or "").isdigit()}
+    for pid, (_, start) in table.items():
+        if now - start < SHELL_AFTER:
+            continue
+        title = claude_command(pid)
+        if title is None:
+            continue
+        tree, todo = set(), [pid]
+        while todo:
+            p = todo.pop()
+            tree.add(p)
+            todo += children.get(p, [])
+        if tree & owners:
+            continue
+        out[f"shell:{pid}"] = {"title": title, "fraction": None, "alive": True, "detail": f"running {human_time(now - start)}",
+                               "detail2": "a command started by Claude, with no count of its own"}
     if ui is None:
         return out
     running = ui.indexers_running()
@@ -86,9 +150,10 @@ class Tray:
             self.views[key] = r.unpack()[0]
         fields = {"title": GLib.Variant("s", job["title"]),
                   "infoMessage": GLib.Variant("s", job["detail"]),
-                  "percent": GLib.Variant("u", int(round(100 * max(0.0, min(1.0, job["fraction"] or 0.0))))),
                   "descriptionLabel1": GLib.Variant("s", "Now"),
                   "descriptionValue1": GLib.Variant("s", job["detail2"] or job["detail"])}
+        if job["fraction"] is not None:  # a command with no count of its own shows no percentage
+            fields["percent"] = GLib.Variant("u", int(round(100 * max(0.0, min(1.0, job["fraction"])))))
         self.call(self.views[key], "update", "(a{sv})", (fields,))
 
     def close(self, key, error=""):
@@ -117,6 +182,16 @@ class Tray:
 
 def main():
     tray = None
+
+    # Stopped (a restart, a log-out): close every item first, or the panel keeps them frozen at their last value.
+    def stop(signum, frame):
+        if tray is not None:
+            for key in list(tray.views):
+                tray.close(key, "the progress view restarted")
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGINT, stop)
     while True:
         try:
             if tray is None:

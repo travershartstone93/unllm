@@ -26,7 +26,13 @@ const std::set<std::string>& past_forms() {
 }  // namespace
 
 bool past_tense(const std::vector<Token>& tokens) {
-    for (const auto& t : tokens) {
+    for (std::size_t i = 0; i < tokens.size(); ++i) {
+        const Token& t = tokens[i];
+        // A past form right after "is", "are" or "am" is the present passive ("how much of the drive is used"), not
+        // the past; "was" and "were" are the past themselves.
+        if (i > 0 && tokens[i - 1].norm == "be" && tokens[i - 1].lower != "was" && tokens[i - 1].lower != "were" &&
+            t.lower != "was" && t.lower != "were")
+            continue;
         if (past_forms().count(t.lower)) return true;
         // A regular past form: the stemmer took an "-ed" off it ("rebooted" -> "reboot").
         if (t.lower.size() > 4 && t.lower.compare(t.lower.size() - 2, 2, "ed") == 0 && t.norm != t.lower) return true;

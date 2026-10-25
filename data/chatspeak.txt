@@ -30,3 +30,4 @@ temps -> temperature
 mem -> memory
 nite -> night
 yday -> yesterday
+hd -> hard drive
