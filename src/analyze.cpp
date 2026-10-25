@@ -660,7 +660,11 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
             if (!moment && !during && low != "since" && ((low != "before" && low != "after") || timed.count(i))) continue;
             const std::size_t a = i + 1, b = clause_end(a);
             if (!has_content(a, b)) continue;
-            if (!moment && !during && !subjects.count(tokens[a].lower) &&
+            // "after waking up", "since rebooting": a doing-word in its -ing form opens the clause as a subject does.
+            const std::string& lead = tokens[a].lower;
+            const bool doing = lead.size() > 4 && lead.compare(lead.size() - 3, 3, "ing") == 0 && !is_stop(tokens[a]) &&
+                               !timed.count(a) && tokens[a].norm != lead;
+            if (!moment && !during && !subjects.count(lead) && !doing &&
                 !past_tense(std::vector<Token>(tokens.begin() + a, tokens.begin() + b)))
                 continue;
             // "during the night": a part of the day is a time, not an event (alone, "night" names no night to read).

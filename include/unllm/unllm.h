@@ -84,6 +84,8 @@ struct TimeWindow {
     bool all_history = false;  // no time named, and a past-tense "when" question ("when did i set up the
                                // power cap"): the moment may lie anywhere in the records. from/to keep
                                // the last-day default; the caller decides how far back to look.
+    bool sleep = false;        // "while i was asleep": the night just past, for the caller to narrow to the stretch its
+                               // records show the person doing nothing
     int64_t at = 0;            // a named moment ("at 3am", "around 9:20", "2 hours ago"): the moment itself, the
                                // window centred on it; 0 for a span
 };

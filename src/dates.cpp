@@ -259,6 +259,7 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
         std::string part;
         bool so_far = false;     // today, named alone: up to now
         bool this_week = false;  // a bare weekday that is today: a time in it not yet begun is last week's
+        bool sleep = false;      // the person's own sleep ("while i was asleep")
         std::size_t last = 0;
     };
     // The person's own sleep from k ("i went to bed", "we were asleep", "i fell asleep", "i slept", "bedtime"):
@@ -283,6 +284,7 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
         if (const std::size_t e = person_asleep(k); e != std::string::npos) {
             d->day0 = midnight(now, 1);
             d->part = "night";
+            d->sleep = true;
             d->last = e;
             return true;
         }
@@ -503,7 +505,13 @@ std::optional<TimeWindow> find_time(const std::vector<Token>& tokens, int64_t no
                 // follow-up fragment may re-anchor it onto the day under discussion.
                 if (has_part && part.overnight && !has_day) return *day_part(day0, part.part);
                 if (has_part) return has_day ? begun(*day_part(day0, part.part)) : not_future(*day_part(today0, part.part));
-                if (!d.part.empty()) return *day_part(day0, d.part);
+                if (!d.part.empty()) {
+                    TimeWindow pw = *day_part(day0, d.part);
+                    // "last night while i was asleep": the sleep phrase anywhere marks the night as the person's sleep
+                    pw.sleep = d.sleep;
+                    for (std::size_t k = 0; !pw.sleep && k < tokens.size(); ++k) pw.sleep = person_asleep(k) != std::string::npos;
+                    return pw;
+                }
                 return d.so_far ? win(today0, now) : win(day0, day0 + kDay);
             }
         }
