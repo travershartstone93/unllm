@@ -538,7 +538,14 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
         // not fuzzy-match some program and silently eat the question.
         bool topical = vocab_words().count(t.norm) || vocab_words().count(t.lower) ||
                        synonyms_.count(t.norm) || synonyms_.count(t.lower);
-        if (t.lower.size() >= 3 && !is_stop(t) && !topical && !matched[i]) {
+        // Grammar: right after a pronoun, a modal or "to", a word is what the person does, not a program ("how can
+        // i find out", "help me find"); "find" and "make" are programs too, and must not eat such a question.
+        auto verb_slot = [&](std::size_t k) {
+            static const std::set<std::string> before = {"i", "you", "we", "they", "me", "to", "can", "could", "should",
+                                                         "would", "will", "please", "cant", "can't", "cannot", "help"};
+            return k > 0 && before.count(tokens[k - 1].lower) > 0;
+        };
+        if (t.lower.size() >= 3 && !is_stop(t) && !topical && !matched[i] && !verb_slot(i)) {
             // Exact matches at any length; fuzziness only for longer words.
             // "used" is one edit from the program "sed", and a question must
             // never be silently filtered to a program nobody named.
