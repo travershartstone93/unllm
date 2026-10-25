@@ -9,10 +9,12 @@ every 2 s. A job's item appears when it starts and closes when it ends;
 one whose process died closes as "stopped". The terminal view
 (`unllm_ingest.py progress --watch`) shows the same numbers.
 
-Any command Claude Code (or one of its agents) has been running for more than
-a minute also gets an item, with no percentage: titled by the command's first
-two comment lines, showing how long it has run, closed when it ends. A
-command that shows a counted bar of its own (or whose children do) gets none.
+The commands Claude Code (or one of its agents) has been running for more than
+a minute share one item at most, with no percentage (KDE draws that as a bar
+sliding back and forth: "still running", not a measure): titled by the
+command's first two comment lines, or "Claude: N commands running", showing
+how long the oldest has run. The item is not shown while any counted bar is
+open, and closes when the commands end.
 
 Needs a KDE Plasma session (org.kde.JobViewServer) and python-gobject.
 Without unllm_ingest.py next to it, only task files are shown.
@@ -89,28 +91,23 @@ def jobs():
         left = f", about {human_time(t['left'])} left" if t["left"] else ""
         out["task:" + t["name"]] = {"title": t["title"], "fraction": t["fraction"], "alive": t["alive"],
                                    "detail": f"{t['done']} of {t['total']}{left}", "detail2": t["detail"]}
-    # Any command Claude (or one of its agents) has run for a while gets a bar of its own, with no count, unless it or
-    # something it started already shows a counted bar.
-    table, now = proc_table(), time.time()
-    children = {}
-    for pid, (ppid, _) in table.items():
-        children.setdefault(ppid, []).append(pid)
-    owners = {int(t["pid"]) for t in tasks if str(t.get("pid") or "").isdigit()}
-    for pid, (_, start) in table.items():
-        if now - start < SHELL_AFTER:
-            continue
-        title = claude_command(pid)
-        if title is None:
-            continue
-        tree, todo = set(), [pid]
-        while todo:
-            p = todo.pop()
-            tree.add(p)
-            todo += children.get(p, [])
-        if tree & owners:
-            continue
-        out[f"shell:{pid}"] = {"title": title, "fraction": None, "alive": True, "detail": f"running {human_time(now - start)}",
-                               "detail2": "a command started by Claude, with no count of its own"}
+    # The commands Claude (or one of its agents) has run for a while share one item at most, with no count: it only
+    # says something is still running. None while any counted bar is open: that bar is the real progress.
+    if not any(t["alive"] for t in tasks):
+        table, now = proc_table(), time.time()
+        titles = {pid: claude_command(pid) for pid in table}
+        running = []
+        for pid, (ppid, start) in table.items():
+            # a subshell of a counted command carries the same command line: the outermost shell counts, once
+            if now - start < SHELL_AFTER or titles[pid] is None or titles.get(ppid) is not None:
+                continue
+            running.append((start, titles[pid]))
+        if running:
+            running.sort()
+            start, title = running[0]
+            out["shell"] = {"title": title if len(running) == 1 else f"Claude: {len(running)} commands running",
+                            "fraction": None, "alive": True, "detail": f"running {human_time(now - start)}",
+                            "detail2": title if len(running) > 1 else "a command started by Claude, with no count of its own"}
     if ui is None:
         return out
     running = ui.indexers_running()
