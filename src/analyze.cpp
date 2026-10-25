@@ -394,6 +394,19 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
         r.window.to = now;
         r.window.stated = false;
         r.window.present = !past_tense(tokens);  // not "live": that would send "how hot is the sun" to the machine
+        // The present said outright: "is firefox using a lot of memory", "are my fans running", "does it swap": the
+        // progressive (be + an -ing verb within three words) or a leading do/does. A question with no verb tense at all
+        // ("show me the memory spike during the game") is left to the caller, which may read it as the past.
+        if (r.window.present)
+            for (std::size_t i = 0; i < tokens.size() && !r.window.present_marked; ++i) {
+                const std::string& w = tokens[i].lower;
+                if (i == 0 && (w == "do" || w == "does")) r.window.present_marked = true;
+                if (w != "is" && w != "are" && w != "am") continue;
+                for (std::size_t j = i + 1; j < tokens.size() && j <= i + 3; ++j) {
+                    const std::string& v = tokens[j].lower;
+                    if (v.size() > 4 && v.compare(v.size() - 3, 3, "ing") == 0 && tokens[j].norm != v) r.window.present_marked = true;
+                }
+            }
     }
 
     // 1b. the question's shape: polar or counting, superlatives, negation,
@@ -814,8 +827,10 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
             if (low == "what" && next == "time") has_when = true;
             if (!consumed.count(i) && (low == "last" || low == "latest")) has_last = true;
             if (low == "why") has_why = true;
+            // "what caused", "what is causing", "what's making": a cause asked without "why".
             if ((low == "what" || low == "who") && i + 1 < tokens.size() &&
-                (tokens[i + 1].norm == "cause" || tokens[i + 1].norm == "make"))
+                (tokens[i + 1].norm == "cause" || tokens[i + 1].norm == "make" ||
+                 (tokens[i + 1].norm == "be" && i + 2 < tokens.size() && (tokens[i + 2].norm == "cause" || tokens[i + 2].norm == "make"))))
                 has_cause = true;
             if (low == "which" || low == "who") which_name = true;
             if (low == "what" && (next == "program" || next == "process" || next == "app")) which_name = true;

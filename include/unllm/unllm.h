@@ -80,6 +80,8 @@ struct TimeWindow {
     bool live = false;         // "right now": the answer should be measured, not recalled
     bool present = false;      // no time named and the verb in the present tense ("is the disk busy"):
                                // about now for a question already known to be about this machine
+    bool present_marked = false;  // the present said outright, not assumed: "is ... using", "are ... running",
+                                  // "does it ..."; a caller that would read a bare present as the past leaves this alone
     bool shifted = false;      // "this morning" asked before it began: moved back a day
     bool all_history = false;  // no time named, and a past-tense "when" question ("when did i set up the
                                // power cap"): the moment may lie anywhere in the records. from/to keep

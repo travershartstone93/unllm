@@ -47,6 +47,7 @@ namespace {
 const std::map<std::string, std::string>& lemma_exceptions() {
     static const std::map<std::string, std::string> m = {
         {"ran", "run"},       {"was", "be"},      {"were", "be"},    {"is", "be"},     {"are", "be"},
+        {"causing", "cause"}, {"causes", "cause"}, {"caused", "cause"}, {"making", "make"}, {"makes", "make"},
         {"been", "be"},       {"did", "do"},      {"does", "do"},    {"done", "do"},   {"has", "have"},
         {"had", "have"},      {"got", "get"},     {"gotten", "get"}, {"went", "go"},   {"gone", "go"},
         {"froze", "freeze"},  {"frozen", "freeze"}, {"died", "die"}, {"dying", "die"}, {"ate", "eat"},
