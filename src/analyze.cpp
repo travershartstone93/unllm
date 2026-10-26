@@ -530,7 +530,7 @@ Reading Analyzer::read(const std::string& question, int64_t now, const Reading* 
     for (std::size_t i = 0; i < tokens.size(); ++i) {
         if (consumed.count(i)) continue;
         const Token& t = tokens[i];
-        if (t.lower == "pid" && i + 1 < tokens.size()) {
+        if ((t.lower == "pid" || t.lower == "process") && i + 1 < tokens.size()) {  // "pid 2671", "process 2671"
             const std::string& n = tokens[i + 1].lower;
             if (!n.empty() && std::all_of(n.begin(), n.end(), [](char c) { return isdigit(static_cast<unsigned char>(c)); })) {
                 r.entities.push_back({"pid", n});
