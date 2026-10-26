@@ -598,6 +598,43 @@ int main(int argc, char** argv) {
             std::printf("{\"question\": \"%s\"}\n", r ? r->c_str() : "");
             return r ? 0 : 1;
         }
+        if (a == "update") {
+            // Keeping the packs current (tools/unllm_update.py): "unllm update --check" asks each source whether newer
+            // data exists than the packs were built from, downloading nothing. The tool is looked for in UNLLM_TOOLS,
+            // beside the binary's source tree, then under the data folder.
+            char exe[4096];
+            const ssize_t n = readlink("/proc/self/exe", exe, sizeof exe - 1);
+            const std::string bin = n > 0 ? std::string(exe, std::size_t(n)) : std::string();
+            const char* home = getenv("HOME");
+            const char* env = getenv("UNLLM_TOOLS");
+            std::string tool;
+            for (const std::string& dir : {std::string(env ? env : ""), bin.substr(0, bin.rfind('/')) + "/../tools",
+                                           std::string(home ? home : "") + "/.local/share/unllm/tools"})
+                if (!dir.empty() && access((dir + "/unllm_update.py").c_str(), R_OK) == 0) {
+                    tool = dir + "/unllm_update.py";
+                    break;
+                }
+            if (tool.empty()) {
+                std::fprintf(stderr, "unllm update: tools/unllm_update.py not found (set UNLLM_TOOLS to the folder holding it)\n");
+                return 1;
+            }
+            bool check = false, json = false;
+            for (int j = i + 1; j < argc; ++j) {
+                const std::string b = argv[j];
+                check |= b == "--check";
+                json |= b == "--json";
+            }
+            if (!check) {
+                std::puts("unllm update: only the check is built so far. \"unllm update --check\" asks each source whether newer data exists.");
+                return 1;
+            }
+            std::vector<const char*> args = {"python3", tool.c_str(), "check"};
+            if (json) args.push_back("--json");
+            args.push_back(nullptr);
+            execvp("python3", const_cast<char* const*>(args.data()));
+            std::perror("unllm update: python3");
+            return 1;
+        }
         if (a == "--help" || a == "-h") {
             std::puts("unllm: questions about the world, answered from reference packs on this machine.\n"
                       "  unllm what is photosynthesis\n"
@@ -609,6 +646,8 @@ int main(int argc, char** argv) {
                       "  unllm --serve             stay resident and answer one-shot runs over a socket\n"
                       "                            (started on demand; UNLLM_IDLE seconds idle ends it, 600;\n"
                       "                            UNLLM_NO_SERVER=1 answers in the run itself)\n"
+                      "  unllm update --check      ask each source whether newer data exists than the\n"
+                      "                            packs were built from (no download; --json for scripts)\n"
                       "Packs: ~/.local/share/unllm/packs (UNLLM_PACKS overrides); build them with\n"
                       "tools/unllm_ingest.py. Every answer quotes its source; the local Ollama model\n"
                       "(UNLLM_MODEL, qwen3:4b; \"off\" quotes instead) reads the passages the search found.");

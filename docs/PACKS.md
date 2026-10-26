@@ -55,14 +55,13 @@ what it is doing ("312,000 of 470,000 articles", "posts: 1.2 of 3.4 GB",
 figures to small files in `~/.local/share/unllm/progress`, and removes them
 when it finishes. A watch window restarts itself when the tool is updated.
 
-**In the system tray.** On KDE Plasma, `tools/progress_tray.py` shows the
-same jobs as progress items in the tray, like a file copy in Dolphin: one
-appears when a job starts and closes when it ends ("stopped" if its process
-died). Install it once with `cp tools/systemd/unllm-progress.desktop
-~/.local/share/applications/`, `cp tools/systemd/unllm-progress-tray.service
-~/.config/systemd/user/` and `systemctl --user enable --now
-unllm-progress-tray`. Any long script can join in through
-`tools/taskprogress.py`.
+**In the system tray.** On KDE Plasma, the machine's progress tray
+(`~/.local/lib/taskprogress/progress_tray.py`, user service `progress-tray`)
+shows the same jobs as progress items in the tray, like a file copy in
+Dolphin: one appears when a job starts and closes when it ends ("stopped" if
+its process died). It is not part of this repo. `tools/taskprogress.py` here
+only loads that helper, so the scripts in `tools/` and `bench/` report their
+own progress with `from taskprogress import Task`.
 
 Packs go to `~/.local/share/unllm/packs`. A build happens in a separate
 `NAME.building` folder and replaces the installed pack in one step, so
@@ -243,3 +242,30 @@ behaviour.
 `unllm --rewrite` runs the rewrite alone for measuring: three lines on stdin
 (previous question, its answer, the new question), JSON out.
 `bench/rewrite50.py` scores it on QReCC turns against the set's gold rewrites.
+
+## Keeping packs current
+
+`unllm update --check` asks each source's server whether newer data exists
+than the packs were built from, and downloads nothing: a few small requests
+over IPv4. It prints one block per source, what is installed (the pack's
+version and build day, the fetch day while the download folder is still
+there) against what is available, marked `ok`, `NEWER` or `?` when the
+server could not be reached. `--json` gives the same as one object. The exit
+code is 0 when everything is current, 1 when something newer exists, 2 when a
+source could not be reached.
+
+How each source is judged:
+
+- Wikipedia (FineWiki): the checksum Hugging Face publishes for every data
+  file against the checksums the download script verified. That list is
+  copied into `~/.local/share/unllm/update/` on the first check, so the
+  downloads can be deleted afterwards and the comparison still works.
+- StackExchange: each site dump's date, size and checksum on archive.org,
+  against the file fetched (while it is here) and the fetch day.
+- Wiktionary: the file's date and size on kaikki.org against the fetch day.
+- WordNet: the latest release's edition on GitHub.
+- Gutenberg poetry: a fixed file; it never changes.
+
+The update itself (fetch only what changed, rebuild those packs beside the
+old ones, re-embed their passages, check the new set against the verified
+questions, swap, keep the old set a week) is not built yet.
