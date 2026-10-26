@@ -74,6 +74,11 @@ target_link_libraries(unllm_rerank PRIVATE unllm)
 add_executable(unllm_pack tools/unllm_pack.cpp)
 target_link_libraries(unllm_pack PRIVATE unllm)
 
+# The vector index's maintenance: a shard embedded and encoded with the index's own tables, the index audited
+# against the packs, and rewritten with shards dropped or added (no faiss, no Python).
+add_executable(unllm_embed tools/unllm_embed.cpp)
+target_link_libraries(unllm_embed PRIVATE unllm)
+
 # Measuring tool for the meaning search: vectors and top ids per question.
 add_executable(unllm_meaning tools/unllm_meaning.cpp)
 target_link_libraries(unllm_meaning PRIVATE unllm)

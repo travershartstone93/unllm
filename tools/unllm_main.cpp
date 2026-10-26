@@ -618,18 +618,19 @@ int main(int argc, char** argv) {
                 std::fprintf(stderr, "unllm update: tools/unllm_update.py not found (set UNLLM_TOOLS to the folder holding it)\n");
                 return 1;
             }
-            bool check = false, json = false;
+            // "unllm update" runs the update; --check only asks; --prune and --rollback act on the previous set; the
+            // rest (--dry-run, --full, --repair, --source NAME, --json) pass through to the tool.
+            std::vector<std::string> rest;
+            std::string verb = "run";
             for (int j = i + 1; j < argc; ++j) {
                 const std::string b = argv[j];
-                check |= b == "--check";
-                json |= b == "--json";
+                if (b == "--check") verb = "check";
+                else if (b == "--prune") verb = "prune";
+                else if (b == "--rollback") verb = "rollback";
+                else rest.push_back(b);
             }
-            if (!check) {
-                std::puts("unllm update: only the check is built so far. \"unllm update --check\" asks each source whether newer data exists.");
-                return 1;
-            }
-            std::vector<const char*> args = {"python3", tool.c_str(), "check"};
-            if (json) args.push_back("--json");
+            std::vector<const char*> args = {"python3", tool.c_str(), verb.c_str()};
+            for (const auto& r : rest) args.push_back(r.c_str());
             args.push_back(nullptr);
             execvp("python3", const_cast<char* const*>(args.data()));
             std::perror("unllm update: python3");
@@ -648,6 +649,10 @@ int main(int argc, char** argv) {
                       "                            UNLLM_NO_SERVER=1 answers in the run itself)\n"
                       "  unllm update --check      ask each source whether newer data exists than the\n"
                       "                            packs were built from (no download; --json for scripts)\n"
+                      "  unllm update              fetch what is newer, build its packs beside the old ones,\n"
+                      "                            embed, patch the index, verify, swap (--dry-run shows the\n"
+                      "                            plan; --repair re-embeds shards the index holds wrongly;\n"
+                      "                            --full everything; --prune / --rollback the previous set)\n"
                       "Packs: ~/.local/share/unllm/packs (UNLLM_PACKS overrides); build them with\n"
                       "tools/unllm_ingest.py. Every answer quotes its source; the local Ollama model\n"
                       "(UNLLM_MODEL, qwen3:4b; \"off\" quotes instead) reads the passages the search found.");

@@ -266,6 +266,27 @@ How each source is judged:
 - WordNet: the latest release's edition on GitHub.
 - Gutenberg poetry: a fixed file; it never changes.
 
-The update itself (fetch only what changed, rebuild those packs beside the
-old ones, re-embed their passages, check the new set against the verified
-questions, swap, keep the old set a week) is not built yet.
+`unllm update` does the refresh. It fetches only the sources the check marks
+newer (`--full` takes them all; `--source NAME` limits it), builds their packs
+under `<data>/staging/packs` with the ingest tool while the old ones stay in
+use, embeds their passages with `unllm_embed` (the GPU through ONNX Runtime
+when its CUDA provider loads; on battery this laptop's card is capped at 30 W
+and runs about 140 passages a second, on mains about 4,000) and writes a new
+copy of the index with those shards replaced: the trained part of the index
+is kept, so everything untouched searches exactly as before. The candidate
+set is then scored on the verification questions (`verify_tsv` in the state
+file, or `UNLLM_VERIFY_TSV`) against the live set and goes live only when it
+is not worse; packs and index are swapped, the resident unllm is stopped so
+the next question starts on the new set, and the old set waits under
+`<data>/previous` for seven days (`--prune` deletes it sooner, `--rollback`
+puts it back; under 80 GB free at the start it goes as soon as the new set
+passes). Raw downloads are not kept. `--dry-run` prints the plan with sizes
+and passage counts and changes nothing. `--repair` re-embeds every shard
+whose entries in the index disagree with its pack (`unllm_embed audit` shows
+them), without fetching anything.
+
+`unllm_embed` is the C++ behind it: `audit` (the index against the packs,
+shard by shard), `encode` (a shard embedded and encoded with the index's own
+centres and codebooks; measured 2026-10-26 to reproduce faiss's codes for a
+shard already in the index, 99.9% the same list and 99.7% the same bytes) and
+`patch` (the index rewritten with shards dropped or added).
