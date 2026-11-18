@@ -1,0 +1,386 @@
+{
+  "requests_sha256": "7a740546b52cd376532618a16ca3d9e94464d8ca0a5c27ff1317eeb3afeea03b",
+  "workflows_sha256": "60c6848fdaa3430b9ad3c1cb8ad2e2db1eba1b70a25e2cfbc2b43b265068fe3e",
+  "blinded": false,
+  "method": "fresh CLI generation plus independent Qt controls and file assertions; no built-in scenario/oracle",
+  "outputs": [
+    {
+      "task": "text_counter",
+      "language": "python",
+      "question": "Build an app with an editable text area, a character count, and lowercase and save buttons.",
+      "file": "text_counter/program.py",
+      "source_sha256": "088f10a68e42868ecf82cb4a28df1e137aa5552a36c227e02d5fc4497362281b",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-4b2ecd4ed412",
+      "generation_seconds": 2.545,
+      "independent_checks": 9,
+      "independent_passed": true,
+      "executable_checks": 8,
+      "sanitizers": false,
+      "solver": [],
+      "structure": {
+        "state_fields": 1,
+        "functions": 2,
+        "widgets": 4,
+        "primitive_providers": 23
+      }
+    },
+    {
+      "task": "text_counter",
+      "language": "cpp",
+      "question": "Build an app with an editable text area, a character count, and lowercase and save buttons.",
+      "file": "text_counter/program.cpp",
+      "source_sha256": "44ae57ca0f898683770d61dec43b4a45d97156985c3ac8989fa2dceadf056bff",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-9927bb7f4e69",
+      "generation_seconds": 26.022,
+      "independent_checks": 9,
+      "independent_passed": true,
+      "executable_checks": 16,
+      "sanitizers": true,
+      "solver": [],
+      "structure": {
+        "state_fields": 1,
+        "functions": 2,
+        "widgets": 4,
+        "primitive_providers": 23
+      }
+    },
+    {
+      "task": "decrement",
+      "language": "python",
+      "question": "Build an app that decreases a counter by 11.",
+      "file": "decrement/program.py",
+      "source_sha256": "8c54f951f7b204a1c703846a5651a95ed490916c25ff347ea98d919591e48f29",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-cd9552c4c21e",
+      "generation_seconds": 1.349,
+      "independent_checks": 6,
+      "independent_passed": true,
+      "executable_checks": 25,
+      "sanitizers": false,
+      "solver": [
+        {
+          "engine": "cvc5",
+          "method": "relational SyGuS",
+          "version": "1.3.1",
+          "postcondition": "next.value == prev.value - 11.0",
+          "inputs": [
+            "value"
+          ],
+          "outputs": [
+            "value"
+          ],
+          "solutions": {
+            "value": "(lambda ((old_value Real)) (- old_value 11.0))"
+          },
+          "precondition": null,
+          "precondition_encoded": false,
+          "simultaneous": true,
+          "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+          "elapsed_ms": 9.312
+        }
+      ],
+      "structure": {
+        "state_fields": 1,
+        "functions": 1,
+        "widgets": 3,
+        "primitive_providers": 7
+      }
+    },
+    {
+      "task": "decrement",
+      "language": "cpp",
+      "question": "Build an app that decreases a counter by 11.",
+      "file": "decrement/program.cpp",
+      "source_sha256": "2546e48178c5b14f72feab277916eea1274f7fafa315c045d2dd179f13af805c",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-3af1c33dfc4f",
+      "generation_seconds": 25.188,
+      "independent_checks": 6,
+      "independent_passed": true,
+      "executable_checks": 50,
+      "sanitizers": true,
+      "solver": [
+        {
+          "engine": "cvc5",
+          "method": "relational SyGuS",
+          "version": "1.3.1",
+          "postcondition": "next.value == prev.value - 11.0",
+          "inputs": [
+            "value"
+          ],
+          "outputs": [
+            "value"
+          ],
+          "solutions": {
+            "value": "(lambda ((old_value Real)) (- old_value 11.0))"
+          },
+          "precondition": null,
+          "precondition_encoded": false,
+          "simultaneous": true,
+          "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+          "elapsed_ms": 9.291
+        }
+      ],
+      "structure": {
+        "state_fields": 1,
+        "functions": 1,
+        "widgets": 3,
+        "primitive_providers": 7
+      }
+    },
+    {
+      "task": "todo",
+      "language": "python",
+      "question": "Make a to-do list app with add, remove, and save buttons.",
+      "file": "todo/program.py",
+      "source_sha256": "9faa93cf36e5ec45c7ef59cec58ac62a32bd4e7f315a2e279a1a1b6be0a6e037",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-494af76be8e9",
+      "generation_seconds": 1.569,
+      "independent_checks": 8,
+      "independent_passed": true,
+      "executable_checks": 11,
+      "sanitizers": false,
+      "solver": [],
+      "structure": {
+        "state_fields": 4,
+        "functions": 3,
+        "widgets": 6,
+        "primitive_providers": 34
+      }
+    },
+    {
+      "task": "todo",
+      "language": "cpp",
+      "question": "Make a to-do list app with add, remove, and save buttons.",
+      "file": "todo/program.cpp",
+      "source_sha256": "652b3533134d67fdafabc6d25646045d7c7e085d3d1ed1ab1f47acab19ee4cf0",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-4418beb0addb",
+      "generation_seconds": 27.428,
+      "independent_checks": 8,
+      "independent_passed": true,
+      "executable_checks": 22,
+      "sanitizers": true,
+      "solver": [],
+      "structure": {
+        "state_fields": 4,
+        "functions": 3,
+        "widgets": 6,
+        "primitive_providers": 34
+      }
+    },
+    {
+      "task": "stopwatch",
+      "language": "python",
+      "question": "Create a stopwatch app with start, stop, and reset buttons.",
+      "file": "stopwatch/program.py",
+      "source_sha256": "5cfaa788b7fd311ea21fc868bfd79bdc62ec135cbb5d1d635f43c0ca341044d4",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-442e270067a7",
+      "generation_seconds": 1.762,
+      "independent_checks": 6,
+      "independent_passed": true,
+      "executable_checks": 2,
+      "sanitizers": false,
+      "solver": [],
+      "structure": {
+        "state_fields": 3,
+        "functions": 4,
+        "widgets": 4,
+        "primitive_providers": 35
+      }
+    },
+    {
+      "task": "stopwatch",
+      "language": "cpp",
+      "question": "Create a stopwatch app with start, stop, and reset buttons.",
+      "file": "stopwatch/program.cpp",
+      "source_sha256": "1c595845cfa6b5e27111c0687307b546f5299423ca35f4acafec9ba72d8e3c3b",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-78633c431bae",
+      "generation_seconds": 26.324,
+      "independent_checks": 6,
+      "independent_passed": true,
+      "executable_checks": 4,
+      "sanitizers": true,
+      "solver": [],
+      "structure": {
+        "state_fields": 3,
+        "functions": 4,
+        "widgets": 4,
+        "primitive_providers": 35
+      }
+    },
+    {
+      "task": "temperature",
+      "language": "python",
+      "question": "Create an app that converts Celsius to Fahrenheit.",
+      "file": "temperature/program.py",
+      "source_sha256": "a35e3463e68c97558638a4793da9b787d2a31b0d4198ff5964079e1f488d42fd",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-df9b8659f4c6",
+      "generation_seconds": 1.89,
+      "independent_checks": 4,
+      "independent_passed": true,
+      "executable_checks": 25,
+      "sanitizers": false,
+      "solver": [
+        {
+          "engine": "cvc5",
+          "method": "relational SyGuS",
+          "version": "1.3.1",
+          "postcondition": "5 * next.output_value == 9 * prev.input_value + (160)",
+          "inputs": [
+            "input_value",
+            "output_value"
+          ],
+          "outputs": [
+            "output_value"
+          ],
+          "solutions": {
+            "output_value": "(lambda ((old_input_value Real) (old_output_value Real)) (* (/ 1 5) (+ (* 9.0 old_input_value) 160.0)))"
+          },
+          "precondition": null,
+          "precondition_encoded": false,
+          "simultaneous": true,
+          "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+          "elapsed_ms": 200.994
+        }
+      ],
+      "structure": {
+        "state_fields": 2,
+        "functions": 1,
+        "widgets": 3,
+        "primitive_providers": 7
+      }
+    },
+    {
+      "task": "temperature",
+      "language": "cpp",
+      "question": "Create an app that converts Celsius to Fahrenheit.",
+      "file": "temperature/program.cpp",
+      "source_sha256": "8bcbc761cab664f0fd4565ec1dcced7537265304ac8b0b7e4649740d4f79c1b0",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-283aa4e003d3",
+      "generation_seconds": 25.545,
+      "independent_checks": 4,
+      "independent_passed": true,
+      "executable_checks": 50,
+      "sanitizers": true,
+      "solver": [
+        {
+          "engine": "cvc5",
+          "method": "relational SyGuS",
+          "version": "1.3.1",
+          "postcondition": "5 * next.output_value == 9 * prev.input_value + (160)",
+          "inputs": [
+            "input_value",
+            "output_value"
+          ],
+          "outputs": [
+            "output_value"
+          ],
+          "solutions": {
+            "output_value": "(lambda ((old_input_value Real) (old_output_value Real)) (* (/ 1 5) (+ (* 9.0 old_input_value) 160.0)))"
+          },
+          "precondition": null,
+          "precondition_encoded": false,
+          "simultaneous": true,
+          "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+          "elapsed_ms": 212.637
+        }
+      ],
+      "structure": {
+        "state_fields": 2,
+        "functions": 1,
+        "widgets": 3,
+        "primitive_providers": 7
+      }
+    },
+    {
+      "task": "tip",
+      "language": "python",
+      "question": "Build a tip calculator with bill amount and tip percentage inputs.",
+      "file": "tip/program.py",
+      "source_sha256": "d4223d15911f4da3ca61dced50e207f88445c880b19e62b0127d14d2b8dffaca",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-e0d204932b58",
+      "generation_seconds": 2.241,
+      "independent_checks": 6,
+      "independent_passed": true,
+      "executable_checks": 29,
+      "sanitizers": false,
+      "solver": [
+        {
+          "engine": "cvc5",
+          "method": "relational SyGuS",
+          "version": "1.3.1",
+          "postcondition": "100 * next.part == prev.amount * prev.rate and next.total == prev.amount + next.part",
+          "inputs": [
+            "amount",
+            "part",
+            "rate",
+            "total"
+          ],
+          "outputs": [
+            "part",
+            "total"
+          ],
+          "solutions": {
+            "part": "(lambda ((old_amount Real) (old_part Real) (old_rate Real) (old_total Real)) (* (/ 1 100) (* old_amount old_rate)))",
+            "total": "(lambda ((old_amount Real) (old_part Real) (old_rate Real) (old_total Real)) (+ (* (/ 1 100) (* old_amount old_rate)) old_amount))"
+          },
+          "precondition": null,
+          "precondition_encoded": false,
+          "simultaneous": true,
+          "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+          "elapsed_ms": 792.399
+        }
+      ],
+      "structure": {
+        "state_fields": 4,
+        "functions": 1,
+        "widgets": 5,
+        "primitive_providers": 7
+      }
+    },
+    {
+      "task": "tip",
+      "language": "cpp",
+      "question": "Build a tip calculator with bill amount and tip percentage inputs.",
+      "file": "tip/program.cpp",
+      "source_sha256": "bdce13acbe9bc8cbf994e34ec77e83293f7be6d92dd7b8782a34f1ecb164f00d",
+      "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-66a74ac882f7",
+      "generation_seconds": 27.922,
+      "independent_checks": 6,
+      "independent_passed": true,
+      "executable_checks": 58,
+      "sanitizers": true,
+      "solver": [
+        {
+          "engine": "cvc5",
+          "method": "relational SyGuS",
+          "version": "1.3.1",
+          "postcondition": "100 * next.part == prev.amount * prev.rate and next.total == prev.amount + next.part",
+          "inputs": [
+            "amount",
+            "part",
+            "rate",
+            "total"
+          ],
+          "outputs": [
+            "part",
+            "total"
+          ],
+          "solutions": {
+            "part": "(lambda ((old_amount Real) (old_part Real) (old_rate Real) (old_total Real)) (* (/ 1 100) (* old_amount old_rate)))",
+            "total": "(lambda ((old_amount Real) (old_part Real) (old_rate Real) (old_total Real)) (+ (* (/ 1 100) (* old_amount old_rate)) old_amount))"
+          },
+          "precondition": null,
+          "precondition_encoded": false,
+          "simultaneous": true,
+          "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+          "elapsed_ms": 854.945
+        }
+      ],
+      "structure": {
+        "state_fields": 4,
+        "functions": 1,
+        "widgets": 5,
+        "primitive_providers": 7
+      }
+    }
+  ]
+}

@@ -1,5 +1,13 @@
 # unllm
 
+**Architecture status:** the upgrade currently uses a mixed C++/Python runtime.
+The [C++ implementation migration](docs/CPP_RUNTIME_MIGRATION_PLAN.md) is underway
+in a separate `build-cpp` tree; see [current evidence and open gates](docs/CPP_MIGRATION_PROGRESS.md).
+It precedes further capability work and removes Python from host logic and product
+commands while retaining Python and C++ as generated output languages.
+
+This directory is the **symbolic upgrade working copy**. Its `build/unllm` defaults to ACE/ERG, SWI-Prolog and Soufflé reasoning. It constructs and validates bounded Python/C++ utilities and stateful Qt programs from typed behaviour contracts, using cvc5 for relational state-transition synthesis. The latest [request repair and tests](docs/REQUEST_REPAIR.md) cover text tools, typed lists, timers, unit conversion and variable percentages in both languages. Start with [the upgrade guide](docs/UPGRADE.md), [measured results](docs/UPGRADE_REPORT.md) and [generated examples](examples/upgrade/README.md). The original sibling directory is separate. The description below covers the original library and the `--engine legacy` pipeline.
+
 Everything you wanted the LLM for, at a millionth of the compute, containing
 no LLM at all.
 

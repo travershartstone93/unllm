@@ -1680,8 +1680,8 @@ def unpack_progress(archive):
 def collect(items, since=None):
     """(states, overall fraction, seconds left or None) for planned items.
     A state is {"state": done|building|waiting|refused, "fraction", "detail"}.
-    since: when this run of builds started; time left comes from how fast
-    this run has actually gone (data finished per second so far)."""
+    since: when this run of builds started; time left is at the pace of the
+    last minutes this watcher has seen (taskprogress.Pace)."""
     now = time.time()
     try:
         with open(LOG) as f:
@@ -1690,7 +1690,6 @@ def collect(items, since=None):
         log_tail = []
     active = packs_being_built()
     states = []
-    run_bytes, own_rate = 0.0, None
     for it in items:
         name = it["name"]
         m = read_manifest(os.path.join(PACKS, name))
@@ -1714,11 +1713,9 @@ def collect(items, since=None):
                     f"part {x['shard'] + 1}: {say(x)}" for x in parts)
             else:
                 detail = say(parts[0]) if parts else "starting"
-            elapsed = now - pack.get("started", now)
-            if frac > 0.01 and elapsed > 30:
-                detail += f", about {human_time(elapsed * (1 - frac) / frac)} left"
-                own_rate = it["bytes"] * frac / elapsed
-            run_bytes += it["bytes"] * frac
+            left_pack = pace_left("pack:" + name, frac, 1.0, pack.get("started"), now)
+            if left_pack:
+                detail += f", about {human_time(left_pack)} left"
             states.append({"state": "building", "fraction": frac, "detail": detail})
             continue
         fresh = bool(m) and m.get("ingest_version") == INGEST_VERSION and \
@@ -1726,8 +1723,6 @@ def collect(items, since=None):
         refused = not fresh and any(f"{name}: NOT installed" in line for line in log_tail)
         if fresh:
             built = m.get("built", "")
-            if since and built and time.mktime(time.strptime(built, "%Y-%m-%dT%H:%M:%S")) >= since:
-                run_bytes += it["bytes"]
             states.append({"state": "done", "fraction": 1.0, "detail": f"installed {built[11:16]}".strip()})
         elif refused:
             states.append({"state": "refused", "fraction": 0.0, "detail": "not installed: text too damaged (see log)"})
@@ -1750,12 +1745,7 @@ def collect(items, since=None):
     total = sum(it["bytes"] for it in items) or 1
     done_bytes = sum(it["bytes"] * (st["fraction"] or 0.0) for it, st in zip(items, states))
     overall = done_bytes / total
-    left = None
-    if overall < 1:
-        if since and now - since > 60 and run_bytes > 0:
-            left = (total - done_bytes) / (run_bytes / (now - since))
-        elif own_rate:
-            left = (total - done_bytes) / own_rate
+    left = pace_left("packs", done_bytes, total, since, now) if overall < 1 else None
     return states, overall, left
 
 
@@ -1858,8 +1848,7 @@ def index_states(running):
                 frac = min(0.99, read / need)
                 part = next((int(o[6:9]) for o in opened if o.startswith("shard-")), None)
                 detail = f"part {part + 1} of {len(shards)}" if part is not None else "merging the index files"
-            elapsed = now - started
-            left = elapsed * (1 - frac) / frac if 0.01 < frac < 0.99 and elapsed > 20 else None
+            left = pace_left("index:" + name, frac, 1.0, started, now) if frac < 0.99 else None
             if left:
                 detail += f", about {human_time(left)} left"
             states.append({"state": "building", "fraction": frac, "detail": detail, "left": left})
@@ -1881,6 +1870,18 @@ def index_view(running, width, color):
 
 def passages_count(n):
     return f"{n / 1e6:.1f} M" if n >= 1e6 else f"{n / 1e3:.0f} k"
+
+
+PACE = None  # taskprogress.Pace, made on first use: time left for the builds this watcher polls
+
+
+def pace_left(key, done, total, started, now):
+    global PACE
+    if PACE is None:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/taskprogress.py
+        from taskprogress import Pace
+        PACE = Pace()
+    return PACE.left(key, done, total, started, now)
 
 
 def task_states():

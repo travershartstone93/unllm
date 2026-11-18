@@ -1,0 +1,174 @@
+[
+  {
+    "variant": "standard",
+    "language": "python",
+    "directory": "standard/python",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-ae885702a87a",
+    "source_sha256": {
+      "program.py": "51d6af566fbde20b542413235ee3f45910302c82beeca41851a3acd895c3a784",
+      "Arithmetic.g4": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+      "ArithmeticLexer.py": "b85231badbad1173d1d325363b6c4800f2fffc6400301a577a733333284f886c",
+      "ArithmeticParser.py": "8e76406e8a8c05ddeedba8ccd36b906ee23a4fd50ed9c0ec50a2237809c4ab3c",
+      "ArithmeticVisitor.py": "37e58d484f09e7eaae965fef7f9be1e3d55ad7ef368a0646309009f9b903068c",
+      "ANTLR-LICENSE.txt": "3db1fb3ee79a4b4f9918fc4d0f6133bf18a3cf787f126cd22f8aa9b862281c0c",
+      "application.ir.json": "415d226fe1ae5e5a07ad232e264b5e4ca13145f4aed5ce77f9bd3023aa8d8892",
+      "specification.json": "f5e012b02594b91831881c47e151f580d160b0054401278564a52cb39181c73d",
+      "requirements.txt": "e16b26af575296e25211f03bab181ca13730260a2276d5ec0691e23784cd353d",
+      "preview.png": "acb1c13641505860ffa4829493cc7e0154461164319cb7f64fbcc3a787344519"
+    },
+    "application_lines": 247,
+    "arithmetic_cases": 86,
+    "gui_scenarios": 15,
+    "checks": 101,
+    "sanitizers": false,
+    "fresh_gui": {
+      "expected": "65",
+      "actual": "65",
+      "passed": true
+    },
+    "dependencies": {
+      "antlr": "4.13.2",
+      "qt": "6.12.0",
+      "pyside6": "6.12.0"
+    },
+    "grammar_sha256": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+    "structure": {
+      "state_fields": 4,
+      "functions": 8,
+      "widgets": 21,
+      "key_bindings": 25,
+      "component_graph_nodes": 16
+    }
+  },
+  {
+    "variant": "standard",
+    "language": "cpp",
+    "directory": "standard/cpp",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-d4bb1b739dcf",
+    "source_sha256": {
+      "program.cpp": "5a47fbb893820a7e23fdb672971d3a189b50cdc7021764aa75869d3c2348003d",
+      "Arithmetic.g4": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+      "ArithmeticBaseVisitor.cpp": "8745bb53e92eb1a3755acb107c7da90e0a1946d96a2c0a431359146452a8a9c1",
+      "ArithmeticBaseVisitor.h": "dd898531ac05c13d1d84226c6cf8745ddb492cf4abfe3668626ab4acc909c020",
+      "ArithmeticLexer.cpp": "738f28f13c49bbd4957036d7381b71bfd50f3f41817c4c35c61706678b3c47c1",
+      "ArithmeticLexer.h": "3be322b3d41b4f131f14d19ccb864538dd551bcf2947ca1145001e9d83abd7e6",
+      "ArithmeticParser.cpp": "22dede29cba215afeb89268359273d385dbefc992a66d37d8660b31a86f1b1b6",
+      "ArithmeticParser.h": "428b04dd5f4c437b900de5d1b90a02f9998b2cc5f81a0fc4b30836b34f44b3c4",
+      "ArithmeticVisitor.cpp": "af876c2f07136eb328dcc328b49fee222752b434196a6e322e8faf4890c028fa",
+      "ArithmeticVisitor.h": "52dc466a07f715afeb3160a0f99e8eace8b93ebc12487267014a42f529149bfc",
+      "ANTLR-LICENSE.txt": "3db1fb3ee79a4b4f9918fc4d0f6133bf18a3cf787f126cd22f8aa9b862281c0c",
+      "application.ir.json": "cc31c45dba6c50f69776770c5ea60eebf5e825e8dccee0c71f7ea92891e6570e",
+      "specification.json": "f5e012b02594b91831881c47e151f580d160b0054401278564a52cb39181c73d",
+      "preview.png": "acb1c13641505860ffa4829493cc7e0154461164319cb7f64fbcc3a787344519"
+    },
+    "application_lines": 368,
+    "arithmetic_cases": 86,
+    "gui_scenarios": 15,
+    "checks": 202,
+    "sanitizers": true,
+    "fresh_gui": {
+      "expected": "65",
+      "actual": "65",
+      "passed": true
+    },
+    "dependencies": {
+      "antlr": "4.13.2",
+      "qt": "6.12.0",
+      "pyside6": null
+    },
+    "grammar_sha256": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+    "structure": {
+      "state_fields": 4,
+      "functions": 8,
+      "widgets": 21,
+      "key_bindings": 25,
+      "component_graph_nodes": 16
+    }
+  },
+  {
+    "variant": "memory",
+    "language": "python",
+    "directory": "memory/python",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-38e630be2e06",
+    "source_sha256": {
+      "program.py": "6779793bbc2310353805841a7e571d25f9be427ba00bec8b22060b6f4b3252be",
+      "Arithmetic.g4": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+      "ArithmeticLexer.py": "b85231badbad1173d1d325363b6c4800f2fffc6400301a577a733333284f886c",
+      "ArithmeticParser.py": "8e76406e8a8c05ddeedba8ccd36b906ee23a4fd50ed9c0ec50a2237809c4ab3c",
+      "ArithmeticVisitor.py": "37e58d484f09e7eaae965fef7f9be1e3d55ad7ef368a0646309009f9b903068c",
+      "ANTLR-LICENSE.txt": "3db1fb3ee79a4b4f9918fc4d0f6133bf18a3cf787f126cd22f8aa9b862281c0c",
+      "application.ir.json": "34440ae6bd8e64457b497a8a81b0e181edc945fbbc66e66bc539703bddd7d7d6",
+      "specification.json": "7defd65b1fcb6e86da5f32f875e27343514064e5a5f66e4fa38b43f3ccd30370",
+      "requirements.txt": "e16b26af575296e25211f03bab181ca13730260a2276d5ec0691e23784cd353d",
+      "preview.png": "571fda05b7ee28f86329e90a225efe783f207181ab28361d89191c781fd34522"
+    },
+    "application_lines": 277,
+    "arithmetic_cases": 86,
+    "gui_scenarios": 18,
+    "checks": 104,
+    "sanitizers": false,
+    "fresh_gui": {
+      "expected": "57",
+      "actual": "57",
+      "passed": true
+    },
+    "dependencies": {
+      "antlr": "4.13.2",
+      "qt": "6.12.0",
+      "pyside6": "6.12.0"
+    },
+    "grammar_sha256": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+    "structure": {
+      "state_fields": 5,
+      "functions": 13,
+      "widgets": 26,
+      "key_bindings": 25,
+      "component_graph_nodes": 18
+    }
+  },
+  {
+    "variant": "memory",
+    "language": "cpp",
+    "directory": "memory/cpp",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-ddbb1fa1e693",
+    "source_sha256": {
+      "program.cpp": "32cb124e398628357a6fa003c772f300284549d54cd5dc32c9c3f601d853c714",
+      "Arithmetic.g4": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+      "ArithmeticBaseVisitor.cpp": "8745bb53e92eb1a3755acb107c7da90e0a1946d96a2c0a431359146452a8a9c1",
+      "ArithmeticBaseVisitor.h": "dd898531ac05c13d1d84226c6cf8745ddb492cf4abfe3668626ab4acc909c020",
+      "ArithmeticLexer.cpp": "738f28f13c49bbd4957036d7381b71bfd50f3f41817c4c35c61706678b3c47c1",
+      "ArithmeticLexer.h": "3be322b3d41b4f131f14d19ccb864538dd551bcf2947ca1145001e9d83abd7e6",
+      "ArithmeticParser.cpp": "22dede29cba215afeb89268359273d385dbefc992a66d37d8660b31a86f1b1b6",
+      "ArithmeticParser.h": "428b04dd5f4c437b900de5d1b90a02f9998b2cc5f81a0fc4b30836b34f44b3c4",
+      "ArithmeticVisitor.cpp": "af876c2f07136eb328dcc328b49fee222752b434196a6e322e8faf4890c028fa",
+      "ArithmeticVisitor.h": "52dc466a07f715afeb3160a0f99e8eace8b93ebc12487267014a42f529149bfc",
+      "ANTLR-LICENSE.txt": "3db1fb3ee79a4b4f9918fc4d0f6133bf18a3cf787f126cd22f8aa9b862281c0c",
+      "application.ir.json": "a0a80f41f7b320471b5b9abb750dd96d149280ba793e2c438162ea099bc78c06",
+      "specification.json": "7defd65b1fcb6e86da5f32f875e27343514064e5a5f66e4fa38b43f3ccd30370",
+      "preview.png": "571fda05b7ee28f86329e90a225efe783f207181ab28361d89191c781fd34522"
+    },
+    "application_lines": 405,
+    "arithmetic_cases": 86,
+    "gui_scenarios": 18,
+    "checks": 208,
+    "sanitizers": true,
+    "fresh_gui": {
+      "expected": "57",
+      "actual": "57",
+      "passed": true
+    },
+    "dependencies": {
+      "antlr": "4.13.2",
+      "qt": "6.12.0",
+      "pyside6": null
+    },
+    "grammar_sha256": "b2c2649daf9ea2897f2be4ed477aee14d8275bc91101f255a8919b5091c5b785",
+    "structure": {
+      "state_fields": 5,
+      "functions": 13,
+      "widgets": 26,
+      "key_bindings": 25,
+      "component_graph_nodes": 18
+    }
+  }
+]

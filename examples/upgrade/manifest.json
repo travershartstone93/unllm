@@ -1,0 +1,143 @@
+[
+  {
+    "task": "numeric_summary",
+    "language": "python",
+    "file": "numeric_summary.py",
+    "source_sha256": "5e1c39540654af552eb6d84a0d62ab60b83e74b1913cf44849f1f785f4ce5636",
+    "specification": "numeric_summary.spec.json",
+    "meaningful_lines": 70,
+    "checks": 19,
+    "toolchain": "Python 3.14.7",
+    "structure": {
+      "pipeline_operations": 5,
+      "scalar_holes": 2,
+      "functions": 9,
+      "loops": 8,
+      "branches": 10
+    },
+    "components": [
+      "component:read_numbers:stream",
+      "component:filter:numbers",
+      "component:map:numbers",
+      "component:sort:numbers",
+      "component:stats:numbers"
+    ],
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-e05a3693d9f3"
+  },
+  {
+    "task": "numeric_summary",
+    "language": "cpp",
+    "file": "numeric_summary.cpp",
+    "source_sha256": "a73934d44275ae9ca7105a4d84572c48a63a08302d5df020c9b4dcc28ecff6e3",
+    "specification": "numeric_summary.spec.json",
+    "meaningful_lines": 130,
+    "checks": 38,
+    "toolchain": "clang version 23.1.1",
+    "structure": {
+      "pipeline_operations": 5,
+      "scalar_holes": 2
+    },
+    "components": [
+      "component:read_numbers:stream",
+      "component:filter:numbers",
+      "component:map:numbers",
+      "component:sort:numbers",
+      "component:stats:numbers"
+    ],
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-76fcfdecce71"
+  },
+  {
+    "task": "record_statistics",
+    "language": "python",
+    "file": "record_statistics.py",
+    "source_sha256": "4fb016eedd66163a63bb9ea36bfe729205f72ca7d75516bf3dd2e2202d2935ab",
+    "specification": "record_statistics.spec.json",
+    "meaningful_lines": 82,
+    "checks": 16,
+    "toolchain": "Python 3.14.7",
+    "structure": {
+      "pipeline_operations": 6,
+      "scalar_holes": 2,
+      "functions": 9,
+      "loops": 10,
+      "branches": 12
+    },
+    "components": [
+      "component:read_records:stream",
+      "component:filter:groups",
+      "component:map:groups",
+      "component:unique:groups",
+      "component:sort:groups",
+      "component:stats:groups"
+    ],
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-cac48ed9fcf3"
+  },
+  {
+    "task": "record_statistics",
+    "language": "cpp",
+    "file": "record_statistics.cpp",
+    "source_sha256": "2a3100d8ee79efeba436e51a1e70ea0b6af6d8e496011d32f6d10ebc3b9e014e",
+    "specification": "record_statistics.spec.json",
+    "meaningful_lines": 147,
+    "checks": 32,
+    "toolchain": "clang version 23.1.1",
+    "structure": {
+      "pipeline_operations": 6,
+      "scalar_holes": 2
+    },
+    "components": [
+      "component:read_records:stream",
+      "component:filter:groups",
+      "component:map:groups",
+      "component:unique:groups",
+      "component:sort:groups",
+      "component:stats:groups"
+    ],
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-5491d609d7e8"
+  },
+  {
+    "task": "record_means",
+    "language": "python",
+    "file": "record_means.py",
+    "source_sha256": "0c0d75847efd0783922a750ce11444e7b8b154754c31e2fc321a3ee45ed1a237",
+    "specification": "record_means.spec.json",
+    "meaningful_lines": 78,
+    "checks": 16,
+    "toolchain": "Python 3.14.7",
+    "structure": {
+      "pipeline_operations": 4,
+      "scalar_holes": 1,
+      "functions": 9,
+      "loops": 8,
+      "branches": 12
+    },
+    "components": [
+      "component:read_records:stream",
+      "component:filter:groups",
+      "component:reverse:groups",
+      "component:mean:groups"
+    ],
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-07cd71844b6f"
+  },
+  {
+    "task": "record_means",
+    "language": "cpp",
+    "file": "record_means.cpp",
+    "source_sha256": "a6741aff731a789bb438584b3594515951ff2dd06ab6dffe1d93cb5b3290a30e",
+    "specification": "record_means.spec.json",
+    "meaningful_lines": 135,
+    "checks": 32,
+    "toolchain": "clang version 23.1.1",
+    "structure": {
+      "pipeline_operations": 4,
+      "scalar_holes": 1
+    },
+    "components": [
+      "component:read_records:stream",
+      "component:filter:groups",
+      "component:reverse:groups",
+      "component:mean:groups"
+    ],
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-e6007478d051"
+  }
+]

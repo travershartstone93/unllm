@@ -1,0 +1,21 @@
+{
+  "input": "records",
+  "steps": [
+    {
+      "op": "filter",
+      "expr": "x>=-4"
+    },
+    {
+      "op": "map",
+      "expr": "3*x+1"
+    },
+    {
+      "op": "unique"
+    },
+    {
+      "op": "sort"
+    }
+  ],
+  "output": "stats",
+  "invalid": "skip"
+}

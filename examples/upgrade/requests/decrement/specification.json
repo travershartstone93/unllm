@@ -1,0 +1,44 @@
+{
+  "schema": 2,
+  "program": "application",
+  "title": "Application",
+  "state": {
+    "value": {
+      "type": "number",
+      "initial": 0.0
+    }
+  },
+  "views": [
+    {
+      "id": "number_view",
+      "kind": "number_input",
+      "state": "value"
+    },
+    {
+      "id": "number_result",
+      "kind": "label",
+      "value": "value",
+      "label": "Value"
+    }
+  ],
+  "actions": [
+    {
+      "id": "decrement",
+      "label": "Decrement",
+      "ensure": "next.value == prev.value - 11.0"
+    }
+  ],
+  "events": [],
+  "interpretation": {
+    "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+    "bindings": [
+      {
+        "operation": "decrease",
+        "state": "value",
+        "predicate": "_decrease_v_1"
+      }
+    ],
+    "defaults": []
+  },
+  "checks": []
+}

@@ -72,7 +72,7 @@ def main():
     for v in variants:
         path = f"{VEC}/{tag}-{v}.jsonl"
         done = {json.loads(l)["id"]: json.loads(l) for l in open(path)} if os.path.exists(path) else {}
-        bar.step(len(done))
+        bar.skip(len(done))
         with open(path, "a") as f:
             for b in base:
                 if b["id"] in done:

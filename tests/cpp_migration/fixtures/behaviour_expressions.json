@@ -1,0 +1,4006 @@
+[
+  {
+    "source": "x + y * 2",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "x",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "binary",
+          "name": "multiply",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "y",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 2,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "+x / -y",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "divide",
+      "value": null,
+      "args": [
+        {
+          "kind": "unary",
+          "name": "positive",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "x",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "unary",
+          "name": "neg",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "y",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "0x_FF + 0b10 + 0o7",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "add",
+          "value": null,
+          "args": [
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 255,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 2,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": 7,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "1_000.5e-2",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": 10.005,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "0 <= x < y != 4",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "and",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "and",
+          "value": null,
+          "args": [
+            {
+              "kind": "binary",
+              "name": "le",
+              "value": null,
+              "args": [
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 0,
+                  "args": []
+                },
+                {
+                  "kind": "state",
+                  "name": "x",
+                  "value": null,
+                  "args": []
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "name": "lt",
+              "value": null,
+              "args": [
+                {
+                  "kind": "state",
+                  "name": "x",
+                  "value": null,
+                  "args": []
+                },
+                {
+                  "kind": "state",
+                  "name": "y",
+                  "value": null,
+                  "args": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "ne",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "y",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 4,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "x if flag else y",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "conditional",
+      "name": "",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "flag",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "state",
+          "name": "x",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "state",
+          "name": "y",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "x / y if y != 0 else 0",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "conditional",
+      "name": "",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "ne",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "y",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 0,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "divide",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "x",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "state",
+              "name": "y",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": 0,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "flag and x > 0 or not flag",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "or",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "and",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "flag",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "binary",
+              "name": "gt",
+              "value": null,
+              "args": [
+                {
+                  "kind": "state",
+                  "name": "x",
+                  "value": null,
+                  "args": []
+                },
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 0,
+                  "args": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "unary",
+          "name": "not",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "flag",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "text + \" café😀\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "text",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": " café😀",
+          "args": []
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "upper(strip(text))",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "upper",
+      "value": null,
+      "args": [
+        {
+          "kind": "primitive",
+          "name": "strip",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "text",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "replace(text, \"a\", \"b\")",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "replace",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "text",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": "a",
+          "args": []
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": "b",
+          "args": []
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "sort_lines(unique_lines(reverse_lines(text)))",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "sort_lines",
+      "value": null,
+      "args": [
+        {
+          "kind": "primitive",
+          "name": "unique_lines",
+          "value": null,
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "reverse_lines",
+              "value": null,
+              "args": [
+                {
+                  "kind": "state",
+                  "name": "text",
+                  "value": null,
+                  "args": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "words(text) + chars(text) + lines(text)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "add",
+          "value": null,
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "words",
+              "value": null,
+              "args": [
+                {
+                  "kind": "state",
+                  "name": "text",
+                  "value": null,
+                  "args": []
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "chars",
+              "value": null,
+              "args": [
+                {
+                  "kind": "state",
+                  "name": "text",
+                  "value": null,
+                  "args": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "primitive",
+          "name": "lines",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "text",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "number_text(x)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "number_text",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "x",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "records_count(rows)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "records_count",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "rows",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "count_true(rows, \"done\")",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "count_true",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "rows",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": "done",
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "[] if flag else rows",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "conditional",
+      "name": "",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "flag",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "records",
+          "name": "",
+          "value": [],
+          "args": []
+        },
+        {
+          "kind": "state",
+          "name": "rows",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "records"
+  },
+  {
+    "source": "rows == []",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "rows",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "records",
+          "name": "",
+          "value": [],
+          "args": []
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "\"yes\" if flag else \"no\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "conditional",
+      "name": "",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "flag",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": "yes",
+          "args": []
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": "no",
+          "args": []
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "\"a\" \"b\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": "ab",
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "\"\\u0041\\U0001f600\\x42\\101\\N{LATIN CAPITAL LETTER C}\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": "A😀BAC",
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "r\"a\\n\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": "a\\n",
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "'''first\nsecond'''",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": "first\nsecond",
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "\"\\q\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": "\\q",
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "000",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": 0,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "00_0",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": 0,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "lower(text,)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "lower",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "text",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "(x +\n y)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "x",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "state",
+          "name": "y",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "x # comment",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "state",
+      "name": "x",
+      "value": null,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "True",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": true,
+      "args": []
+    },
+    "type": "bool"
+  },
+  {
+    "source": "False",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": false,
+      "args": []
+    },
+    "type": "bool"
+  },
+  {
+    "source": "\"\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": "",
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "1e15",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "literal",
+      "name": "",
+      "value": 1000000000000000.0,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "unknown",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "prev.x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "next.x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x + text",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x and flag",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "not x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "text < \"z\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "count_true(rows,\"name\")",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "count_true([],\"done\")",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "count_true(rows,text)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "upper(x)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "upper(text, text)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "unknown_call(text)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "text.upper()",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "rows[0]",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "[1]",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "{}",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "None",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "lambda: 1",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "__import__(\"os\")",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x ** 2",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x // 2",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x % 2",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x is y",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x in rows",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "upper(text=text)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "01",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "1e16",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "1e999",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "\"\\xZZ\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x if x else y",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "True == 1",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "flag if flag else x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "next.x == prev.x + 3",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "next",
+          "name": "x",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "binary",
+          "name": "add",
+          "value": null,
+          "args": [
+            {
+              "kind": "prev",
+              "name": "x",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 3,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "next.x == prev.y and next.y == prev.x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "and",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "eq",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "x",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "prev",
+              "name": "y",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "eq",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "y",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "prev",
+              "name": "x",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "next.x == (0 if prev.x < 0 else prev.x)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "next",
+          "name": "x",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "conditional",
+          "name": "",
+          "value": null,
+          "args": [
+            {
+              "kind": "binary",
+              "name": "lt",
+              "value": null,
+              "args": [
+                {
+                  "kind": "prev",
+                  "name": "x",
+                  "value": null,
+                  "args": []
+                },
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 0,
+                  "args": []
+                }
+              ]
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 0,
+              "args": []
+            },
+            {
+              "kind": "prev",
+              "name": "x",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "prev.x < next.x < 10",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "and",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "lt",
+          "value": null,
+          "args": [
+            {
+              "kind": "prev",
+              "name": "x",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "next",
+              "name": "x",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "lt",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "x",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 10,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "prev.text == next.text",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "prev",
+          "name": "text",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "next",
+          "name": "text",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "chars(prev.text) == next.x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "primitive",
+          "name": "chars",
+          "value": null,
+          "args": [
+            {
+              "kind": "prev",
+              "name": "text",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "next",
+          "name": "x",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "x + 1",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "next.unknown == prev.x",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "count_true(prev.rows,\"done\")",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": true,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "words(notes)",
+    "state": {
+      "notes": {
+        "type": "text",
+        "initial": ""
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "words",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "notes",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "chars(notes)",
+    "state": {
+      "notes": {
+        "type": "text",
+        "initial": ""
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "chars",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "notes",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "upper(notes)",
+    "state": {
+      "notes": {
+        "type": "text",
+        "initial": ""
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "upper",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "notes",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "sort_lines(unique_lines(notes))",
+    "state": {
+      "notes": {
+        "type": "text",
+        "initial": ""
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "sort_lines",
+      "value": null,
+      "args": [
+        {
+          "kind": "primitive",
+          "name": "unique_lines",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "notes",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "fahrenheit",
+    "state": {
+      "celsius": {
+        "type": "number",
+        "initial": 0
+      },
+      "fahrenheit": {
+        "type": "number",
+        "initial": 32
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "state",
+      "name": "fahrenheit",
+      "value": null,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "fahrenheit / celsius if celsius != 0 else 0",
+    "state": {
+      "celsius": {
+        "type": "number",
+        "initial": 0
+      },
+      "fahrenheit": {
+        "type": "number",
+        "initial": 32
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "conditional",
+      "name": "",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "ne",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "celsius",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 0,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "divide",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "fahrenheit",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "state",
+              "name": "celsius",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "literal",
+          "name": "",
+          "value": 0,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "5 * next.fahrenheit == 9 * prev.celsius + 160",
+    "state": {
+      "celsius": {
+        "type": "number",
+        "initial": 0
+      },
+      "fahrenheit": {
+        "type": "number",
+        "initial": 32
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "multiply",
+          "value": null,
+          "args": [
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 5,
+              "args": []
+            },
+            {
+              "kind": "next",
+              "name": "fahrenheit",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "add",
+          "value": null,
+          "args": [
+            {
+              "kind": "binary",
+              "name": "multiply",
+              "value": null,
+              "args": [
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 9,
+                  "args": []
+                },
+                {
+                  "kind": "prev",
+                  "name": "celsius",
+                  "value": null,
+                  "args": []
+                }
+              ]
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 160,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "left + right",
+    "state": {
+      "left": {
+        "type": "number",
+        "initial": 3
+      },
+      "right": {
+        "type": "number",
+        "initial": 7
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "left",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "state",
+          "name": "right",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "next.left == prev.right and next.right == prev.left",
+    "state": {
+      "left": {
+        "type": "number",
+        "initial": 3
+      },
+      "right": {
+        "type": "number",
+        "initial": 7
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "and",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "eq",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "left",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "prev",
+              "name": "right",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "eq",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "right",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "prev",
+              "name": "left",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "next.left == prev.left - 2 and next.right == prev.right + 2",
+    "state": {
+      "left": {
+        "type": "number",
+        "initial": 3
+      },
+      "right": {
+        "type": "number",
+        "initial": 7
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "and",
+      "value": null,
+      "args": [
+        {
+          "kind": "binary",
+          "name": "eq",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "left",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "binary",
+              "name": "subtract",
+              "value": null,
+              "args": [
+                {
+                  "kind": "prev",
+                  "name": "left",
+                  "value": null,
+                  "args": []
+                },
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 2,
+                  "args": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "name": "eq",
+          "value": null,
+          "args": [
+            {
+              "kind": "next",
+              "name": "right",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "binary",
+              "name": "add",
+              "value": null,
+              "args": [
+                {
+                  "kind": "prev",
+                  "name": "right",
+                  "value": null,
+                  "args": []
+                },
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 2,
+                  "args": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "next.left == (0 if prev.left < 0 else prev.left)",
+    "state": {
+      "left": {
+        "type": "number",
+        "initial": 3
+      },
+      "right": {
+        "type": "number",
+        "initial": 7
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "next",
+          "name": "left",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "conditional",
+          "name": "",
+          "value": null,
+          "args": [
+            {
+              "kind": "binary",
+              "name": "lt",
+              "value": null,
+              "args": [
+                {
+                  "kind": "prev",
+                  "name": "left",
+                  "value": null,
+                  "args": []
+                },
+                {
+                  "kind": "literal",
+                  "name": "",
+                  "value": 0,
+                  "args": []
+                }
+              ]
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 0,
+              "args": []
+            },
+            {
+              "kind": "prev",
+              "name": "left",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "snapshot",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "state",
+      "name": "snapshot",
+      "value": null,
+      "args": []
+    },
+    "type": "text"
+  },
+  {
+    "source": "words(draft)",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "words",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "draft",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number"
+  },
+  {
+    "source": "visits",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "state",
+      "name": "visits",
+      "value": null,
+      "args": []
+    },
+    "type": "number"
+  },
+  {
+    "source": "flag",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "state",
+      "name": "flag",
+      "value": null,
+      "args": []
+    },
+    "type": "bool"
+  },
+  {
+    "source": "upper(strip(draft))",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "primitive",
+      "name": "upper",
+      "value": null,
+      "args": [
+        {
+          "kind": "primitive",
+          "name": "strip",
+          "value": null,
+          "args": [
+            {
+              "kind": "state",
+              "name": "draft",
+              "value": null,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "text"
+  },
+  {
+    "source": "not flag",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "unary",
+      "name": "not",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "flag",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "bool"
+  },
+  {
+    "source": "next.visits == prev.visits + 3",
+    "state": {
+      "draft": {
+        "type": "text",
+        "initial": ""
+      },
+      "snapshot": {
+        "type": "text",
+        "initial": ""
+      },
+      "visits": {
+        "type": "number",
+        "initial": 0
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      }
+    },
+    "transition": true,
+    "expected": {
+      "kind": "binary",
+      "name": "eq",
+      "value": null,
+      "args": [
+        {
+          "kind": "next",
+          "name": "visits",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "binary",
+          "name": "add",
+          "value": null,
+          "args": [
+            {
+              "kind": "prev",
+              "name": "visits",
+              "value": null,
+              "args": []
+            },
+            {
+              "kind": "literal",
+              "name": "",
+              "value": 3,
+              "args": []
+            }
+          ]
+        }
+      ]
+    },
+    "type": "bool"
+  }
+]

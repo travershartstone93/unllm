@@ -121,7 +121,7 @@ def word():
     done = {r["id"] for r in load(path)}
     todo = [it for it in items if it["id"] not in done]
     bar = Task("vec-word", "Vector pilot: unllm word search", total=len(items))
-    bar.step(len(done))
+    bar.skip(len(done))
 
     def one(it):
         cool_down()

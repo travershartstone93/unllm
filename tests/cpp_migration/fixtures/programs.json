@@ -1,0 +1,2118 @@
+{
+  "facts": [
+    {
+      "id": "contract:34599adc6206bf82d714c001c9f89f1539f555cffee8773a1386664f76b3363a",
+      "predicate": "implements",
+      "subject": "component:unique:numbers",
+      "object": "unique",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:07f1e7760bbec5d8076263a1687e4467ab14d0cacad2012124b2863257d1f0e9",
+      "predicate": "accepts",
+      "subject": "component:unique:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:58f109bcccddbb7744705cb920ccfec62cfeae0c2f46ceebae58c0685ca2f4c0",
+      "predicate": "produces",
+      "subject": "component:unique:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:fc004089840dc7594dca208453f17a56925b2edfbc2a425051975513ebce7e1e",
+      "predicate": "implements",
+      "subject": "component:sort:numbers",
+      "object": "sort",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:2102013ae03c0d2cf83fbf01934a33d0d62f8b9e34e54db060134e3145fa60e6",
+      "predicate": "accepts",
+      "subject": "component:sort:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:476897d11be829ecd1867912e3280bf31638adb498f7e2a18e8f46c89c44ae46",
+      "predicate": "produces",
+      "subject": "component:sort:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:1df5f482c4aef5755e7b40776a5ff6513b5dd2684ddd23a1272455f2e4277ba8",
+      "predicate": "implements",
+      "subject": "component:reverse:numbers",
+      "object": "reverse",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:aef0f160921b05ce2ee851db86c0043c1ee2e9b988b88be544081724da9178bf",
+      "predicate": "accepts",
+      "subject": "component:reverse:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:be67de4b6b651a012fd42099b944cc0881ca0c7481265f7c4257548b8c68f693",
+      "predicate": "produces",
+      "subject": "component:reverse:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:7722287087f25199a921283a521dd11a82685e3bc796605ae1649946eddb7c77",
+      "predicate": "implements",
+      "subject": "component:values:numbers",
+      "object": "values",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:3197ea16e9675261ef5a37897950323747b9cc09c7ae03df0933378778b8cf91",
+      "predicate": "accepts",
+      "subject": "component:values:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:fd988225824a8e6c405bba8125eb20c19b9fee4184b2146f737bffd421d45d92",
+      "predicate": "produces",
+      "subject": "component:values:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:b34fdea75932c9def023f3c03d47cedc151d267e27ea01cf343e78152aa26a03",
+      "predicate": "implements",
+      "subject": "component:count:numbers",
+      "object": "count",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:ae42a6edbe8aa3421c2d4dd35c16cf3444b04701857905d1a83c2df1df82bcca",
+      "predicate": "accepts",
+      "subject": "component:count:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:efa1edccd3983769d97968cfcee714abc70825a3aef9e577633bf6d86a27a1bf",
+      "predicate": "produces",
+      "subject": "component:count:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:b83e746c22fc8cc8e31c139212928f8710b38b0a8375f7f647005d015d4cda01",
+      "predicate": "implements",
+      "subject": "component:unique:lines",
+      "object": "unique",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:c31ad85cd40db5c6bbb9904c3097584e6303fa6098f08f0222e7fe600521bc8c",
+      "predicate": "accepts",
+      "subject": "component:unique:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:8510fb8a997020456ca723c96d0a6c3db4bbce571f0d0994bf24a37d3de5f972",
+      "predicate": "produces",
+      "subject": "component:unique:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:a0ccb73c281c1af5071be975d66c611b7ca20f2c57539c7c0296f9fb74c2ad65",
+      "predicate": "implements",
+      "subject": "component:sort:lines",
+      "object": "sort",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:35f86bd1b2fe0e32fa75b390d700dff64a8b8e5df17e0902ee32470319253d2b",
+      "predicate": "accepts",
+      "subject": "component:sort:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:a27bd0e6f21efc19dbea0fbe388ac6ec09ddc4cf8ca178a90d7aed6281166236",
+      "predicate": "produces",
+      "subject": "component:sort:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:4cc5d430e224bfdc9f5566c0e7403a28e4104ad870a1c43e4716c835421320a8",
+      "predicate": "implements",
+      "subject": "component:reverse:lines",
+      "object": "reverse",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:c74a4d808fa8175baf8ffe4dc6fba2e79fb064a91ee4cc6a838726dd9eb4cede",
+      "predicate": "accepts",
+      "subject": "component:reverse:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:26c42d04d631df7f74c071335dc3fa62869aa994d497b7a9abe7216db79e32f2",
+      "predicate": "produces",
+      "subject": "component:reverse:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:bf1ceb3ad6e1faa0a789ab60d17646321ab2ab811641c07ce0d5bf4e58450ed9",
+      "predicate": "implements",
+      "subject": "component:values:lines",
+      "object": "values",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:7119340ded3bb85aba060a8748a8a12492a7ba7a34885dc948c9dd35715a6b57",
+      "predicate": "accepts",
+      "subject": "component:values:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:5eeb01cee76836a92ac27dd67686f403499609acc68f66b1bd566c22c6c6105c",
+      "predicate": "produces",
+      "subject": "component:values:lines",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:caf06b4feebe59482f54ec96778c5bce0e593334d858c91e90cc377bf7d80ae6",
+      "predicate": "implements",
+      "subject": "component:count:lines",
+      "object": "count",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:8cf4be13020ec017d5bec95c90549027ea6637c011b8a2779680b106a9b0aa47",
+      "predicate": "accepts",
+      "subject": "component:count:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:01397be9e9d12e1d6becded6387b76887fe7fd99dc177b8655046c5a223699ab",
+      "predicate": "produces",
+      "subject": "component:count:lines",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:ca64ab894b4bd09460ba957faa098c3a9762c9550616fbc271652b6f69920cfc",
+      "predicate": "implements",
+      "subject": "component:unique:groups",
+      "object": "unique",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:64ace25cc191383da6f7db120057c8b8b8b71c273d7c46cb7f4e3d0e08ee0606",
+      "predicate": "accepts",
+      "subject": "component:unique:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:a528ca9b6e46dec06d2d26b4dab2985a97889b5ca1075ae87e7b7315ab94c8b9",
+      "predicate": "produces",
+      "subject": "component:unique:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:690f51fb977e25bebd1cedd4e108c039b85c4cb6ad2cd6f826572bb08b46e000",
+      "predicate": "implements",
+      "subject": "component:sort:groups",
+      "object": "sort",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:0acb4bf8dd5d56a0ffdc8003559e1a9d84022b66643c9b174cbd3b417a5180db",
+      "predicate": "accepts",
+      "subject": "component:sort:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:eadbb5650776faef5b25fe0015bc843bc25e5b67ea33a012694fca54e93b36c9",
+      "predicate": "produces",
+      "subject": "component:sort:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:6140887f0ec8cacf7996e2693d83fe675b9d27b3744b932eaf92247997ef419f",
+      "predicate": "implements",
+      "subject": "component:reverse:groups",
+      "object": "reverse",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:610d3da935bf5a6f547bef9b0519cf8c3033e496af6c74fc6174eb4d88e37f01",
+      "predicate": "accepts",
+      "subject": "component:reverse:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:5d560f2a7cc57d88ab6e66bf77d4966d5964a677ad4480ab1db854852885abad",
+      "predicate": "produces",
+      "subject": "component:reverse:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:f1380e6ed7597927907e76546e4df2680c3f2b131f18f6f23208e8d6f7c4755c",
+      "predicate": "implements",
+      "subject": "component:values:groups",
+      "object": "values",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:b6d7de77a44b3f3df979149a872323fc331d88bb3bf8844e3e58335d4f18ee26",
+      "predicate": "accepts",
+      "subject": "component:values:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:8943344b79ee2f0cd455f8c6c356065012fde890d81e0b565e9c5988cb281c3e",
+      "predicate": "produces",
+      "subject": "component:values:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:2a1cd0dcf2fc2cc0a9b26e3c8ef1f74038b93a340bbfde618f4221effb2c35ce",
+      "predicate": "implements",
+      "subject": "component:count:groups",
+      "object": "count",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:3cf6c725a79c47438201a5b5cbb87613dd257d2db855463f589c9587ee0fd6dd",
+      "predicate": "accepts",
+      "subject": "component:count:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:41d914004e39924172f46bc6e92d123dd191b0bacb2826abb17e5664a423e5b5",
+      "predicate": "produces",
+      "subject": "component:count:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:353a7fee41c88f9310940fe23c41d6f25ac395ffba06f7e32dda66876a30697c",
+      "predicate": "implements",
+      "subject": "component:filter:numbers",
+      "object": "filter",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:a1b187f92fc5cca7d90bb1604d47ae8e8d6250f05017859c7bbc21eb7b757f33",
+      "predicate": "accepts",
+      "subject": "component:filter:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:f39461a67e29ba44bf2cf06da616eb572e91532b12b4427ea1f048b26e7fa06d",
+      "predicate": "produces",
+      "subject": "component:filter:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:e62bc67ae79f85adabd589f9ef42405b6995acf538e9708737baf47740667f43",
+      "predicate": "implements",
+      "subject": "component:map:numbers",
+      "object": "map",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:779e8283edae2d6803d5d863c34f06cc02c001c2b53e8e82e9201a599dffb064",
+      "predicate": "accepts",
+      "subject": "component:map:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:d81d4255aad2dbc2ceef39386e1fe3970e30d3490fb70fcbdc9d3b3b9786bb3a",
+      "predicate": "produces",
+      "subject": "component:map:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:c19b363c1fc5c581f0c853deb22c2d38cf035b9e0196834952c992a614664c66",
+      "predicate": "implements",
+      "subject": "component:sum:numbers",
+      "object": "sum",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:8eabc0a87e79ac29d5379c0e8c73c0d9d40985225c247b81ad0930a266dab0d3",
+      "predicate": "accepts",
+      "subject": "component:sum:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:0d4fabe05fd17c284e54e663eeaac8378b4693c305e2b416ee8e621c30979e25",
+      "predicate": "produces",
+      "subject": "component:sum:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:52d0e9cc591c49f16e989a47cd7c2d924da4dc29ee74754d5560bfa61968b1a3",
+      "predicate": "implements",
+      "subject": "component:mean:numbers",
+      "object": "mean",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:8cc131cfddae14d2d2dedd600e573300205e075863a85a2861ec911884b0af7f",
+      "predicate": "accepts",
+      "subject": "component:mean:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:3588a0fa24f021105f84da42104974335bd7f07d8c1710a9280902974a4226fb",
+      "predicate": "produces",
+      "subject": "component:mean:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:360335f3ae710c891469d549c9b72f162157ff66464555979e37d8a0e517f6d1",
+      "predicate": "implements",
+      "subject": "component:min:numbers",
+      "object": "min",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:740e51ac8faade62f907742b5e30765d48eb633e8faf28dd38098a5f9c869949",
+      "predicate": "accepts",
+      "subject": "component:min:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:0cf94c769a7d58fc0781961adc44b926cdac6724fc72e8a2c8bfcdc1007d6a86",
+      "predicate": "produces",
+      "subject": "component:min:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:7d0e336452c816402e437001b72d5ae9db6eff7c7d21f3ee4ea9ab4a43ca63a1",
+      "predicate": "implements",
+      "subject": "component:max:numbers",
+      "object": "max",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:2c74f0fe57f2ecefe8757df8fa8ff4ed627483ae60fa9b9fb00a345ea247a2e5",
+      "predicate": "accepts",
+      "subject": "component:max:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:048d8bf4ba806d21752fb3fba8c4ab4cb10b3c23b2f03d5f120a6d8004c57e6f",
+      "predicate": "produces",
+      "subject": "component:max:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:91f0128ddb4bbd7de9edc36c82946b937a031c5c56efb32310a4d4ea78eccf16",
+      "predicate": "implements",
+      "subject": "component:stats:numbers",
+      "object": "stats",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:b6a64b9c410e768365357493a9304638769273aed83fdc45a337c50d0920fcda",
+      "predicate": "accepts",
+      "subject": "component:stats:numbers",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:00f4cc2b1a6b4b9060ffc5cdd65ab36ec75a7e150d7a0bf89b009660bde901f2",
+      "predicate": "produces",
+      "subject": "component:stats:numbers",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:e69fa84bcd3978dbafc5dba0af407ee7e8b804b48f621598bbf8cf7fd1de43da",
+      "predicate": "implements",
+      "subject": "component:filter:groups",
+      "object": "filter",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:f683079d9b31f28fb4d63fb4e5620e45b0ac5faaad5272f7cbfbc061b22a63ce",
+      "predicate": "accepts",
+      "subject": "component:filter:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:024bbc073a9949a3be9687719a75e18818edfa32fb7d45e9b60ecb70c13c14c3",
+      "predicate": "produces",
+      "subject": "component:filter:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:505f2168d496e6d6f8550b86c3ee5872c05f3696a8488ef10ca610bad599afe2",
+      "predicate": "implements",
+      "subject": "component:map:groups",
+      "object": "map",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:de676ba4903ebade8dcc379975d98f654384efcb33e022c40c74182ede43ec1c",
+      "predicate": "accepts",
+      "subject": "component:map:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:5775b8d2478be3f0cd914b21ab2e13cbec145587d59c81cea8ffd351a7cb07f9",
+      "predicate": "produces",
+      "subject": "component:map:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:268a1b25669d577c77806225501bc088ebce6514784708ae755e5ed8a14e3f49",
+      "predicate": "implements",
+      "subject": "component:sum:groups",
+      "object": "sum",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:34f7bedd9b2d80659e7398743ae5b24dd88c56de9efd6d1dc5b297aa968ffa5f",
+      "predicate": "accepts",
+      "subject": "component:sum:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:6fd22b5317dcf23d242508bcae551db083934a324935ddb8a03765a746360f15",
+      "predicate": "produces",
+      "subject": "component:sum:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:9fe30f9d2dc0bbb36e7b8af1322dee46319801a5ea3e54664b537f34fa41c50b",
+      "predicate": "implements",
+      "subject": "component:mean:groups",
+      "object": "mean",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:a2e560a37807da4ade668035e90b66245968272bbe63d30e9f7fbda9c7607d43",
+      "predicate": "accepts",
+      "subject": "component:mean:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:9401d381530982c17bb5a7188f9af8ab6033f96921767093d05c61e90fa2572a",
+      "predicate": "produces",
+      "subject": "component:mean:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:895ed25c5fcd578302ad151596d4498e76067b24966f55496e902afaa7e80684",
+      "predicate": "implements",
+      "subject": "component:min:groups",
+      "object": "min",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:3f5a56dfaecb084cc312af59a0a8478b69d8eebeb540399c40cc2a29580c4e86",
+      "predicate": "accepts",
+      "subject": "component:min:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:71fb57b8c12dc90ca93e94e2519fa0e45e0184553e3ddbc5be995488ef356e5d",
+      "predicate": "produces",
+      "subject": "component:min:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:2ea256a9400e6de5b4c4f9acca73c01789577cca376110706b1d55bf9d856ed4",
+      "predicate": "implements",
+      "subject": "component:max:groups",
+      "object": "max",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:305581a59a9309b7f4e7c4650ecd5d8f45b1725a46c869ed00d5b276ba72f478",
+      "predicate": "accepts",
+      "subject": "component:max:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:96bfdfcaca991103d2a2094f348b9cf6382a65c00e250e37a3bf3afabc5f5720",
+      "predicate": "produces",
+      "subject": "component:max:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:adfb7c29ad1491dfe40593ac109fb572b66905ae0d8d8e9b854c384b4fed48dc",
+      "predicate": "implements",
+      "subject": "component:stats:groups",
+      "object": "stats",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:f615ac4102fa3e4a0e64b4b5956d22656e9364eb85143c0ac7700a136376d783",
+      "predicate": "accepts",
+      "subject": "component:stats:groups",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:15a271eb04d479b9d9ce86599dfba70df70c7a75ba34d0dfe180b98b3fcbfc28",
+      "predicate": "produces",
+      "subject": "component:stats:groups",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:0846a81915047b7e9c967c48949adbba612dbaa4f4b7ddcc11de5095c9dafdfa",
+      "predicate": "implements",
+      "subject": "component:lowercase:lines",
+      "object": "lowercase",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:78ec704426e1997f7ca1cfbc9681ee6d4f5330e849763709f6e476af4c596e70",
+      "predicate": "accepts",
+      "subject": "component:lowercase:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:77b741905349cbfd37d70ea5cc21164ed3af51bfe67d04fe2db55bfbf3f8a41e",
+      "predicate": "produces",
+      "subject": "component:lowercase:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:9cd040fcd185538f85b1a92862927a91c923282784af58fc3d84adee835ef89e",
+      "predicate": "implements",
+      "subject": "component:strip:lines",
+      "object": "strip",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:22492161a76bada4073215d349ed539590045c691f0647f6702443065391a7ce",
+      "predicate": "accepts",
+      "subject": "component:strip:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:f03277a9bbe21f59d75649ebdd90eb982b7191c382cacb938b07085626144db2",
+      "predicate": "produces",
+      "subject": "component:strip:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:5ea38c0311a8a5e186475255666493333157d32c23c9617895840e3667d9497f",
+      "predicate": "implements",
+      "subject": "component:words:lines",
+      "object": "words",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:6a19e7e8fa86883b05ba1892058acd369e4709d9d307b3c92e671cf8420bd36d",
+      "predicate": "accepts",
+      "subject": "component:words:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:6d61cfda0a2e3d05165ea7e7322d7362553db36b310cb196ae3bb80d0a2944c7",
+      "predicate": "produces",
+      "subject": "component:words:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:78a5d7d1d030a0602d9f86f7af9f3299bf435e3e1cabb60e5ce1d85551d3d0e7",
+      "predicate": "implements",
+      "subject": "component:frequencies:lines",
+      "object": "frequencies",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:77d83de47bfb4f4256cdf4ba3c8e4ef0781b698b9c5e366552f35c78cf7100d4",
+      "predicate": "accepts",
+      "subject": "component:frequencies:lines",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:668c72c9ec21938322fac2138a69fc5e62701a4eebf83ddce1d3f414855c0459",
+      "predicate": "produces",
+      "subject": "component:frequencies:lines",
+      "object": "report",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:3dee7c418f885773daafecc0ecd435c85e9c50eca5b75bceea35d912e2d62eb2",
+      "predicate": "implements",
+      "subject": "component:read_numbers:stream",
+      "object": "read_numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:a7d00748dd747f53a4e2da37dca391bfdbf1925c5a21f481d6af0392173d9269",
+      "predicate": "accepts",
+      "subject": "component:read_numbers:stream",
+      "object": "stream",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:b28f4c1a91dc91bb9e9cc7231447ba777e48f6fce71a17e1d8a1b988924535ec",
+      "predicate": "produces",
+      "subject": "component:read_numbers:stream",
+      "object": "numbers",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:1372310e4af5c015bfbbede5f3765c8da26ff1050d13f42e97ec5b7bdb056e2d",
+      "predicate": "implements",
+      "subject": "component:read_lines:stream",
+      "object": "read_lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:85a3bd4111a460f56259f4a78bcc714599dac4ce92d6a266b01cfec09f50fdd5",
+      "predicate": "accepts",
+      "subject": "component:read_lines:stream",
+      "object": "stream",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:0ee2ff7bfdb7761be18eb5db9dd7583335be12e5d248738d2951297ba6e88354",
+      "predicate": "produces",
+      "subject": "component:read_lines:stream",
+      "object": "lines",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:444c659ce9943134e821a4c4dc396962a10e08d97039595806089f7ba2bfaa99",
+      "predicate": "implements",
+      "subject": "component:read_records:stream",
+      "object": "read_records",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:884550a94f24729ea780e8e26e2fa422662163b46e18f283b955f13100a2cb02",
+      "predicate": "accepts",
+      "subject": "component:read_records:stream",
+      "object": "stream",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    },
+    {
+      "id": "contract:d5640e034384e67acba2382b5caaccc29253c7485303ee869564d91cb1af1e18",
+      "predicate": "produces",
+      "subject": "component:read_records:stream",
+      "object": "groups",
+      "negative": false,
+      "valid_from": null,
+      "valid_to": null,
+      "source": "component-catalog-v1",
+      "origin": "metadata",
+      "qualifiers": {}
+    }
+  ],
+  "relations": [
+    {
+      "name": "implements",
+      "domain": "entity",
+      "range": "entity",
+      "transitive": false,
+      "inverse": "",
+      "words": []
+    },
+    {
+      "name": "accepts",
+      "domain": "entity",
+      "range": "entity",
+      "transitive": false,
+      "inverse": "",
+      "words": []
+    },
+    {
+      "name": "produces",
+      "domain": "entity",
+      "range": "entity",
+      "transitive": false,
+      "inverse": "",
+      "words": []
+    },
+    {
+      "name": "compatible",
+      "domain": "entity",
+      "range": "entity",
+      "transitive": false,
+      "inverse": "",
+      "words": []
+    }
+  ],
+  "programs": [
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": "x>1"
+          },
+          {
+            "op": "map",
+            "expr": "3*x-2"
+          },
+          {
+            "op": "sort",
+            "descending": true
+          }
+        ],
+        "output": "stats"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": {
+              "op": "gt",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 1
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "map",
+            "expr": {
+              "op": "subtract",
+              "args": [
+                {
+                  "op": "multiply",
+                  "args": [
+                    {
+                      "op": "constant",
+                      "args": [],
+                      "value": 3
+                    },
+                    {
+                      "op": "variable",
+                      "args": [],
+                      "value": null
+                    }
+                  ],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 2
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "sort",
+            "expr": null,
+            "descending": true
+          }
+        ],
+        "output": "stats",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "records",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": "x>=-4"
+          },
+          {
+            "op": "map",
+            "expr": "3*x+1"
+          },
+          {
+            "op": "unique"
+          },
+          {
+            "op": "sort"
+          }
+        ],
+        "output": "stats",
+        "invalid": "skip"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "records",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": {
+              "op": "ge",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "negate",
+                  "args": [
+                    {
+                      "op": "constant",
+                      "args": [],
+                      "value": 4
+                    }
+                  ],
+                  "value": null
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "map",
+            "expr": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "multiply",
+                  "args": [
+                    {
+                      "op": "constant",
+                      "args": [],
+                      "value": 3
+                    },
+                    {
+                      "op": "variable",
+                      "args": [],
+                      "value": null
+                    }
+                  ],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 1
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "unique",
+            "expr": null,
+            "descending": false
+          },
+          {
+            "op": "sort",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "stats",
+        "invalid": "skip",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "records",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": "x<10"
+          },
+          {
+            "op": "reverse"
+          }
+        ],
+        "output": "mean"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "records",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": {
+              "op": "lt",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 10
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "reverse",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "mean",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "records",
+        "steps": [
+          {
+            "op": "map",
+            "expr": "2*x"
+          },
+          {
+            "op": "sort"
+          }
+        ],
+        "output": "sum"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "records",
+        "steps": [
+          {
+            "op": "map",
+            "expr": {
+              "op": "multiply",
+              "args": [
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 2
+                },
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "sort",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "sum",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": "x>=0"
+          },
+          {
+            "op": "unique"
+          }
+        ],
+        "output": "sum",
+        "invalid": "skip"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": {
+              "op": "ge",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 0
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "unique",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "sum",
+        "invalid": "skip",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "map",
+            "expr": "x-7"
+          },
+          {
+            "op": "unique"
+          },
+          {
+            "op": "sort",
+            "descending": true
+          },
+          {
+            "op": "reverse"
+          }
+        ],
+        "output": "values"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "map",
+            "expr": {
+              "op": "subtract",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 7
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "unique",
+            "expr": null,
+            "descending": false
+          },
+          {
+            "op": "sort",
+            "expr": null,
+            "descending": true
+          },
+          {
+            "op": "reverse",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "values",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "lines",
+        "steps": [
+          {
+            "op": "lowercase"
+          },
+          {
+            "op": "words"
+          }
+        ],
+        "output": "frequencies"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "lines",
+        "steps": [
+          {
+            "op": "lowercase",
+            "expr": null,
+            "descending": false
+          },
+          {
+            "op": "words",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "frequencies",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "lines",
+        "steps": [
+          {
+            "op": "strip"
+          },
+          {
+            "op": "unique"
+          },
+          {
+            "op": "sort"
+          }
+        ],
+        "output": "values"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "lines",
+        "steps": [
+          {
+            "op": "strip",
+            "expr": null,
+            "descending": false
+          },
+          {
+            "op": "unique",
+            "expr": null,
+            "descending": false
+          },
+          {
+            "op": "sort",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "values",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "lines",
+        "steps": [
+          {
+            "op": "words"
+          }
+        ],
+        "output": "count"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "lines",
+        "steps": [
+          {
+            "op": "words",
+            "expr": null,
+            "descending": false
+          }
+        ],
+        "output": "count",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": "x>=-5 and x<8"
+          },
+          {
+            "op": "map",
+            "expr": "x+2"
+          }
+        ],
+        "output": "stats"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": {
+              "op": "and",
+              "args": [
+                {
+                  "op": "ge",
+                  "args": [
+                    {
+                      "op": "variable",
+                      "args": [],
+                      "value": null
+                    },
+                    {
+                      "op": "negate",
+                      "args": [
+                        {
+                          "op": "constant",
+                          "args": [],
+                          "value": 5
+                        }
+                      ],
+                      "value": null
+                    }
+                  ],
+                  "value": null
+                },
+                {
+                  "op": "lt",
+                  "args": [
+                    {
+                      "op": "variable",
+                      "args": [],
+                      "value": null
+                    },
+                    {
+                      "op": "constant",
+                      "args": [],
+                      "value": 8
+                    }
+                  ],
+                  "value": null
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          },
+          {
+            "op": "map",
+            "expr": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 2
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          }
+        ],
+        "output": "stats",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": {
+          "kind": "numbers"
+        },
+        "steps": [],
+        "name": "normalize_values"
+      },
+      "expected": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [],
+        "output": "values",
+        "invalid": "error",
+        "name": "normalize_values",
+        "assumptions": []
+      }
+    },
+    {
+      "input": {
+        "input": "lines",
+        "output": "sum"
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "filter",
+            "expr": "x+1"
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "map",
+            "expr": "x>1"
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "map"
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "reverse",
+            "descending": true
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "strip"
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "lines",
+        "steps": [
+          {
+            "op": "map",
+            "expr": "x"
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "output": "frequencies"
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "name": "class"
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "name": "_hidden"
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "extra": true
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          },
+          {
+            "op": "reverse"
+          }
+        ]
+      },
+      "error": "Unsupported"
+    },
+    {
+      "input": {
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "sort",
+            "descending": 1
+          }
+        ]
+      },
+      "error": "Unsupported"
+    }
+  ]
+}

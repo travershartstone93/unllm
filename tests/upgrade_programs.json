@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "purpose": "Frozen supported-family integration cases. These are development validation, not a blinded general coding benchmark.",
+  "tasks": [
+    {"id": "numeric_summary", "spec": {"input": "numbers", "steps": [{"op": "filter", "expr": "x>1"}, {"op": "map", "expr": "3*x-2"}, {"op": "sort", "descending": true}], "output": "stats"}},
+    {"id": "record_statistics", "spec": {"input": "records", "steps": [{"op": "filter", "expr": "x>=-4"}, {"op": "map", "expr": "3*x+1"}, {"op": "unique"}, {"op": "sort"}], "output": "stats", "invalid": "skip"}},
+    {"id": "record_means", "spec": {"input": "records", "steps": [{"op": "filter", "expr": "x<10"}, {"op": "reverse"}], "output": "mean"}},
+    {"id": "record_sums", "spec": {"input": "records", "steps": [{"op": "map", "expr": "2*x"}, {"op": "sort"}], "output": "sum"}},
+    {"id": "numeric_sum", "spec": {"input": "numbers", "steps": [{"op": "filter", "expr": "x>=0"}, {"op": "unique"}], "output": "sum", "invalid": "skip"}},
+    {"id": "numeric_order", "spec": {"input": "numbers", "steps": [{"op": "map", "expr": "x-7"}, {"op": "unique"}, {"op": "sort", "descending": true}, {"op": "reverse"}], "output": "values"}},
+    {"id": "word_frequencies", "spec": {"input": "lines", "steps": [{"op": "lowercase"}, {"op": "words"}], "output": "frequencies"}},
+    {"id": "normalized_lines", "spec": {"input": "lines", "steps": [{"op": "strip"}, {"op": "unique"}, {"op": "sort"}], "output": "values"}},
+    {"id": "word_count", "spec": {"input": "lines", "steps": [{"op": "words"}], "output": "count"}},
+    {"id": "bounded_statistics", "spec": {"input": "numbers", "steps": [{"op": "filter", "expr": "x>=-5 and x<8"}, {"op": "map", "expr": "x+2"}], "output": "stats"}}
+  ]
+}

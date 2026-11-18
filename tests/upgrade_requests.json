@@ -1,0 +1,32 @@
+[
+  {
+    "id": "text_counter",
+    "language": "python",
+    "question": "Build an app with an editable text area, a character count, and lowercase and save buttons."
+  },
+  {
+    "id": "decrement",
+    "language": "cpp",
+    "question": "Build an app that decreases a counter by 11."
+  },
+  {
+    "id": "todo",
+    "language": "python",
+    "question": "Make a to-do list app with add, remove, and save buttons."
+  },
+  {
+    "id": "stopwatch",
+    "language": "python",
+    "question": "Create a stopwatch app with start, stop, and reset buttons."
+  },
+  {
+    "id": "temperature",
+    "language": "cpp",
+    "question": "Create an app that converts Celsius to Fahrenheit."
+  },
+  {
+    "id": "tip",
+    "language": "python",
+    "question": "Build a tip calculator with bill amount and tip percentage inputs."
+  }
+]

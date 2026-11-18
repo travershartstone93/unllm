@@ -1,0 +1,50 @@
+{
+  "schema": 2,
+  "program": "application",
+  "title": "Application",
+  "state": {
+    "input_value": {
+      "type": "number",
+      "initial": 0.0
+    },
+    "output_value": {
+      "type": "number",
+      "initial": 32.0
+    }
+  },
+  "views": [
+    {
+      "id": "source_input",
+      "kind": "number_input",
+      "state": "input_value",
+      "label": "Celsius"
+    },
+    {
+      "id": "converted_output",
+      "kind": "label",
+      "value": "output_value",
+      "label": "Fahrenheit"
+    }
+  ],
+  "actions": [
+    {
+      "id": "convert",
+      "label": "Convert",
+      "ensure": "5 * next.output_value == 9 * prev.input_value + (160)"
+    }
+  ],
+  "events": [],
+  "interpretation": {
+    "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+    "bindings": [
+      {
+        "operation": "convert",
+        "source_unit": "celsius",
+        "target_unit": "fahrenheit",
+        "dimension": "temperature"
+      }
+    ],
+    "defaults": []
+  },
+  "checks": []
+}

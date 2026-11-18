@@ -1,0 +1,63 @@
+{
+  "schema": 2,
+  "program": "application",
+  "title": "Application",
+  "state": {
+    "body": {
+      "type": "text",
+      "initial": ""
+    }
+  },
+  "views": [
+    {
+      "id": "body_view",
+      "kind": "text_edit",
+      "state": "body"
+    },
+    {
+      "id": "chars_view",
+      "kind": "label",
+      "value": "chars(body)",
+      "label": "Characters"
+    }
+  ],
+  "actions": [
+    {
+      "id": "lower",
+      "label": "Lower",
+      "assign": {
+        "body": "lower(body)"
+      }
+    },
+    {
+      "id": "save",
+      "label": "Save",
+      "effect": "save",
+      "state": "body",
+      "shortcut": "Ctrl+S"
+    }
+  ],
+  "events": [],
+  "interpretation": {
+    "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+    "bindings": [
+      {
+        "operation": "chars",
+        "state": "body",
+        "predicate": "default"
+      },
+      {
+        "operation": "lower",
+        "state": "body",
+        "predicate": "_operation_n_of"
+      },
+      {
+        "operation": "save",
+        "state": "body",
+        "predicate": "_operation_n_of"
+      }
+    ],
+    "defaults": []
+  },
+  "checks": []
+}

@@ -9,9 +9,49 @@ add_compile_options(-Wall -Wextra)
 
 find_package(Threads REQUIRED)
 file(GLOB UNLLM_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+list(FILTER UNLLM_SOURCES EXCLUDE REGEX "logic_bridge[.]cpp$")
 add_library(unllm STATIC ${UNLLM_SOURCES})
 target_include_directories(unllm PUBLIC include)
 target_link_libraries(unllm PUBLIC sqlite3 Threads::Threads)
+
+# Symbolic upgrade dependencies live in this checkout. Legacy builds can turn
+# this off explicitly; a requested symbolic build must not silently omit them.
+option(UNLLM_SYMBOLIC "Build the symbolic upgrade and native reasoning bridge" ON)
+if(UNLLM_SYMBOLIC)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(JSONC REQUIRED IMPORTED_TARGET json-c)
+  find_path(SWIPL_INCLUDE_DIR SWI-Prolog.h
+    HINTS ${CMAKE_SOURCE_DIR}/.deps/native/usr/lib/swipl/include)
+  find_library(SWIPL_LIBRARY NAMES swipl
+    HINTS ${CMAKE_SOURCE_DIR}/.deps/native/usr/lib/swipl/lib/x86_64-linux)
+  find_program(SOUFFLE_EXECUTABLE souffle HINTS ${CMAKE_SOURCE_DIR}/.deps/bin)
+  find_path(SOUFFLE_INCLUDE_DIR souffle/SouffleInterface.h
+    HINTS ${CMAKE_SOURCE_DIR}/.deps/native/usr/include)
+  if(NOT SWIPL_INCLUDE_DIR OR NOT SWIPL_LIBRARY OR NOT SOUFFLE_EXECUTABLE OR NOT SOUFFLE_INCLUDE_DIR)
+    message(FATAL_ERROR "Symbolic dependencies missing. Run tools/setup_upgrade.py, or explicitly set UNLLM_SYMBOLIC=OFF.")
+  endif()
+  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/symbolic)
+  set(BACKGROUND_CPP ${CMAKE_BINARY_DIR}/symbolic/background.cpp)
+  add_custom_command(OUTPUT ${BACKGROUND_CPP}
+    COMMAND ${SOUFFLE_EXECUTABLE} -t none -g ${BACKGROUND_CPP}
+      ${CMAKE_SOURCE_DIR}/reasoning/souffle/background.dl
+    DEPENDS reasoning/souffle/background.dl
+    VERBATIM)
+  add_library(unllm_logic SHARED src/logic_bridge.cpp ${BACKGROUND_CPP})
+  # Souffle 2.5's public generated-code headers target C++17. The host
+  # application and generated user programs retain C++20.
+  set_target_properties(unllm_logic PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+  target_compile_definitions(unllm_logic PRIVATE __EMBEDDED_SOUFFLE__
+    UNLLM_PROLOG_RULES="${CMAKE_SOURCE_DIR}/reasoning/prolog/rules.pl")
+  target_include_directories(unllm_logic PRIVATE include ${SWIPL_INCLUDE_DIR} ${SOUFFLE_INCLUDE_DIR})
+  target_link_libraries(unllm_logic PRIVATE PkgConfig::JSONC ${SWIPL_LIBRARY} ${CMAKE_DL_LIBS})
+  target_compile_options(unllm_logic PRIVATE -Wno-unused-result)
+  target_compile_definitions(unllm PUBLIC UNLLM_SYMBOLIC_READY
+    UNLLM_UPGRADE_ROOT="${CMAKE_SOURCE_DIR}"
+    UNLLM_LOGIC_LIBRARY="$<TARGET_FILE:unllm_logic>")
+  target_link_libraries(unllm PUBLIC PkgConfig::JSONC)
+  add_dependencies(unllm unllm_logic)
+endif()
 
 # Ranked search with Tantivy (search/, Rust). Built through cargo when it is
 # available; without it, packs are searched with SQLite FTS5 only.
@@ -104,6 +144,17 @@ endforeach()
 find_program(PYTHON3 python3)
 if(PYTHON3)
   add_test(NAME ingest COMMAND ${PYTHON3} -I ${CMAKE_SOURCE_DIR}/tests/test_ingest.py)
+endif()
+if(UNLLM_SYMBOLIC)
+  if(NOT EXISTS ${CMAKE_SOURCE_DIR}/.venv/bin/python)
+    message(FATAL_ERROR "Symbolic Python runtime missing; run tools/setup_upgrade.py")
+  endif()
+  foreach(t upgrade synthesis upgrade_cli app_synthesis behaviour_synthesis semantic_generation)
+    add_test(NAME ${t} COMMAND ${CMAKE_SOURCE_DIR}/.venv/bin/python ${CMAKE_SOURCE_DIR}/tests/test_${t}.py)
+    set_tests_properties(${t} PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} TIMEOUT 240 RUN_SERIAL TRUE)
+  endforeach()
+  set_tests_properties(behaviour_synthesis PROPERTIES TIMEOUT 360)
+  set_tests_properties(semantic_generation PROPERTIES TIMEOUT 360)
 endif()
 
 # The breadth gauge: how much of a real-world question corpus is understood.

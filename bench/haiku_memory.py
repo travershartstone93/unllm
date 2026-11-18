@@ -32,7 +32,7 @@ def main():
     done = {json.loads(l)["id"] for l in open(path)} if os.path.exists(path) else set()
     todo = [it for it in items if it["id"] not in done]
     bar = Task("haiku-memory", "Haiku from memory: 400 pilot questions", total=len(items))
-    bar.step(len(done))
+    bar.skip(len(done))
     with open(path, "a") as f:
         for k in range(0, len(todo), BATCH):
             batch = todo[k:k + BATCH]

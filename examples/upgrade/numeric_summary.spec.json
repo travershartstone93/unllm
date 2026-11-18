@@ -1,0 +1,18 @@
+{
+  "input": "numbers",
+  "steps": [
+    {
+      "op": "filter",
+      "expr": "x>1"
+    },
+    {
+      "op": "map",
+      "expr": "3*x-2"
+    },
+    {
+      "op": "sort",
+      "descending": true
+    }
+  ],
+  "output": "stats"
+}

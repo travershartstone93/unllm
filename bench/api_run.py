@@ -120,7 +120,7 @@ def main():
         path = f"{out_dir}/{job}.jsonl"
         done = {json.loads(l)["id"] for l in open(path)} if os.path.exists(path) else set()
         todo = [it for it in items[job] if it["id"] not in done]
-        bar.step(len(items[job]) - len(todo))
+        bar.skip(len(items[job]) - len(todo))
         with open(path, "a") as f:
             for k in range(0, len(todo), BATCH):
                 batch = todo[k:k + BATCH]

@@ -1,0 +1,91 @@
+{
+  "schema": 2,
+  "program": "application",
+  "title": "Application",
+  "state": {
+    "elapsed": {
+      "type": "number",
+      "initial": 0.0
+    },
+    "anchor": {
+      "type": "number",
+      "initial": 0.0
+    },
+    "running": {
+      "type": "bool",
+      "initial": false
+    }
+  },
+  "views": [
+    {
+      "id": "elapsed_view",
+      "kind": "label",
+      "value": "elapsed",
+      "label": "Seconds"
+    }
+  ],
+  "actions": [
+    {
+      "id": "tick",
+      "label": "Tick",
+      "effect": "sample_clock",
+      "state": "elapsed",
+      "anchor": "anchor",
+      "running": "running",
+      "visible": false
+    },
+    {
+      "id": "start",
+      "label": "Start",
+      "effect": "start_clock",
+      "state": "elapsed",
+      "anchor": "anchor",
+      "running": "running"
+    },
+    {
+      "id": "stop",
+      "label": "Stop",
+      "effect": "stop_clock",
+      "state": "elapsed",
+      "anchor": "anchor",
+      "running": "running"
+    },
+    {
+      "id": "reset",
+      "label": "Reset",
+      "effect": "reset_clock",
+      "state": "elapsed",
+      "anchor": "anchor",
+      "running": "running"
+    }
+  ],
+  "events": [
+    {
+      "kind": "periodic",
+      "interval_ms": 25,
+      "action": "tick"
+    }
+  ],
+  "interpretation": {
+    "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+    "bindings": [
+      {
+        "operation": "start",
+        "state": "elapsed",
+        "predicate": "_operation_n_of"
+      },
+      {
+        "operation": "stop",
+        "state": "elapsed",
+        "predicate": "_operation_n_of"
+      },
+      {
+        "operation": "reset",
+        "state": "elapsed",
+        "predicate": "_operation_n_of"
+      }
+    ],
+    "defaults": []
+  },
+  "checks": []
+}

@@ -1,0 +1,456 @@
+[
+  {
+    "task": "text_workbench",
+    "language": "python",
+    "file": "text_workbench/program.py",
+    "source_sha256": "a127f4de994d54deea0114fbcf0c4f356e0d237dffec0d36494b21a93f53225d",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-50fb4f0e19de",
+    "cases": 12,
+    "gui_scenarios": 12,
+    "sanitizers": false,
+    "fresh_passed": true,
+    "solver": [],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 1,
+      "functions": 4,
+      "widgets": 7,
+      "primitive_providers": 39
+    }
+  },
+  {
+    "task": "text_workbench",
+    "language": "cpp",
+    "file": "text_workbench/program.cpp",
+    "source_sha256": "a94cac60171736f5fb46bebb4b1151834203cbcc207f2ec98f1bc4b709c2993a",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-c876035468b0",
+    "cases": 24,
+    "gui_scenarios": 12,
+    "sanitizers": true,
+    "fresh_passed": true,
+    "solver": [],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 1,
+      "functions": 4,
+      "widgets": 7,
+      "primitive_providers": 39
+    }
+  },
+  {
+    "task": "conversion",
+    "language": "python",
+    "file": "conversion/program.py",
+    "source_sha256": "6615a5d17646ccba4ff739b18b72366df4015a0b702d11c9830e92bb3f48ceee",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-6bd87a2601b5",
+    "cases": 25,
+    "gui_scenarios": 25,
+    "sanitizers": false,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "5 * next.fahrenheit == 9 * prev.celsius + 160",
+        "inputs": [
+          "celsius",
+          "fahrenheit"
+        ],
+        "outputs": [
+          "fahrenheit"
+        ],
+        "solutions": {
+          "fahrenheit": "(lambda ((old_celsius Real) (old_fahrenheit Real)) (* (/ 1 5) (+ (* 9.0 old_celsius) 160.0)))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 480.869
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 2,
+      "functions": 1,
+      "widgets": 4,
+      "primitive_providers": 7
+    }
+  },
+  {
+    "task": "conversion",
+    "language": "cpp",
+    "file": "conversion/program.cpp",
+    "source_sha256": "5df4514bca874e2bf4318252a5a51eead234a44c1f72b83ba0878c54c96a55cc",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-008f06fe3c9f",
+    "cases": 50,
+    "gui_scenarios": 25,
+    "sanitizers": true,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "5 * next.fahrenheit == 9 * prev.celsius + 160",
+        "inputs": [
+          "celsius",
+          "fahrenheit"
+        ],
+        "outputs": [
+          "fahrenheit"
+        ],
+        "solutions": {
+          "fahrenheit": "(lambda ((old_celsius Real) (old_fahrenheit Real)) (* (/ 1 5) (+ (* 9.0 old_celsius) 160.0)))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 382.315
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 2,
+      "functions": 1,
+      "widgets": 4,
+      "primitive_providers": 7
+    }
+  },
+  {
+    "task": "paired_state",
+    "language": "python",
+    "file": "paired_state/program.py",
+    "source_sha256": "b519489e163ad064335c639f9a85e449091fbdd126964c2ffb1c20748259bdd2",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-69caa760e943",
+    "cases": 69,
+    "gui_scenarios": 69,
+    "sanitizers": false,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.left == prev.right and next.right == prev.left",
+        "inputs": [
+          "left",
+          "right"
+        ],
+        "outputs": [
+          "left",
+          "right"
+        ],
+        "solutions": {
+          "left": "(lambda ((old_left Real) (old_right Real)) old_right)",
+          "right": "(lambda ((old_left Real) (old_right Real)) old_left)"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 4.117
+      },
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.left == prev.left - 2 and next.right == prev.right + 2",
+        "inputs": [
+          "left",
+          "right"
+        ],
+        "outputs": [
+          "left",
+          "right"
+        ],
+        "solutions": {
+          "left": "(lambda ((old_left Real) (old_right Real)) (- old_left 2.0))",
+          "right": "(lambda ((old_left Real) (old_right Real)) (+ old_right 2.0))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 19.447
+      },
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.left == (0 if prev.left < 0 else prev.left)",
+        "inputs": [
+          "left",
+          "right"
+        ],
+        "outputs": [
+          "left"
+        ],
+        "solutions": {
+          "left": "(lambda ((old_left Real) (old_right Real)) (ite (< old_left 0.0) 0.0 old_left))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 12.862
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 2,
+      "functions": 3,
+      "widgets": 6,
+      "primitive_providers": 7
+    }
+  },
+  {
+    "task": "paired_state",
+    "language": "cpp",
+    "file": "paired_state/program.cpp",
+    "source_sha256": "b3b8d8a9be7448e5e0dee22b958a0b10356a5cc52b2597db0637619ad4637779",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-f3460d9cbeeb",
+    "cases": 138,
+    "gui_scenarios": 69,
+    "sanitizers": true,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.left == prev.right and next.right == prev.left",
+        "inputs": [
+          "left",
+          "right"
+        ],
+        "outputs": [
+          "left",
+          "right"
+        ],
+        "solutions": {
+          "left": "(lambda ((old_left Real) (old_right Real)) old_right)",
+          "right": "(lambda ((old_left Real) (old_right Real)) old_left)"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 4.141
+      },
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.left == prev.left - 2 and next.right == prev.right + 2",
+        "inputs": [
+          "left",
+          "right"
+        ],
+        "outputs": [
+          "left",
+          "right"
+        ],
+        "solutions": {
+          "left": "(lambda ((old_left Real) (old_right Real)) (- old_left 2.0))",
+          "right": "(lambda ((old_left Real) (old_right Real)) (+ old_right 2.0))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 17.791
+      },
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.left == (0 if prev.left < 0 else prev.left)",
+        "inputs": [
+          "left",
+          "right"
+        ],
+        "outputs": [
+          "left"
+        ],
+        "solutions": {
+          "left": "(lambda ((old_left Real) (old_right Real)) (ite (< old_left 0.0) 0.0 old_left))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 10.646
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 2,
+      "functions": 3,
+      "widgets": 6,
+      "primitive_providers": 7
+    }
+  },
+  {
+    "task": "mixed_workspace",
+    "language": "python",
+    "file": "mixed_workspace/program.py",
+    "source_sha256": "8ea15b25e65435e816d40e427dca735aeab2f104b4f6ef3d22bab1b0d6fb2ec7",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-90d03189f23a",
+    "cases": 28,
+    "gui_scenarios": 28,
+    "sanitizers": false,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.visits == prev.visits + 3",
+        "inputs": [
+          "visits"
+        ],
+        "outputs": [
+          "visits"
+        ],
+        "solutions": {
+          "visits": "(lambda ((old_visits Real)) (+ old_visits 3.0))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 10.835
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 4,
+      "functions": 3,
+      "widgets": 8,
+      "primitive_providers": 25
+    }
+  },
+  {
+    "task": "mixed_workspace",
+    "language": "cpp",
+    "file": "mixed_workspace/program.cpp",
+    "source_sha256": "bad5cb988bc24affaa7cd256af684056e6821f61f2a909cf5fde033133168c02",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-7d1271f77b90",
+    "cases": 56,
+    "gui_scenarios": 28,
+    "sanitizers": true,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "next.visits == prev.visits + 3",
+        "inputs": [
+          "visits"
+        ],
+        "outputs": [
+          "visits"
+        ],
+        "solutions": {
+          "visits": "(lambda ((old_visits Real)) (+ old_visits 3.0))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 12.194
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 4,
+      "functions": 3,
+      "widgets": 8,
+      "primitive_providers": 25
+    }
+  },
+  {
+    "task": "new_requirements",
+    "language": "python",
+    "file": "new_requirements/program.py",
+    "source_sha256": "60525bcab6f3446450444913978807bbcf4dc36fb2c6dfa2ad30d286888f9d4f",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-77c3fcd8f77b",
+    "cases": 27,
+    "gui_scenarios": 27,
+    "sanitizers": false,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "3 * next.quantity == prev.quantity + 15",
+        "inputs": [
+          "quantity"
+        ],
+        "outputs": [
+          "quantity"
+        ],
+        "solutions": {
+          "quantity": "(lambda ((old_quantity Real)) (* (/ 1 3) (+ old_quantity 15.0)))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 49.986
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 2,
+      "functions": 2,
+      "widgets": 5,
+      "primitive_providers": 13
+    }
+  },
+  {
+    "task": "new_requirements",
+    "language": "cpp",
+    "file": "new_requirements/program.cpp",
+    "source_sha256": "a019334ffa1c2ac639a6357f8fe5a9dd624734cf98874c5bc11b29d102621c5c",
+    "validated_job": "/home/whisper/repo-work/unllm-upgrade/.artifacts/job-6c03d00afbff",
+    "cases": 54,
+    "gui_scenarios": 27,
+    "sanitizers": true,
+    "fresh_passed": true,
+    "solver": [
+      {
+        "engine": "cvc5",
+        "method": "relational SyGuS",
+        "version": "1.3.1",
+        "postcondition": "3 * next.quantity == prev.quantity + 15",
+        "inputs": [
+          "quantity"
+        ],
+        "outputs": [
+          "quantity"
+        ],
+        "solutions": {
+          "quantity": "(lambda ((old_quantity Real)) (* (/ 1 3) (+ old_quantity 15.0)))"
+        },
+        "precondition": null,
+        "precondition_encoded": false,
+        "simultaneous": true,
+        "domain": "mathematical polynomial reals (degree <= 2); finite binary64 validated separately",
+        "elapsed_ms": 22.975
+      }
+    ],
+    "application_name_used": false,
+    "structure": {
+      "state_fields": 2,
+      "functions": 2,
+      "widgets": 5,
+      "primitive_providers": 13
+    }
+  }
+]

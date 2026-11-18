@@ -94,7 +94,7 @@ def call(key, system, user, parse_fn=parse):
 def run(mode, key, items, passages, bar):
     path = f"{VEC}/groq-{mode}.jsonl"
     done = {json.loads(l)["id"] for l in open(path)} if os.path.exists(path) else set()
-    bar.step(len(done))
+    bar.skip(len(done))
     with open(path, "a") as f:
         for it in items:
             if it["id"] in done:

@@ -1,0 +1,44 @@
+{
+  "schema": 2,
+  "program": "new_goal_6e8cfedf",
+  "title": "Fresh Requirements",
+  "state": {
+    "quantity": {
+      "type": "number",
+      "initial": 0
+    },
+    "text": {
+      "type": "text",
+      "initial": ""
+    }
+  },
+  "views": [
+    {
+      "id": "quantity",
+      "kind": "number_input",
+      "state": "quantity"
+    },
+    {
+      "id": "text",
+      "kind": "text_edit",
+      "state": "text"
+    },
+    {
+      "id": "characters",
+      "kind": "label",
+      "value": "chars(text)"
+    }
+  ],
+  "actions": [
+    {
+      "id": "solve",
+      "ensure": "3 * next.quantity == prev.quantity + 15"
+    },
+    {
+      "id": "transform",
+      "assign": {
+        "text": "reverse_lines(upper(strip(text)))"
+      }
+    }
+  ]
+}

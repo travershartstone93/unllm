@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "program": "text_workbench",
+  "title": "Text Workbench",
+  "state": {
+    "notes": {
+      "type": "text",
+      "initial": ""
+    }
+  },
+  "views": [
+    {
+      "id": "notes_input",
+      "kind": "text_edit",
+      "state": "notes"
+    },
+    {
+      "id": "words",
+      "kind": "label",
+      "value": "words(notes)",
+      "label": "Words"
+    },
+    {
+      "id": "characters",
+      "kind": "label",
+      "value": "chars(notes)",
+      "label": "Characters"
+    }
+  ],
+  "actions": [
+    {
+      "id": "capitalize",
+      "label": "Uppercase",
+      "assign": {
+        "notes": "upper(notes)"
+      }
+    },
+    {
+      "id": "organize",
+      "label": "Sort unique lines",
+      "assign": {
+        "notes": "sort_lines(unique_lines(notes))"
+      }
+    },
+    {
+      "id": "open",
+      "label": "Open",
+      "effect": "load",
+      "state": "notes",
+      "shortcut": "Ctrl+O"
+    },
+    {
+      "id": "save",
+      "label": "Save",
+      "effect": "save",
+      "state": "notes",
+      "shortcut": "Ctrl+S"
+    }
+  ]
+}

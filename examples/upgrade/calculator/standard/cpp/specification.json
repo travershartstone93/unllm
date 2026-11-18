@@ -1,0 +1,16 @@
+{
+  "program": "calculator",
+  "operations": [
+    "add",
+    "subtract",
+    "multiply",
+    "divide"
+  ],
+  "memory": false,
+  "parentheses": true,
+  "backspace": true,
+  "keyboard": true,
+  "precision": 12,
+  "title": "Calculator",
+  "schema": 1
+}

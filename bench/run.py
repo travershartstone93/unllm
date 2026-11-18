@@ -113,7 +113,7 @@ def main():
             done = set()
             if os.path.exists(path):
                 done = {json.loads(l)["id"] for l in open(path)}
-            bar.step(len(done & {it['id'] for it in items[job]}))
+            bar.skip(len(done & {it['id'] for it in items[job]}))
             with open(path, "a") as f:
                 for it in items[job]:
                     if it["id"] in done:

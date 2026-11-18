@@ -1,0 +1,154 @@
+[
+  {
+    "name": "located_in",
+    "domain": "entity",
+    "range": "place",
+    "transitive": true,
+    "inverse": "contains",
+    "words": [
+      "in",
+      "location",
+      "locate"
+    ]
+  },
+  {
+    "name": "contains",
+    "domain": "place",
+    "range": "entity",
+    "transitive": false,
+    "inverse": "located_in",
+    "words": [
+      "contain"
+    ]
+  },
+  {
+    "name": "subclass_of",
+    "domain": "type",
+    "range": "type",
+    "transitive": true,
+    "inverse": "",
+    "words": [
+      "kind"
+    ]
+  },
+  {
+    "name": "type",
+    "domain": "entity",
+    "range": "type",
+    "transitive": false,
+    "inverse": "",
+    "words": []
+  },
+  {
+    "name": "depends_on",
+    "domain": "entity",
+    "range": "entity",
+    "transitive": true,
+    "inverse": "",
+    "words": [
+      "depend",
+      "require",
+      "need"
+    ]
+  },
+  {
+    "name": "available",
+    "domain": "entity",
+    "range": "bool",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "available"
+    ]
+  },
+  {
+    "name": "blocked",
+    "domain": "entity",
+    "range": "bool",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "blocked"
+    ]
+  },
+  {
+    "name": "author",
+    "domain": "work",
+    "range": "agent",
+    "transitive": false,
+    "inverse": "authored",
+    "words": [
+      "author"
+    ]
+  },
+  {
+    "name": "authored",
+    "domain": "agent",
+    "range": "work",
+    "transitive": false,
+    "inverse": "author",
+    "words": [
+      "write"
+    ]
+  },
+  {
+    "name": "birthplace",
+    "domain": "person",
+    "range": "place",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "birthplace",
+      "born"
+    ]
+  },
+  {
+    "name": "country",
+    "domain": "place",
+    "range": "country",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "country"
+    ]
+  },
+  {
+    "name": "capital",
+    "domain": "country",
+    "range": "place",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "capital"
+    ]
+  },
+  {
+    "name": "height",
+    "domain": "entity",
+    "range": "quantity",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "height",
+      "tall"
+    ]
+  },
+  {
+    "name": "taller_than",
+    "domain": "entity",
+    "range": "entity",
+    "transitive": false,
+    "inverse": "",
+    "words": []
+  },
+  {
+    "name": "population",
+    "domain": "place",
+    "range": "number",
+    "transitive": false,
+    "inverse": "",
+    "words": [
+      "population"
+    ]
+  }
+]

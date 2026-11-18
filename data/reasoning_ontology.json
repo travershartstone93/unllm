@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "source": {
+    "id": "unllm:ontology:v1",
+    "title": "unllm relation and type declarations",
+    "version": "1",
+    "license": "MIT"
+  },
+  "entities": [
+    {"id": "city", "name": "city", "type": "type"},
+    {"id": "country", "name": "country", "type": "type"},
+    {"id": "place", "name": "place", "type": "type"},
+    {"id": "person", "name": "person", "type": "type"},
+    {"id": "organization", "name": "organization", "type": "type"},
+    {"id": "agent", "name": "agent", "type": "type"},
+    {"id": "work", "name": "work", "type": "type"},
+    {"id": "program", "name": "program", "type": "type"},
+    {"id": "entity", "name": "entity", "type": "type"}
+  ],
+  "claims": [
+    {"subject": "city", "predicate": "subclass_of", "object": "place"},
+    {"subject": "country", "predicate": "subclass_of", "object": "place"},
+    {"subject": "person", "predicate": "subclass_of", "object": "agent"},
+    {"subject": "organization", "predicate": "subclass_of", "object": "agent"},
+    {"subject": "agent", "predicate": "subclass_of", "object": "entity"},
+    {"subject": "place", "predicate": "subclass_of", "object": "entity"},
+    {"subject": "work", "predicate": "subclass_of", "object": "entity"},
+    {"subject": "program", "predicate": "subclass_of", "object": "entity"}
+  ]
+}

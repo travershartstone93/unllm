@@ -1,0 +1,1370 @@
+{
+  "purpose": "program-request interpretation, independent requirements and selected external Qt workflows",
+  "blinded": false,
+  "policy": "Freeze before model evaluation. The prompt and capability adapter never read expected contracts or workflows. Record failures without tuning on these cases.",
+  "cases": [
+    {
+      "id": "original_text",
+      "group": "original",
+      "question": "Build an app with an editable text area, a character count, and lowercase and save buttons.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text"
+          },
+          "text": "multiline",
+          "metrics": [
+            "chars"
+          ],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "assign": {
+                "body": "Call(func=Name(id='lower', ctx=Load()), args=[Name(id='body', ctx=Load())], keywords=[])"
+              }
+            },
+            {
+              "effect": "save",
+              "target": "body"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "original_counter",
+      "group": "original",
+      "question": "Build an app that decreases a counter by 11.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": 0,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -18.25,
+                -11.0,
+                -10.875,
+                -2.0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "original_todo",
+      "group": "original",
+      "question": "Make a to-do list app with add, remove, and save buttons.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "records": "records",
+            "selection": "number",
+            "entry_text": "text",
+            "entry_done": "bool"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": {
+            "text": "text",
+            "done": "bool"
+          },
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "append_record",
+              "target": "records"
+            },
+            {
+              "effect": "remove_record",
+              "target": "records"
+            },
+            {
+              "effect": "save",
+              "target": "records"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "original_clock",
+      "group": "original",
+      "question": "Create a stopwatch app with start, stop, and reset buttons.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "elapsed": "number",
+            "anchor": "number",
+            "running": "bool"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": true,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "reset_clock",
+              "target": "elapsed"
+            },
+            {
+              "effect": "start_clock",
+              "target": "elapsed"
+            },
+            {
+              "effect": "stop_clock",
+              "target": "elapsed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "original_conversion",
+      "group": "original",
+      "question": "Create an app that converts Celsius to Fahrenheit.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "input_value": "number",
+            "output_value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": "Celsius",
+          "target_label": "Fahrenheit",
+          "actions": [
+            {
+              "outputs": [
+                "output_value"
+              ],
+              "samples": [
+                32,
+                63.5,
+                212
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "original_tip",
+      "group": "original",
+      "question": "Build a tip calculator with bill amount and tip percentage inputs.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "amount": "number",
+            "rate": "number",
+            "part": "number",
+            "total": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": "Tip amount",
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "part",
+                "total"
+              ],
+              "samples": [
+                [
+                  15.43125,
+                  138.88125
+                ],
+                [
+                  0.0,
+                  80.0
+                ],
+                [
+                  0.0015,
+                  0.0115
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "events": [
+          {
+            "kind": "enter",
+            "target": "amount_input",
+            "text": "123.45"
+          },
+          {
+            "kind": "enter",
+            "target": "rate_input",
+            "text": "12.5"
+          },
+          {
+            "kind": "click",
+            "target": "calculate"
+          },
+          {
+            "kind": "expect_number",
+            "target": "part_output",
+            "value": 15.43125
+          },
+          {
+            "kind": "expect_number",
+            "target": "total_output",
+            "value": 138.88125
+          },
+          {
+            "kind": "enter",
+            "target": "amount_input",
+            "text": "80"
+          },
+          {
+            "kind": "enter",
+            "target": "rate_input",
+            "text": "0"
+          },
+          {
+            "kind": "click",
+            "target": "calculate"
+          },
+          {
+            "kind": "expect_number",
+            "target": "part_output",
+            "value": 0
+          },
+          {
+            "kind": "expect_number",
+            "target": "total_output",
+            "value": 80
+          },
+          {
+            "kind": "enter",
+            "target": "amount_input",
+            "text": "0.01"
+          },
+          {
+            "kind": "enter",
+            "target": "rate_input",
+            "text": "15"
+          },
+          {
+            "kind": "click",
+            "target": "calculate"
+          },
+          {
+            "kind": "expect_number",
+            "target": "part_output",
+            "value": 0.0015
+          },
+          {
+            "kind": "expect_number",
+            "target": "total_output",
+            "value": 0.0115
+          }
+        ]
+      },
+      "execute": [
+        "python"
+      ]
+    },
+    {
+      "id": "known_failed_coordination",
+      "group": "known_failure",
+      "question": "Build an app with an editable text area, a character count, and uppercase and save buttons, and a counter that increases by 4.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text",
+            "value": "number"
+          },
+          "text": "multiline",
+          "metrics": [
+            "chars"
+          ],
+          "counter_initial": 0,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "assign": {
+                "body": "Call(func=Name(id='upper', ctx=Load()), args=[Name(id='body', ctx=Load())], keywords=[])"
+              }
+            },
+            {
+              "effect": "save",
+              "target": "body"
+            },
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -3.25,
+                4.0,
+                4.125,
+                13.0
+              ]
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "dialogs": {
+          "save": [
+            "/output/mixed.txt"
+          ]
+        },
+        "events": [
+          {
+            "kind": "enter",
+            "target": "body_view",
+            "text": "aBc café 🐦"
+          },
+          {
+            "kind": "expect_text",
+            "target": "chars_view",
+            "value": "Characters: 10"
+          },
+          {
+            "kind": "enter",
+            "target": "number_view",
+            "text": "17.5"
+          },
+          {
+            "kind": "click",
+            "target": "increment"
+          },
+          {
+            "kind": "expect_number",
+            "target": "number_result",
+            "value": 21.5
+          },
+          {
+            "kind": "click",
+            "target": "upper"
+          },
+          {
+            "kind": "expect_text",
+            "target": "body_view",
+            "value": "ABC CAFÉ 🐦"
+          },
+          {
+            "kind": "click",
+            "target": "save"
+          },
+          {
+            "kind": "expect_file",
+            "path": "/output/mixed.txt",
+            "value": "ABC CAFÉ 🐦"
+          },
+          {
+            "kind": "expect_number",
+            "target": "number_result",
+            "value": 21.5
+          }
+        ]
+      },
+      "execute": [
+        "python",
+        "cpp"
+      ]
+    },
+    {
+      "id": "known_reordered_coordination",
+      "group": "known_control",
+      "question": "Build an app with an editable text area, a character count, a counter that increases by 4, and uppercase and save buttons.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text",
+            "value": "number"
+          },
+          "text": "multiline",
+          "metrics": [
+            "chars"
+          ],
+          "counter_initial": 0,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "assign": {
+                "body": "Call(func=Name(id='upper', ctx=Load()), args=[Name(id='body', ctx=Load())], keywords=[])"
+              }
+            },
+            {
+              "effect": "save",
+              "target": "body"
+            },
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -3.25,
+                4.0,
+                4.125,
+                13.0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "text_paraphrase",
+      "group": "fresh",
+      "question": "I need a window with a multiline text box where I can see the character count, turn the text uppercase, and save it.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text"
+          },
+          "text": "multiline",
+          "metrics": [
+            "chars"
+          ],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "assign": {
+                "body": "Call(func=Name(id='upper', ctx=Load()), args=[Name(id='body', ctx=Load())], keywords=[])"
+              }
+            },
+            {
+              "effect": "save",
+              "target": "body"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "initial_fraction",
+      "group": "fresh",
+      "question": "Give me a counter starting at 8.5 whose button takes away 2.25.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": 8.5,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -9.5,
+                -2.25,
+                -2.125,
+                6.75
+              ]
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "events": [
+          {
+            "kind": "expect_number",
+            "target": "number_view",
+            "value": 8.5
+          },
+          {
+            "kind": "click",
+            "target": "decrement"
+          },
+          {
+            "kind": "expect_number",
+            "target": "number_result",
+            "value": 6.25
+          },
+          {
+            "kind": "enter",
+            "target": "number_view",
+            "text": "-0.5"
+          },
+          {
+            "kind": "click",
+            "target": "decrement"
+          },
+          {
+            "kind": "expect_number",
+            "target": "number_result",
+            "value": -2.75
+          }
+        ]
+      },
+      "execute": [
+        "python",
+        "cpp"
+      ]
+    },
+    {
+      "id": "multiply_counter",
+      "group": "fresh",
+      "question": "Create a counter whose button multiplies its value by 3.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": 0,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -21.75,
+                0.0,
+                0.375,
+                27.0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "two_actions",
+      "group": "fresh",
+      "question": "Create a counter with separate buttons to increase it by 2 and decrease it by 5.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": 0,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -12.25,
+                -5.0,
+                -4.875,
+                4.0
+              ]
+            },
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -5.25,
+                2.0,
+                2.125,
+                11.0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "shopping_paraphrase",
+      "group": "fresh",
+      "question": "I want a shopping list where I can add entries, delete the selected entry, save it and open it again.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "records": "records",
+            "selection": "number",
+            "entry_text": "text"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": {
+            "text": "text"
+          },
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "append_record",
+              "target": "records"
+            },
+            {
+              "effect": "load",
+              "target": "records"
+            },
+            {
+              "effect": "remove_record",
+              "target": "records"
+            },
+            {
+              "effect": "save",
+              "target": "records"
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "dialogs": {
+          "save": [
+            "/output/list.json"
+          ],
+          "open": [
+            "/output/list.json"
+          ],
+          "confirm": [
+            "discard"
+          ]
+        },
+        "events": [
+          {
+            "kind": "enter",
+            "target": "entry_text_input",
+            "text": "  café 🐦  "
+          },
+          {
+            "kind": "click",
+            "target": "add"
+          },
+          {
+            "kind": "enter",
+            "target": "entry_text_input",
+            "text": "rice"
+          },
+          {
+            "kind": "click",
+            "target": "add"
+          },
+          {
+            "kind": "click",
+            "target": "save"
+          },
+          {
+            "kind": "expect_file",
+            "path": "/output/list.json",
+            "value": [
+              {
+                "text": "café 🐦"
+              },
+              {
+                "text": "rice"
+              }
+            ]
+          },
+          {
+            "kind": "select",
+            "target": "records_view",
+            "row": 0
+          },
+          {
+            "kind": "click",
+            "target": "remove"
+          },
+          {
+            "kind": "expect_items",
+            "target": "records_view",
+            "value": [
+              "rice"
+            ]
+          },
+          {
+            "kind": "click",
+            "target": "load"
+          },
+          {
+            "kind": "expect_items",
+            "target": "records_view",
+            "value": [
+              "café 🐦",
+              "rice"
+            ]
+          }
+        ]
+      },
+      "execute": [
+        "python"
+      ]
+    },
+    {
+      "id": "task_checkboxes",
+      "group": "fresh",
+      "question": "Make a to-do list with add and remove buttons and a checkbox for each task.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "records": "records",
+            "selection": "number",
+            "entry_text": "text",
+            "entry_done": "bool"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": {
+            "text": "text",
+            "done": "bool"
+          },
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "append_record",
+              "target": "records"
+            },
+            {
+              "effect": "remove_record",
+              "target": "records"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "timer_text",
+      "group": "fresh",
+      "question": "Build a timer with start and stop buttons and an editable text area with a character count.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text",
+            "elapsed": "number",
+            "anchor": "number",
+            "running": "bool"
+          },
+          "text": "multiline",
+          "metrics": [
+            "chars"
+          ],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": true,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "start_clock",
+              "target": "elapsed"
+            },
+            {
+              "effect": "stop_clock",
+              "target": "elapsed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reverse_conversion",
+      "group": "fresh",
+      "question": "Create an app that converts Fahrenheit to Celsius.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "input_value": "number",
+            "output_value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": "Fahrenheit",
+          "target_label": "Celsius",
+          "actions": [
+            {
+              "outputs": [
+                "output_value"
+              ],
+              "samples": [
+                -17.77777777777778,
+                -8.055555555555555,
+                37.77777777777778
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "kelvin_paraphrase",
+      "group": "fresh",
+      "question": "Make a temperature converter from Kelvin into Fahrenheit.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "input_value": "number",
+            "output_value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": "Kelvin",
+          "target_label": "Fahrenheit",
+          "actions": [
+            {
+              "outputs": [
+                "output_value"
+              ],
+              "samples": [
+                -459.67,
+                -428.17,
+                -279.67
+              ]
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "events": [
+          {
+            "kind": "enter",
+            "target": "source_input",
+            "text": "273.15"
+          },
+          {
+            "kind": "click",
+            "target": "convert"
+          },
+          {
+            "kind": "expect_number",
+            "target": "converted_output",
+            "value": 32
+          },
+          {
+            "kind": "enter",
+            "target": "source_input",
+            "text": "310.15"
+          },
+          {
+            "kind": "click",
+            "target": "convert"
+          },
+          {
+            "kind": "expect_number",
+            "target": "converted_output",
+            "value": 98.6
+          },
+          {
+            "kind": "enter",
+            "target": "source_input",
+            "text": "0"
+          },
+          {
+            "kind": "click",
+            "target": "convert"
+          },
+          {
+            "kind": "expect_number",
+            "target": "converted_output",
+            "value": -459.67
+          }
+        ]
+      },
+      "execute": [
+        "cpp"
+      ]
+    },
+    {
+      "id": "discount_sentence",
+      "group": "fresh",
+      "question": "I enter an amount and a discount percentage, and the app shows the discount and final price.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "amount": "number",
+            "rate": "number",
+            "part": "number",
+            "total": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": "Discount amount",
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "part",
+                "total"
+              ],
+              "samples": [
+                [
+                  15.43125,
+                  108.01875
+                ],
+                [
+                  0.0,
+                  80.0
+                ],
+                [
+                  0.0015,
+                  0.0085
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "events": [
+          {
+            "kind": "enter",
+            "target": "amount_input",
+            "text": "231.2"
+          },
+          {
+            "kind": "enter",
+            "target": "rate_input",
+            "text": "7.5"
+          },
+          {
+            "kind": "click",
+            "target": "calculate"
+          },
+          {
+            "kind": "expect_number",
+            "target": "part_output",
+            "value": 17.34
+          },
+          {
+            "kind": "expect_number",
+            "target": "total_output",
+            "value": 213.86
+          }
+        ]
+      },
+      "execute": [
+        "python"
+      ]
+    },
+    {
+      "id": "tax_paraphrase",
+      "group": "fresh",
+      "question": "Make a tax calculator using an amount and an adjustable tax percentage.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "amount": "number",
+            "rate": "number",
+            "part": "number",
+            "total": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": "Tax amount",
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "part",
+                "total"
+              ],
+              "samples": [
+                [
+                  15.43125,
+                  138.88125
+                ],
+                [
+                  0.0,
+                  80.0
+                ],
+                [
+                  0.0015,
+                  0.0115
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "no_save",
+      "group": "fresh",
+      "question": "Create a multiline text box with a word count and a trim button, with no save button.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text"
+          },
+          "text": "multiline",
+          "metrics": [
+            "words"
+          ],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "assign": {
+                "body": "Call(func=Name(id='strip', ctx=Load()), args=[Name(id='body', ctx=Load())], keywords=[])"
+              }
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "events": [
+          {
+            "kind": "enter",
+            "target": "body_view",
+            "text": "  café 🐦  "
+          },
+          {
+            "kind": "expect_text",
+            "target": "words_view",
+            "value": "Words: 2"
+          },
+          {
+            "kind": "click",
+            "target": "strip"
+          },
+          {
+            "kind": "expect_text",
+            "target": "body_view",
+            "value": "café 🐦"
+          }
+        ]
+      },
+      "execute": [
+        "python"
+      ]
+    },
+    {
+      "id": "pause_synonym",
+      "group": "fresh",
+      "question": "Give me a timer that I can start, pause and reset.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "elapsed": "number",
+            "anchor": "number",
+            "running": "bool"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": true,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "reset_clock",
+              "target": "elapsed"
+            },
+            {
+              "effect": "start_clock",
+              "target": "elapsed"
+            },
+            {
+              "effect": "stop_clock",
+              "target": "elapsed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "small_fraction",
+      "group": "fresh",
+      "question": "Make a counter that goes down by 0.125 each time I click its button.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "value": "number"
+          },
+          "text": "none",
+          "metrics": [],
+          "counter_initial": 0,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "outputs": [
+                "value"
+              ],
+              "samples": [
+                -7.375,
+                -0.125,
+                0.0,
+                8.875
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "basic_editor",
+      "group": "fresh",
+      "question": "Make a basic text editor.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text"
+          },
+          "text": "multiline",
+          "metrics": [],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": [
+            {
+              "effect": "copy",
+              "target": "body"
+            },
+            {
+              "effect": "cut",
+              "target": "body"
+            },
+            {
+              "effect": "load",
+              "target": "body"
+            },
+            {
+              "effect": "new",
+              "target": "body"
+            },
+            {
+              "effect": "paste",
+              "target": "body"
+            },
+            {
+              "effect": "redo",
+              "target": "body"
+            },
+            {
+              "effect": "save",
+              "target": "body"
+            },
+            {
+              "effect": "save_as",
+              "target": "body"
+            },
+            {
+              "effect": "select_all",
+              "target": "body"
+            },
+            {
+              "effect": "undo",
+              "target": "body"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "two_metrics",
+      "group": "fresh",
+      "question": "Create a multiline text area that shows its character count and word count and has no buttons.",
+      "expected": {
+        "status": "accepted",
+        "contract": {
+          "state_types": {
+            "body": "text"
+          },
+          "text": "multiline",
+          "metrics": [
+            "chars",
+            "words"
+          ],
+          "counter_initial": null,
+          "record_fields": null,
+          "periodic_clock": false,
+          "percentage_label": null,
+          "source_label": null,
+          "target_label": null,
+          "actions": []
+        }
+      }
+    },
+    {
+      "id": "spellcheck",
+      "group": "refusal",
+      "question": "Build a text editor that checks spelling automatically.",
+      "expected": {
+        "status": "rejected",
+        "reason": "Spell checking has no declared primitive."
+      }
+    },
+    {
+      "id": "encryption",
+      "group": "refusal",
+      "question": "Make a text editor that encrypts saved files with a password.",
+      "expected": {
+        "status": "rejected",
+        "reason": "Encryption has no declared primitive."
+      }
+    },
+    {
+      "id": "sync",
+      "group": "refusal",
+      "question": "Make a list app that synchronizes tasks with a remote server.",
+      "expected": {
+        "status": "rejected",
+        "reason": "Remote synchronization has no declared primitive."
+      }
+    },
+    {
+      "id": "dimensions",
+      "group": "refusal",
+      "question": "Create an app that converts Celsius to miles.",
+      "expected": {
+        "status": "rejected",
+        "reason": "The unit dimensions differ."
+      }
+    },
+    {
+      "id": "save_target",
+      "group": "refusal",
+      "question": "Build an app with a text area and a to-do list and a save button.",
+      "expected": {
+        "status": "rejected",
+        "reason": "The save target is ambiguous."
+      }
+    },
+    {
+      "id": "two_counters",
+      "group": "refusal",
+      "question": "Make an app with two independent counters and increase buttons.",
+      "expected": {
+        "status": "rejected",
+        "reason": "The experimental extraction representation has only one counter and must reject rather than merge them."
+      }
+    },
+    {
+      "id": "reset_target",
+      "group": "refusal",
+      "question": "Build a timer and a counter with one reset button.",
+      "expected": {
+        "status": "rejected",
+        "reason": "The reset target is ambiguous."
+      }
+    },
+    {
+      "id": "missing_rate",
+      "group": "refusal",
+      "question": "Make a tax calculator with a fixed rate, but do not specify what that rate is.",
+      "expected": {
+        "status": "rejected",
+        "reason": "A fixed rate is required but missing; changing it to an adjustable input changes the request."
+      }
+    }
+  ]
+}

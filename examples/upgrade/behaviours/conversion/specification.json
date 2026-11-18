@@ -1,0 +1,42 @@
+{
+  "schema": 2,
+  "program": "temperature_relation",
+  "title": "Temperature Conversion",
+  "state": {
+    "celsius": {
+      "type": "number",
+      "initial": 0
+    },
+    "fahrenheit": {
+      "type": "number",
+      "initial": 32
+    }
+  },
+  "views": [
+    {
+      "id": "celsius_input",
+      "kind": "number_input",
+      "state": "celsius",
+      "label": "Celsius"
+    },
+    {
+      "id": "fahrenheit_output",
+      "kind": "label",
+      "value": "fahrenheit",
+      "label": "Fahrenheit"
+    },
+    {
+      "id": "guarded_ratio",
+      "kind": "label",
+      "value": "fahrenheit / celsius if celsius != 0 else 0",
+      "label": "Ratio"
+    }
+  ],
+  "actions": [
+    {
+      "id": "convert",
+      "label": "Convert",
+      "ensure": "5 * next.fahrenheit == 9 * prev.celsius + 160"
+    }
+  ]
+}

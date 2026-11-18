@@ -58,7 +58,7 @@ def main():
             done = {json.loads(line)["question"] for line in f}
     todo = [r for r in rows if r["question"] not in done]
     bar = Task("reader-data", "Reader training passages", total=len(rows))
-    bar.step(len(rows) - len(todo))
+    bar.skip(len(rows) - len(todo))
 
     def one(r):
         cool_down()

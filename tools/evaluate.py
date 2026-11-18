@@ -125,7 +125,7 @@ def main():
                 for line in f:
                     r = json.loads(line)
                     done[r["id"]] = r
-        bar.step(len(done), detail=name)
+        bar.skip(len(done), detail=name)
         todo = [it for it in items if it["id"] not in done]
         results = list(done.values())
         jf = None if sealed else open(path, "a")

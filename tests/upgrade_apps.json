@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "purpose": "Calculator application development validation, not blinded general app synthesis.",
+  "tasks": [
+    {"id":"standard","question":"Make a standard calculator app.","spec":{"program":"calculator"}},
+    {"id":"memory","question":"Create a calculator with memory buttons.","spec":{"program":"calculator","memory":true}},
+    {"id":"restricted","question":"Make a calculator that supports only addition and subtraction.","spec":{"program":"calculator","operations":["add","subtract"],"precision":6,"title":"Add and Subtract"}},
+    {"id":"mouse_only","spec":{"program":"calculator","operations":["multiply","divide"],"keyboard":false,"parentheses":false,"backspace":false,"title":"Mouse Calculator"}}
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema": 2,
+  "program": "a_name_the_generator_has_no_category_for",
+  "title": "Mixed Workspace",
+  "state": {
+    "draft": {
+      "type": "text",
+      "initial": ""
+    },
+    "snapshot": {
+      "type": "text",
+      "initial": ""
+    },
+    "visits": {
+      "type": "number",
+      "initial": 0
+    },
+    "flag": {
+      "type": "bool",
+      "initial": false
+    }
+  },
+  "views": [
+    {
+      "id": "draft_input",
+      "kind": "text_edit",
+      "state": "draft"
+    },
+    {
+      "id": "snapshot_view",
+      "kind": "label",
+      "value": "snapshot",
+      "label": "Snapshot"
+    },
+    {
+      "id": "word_count",
+      "kind": "label",
+      "value": "words(draft)",
+      "label": "Words"
+    },
+    {
+      "id": "visits",
+      "kind": "label",
+      "value": "visits",
+      "label": "Visits"
+    },
+    {
+      "id": "flag",
+      "kind": "label",
+      "value": "flag",
+      "label": "Flag"
+    }
+  ],
+  "actions": [
+    {
+      "id": "capture",
+      "label": "Capture",
+      "assign": {
+        "snapshot": "upper(strip(draft))",
+        "flag": "not flag"
+      }
+    },
+    {
+      "id": "advance",
+      "label": "Advance by three",
+      "ensure": "next.visits == prev.visits + 3"
+    },
+    {
+      "id": "store",
+      "label": "Save snapshot",
+      "effect": "save",
+      "state": "snapshot"
+    }
+  ]
+}

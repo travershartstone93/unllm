@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "platform": "Linux x86_64",
+  "cvc5": {
+    "version": "1.3.1",
+    "url": "https://github.com/cvc5/cvc5/releases/download/cvc5-1.3.1/cvc5-Linux-x86_64-shared.zip",
+    "sha256": "2c845fed0ad0ab8b06391f0b2ddb9868bb0cf48f3806ad658ef3499cb1f0ba6f",
+    "digest_source": "https://api.github.com/repos/cvc5/cvc5/releases/tags/cvc5-1.3.1",
+    "prefix": ".deps/cvc5-native/cvc5-Linux-x86_64-shared"
+  },
+  "system_versions_observed": {
+    "icu-uc": "78.3",
+    "openssl": "3.6.5",
+    "sqlite3": "3.53.4",
+    "json-c": "0.19",
+    "gmp": "6.3.0",
+    "mpfr": "4.2.2",
+    "Qt6Core": "6.12.0",
+    "libcurl": "8.23.0"
+  },
+  "other_locked_dependencies": ["dependencies-upgrade.lock.json", "dependencies-apps.lock.json"],
+  "status": "Native feasibility dependency set; installation gate not yet complete"
+}

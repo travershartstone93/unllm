@@ -1,0 +1,27 @@
+// Background rule ownership is here. The provenance transformer preserves
+// rule numbers, heights and input claim IDs for the C++ explanation adapter.
+.decl source(id:symbol, predicate:symbol, subject:symbol, object:symbol)
+.input source
+.decl transitive(predicate:symbol)
+.input transitive
+.decl inverse(predicate:symbol, other:symbol)
+.input inverse
+.decl arg_domain(predicate:symbol, type:symbol)
+.input arg_domain
+.decl arg_range(predicate:symbol, type:symbol)
+.input arg_range
+
+.decl closure(predicate:symbol, subject:symbol, object:symbol)
+.output closure
+closure(P,S,O) :- source(_,P,S,O).
+closure(Q,O,S) :- inverse(P,Q), closure(P,S,O).
+closure(P,S,O) :- transitive(P), closure(P,S,M), closure(P,M,O).
+closure("type",S,T) :- closure("type",S,U), closure("subclass_of",U,T).
+closure("country",S,O) :- closure("located_in",S,O), closure("type",O,"country").
+closure("compatible",A,B) :- closure("produces",A,T), closure("accepts",B,T).
+closure("located_in",S,O) :- closure("country",S,O).
+closure("type",S,T) :- arg_domain(P,T), closure(P,S,_).
+closure("type",O,T) :- arg_range(P,T), closure(P,_,O).
+
+// Component compatibility is an ordinary relation, rather than prompt-specific
+// whole-program templates. The same native preparation handles both modules.

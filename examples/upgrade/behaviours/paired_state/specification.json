@@ -1,0 +1,52 @@
+{
+  "schema": 2,
+  "program": "two_balances",
+  "title": "Paired State",
+  "state": {
+    "left": {
+      "type": "number",
+      "initial": 3
+    },
+    "right": {
+      "type": "number",
+      "initial": 7
+    }
+  },
+  "views": [
+    {
+      "id": "left_input",
+      "kind": "number_input",
+      "state": "left",
+      "label": "Left"
+    },
+    {
+      "id": "right_input",
+      "kind": "number_input",
+      "state": "right",
+      "label": "Right"
+    },
+    {
+      "id": "total",
+      "kind": "label",
+      "value": "left + right",
+      "label": "Total"
+    }
+  ],
+  "actions": [
+    {
+      "id": "swap",
+      "label": "Swap",
+      "ensure": "next.left == prev.right and next.right == prev.left"
+    },
+    {
+      "id": "rebalance",
+      "label": "Transfer two",
+      "ensure": "next.left == prev.left - 2 and next.right == prev.right + 2"
+    },
+    {
+      "id": "clamp",
+      "label": "Clamp left to zero",
+      "ensure": "next.left == (0 if prev.left < 0 else prev.left)"
+    }
+  ]
+}

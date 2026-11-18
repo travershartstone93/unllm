@@ -241,7 +241,8 @@ std::vector<float> Meaning::embed(const std::string& text, bool query) const {
     if (norm > 0)
         for (float& x : out) x /= norm;
 #else
-    (void)question;
+    (void)text;
+    (void)query;
 #endif
     return out;
 }

@@ -1,0 +1,3446 @@
+{
+  "provenance": "Frozen Python reference importer outputs; synthetic offline data, no network.",
+  "pack_sql": "CREATE TABLE docs(doc_id INTEGER PRIMARY KEY,title TEXT,title_key TEXT,extra TEXT,url TEXT);\nCREATE TABLE infobox(doc_id INTEGER,box TEXT,key TEXT,value TEXT);\nINSERT INTO docs VALUES(1,'Paris','paris','{\"wikidata\":\"Q90\"}','https://example.invalid/Paris'),(2,'France','france','{\"wikidata\":\"Q142\"}','https://example.invalid/France'),(3,'The Notebook','notebook','{}','https://example.invalid/Notebook');\nINSERT INTO infobox VALUES(1,'main','country','France'),(1,'main','location','France; Germany'),(3,'main','author','Paris');",
+  "manifest": {
+    "kind": "encyclopedia",
+    "version": "test-1",
+    "license": "fixture"
+  },
+  "titles": [
+    "Paris",
+    "France",
+    "The Notebook"
+  ],
+  "wikidata": {
+    "Q90": {
+      "entities": {
+        "Q90": {
+          "labels": {
+            "en": {
+              "value": "Paris"
+            }
+          },
+          "aliases": {
+            "en": [
+              {
+                "value": "City of Paris"
+              }
+            ]
+          },
+          "lastrevid": 123,
+          "claims": {
+            "P17": [
+              {
+                "id": "Q90-country",
+                "rank": "normal",
+                "mainsnak": {
+                  "snaktype": "value",
+                  "datatype": "wikibase-item",
+                  "datavalue": {
+                    "value": {
+                      "id": "Q142"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "old",
+                "rank": "deprecated",
+                "mainsnak": {
+                  "snaktype": "value",
+                  "datatype": "wikibase-item",
+                  "datavalue": {
+                    "value": {
+                      "id": "Q999"
+                    }
+                  }
+                }
+              }
+            ],
+            "P131": [
+              {
+                "id": "qualified",
+                "rank": "normal",
+                "mainsnak": {
+                  "snaktype": "value",
+                  "datatype": "wikibase-item",
+                  "datavalue": {
+                    "value": {
+                      "id": "Q111"
+                    }
+                  }
+                },
+                "qualifiers": {
+                  "P580": [
+                    {}
+                  ]
+                }
+              }
+            ],
+            "P31": [
+              {
+                "id": "Q90-class",
+                "rank": "normal",
+                "mainsnak": {
+                  "snaktype": "value",
+                  "datatype": "wikibase-item",
+                  "datavalue": {
+                    "value": {
+                      "id": "Q515"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "Q142": {
+      "entities": {
+        "Q142": {
+          "labels": {
+            "en": {
+              "value": "France"
+            }
+          },
+          "lastrevid": 456,
+          "claims": {
+            "P36": [
+              {
+                "id": "Q142-capital",
+                "rank": "normal",
+                "mainsnak": {
+                  "snaktype": "value",
+                  "datatype": "wikibase-item",
+                  "datavalue": {
+                    "value": {
+                      "id": "Q90"
+                    }
+                  }
+                }
+              }
+            ],
+            "P31": [
+              {
+                "id": "Q142-class",
+                "rank": "normal",
+                "mainsnak": {
+                  "snaktype": "value",
+                  "datatype": "wikibase-item",
+                  "datavalue": {
+                    "value": {
+                      "id": "Q6256"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "title_keys": [
+    [
+      "The Paris",
+      "paris"
+    ],
+    [
+      "A Notebook",
+      "notebook"
+    ],
+    [
+      "an",
+      ""
+    ],
+    [
+      "An An",
+      "an"
+    ],
+    [
+      "Straße — ²",
+      "strasse ²"
+    ],
+    [
+      "İSTANBUL",
+      "i̇stanbul"
+    ],
+    [
+      "ＡＢＣ",
+      "ａｂｃ"
+    ],
+    [
+      "O’Brian",
+      "o brian"
+    ],
+    [
+      "a book",
+      "book"
+    ]
+  ],
+  "wiki_cases": [
+    {
+      "qids": [
+        "Q90"
+      ],
+      "depth": 1,
+      "budget": 50,
+      "result": {
+        "documents": 2,
+        "claims": 4,
+        "sources": [
+          {
+            "source": "wikidata:Q90",
+            "claims": 2,
+            "entities": 0,
+            "revision": 4,
+            "snapshot": "0e46fc2e0dd9dca55ebf64a8acfd21d9560fc720a6f04ea7e1cb37a5f0b96407"
+          },
+          {
+            "source": "wikidata:Q142",
+            "claims": 2,
+            "entities": 0,
+            "revision": 5,
+            "snapshot": "e0be847623eeea51eb94151f330f9f30a162510a62c26ae7cbf6fb3c819b7d73"
+          }
+        ],
+        "skipped": [
+          {
+            "entity": "Q90",
+            "property": "P131",
+            "claim": "qualified",
+            "reason": "qualified assertion needs a supported scope adapter"
+          }
+        ],
+        "queued_beyond_budget": 0
+      },
+      "snapshot": {
+        "claims": [
+          {
+            "id": "claim:03605dfd2c4c2b20baf686fa22f03d92f8d50f7558d2c66e6b2d9f4ddf59dd18",
+            "predicate": "subclass_of",
+            "subject": "place",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:0f3dadadd13d6f8acb230d153d02d17efed5c4a8951b7585412afdc0d1dffb61",
+            "predicate": "subclass_of",
+            "subject": "wd:Q11424",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:10fa569328987dcfb8a54fd3daa11c01c20b70be459f4ca1847b5b76003a5a21",
+            "predicate": "subclass_of",
+            "subject": "wd:Q6256",
+            "object": "country",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:134c4191fae04799557243060a404163bdaf0d00da35df51ed8b486b04184c13",
+            "predicate": "subclass_of",
+            "subject": "city",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:1f364451297257bab4b8938154e36432c4c7c70b876e5ebe8483e95107d2485b",
+            "predicate": "subclass_of",
+            "subject": "wd:Q5",
+            "object": "person",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:5e99b81c21790a1db7d01c76efae5c668984405520603ad9189bd1150a0db8b0",
+            "predicate": "subclass_of",
+            "subject": "wd:Q571",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:6d62dbd59c7a81721aaf9bb403f0b031a3b724d1d86d1f6430c26ebfe6bf8a94",
+            "predicate": "subclass_of",
+            "subject": "work",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:866567ee52ac58dcd16bb1c500e317d7400528f99e7eb457bb7d383b248ce3de",
+            "predicate": "subclass_of",
+            "subject": "organization",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:9dbbb69d8ebe96968f3072b813b1134083915afb49f302802c40b2fb74ebfc2f",
+            "predicate": "subclass_of",
+            "subject": "person",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:aa0f648517bb9bbbec29fbc431bc45b02db058419ed87013113deb5507f7b0e7",
+            "predicate": "subclass_of",
+            "subject": "wd:Q8261",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:b4bf252de523bf64fc431a6b21220e579cae550bf6d4d385994a735bfd69cb77",
+            "predicate": "subclass_of",
+            "subject": "agent",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:d5e7d731c5115b5d31b26562df122452c0ed6699318621065ddd66900b15107a",
+            "predicate": "subclass_of",
+            "subject": "country",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:e7190ff4cc2219cfe6b4a259078c84e14f7d042fa9ae498615d39d723e505ba9",
+            "predicate": "subclass_of",
+            "subject": "wd:Q43229",
+            "object": "organization",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:ee5862e93a4bd027a21f717f18c9d6658ce37f092108d66e860fd8de30faa524",
+            "predicate": "subclass_of",
+            "subject": "program",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:f63e87c6a74039f51d81ad314e43b395f87681b1d7c8f821d63987bfdce2b8c6",
+            "predicate": "subclass_of",
+            "subject": "wd:Q515",
+            "object": "city",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:02e50419c5c1b55a5579fe132821e9eb8c9dd5687429e75fd12b7b11990ac5f8",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0dd15d56d4b33dae3da8591fb3db7270d3e3000b7b3f41d16efe455839c4b46a",
+            "predicate": "type",
+            "subject": "entity",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0ef434d9d977f02bdc8916cf4e3af1d7b98f48a0038723bfaac18fa8420f1e5f",
+            "predicate": "type",
+            "subject": "country",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:496d6ab48fd3a6e202876edee9381fbcd1d79e41bc75a4e1a03e7f43baec8b00",
+            "predicate": "type",
+            "subject": "wd:Q43229",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:55e5839a85b14355e6754002fa25f6cd982dc8a2b47a1b61c96dcaeef4654c3c",
+            "predicate": "type",
+            "subject": "wd:Q515",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6480a4734220d5accac9b6ba9d3a57f605639c830a1e82d2a88d24e1e7c634e8",
+            "predicate": "type",
+            "subject": "work",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7296508b5474eb1099577bac700d4dffc0ee668c02b125ee8afe21d1e86c8cae",
+            "predicate": "type",
+            "subject": "organization",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:72a506a388905aa7ab624b2f7bc2956cdb16d594766247c48437c159dea78d20",
+            "predicate": "type",
+            "subject": "wd:Q6256",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:74f263fc88b0bdbf9aac06a83e9084f6fb6d3025ada1de850420224b439139bf",
+            "predicate": "type",
+            "subject": "program",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7881687e21728ba9d7e10dfb30702eb0092e18b9d7905412ecf72d258b8cdbd3",
+            "predicate": "type",
+            "subject": "wd:Q8261",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a2cff3b0a24ade2a57969ea06922f1c2ec87143d9f8ce682b50a65baa147ed40",
+            "predicate": "type",
+            "subject": "place",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a73acb179046a299e485e15569bad45b6280624e34ae82b8442e3a5c1b3ab45c",
+            "predicate": "type",
+            "subject": "wd:Q142",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a7a1aaadaf52d364d4f34b64cc6548118d728b285381136d56d093bdd73ad56c",
+            "predicate": "type",
+            "subject": "city",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:b4bb6e5c7fa0eedeaa2555296e61469668dd37c50c4140f9988fba1e2642ca09",
+            "predicate": "type",
+            "subject": "wd:Q11424",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:c5e8b545e0e5c25a0dd09d556faabc315b506f335b8212a7204c23fa2997eeea",
+            "predicate": "type",
+            "subject": "person",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:ce142fdabeb0de958ae60e6cc810a5496e249ae16130a368bfd97de7118513b8",
+            "predicate": "type",
+            "subject": "wd:Q5",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:d878e172c87259a02cdbc723d293420a54b2bccc2ac952eb8cb67ff4217ddce0",
+            "predicate": "type",
+            "subject": "wd:Q571",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:f236ebaa956cba45156eba7c48fcfa39f43685c7f6074b2062cc0f3cb0f12387",
+            "predicate": "type",
+            "subject": "agent",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "wikidata:Q142-capital",
+            "predicate": "capital",
+            "subject": "wd:Q142",
+            "object": "wd:Q90",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q142",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P36",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q142-capital"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q142-class",
+            "predicate": "type",
+            "subject": "wd:Q142",
+            "object": "wd:Q6256",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q142",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P31",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q142-class"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q90-class",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "wd:Q515",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P31",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-class"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q90-country",
+            "predicate": "country",
+            "subject": "wd:Q90",
+            "object": "wd:Q142",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P17",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-country"
+              }
+            }
+          }
+        ],
+        "entities": {
+          "city": {
+            "id": "city",
+            "name": "city",
+            "type": "type"
+          },
+          "country": {
+            "id": "country",
+            "name": "country",
+            "type": "type"
+          },
+          "place": {
+            "id": "place",
+            "name": "place",
+            "type": "type"
+          },
+          "person": {
+            "id": "person",
+            "name": "person",
+            "type": "type"
+          },
+          "organization": {
+            "id": "organization",
+            "name": "organization",
+            "type": "type"
+          },
+          "agent": {
+            "id": "agent",
+            "name": "agent",
+            "type": "type"
+          },
+          "work": {
+            "id": "work",
+            "name": "work",
+            "type": "type"
+          },
+          "program": {
+            "id": "program",
+            "name": "program",
+            "type": "type"
+          },
+          "entity": {
+            "id": "entity",
+            "name": "entity",
+            "type": "type"
+          },
+          "wd:Q90": {
+            "id": "wd:Q90",
+            "name": "Paris",
+            "type": "entity"
+          },
+          "wd:Q142": {
+            "id": "wd:Q142",
+            "name": "France",
+            "type": "entity"
+          },
+          "wd:Q515": {
+            "id": "wd:Q515",
+            "name": "Q515",
+            "type": "entity"
+          },
+          "wd:Q6256": {
+            "id": "wd:Q6256",
+            "name": "Q6256",
+            "type": "entity"
+          },
+          "wd:Q5": {
+            "id": "wd:Q5",
+            "name": "Q5",
+            "type": "type"
+          },
+          "wd:Q43229": {
+            "id": "wd:Q43229",
+            "name": "Q43229",
+            "type": "type"
+          },
+          "wd:Q571": {
+            "id": "wd:Q571",
+            "name": "Q571",
+            "type": "type"
+          },
+          "wd:Q8261": {
+            "id": "wd:Q8261",
+            "name": "Q8261",
+            "type": "type"
+          },
+          "wd:Q11424": {
+            "id": "wd:Q11424",
+            "name": "Q11424",
+            "type": "type"
+          }
+        },
+        "revision": 5
+      }
+    },
+    {
+      "qids": [
+        "Q90"
+      ],
+      "depth": 0,
+      "budget": 50,
+      "result": {
+        "documents": 1,
+        "claims": 2,
+        "sources": [
+          {
+            "source": "wikidata:Q90",
+            "claims": 2,
+            "entities": 0,
+            "revision": 4,
+            "snapshot": "0e46fc2e0dd9dca55ebf64a8acfd21d9560fc720a6f04ea7e1cb37a5f0b96407"
+          }
+        ],
+        "skipped": [
+          {
+            "entity": "Q90",
+            "property": "P131",
+            "claim": "qualified",
+            "reason": "qualified assertion needs a supported scope adapter"
+          }
+        ],
+        "queued_beyond_budget": 0
+      },
+      "snapshot": {
+        "claims": [
+          {
+            "id": "claim:03605dfd2c4c2b20baf686fa22f03d92f8d50f7558d2c66e6b2d9f4ddf59dd18",
+            "predicate": "subclass_of",
+            "subject": "place",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:0f3dadadd13d6f8acb230d153d02d17efed5c4a8951b7585412afdc0d1dffb61",
+            "predicate": "subclass_of",
+            "subject": "wd:Q11424",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:10fa569328987dcfb8a54fd3daa11c01c20b70be459f4ca1847b5b76003a5a21",
+            "predicate": "subclass_of",
+            "subject": "wd:Q6256",
+            "object": "country",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:134c4191fae04799557243060a404163bdaf0d00da35df51ed8b486b04184c13",
+            "predicate": "subclass_of",
+            "subject": "city",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:1f364451297257bab4b8938154e36432c4c7c70b876e5ebe8483e95107d2485b",
+            "predicate": "subclass_of",
+            "subject": "wd:Q5",
+            "object": "person",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:5e99b81c21790a1db7d01c76efae5c668984405520603ad9189bd1150a0db8b0",
+            "predicate": "subclass_of",
+            "subject": "wd:Q571",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:6d62dbd59c7a81721aaf9bb403f0b031a3b724d1d86d1f6430c26ebfe6bf8a94",
+            "predicate": "subclass_of",
+            "subject": "work",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:866567ee52ac58dcd16bb1c500e317d7400528f99e7eb457bb7d383b248ce3de",
+            "predicate": "subclass_of",
+            "subject": "organization",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:9dbbb69d8ebe96968f3072b813b1134083915afb49f302802c40b2fb74ebfc2f",
+            "predicate": "subclass_of",
+            "subject": "person",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:aa0f648517bb9bbbec29fbc431bc45b02db058419ed87013113deb5507f7b0e7",
+            "predicate": "subclass_of",
+            "subject": "wd:Q8261",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:b4bf252de523bf64fc431a6b21220e579cae550bf6d4d385994a735bfd69cb77",
+            "predicate": "subclass_of",
+            "subject": "agent",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:d5e7d731c5115b5d31b26562df122452c0ed6699318621065ddd66900b15107a",
+            "predicate": "subclass_of",
+            "subject": "country",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:e7190ff4cc2219cfe6b4a259078c84e14f7d042fa9ae498615d39d723e505ba9",
+            "predicate": "subclass_of",
+            "subject": "wd:Q43229",
+            "object": "organization",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:ee5862e93a4bd027a21f717f18c9d6658ce37f092108d66e860fd8de30faa524",
+            "predicate": "subclass_of",
+            "subject": "program",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:f63e87c6a74039f51d81ad314e43b395f87681b1d7c8f821d63987bfdce2b8c6",
+            "predicate": "subclass_of",
+            "subject": "wd:Q515",
+            "object": "city",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0dd15d56d4b33dae3da8591fb3db7270d3e3000b7b3f41d16efe455839c4b46a",
+            "predicate": "type",
+            "subject": "entity",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0ef434d9d977f02bdc8916cf4e3af1d7b98f48a0038723bfaac18fa8420f1e5f",
+            "predicate": "type",
+            "subject": "country",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:1c6772db58e7f63a5c8507f3c360be90625f7f253151871616de08fbbd775e25",
+            "predicate": "type",
+            "subject": "wd:Q571",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:1f21e598bcfc9513a26393c11d154ff0c86e890ec506401f92c4f379c4f2d0fb",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:23ef81bc2792933578e5b09d8eac5e3a364fcd77e10dc20987bc3d52f606e18b",
+            "predicate": "type",
+            "subject": "wd:Q43229",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:31bd415a9bff40f26ccd40214663fcd5877d68bb3fd9f145d38f9e2608b60e8a",
+            "predicate": "type",
+            "subject": "wd:Q8261",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:4423efec33a81350f13ca939a757893f2a12fa541032c0424104dadd9d764984",
+            "predicate": "type",
+            "subject": "wd:Q515",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:474123cfa1f89ae0c1436e8d88b1292ddcf9b31f62bb5a9558c96e0e138115a2",
+            "predicate": "type",
+            "subject": "wd:Q6256",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6480a4734220d5accac9b6ba9d3a57f605639c830a1e82d2a88d24e1e7c634e8",
+            "predicate": "type",
+            "subject": "work",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6e27566f82c4663d9929ac3fa67b9f11c515939e6377fa61987f0fa13c9c0802",
+            "predicate": "type",
+            "subject": "wd:Q5",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7296508b5474eb1099577bac700d4dffc0ee668c02b125ee8afe21d1e86c8cae",
+            "predicate": "type",
+            "subject": "organization",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:74f263fc88b0bdbf9aac06a83e9084f6fb6d3025ada1de850420224b439139bf",
+            "predicate": "type",
+            "subject": "program",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:8c0269cdf73ad575d2b647355ce6ea1a206851e63de1533753f328c1fbb05a26",
+            "predicate": "type",
+            "subject": "wd:Q11424",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a2cff3b0a24ade2a57969ea06922f1c2ec87143d9f8ce682b50a65baa147ed40",
+            "predicate": "type",
+            "subject": "place",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a7a1aaadaf52d364d4f34b64cc6548118d728b285381136d56d093bdd73ad56c",
+            "predicate": "type",
+            "subject": "city",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:c5e8b545e0e5c25a0dd09d556faabc315b506f335b8212a7204c23fa2997eeea",
+            "predicate": "type",
+            "subject": "person",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:cda4f5de7209a9bcde72c0a98c384a00bbdb927ab737c06c1da3cc0dd18739d8",
+            "predicate": "type",
+            "subject": "wd:Q142",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:f236ebaa956cba45156eba7c48fcfa39f43685c7f6074b2062cc0f3cb0f12387",
+            "predicate": "type",
+            "subject": "agent",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "wikidata:Q90-class",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "wd:Q515",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P31",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-class"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q90-country",
+            "predicate": "country",
+            "subject": "wd:Q90",
+            "object": "wd:Q142",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P17",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-country"
+              }
+            }
+          }
+        ],
+        "entities": {
+          "city": {
+            "id": "city",
+            "name": "city",
+            "type": "type"
+          },
+          "country": {
+            "id": "country",
+            "name": "country",
+            "type": "type"
+          },
+          "place": {
+            "id": "place",
+            "name": "place",
+            "type": "type"
+          },
+          "person": {
+            "id": "person",
+            "name": "person",
+            "type": "type"
+          },
+          "organization": {
+            "id": "organization",
+            "name": "organization",
+            "type": "type"
+          },
+          "agent": {
+            "id": "agent",
+            "name": "agent",
+            "type": "type"
+          },
+          "work": {
+            "id": "work",
+            "name": "work",
+            "type": "type"
+          },
+          "program": {
+            "id": "program",
+            "name": "program",
+            "type": "type"
+          },
+          "entity": {
+            "id": "entity",
+            "name": "entity",
+            "type": "type"
+          },
+          "wd:Q90": {
+            "id": "wd:Q90",
+            "name": "Paris",
+            "type": "entity"
+          },
+          "wd:Q142": {
+            "id": "wd:Q142",
+            "name": "Q142",
+            "type": "entity"
+          },
+          "wd:Q515": {
+            "id": "wd:Q515",
+            "name": "Q515",
+            "type": "entity"
+          },
+          "wd:Q5": {
+            "id": "wd:Q5",
+            "name": "Q5",
+            "type": "type"
+          },
+          "wd:Q6256": {
+            "id": "wd:Q6256",
+            "name": "Q6256",
+            "type": "type"
+          },
+          "wd:Q43229": {
+            "id": "wd:Q43229",
+            "name": "Q43229",
+            "type": "type"
+          },
+          "wd:Q571": {
+            "id": "wd:Q571",
+            "name": "Q571",
+            "type": "type"
+          },
+          "wd:Q8261": {
+            "id": "wd:Q8261",
+            "name": "Q8261",
+            "type": "type"
+          },
+          "wd:Q11424": {
+            "id": "wd:Q11424",
+            "name": "Q11424",
+            "type": "type"
+          }
+        },
+        "revision": 4
+      }
+    },
+    {
+      "qids": [
+        "Q90"
+      ],
+      "depth": 1,
+      "budget": 1,
+      "result": {
+        "documents": 1,
+        "claims": 2,
+        "sources": [
+          {
+            "source": "wikidata:Q90",
+            "claims": 2,
+            "entities": 0,
+            "revision": 4,
+            "snapshot": "0e46fc2e0dd9dca55ebf64a8acfd21d9560fc720a6f04ea7e1cb37a5f0b96407"
+          }
+        ],
+        "skipped": [
+          {
+            "entity": "Q90",
+            "property": "P131",
+            "claim": "qualified",
+            "reason": "qualified assertion needs a supported scope adapter"
+          }
+        ],
+        "queued_beyond_budget": 1
+      },
+      "snapshot": {
+        "claims": [
+          {
+            "id": "claim:03605dfd2c4c2b20baf686fa22f03d92f8d50f7558d2c66e6b2d9f4ddf59dd18",
+            "predicate": "subclass_of",
+            "subject": "place",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:0f3dadadd13d6f8acb230d153d02d17efed5c4a8951b7585412afdc0d1dffb61",
+            "predicate": "subclass_of",
+            "subject": "wd:Q11424",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:10fa569328987dcfb8a54fd3daa11c01c20b70be459f4ca1847b5b76003a5a21",
+            "predicate": "subclass_of",
+            "subject": "wd:Q6256",
+            "object": "country",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:134c4191fae04799557243060a404163bdaf0d00da35df51ed8b486b04184c13",
+            "predicate": "subclass_of",
+            "subject": "city",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:1f364451297257bab4b8938154e36432c4c7c70b876e5ebe8483e95107d2485b",
+            "predicate": "subclass_of",
+            "subject": "wd:Q5",
+            "object": "person",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:5e99b81c21790a1db7d01c76efae5c668984405520603ad9189bd1150a0db8b0",
+            "predicate": "subclass_of",
+            "subject": "wd:Q571",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:6d62dbd59c7a81721aaf9bb403f0b031a3b724d1d86d1f6430c26ebfe6bf8a94",
+            "predicate": "subclass_of",
+            "subject": "work",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:866567ee52ac58dcd16bb1c500e317d7400528f99e7eb457bb7d383b248ce3de",
+            "predicate": "subclass_of",
+            "subject": "organization",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:9dbbb69d8ebe96968f3072b813b1134083915afb49f302802c40b2fb74ebfc2f",
+            "predicate": "subclass_of",
+            "subject": "person",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:aa0f648517bb9bbbec29fbc431bc45b02db058419ed87013113deb5507f7b0e7",
+            "predicate": "subclass_of",
+            "subject": "wd:Q8261",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:b4bf252de523bf64fc431a6b21220e579cae550bf6d4d385994a735bfd69cb77",
+            "predicate": "subclass_of",
+            "subject": "agent",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:d5e7d731c5115b5d31b26562df122452c0ed6699318621065ddd66900b15107a",
+            "predicate": "subclass_of",
+            "subject": "country",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:e7190ff4cc2219cfe6b4a259078c84e14f7d042fa9ae498615d39d723e505ba9",
+            "predicate": "subclass_of",
+            "subject": "wd:Q43229",
+            "object": "organization",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:ee5862e93a4bd027a21f717f18c9d6658ce37f092108d66e860fd8de30faa524",
+            "predicate": "subclass_of",
+            "subject": "program",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:f63e87c6a74039f51d81ad314e43b395f87681b1d7c8f821d63987bfdce2b8c6",
+            "predicate": "subclass_of",
+            "subject": "wd:Q515",
+            "object": "city",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0dd15d56d4b33dae3da8591fb3db7270d3e3000b7b3f41d16efe455839c4b46a",
+            "predicate": "type",
+            "subject": "entity",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0ef434d9d977f02bdc8916cf4e3af1d7b98f48a0038723bfaac18fa8420f1e5f",
+            "predicate": "type",
+            "subject": "country",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:1c6772db58e7f63a5c8507f3c360be90625f7f253151871616de08fbbd775e25",
+            "predicate": "type",
+            "subject": "wd:Q571",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:1f21e598bcfc9513a26393c11d154ff0c86e890ec506401f92c4f379c4f2d0fb",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:23ef81bc2792933578e5b09d8eac5e3a364fcd77e10dc20987bc3d52f606e18b",
+            "predicate": "type",
+            "subject": "wd:Q43229",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:31bd415a9bff40f26ccd40214663fcd5877d68bb3fd9f145d38f9e2608b60e8a",
+            "predicate": "type",
+            "subject": "wd:Q8261",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:4423efec33a81350f13ca939a757893f2a12fa541032c0424104dadd9d764984",
+            "predicate": "type",
+            "subject": "wd:Q515",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:474123cfa1f89ae0c1436e8d88b1292ddcf9b31f62bb5a9558c96e0e138115a2",
+            "predicate": "type",
+            "subject": "wd:Q6256",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6480a4734220d5accac9b6ba9d3a57f605639c830a1e82d2a88d24e1e7c634e8",
+            "predicate": "type",
+            "subject": "work",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6e27566f82c4663d9929ac3fa67b9f11c515939e6377fa61987f0fa13c9c0802",
+            "predicate": "type",
+            "subject": "wd:Q5",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7296508b5474eb1099577bac700d4dffc0ee668c02b125ee8afe21d1e86c8cae",
+            "predicate": "type",
+            "subject": "organization",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:74f263fc88b0bdbf9aac06a83e9084f6fb6d3025ada1de850420224b439139bf",
+            "predicate": "type",
+            "subject": "program",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:8c0269cdf73ad575d2b647355ce6ea1a206851e63de1533753f328c1fbb05a26",
+            "predicate": "type",
+            "subject": "wd:Q11424",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a2cff3b0a24ade2a57969ea06922f1c2ec87143d9f8ce682b50a65baa147ed40",
+            "predicate": "type",
+            "subject": "place",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a7a1aaadaf52d364d4f34b64cc6548118d728b285381136d56d093bdd73ad56c",
+            "predicate": "type",
+            "subject": "city",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:c5e8b545e0e5c25a0dd09d556faabc315b506f335b8212a7204c23fa2997eeea",
+            "predicate": "type",
+            "subject": "person",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:cda4f5de7209a9bcde72c0a98c384a00bbdb927ab737c06c1da3cc0dd18739d8",
+            "predicate": "type",
+            "subject": "wd:Q142",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:0a96c8261b70b69db4fcf236c05a993c13bb984aa0ed00aaacb48ce508edfc0c",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:f236ebaa956cba45156eba7c48fcfa39f43685c7f6074b2062cc0f3cb0f12387",
+            "predicate": "type",
+            "subject": "agent",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "wikidata:Q90-class",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "wd:Q515",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P31",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-class"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q90-country",
+            "predicate": "country",
+            "subject": "wd:Q90",
+            "object": "wd:Q142",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P17",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-country"
+              }
+            }
+          }
+        ],
+        "entities": {
+          "city": {
+            "id": "city",
+            "name": "city",
+            "type": "type"
+          },
+          "country": {
+            "id": "country",
+            "name": "country",
+            "type": "type"
+          },
+          "place": {
+            "id": "place",
+            "name": "place",
+            "type": "type"
+          },
+          "person": {
+            "id": "person",
+            "name": "person",
+            "type": "type"
+          },
+          "organization": {
+            "id": "organization",
+            "name": "organization",
+            "type": "type"
+          },
+          "agent": {
+            "id": "agent",
+            "name": "agent",
+            "type": "type"
+          },
+          "work": {
+            "id": "work",
+            "name": "work",
+            "type": "type"
+          },
+          "program": {
+            "id": "program",
+            "name": "program",
+            "type": "type"
+          },
+          "entity": {
+            "id": "entity",
+            "name": "entity",
+            "type": "type"
+          },
+          "wd:Q90": {
+            "id": "wd:Q90",
+            "name": "Paris",
+            "type": "entity"
+          },
+          "wd:Q142": {
+            "id": "wd:Q142",
+            "name": "Q142",
+            "type": "entity"
+          },
+          "wd:Q515": {
+            "id": "wd:Q515",
+            "name": "Q515",
+            "type": "entity"
+          },
+          "wd:Q5": {
+            "id": "wd:Q5",
+            "name": "Q5",
+            "type": "type"
+          },
+          "wd:Q6256": {
+            "id": "wd:Q6256",
+            "name": "Q6256",
+            "type": "type"
+          },
+          "wd:Q43229": {
+            "id": "wd:Q43229",
+            "name": "Q43229",
+            "type": "type"
+          },
+          "wd:Q571": {
+            "id": "wd:Q571",
+            "name": "Q571",
+            "type": "type"
+          },
+          "wd:Q8261": {
+            "id": "wd:Q8261",
+            "name": "Q8261",
+            "type": "type"
+          },
+          "wd:Q11424": {
+            "id": "wd:Q11424",
+            "name": "Q11424",
+            "type": "type"
+          }
+        },
+        "revision": 4
+      }
+    },
+    {
+      "qids": [
+        "Q999"
+      ],
+      "depth": 1,
+      "budget": 50,
+      "result": {
+        "documents": 0,
+        "claims": 0,
+        "sources": [],
+        "skipped": [
+          {
+            "entity": "Q999",
+            "reason": "not in offline cache"
+          }
+        ],
+        "queued_beyond_budget": 0
+      },
+      "snapshot": {
+        "claims": [
+          {
+            "id": "claim:03605dfd2c4c2b20baf686fa22f03d92f8d50f7558d2c66e6b2d9f4ddf59dd18",
+            "predicate": "subclass_of",
+            "subject": "place",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:0f3dadadd13d6f8acb230d153d02d17efed5c4a8951b7585412afdc0d1dffb61",
+            "predicate": "subclass_of",
+            "subject": "wd:Q11424",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:10fa569328987dcfb8a54fd3daa11c01c20b70be459f4ca1847b5b76003a5a21",
+            "predicate": "subclass_of",
+            "subject": "wd:Q6256",
+            "object": "country",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:134c4191fae04799557243060a404163bdaf0d00da35df51ed8b486b04184c13",
+            "predicate": "subclass_of",
+            "subject": "city",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:1f364451297257bab4b8938154e36432c4c7c70b876e5ebe8483e95107d2485b",
+            "predicate": "subclass_of",
+            "subject": "wd:Q5",
+            "object": "person",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:5e99b81c21790a1db7d01c76efae5c668984405520603ad9189bd1150a0db8b0",
+            "predicate": "subclass_of",
+            "subject": "wd:Q571",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:6d62dbd59c7a81721aaf9bb403f0b031a3b724d1d86d1f6430c26ebfe6bf8a94",
+            "predicate": "subclass_of",
+            "subject": "work",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:866567ee52ac58dcd16bb1c500e317d7400528f99e7eb457bb7d383b248ce3de",
+            "predicate": "subclass_of",
+            "subject": "organization",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:9dbbb69d8ebe96968f3072b813b1134083915afb49f302802c40b2fb74ebfc2f",
+            "predicate": "subclass_of",
+            "subject": "person",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:aa0f648517bb9bbbec29fbc431bc45b02db058419ed87013113deb5507f7b0e7",
+            "predicate": "subclass_of",
+            "subject": "wd:Q8261",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:b4bf252de523bf64fc431a6b21220e579cae550bf6d4d385994a735bfd69cb77",
+            "predicate": "subclass_of",
+            "subject": "agent",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:d5e7d731c5115b5d31b26562df122452c0ed6699318621065ddd66900b15107a",
+            "predicate": "subclass_of",
+            "subject": "country",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:e7190ff4cc2219cfe6b4a259078c84e14f7d042fa9ae498615d39d723e505ba9",
+            "predicate": "subclass_of",
+            "subject": "wd:Q43229",
+            "object": "organization",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:ee5862e93a4bd027a21f717f18c9d6658ce37f092108d66e860fd8de30faa524",
+            "predicate": "subclass_of",
+            "subject": "program",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:f63e87c6a74039f51d81ad314e43b395f87681b1d7c8f821d63987bfdce2b8c6",
+            "predicate": "subclass_of",
+            "subject": "wd:Q515",
+            "object": "city",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0598204c9cc0b80865254136ca8cd68b02beef282f220ec285639a82f713ee91",
+            "predicate": "type",
+            "subject": "wd:Q6256",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0dd15d56d4b33dae3da8591fb3db7270d3e3000b7b3f41d16efe455839c4b46a",
+            "predicate": "type",
+            "subject": "entity",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0ef434d9d977f02bdc8916cf4e3af1d7b98f48a0038723bfaac18fa8420f1e5f",
+            "predicate": "type",
+            "subject": "country",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:2c5d70bedd748fc35a61751b1f865df899d2c094778c39abf174d1733c5a9db1",
+            "predicate": "type",
+            "subject": "wd:Q43229",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6480a4734220d5accac9b6ba9d3a57f605639c830a1e82d2a88d24e1e7c634e8",
+            "predicate": "type",
+            "subject": "work",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7296508b5474eb1099577bac700d4dffc0ee668c02b125ee8afe21d1e86c8cae",
+            "predicate": "type",
+            "subject": "organization",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:74f263fc88b0bdbf9aac06a83e9084f6fb6d3025ada1de850420224b439139bf",
+            "predicate": "type",
+            "subject": "program",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:8ffddd7308d3ef496199bd89abf0e2cc4d50bae2af6cbf1c7b693b7a01c95648",
+            "predicate": "type",
+            "subject": "wd:Q8261",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:95bab13d0421da74a2ae16930ead5a9fa928c92551fc2057f0a8a1eeccaa3fd2",
+            "predicate": "type",
+            "subject": "wd:Q571",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a2cff3b0a24ade2a57969ea06922f1c2ec87143d9f8ce682b50a65baa147ed40",
+            "predicate": "type",
+            "subject": "place",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a7a1aaadaf52d364d4f34b64cc6548118d728b285381136d56d093bdd73ad56c",
+            "predicate": "type",
+            "subject": "city",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:ab512aae818340af4e389e54b7e956ffe850e2531ac59e733753f82dc31706cd",
+            "predicate": "type",
+            "subject": "wd:Q11424",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:b2c2dadd2ce9653ec063e6bff8bd1ac35a662405b95bc4014069a00e7b711c9c",
+            "predicate": "type",
+            "subject": "wd:Q515",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:c5e8b545e0e5c25a0dd09d556faabc315b506f335b8212a7204c23fa2997eeea",
+            "predicate": "type",
+            "subject": "person",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:f236ebaa956cba45156eba7c48fcfa39f43685c7f6074b2062cc0f3cb0f12387",
+            "predicate": "type",
+            "subject": "agent",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:f6899938c5348c63ae7e38dfd56192dad5f1a78f66604db74dac109b89bec805",
+            "predicate": "type",
+            "subject": "wd:Q5",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:b257529f31579acafd38d6dc9d593e869477efcc68dfce78995f4f93dfee0b8e",
+            "origin": "metadata",
+            "qualifiers": {}
+          }
+        ],
+        "entities": {
+          "city": {
+            "id": "city",
+            "name": "city",
+            "type": "type"
+          },
+          "country": {
+            "id": "country",
+            "name": "country",
+            "type": "type"
+          },
+          "place": {
+            "id": "place",
+            "name": "place",
+            "type": "type"
+          },
+          "person": {
+            "id": "person",
+            "name": "person",
+            "type": "type"
+          },
+          "organization": {
+            "id": "organization",
+            "name": "organization",
+            "type": "type"
+          },
+          "agent": {
+            "id": "agent",
+            "name": "agent",
+            "type": "type"
+          },
+          "work": {
+            "id": "work",
+            "name": "work",
+            "type": "type"
+          },
+          "program": {
+            "id": "program",
+            "name": "program",
+            "type": "type"
+          },
+          "entity": {
+            "id": "entity",
+            "name": "entity",
+            "type": "type"
+          },
+          "wd:Q5": {
+            "id": "wd:Q5",
+            "name": "Q5",
+            "type": "type"
+          },
+          "wd:Q515": {
+            "id": "wd:Q515",
+            "name": "Q515",
+            "type": "type"
+          },
+          "wd:Q6256": {
+            "id": "wd:Q6256",
+            "name": "Q6256",
+            "type": "type"
+          },
+          "wd:Q43229": {
+            "id": "wd:Q43229",
+            "name": "Q43229",
+            "type": "type"
+          },
+          "wd:Q571": {
+            "id": "wd:Q571",
+            "name": "Q571",
+            "type": "type"
+          },
+          "wd:Q8261": {
+            "id": "wd:Q8261",
+            "name": "Q8261",
+            "type": "type"
+          },
+          "wd:Q11424": {
+            "id": "wd:Q11424",
+            "name": "Q11424",
+            "type": "type"
+          }
+        },
+        "revision": 3
+      }
+    },
+    {
+      "qids": [
+        "Q90",
+        "Q90"
+      ],
+      "depth": 1,
+      "budget": 50,
+      "result": {
+        "documents": 2,
+        "claims": 4,
+        "sources": [
+          {
+            "source": "wikidata:Q90",
+            "claims": 2,
+            "entities": 0,
+            "revision": 4,
+            "snapshot": "0e46fc2e0dd9dca55ebf64a8acfd21d9560fc720a6f04ea7e1cb37a5f0b96407"
+          },
+          {
+            "source": "wikidata:Q142",
+            "claims": 2,
+            "entities": 0,
+            "revision": 5,
+            "snapshot": "e0be847623eeea51eb94151f330f9f30a162510a62c26ae7cbf6fb3c819b7d73"
+          }
+        ],
+        "skipped": [
+          {
+            "entity": "Q90",
+            "property": "P131",
+            "claim": "qualified",
+            "reason": "qualified assertion needs a supported scope adapter"
+          }
+        ],
+        "queued_beyond_budget": 0
+      },
+      "snapshot": {
+        "claims": [
+          {
+            "id": "claim:03605dfd2c4c2b20baf686fa22f03d92f8d50f7558d2c66e6b2d9f4ddf59dd18",
+            "predicate": "subclass_of",
+            "subject": "place",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:0f3dadadd13d6f8acb230d153d02d17efed5c4a8951b7585412afdc0d1dffb61",
+            "predicate": "subclass_of",
+            "subject": "wd:Q11424",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:10fa569328987dcfb8a54fd3daa11c01c20b70be459f4ca1847b5b76003a5a21",
+            "predicate": "subclass_of",
+            "subject": "wd:Q6256",
+            "object": "country",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:134c4191fae04799557243060a404163bdaf0d00da35df51ed8b486b04184c13",
+            "predicate": "subclass_of",
+            "subject": "city",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:1f364451297257bab4b8938154e36432c4c7c70b876e5ebe8483e95107d2485b",
+            "predicate": "subclass_of",
+            "subject": "wd:Q5",
+            "object": "person",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:5e99b81c21790a1db7d01c76efae5c668984405520603ad9189bd1150a0db8b0",
+            "predicate": "subclass_of",
+            "subject": "wd:Q571",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:6d62dbd59c7a81721aaf9bb403f0b031a3b724d1d86d1f6430c26ebfe6bf8a94",
+            "predicate": "subclass_of",
+            "subject": "work",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:866567ee52ac58dcd16bb1c500e317d7400528f99e7eb457bb7d383b248ce3de",
+            "predicate": "subclass_of",
+            "subject": "organization",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:9dbbb69d8ebe96968f3072b813b1134083915afb49f302802c40b2fb74ebfc2f",
+            "predicate": "subclass_of",
+            "subject": "person",
+            "object": "agent",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:aa0f648517bb9bbbec29fbc431bc45b02db058419ed87013113deb5507f7b0e7",
+            "predicate": "subclass_of",
+            "subject": "wd:Q8261",
+            "object": "work",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:b4bf252de523bf64fc431a6b21220e579cae550bf6d4d385994a735bfd69cb77",
+            "predicate": "subclass_of",
+            "subject": "agent",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:d5e7d731c5115b5d31b26562df122452c0ed6699318621065ddd66900b15107a",
+            "predicate": "subclass_of",
+            "subject": "country",
+            "object": "place",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:e7190ff4cc2219cfe6b4a259078c84e14f7d042fa9ae498615d39d723e505ba9",
+            "predicate": "subclass_of",
+            "subject": "wd:Q43229",
+            "object": "organization",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:ee5862e93a4bd027a21f717f18c9d6658ce37f092108d66e860fd8de30faa524",
+            "predicate": "subclass_of",
+            "subject": "program",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "claim:f63e87c6a74039f51d81ad314e43b395f87681b1d7c8f821d63987bfdce2b8c6",
+            "predicate": "subclass_of",
+            "subject": "wd:Q515",
+            "object": "city",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:wikidata-type-mapping:v1",
+            "origin": "source",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:02e50419c5c1b55a5579fe132821e9eb8c9dd5687429e75fd12b7b11990ac5f8",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0dd15d56d4b33dae3da8591fb3db7270d3e3000b7b3f41d16efe455839c4b46a",
+            "predicate": "type",
+            "subject": "entity",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:0ef434d9d977f02bdc8916cf4e3af1d7b98f48a0038723bfaac18fa8420f1e5f",
+            "predicate": "type",
+            "subject": "country",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:496d6ab48fd3a6e202876edee9381fbcd1d79e41bc75a4e1a03e7f43baec8b00",
+            "predicate": "type",
+            "subject": "wd:Q43229",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:55e5839a85b14355e6754002fa25f6cd982dc8a2b47a1b61c96dcaeef4654c3c",
+            "predicate": "type",
+            "subject": "wd:Q515",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:6480a4734220d5accac9b6ba9d3a57f605639c830a1e82d2a88d24e1e7c634e8",
+            "predicate": "type",
+            "subject": "work",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7296508b5474eb1099577bac700d4dffc0ee668c02b125ee8afe21d1e86c8cae",
+            "predicate": "type",
+            "subject": "organization",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:72a506a388905aa7ab624b2f7bc2956cdb16d594766247c48437c159dea78d20",
+            "predicate": "type",
+            "subject": "wd:Q6256",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:74f263fc88b0bdbf9aac06a83e9084f6fb6d3025ada1de850420224b439139bf",
+            "predicate": "type",
+            "subject": "program",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:7881687e21728ba9d7e10dfb30702eb0092e18b9d7905412ecf72d258b8cdbd3",
+            "predicate": "type",
+            "subject": "wd:Q8261",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a2cff3b0a24ade2a57969ea06922f1c2ec87143d9f8ce682b50a65baa147ed40",
+            "predicate": "type",
+            "subject": "place",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a73acb179046a299e485e15569bad45b6280624e34ae82b8442e3a5c1b3ab45c",
+            "predicate": "type",
+            "subject": "wd:Q142",
+            "object": "entity",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:a7a1aaadaf52d364d4f34b64cc6548118d728b285381136d56d093bdd73ad56c",
+            "predicate": "type",
+            "subject": "city",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:b4bb6e5c7fa0eedeaa2555296e61469668dd37c50c4140f9988fba1e2642ca09",
+            "predicate": "type",
+            "subject": "wd:Q11424",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:c5e8b545e0e5c25a0dd09d556faabc315b506f335b8212a7204c23fa2997eeea",
+            "predicate": "type",
+            "subject": "person",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:ce142fdabeb0de958ae60e6cc810a5496e249ae16130a368bfd97de7118513b8",
+            "predicate": "type",
+            "subject": "wd:Q5",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:d878e172c87259a02cdbc723d293420a54b2bccc2ac952eb8cb67ff4217ddce0",
+            "predicate": "type",
+            "subject": "wd:Q571",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:catalog:046c6e4bdd9a92aedce95914c94fdb7bcd4628721299d016ffa015bb703861e6",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "type:f236ebaa956cba45156eba7c48fcfa39f43685c7f6074b2062cc0f3cb0f12387",
+            "predicate": "type",
+            "subject": "agent",
+            "object": "type",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "unllm:ontology:v1",
+            "origin": "metadata",
+            "qualifiers": {}
+          },
+          {
+            "id": "wikidata:Q142-capital",
+            "predicate": "capital",
+            "subject": "wd:Q142",
+            "object": "wd:Q90",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q142",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P36",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q142-capital"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q142-class",
+            "predicate": "type",
+            "subject": "wd:Q142",
+            "object": "wd:Q6256",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q142",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P31",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q142-class"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q90-class",
+            "predicate": "type",
+            "subject": "wd:Q90",
+            "object": "wd:Q515",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P31",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-class"
+              }
+            }
+          },
+          {
+            "id": "wikidata:Q90-country",
+            "predicate": "country",
+            "subject": "wd:Q90",
+            "object": "wd:Q142",
+            "negative": false,
+            "valid_from": null,
+            "valid_to": null,
+            "source": "wikidata:Q90",
+            "origin": "source",
+            "qualifiers": {
+              "source_location": {
+                "property": "P17",
+                "rank": "normal",
+                "references": [],
+                "statement": "Q90-country"
+              }
+            }
+          }
+        ],
+        "entities": {
+          "city": {
+            "id": "city",
+            "name": "city",
+            "type": "type"
+          },
+          "country": {
+            "id": "country",
+            "name": "country",
+            "type": "type"
+          },
+          "place": {
+            "id": "place",
+            "name": "place",
+            "type": "type"
+          },
+          "person": {
+            "id": "person",
+            "name": "person",
+            "type": "type"
+          },
+          "organization": {
+            "id": "organization",
+            "name": "organization",
+            "type": "type"
+          },
+          "agent": {
+            "id": "agent",
+            "name": "agent",
+            "type": "type"
+          },
+          "work": {
+            "id": "work",
+            "name": "work",
+            "type": "type"
+          },
+          "program": {
+            "id": "program",
+            "name": "program",
+            "type": "type"
+          },
+          "entity": {
+            "id": "entity",
+            "name": "entity",
+            "type": "type"
+          },
+          "wd:Q90": {
+            "id": "wd:Q90",
+            "name": "Paris",
+            "type": "entity"
+          },
+          "wd:Q142": {
+            "id": "wd:Q142",
+            "name": "France",
+            "type": "entity"
+          },
+          "wd:Q515": {
+            "id": "wd:Q515",
+            "name": "Q515",
+            "type": "entity"
+          },
+          "wd:Q6256": {
+            "id": "wd:Q6256",
+            "name": "Q6256",
+            "type": "entity"
+          },
+          "wd:Q5": {
+            "id": "wd:Q5",
+            "name": "Q5",
+            "type": "type"
+          },
+          "wd:Q43229": {
+            "id": "wd:Q43229",
+            "name": "Q43229",
+            "type": "type"
+          },
+          "wd:Q571": {
+            "id": "wd:Q571",
+            "name": "Q571",
+            "type": "type"
+          },
+          "wd:Q8261": {
+            "id": "wd:Q8261",
+            "name": "Q8261",
+            "type": "type"
+          },
+          "wd:Q11424": {
+            "id": "wd:Q11424",
+            "name": "Q11424",
+            "type": "type"
+          }
+        },
+        "revision": 5
+      }
+    }
+  ],
+  "documents": [
+    {
+      "id": "wd:Q90",
+      "qid": "Q90",
+      "name": "Paris",
+      "row": {
+        "doc_id": 1,
+        "title": "Paris",
+        "title_key": "paris",
+        "extra": "{\"wikidata\":\"Q90\"}",
+        "url": "https://example.invalid/Paris"
+      },
+      "fields": [
+        {
+          "box": "main",
+          "key": "country",
+          "value": "France"
+        },
+        {
+          "box": "main",
+          "key": "location",
+          "value": "France; Germany"
+        }
+      ],
+      "pack": "demo",
+      "version": "test-1",
+      "license": "fixture",
+      "shard": "shard-00.sqlite"
+    },
+    {
+      "id": "wd:Q142",
+      "qid": "Q142",
+      "name": "France",
+      "row": {
+        "doc_id": 2,
+        "title": "France",
+        "title_key": "france",
+        "extra": "{\"wikidata\":\"Q142\"}",
+        "url": "https://example.invalid/France"
+      },
+      "fields": [],
+      "pack": "demo",
+      "version": "test-1",
+      "license": "fixture",
+      "shard": "shard-00.sqlite"
+    },
+    {
+      "id": "pack:be1cc32fb3858a0b803160d3",
+      "qid": "",
+      "name": "The Notebook",
+      "row": {
+        "doc_id": 3,
+        "title": "The Notebook",
+        "title_key": "notebook",
+        "extra": "{}",
+        "url": "https://example.invalid/Notebook"
+      },
+      "fields": [
+        {
+          "box": "main",
+          "key": "author",
+          "value": "Paris"
+        }
+      ],
+      "pack": "demo",
+      "version": "test-1",
+      "license": "fixture",
+      "shard": "shard-00.sqlite"
+    }
+  ],
+  "pack_result": {
+    "documents": 3,
+    "claims": 2,
+    "sources": [
+      {
+        "source": "pack:demo:wd:Q90",
+        "claims": 1,
+        "entities": 0,
+        "revision": 3,
+        "snapshot": "e46cae0af27e5fe81296c4c7bd48d6ce52c7a840a7ce2aead3c215e05cdd3d50"
+      },
+      {
+        "source": "pack:demo:wd:Q142",
+        "claims": 0,
+        "entities": 0,
+        "revision": 4,
+        "snapshot": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "source": "pack:demo:pack:be1cc32fb3858a0b803160d3",
+        "claims": 1,
+        "entities": 0,
+        "revision": 5,
+        "snapshot": "99dc50b636af4de67ecb0df93021b7ba9ad6a4c039ea2d12b0e44703879428b5"
+      }
+    ],
+    "skipped": [
+      {
+        "title": "Paris",
+        "field": "location",
+        "reason": "not one resolved structured entity"
+      }
+    ],
+    "qids": [
+      "Q142",
+      "Q90"
+    ]
+  },
+  "pack_snapshot": {
+    "claims": [
+      {
+        "id": "claim:031808d9749d22f4f06b49f7e6f6670180e30424d509d91832d0dd898685b953",
+        "predicate": "country",
+        "subject": "wd:Q90",
+        "object": "wd:Q142",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "pack:demo:wd:Q90",
+        "origin": "source",
+        "qualifiers": {
+          "source_location": {
+            "box": "main",
+            "document": 1,
+            "field": "country",
+            "shard": "shard-00.sqlite"
+          }
+        }
+      },
+      {
+        "id": "claim:03605dfd2c4c2b20baf686fa22f03d92f8d50f7558d2c66e6b2d9f4ddf59dd18",
+        "predicate": "subclass_of",
+        "subject": "place",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:134c4191fae04799557243060a404163bdaf0d00da35df51ed8b486b04184c13",
+        "predicate": "subclass_of",
+        "subject": "city",
+        "object": "place",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:5d6bf99bcbaed4c2e69a4eb2274c961cfde63a74b890690e66210ac83dcfa912",
+        "predicate": "author",
+        "subject": "pack:be1cc32fb3858a0b803160d3",
+        "object": "wd:Q90",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "pack:demo:pack:be1cc32fb3858a0b803160d3",
+        "origin": "source",
+        "qualifiers": {
+          "source_location": {
+            "box": "main",
+            "document": 3,
+            "field": "author",
+            "shard": "shard-00.sqlite"
+          }
+        }
+      },
+      {
+        "id": "claim:6d62dbd59c7a81721aaf9bb403f0b031a3b724d1d86d1f6430c26ebfe6bf8a94",
+        "predicate": "subclass_of",
+        "subject": "work",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:866567ee52ac58dcd16bb1c500e317d7400528f99e7eb457bb7d383b248ce3de",
+        "predicate": "subclass_of",
+        "subject": "organization",
+        "object": "agent",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:9dbbb69d8ebe96968f3072b813b1134083915afb49f302802c40b2fb74ebfc2f",
+        "predicate": "subclass_of",
+        "subject": "person",
+        "object": "agent",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:b4bf252de523bf64fc431a6b21220e579cae550bf6d4d385994a735bfd69cb77",
+        "predicate": "subclass_of",
+        "subject": "agent",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:d5e7d731c5115b5d31b26562df122452c0ed6699318621065ddd66900b15107a",
+        "predicate": "subclass_of",
+        "subject": "country",
+        "object": "place",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "claim:ee5862e93a4bd027a21f717f18c9d6658ce37f092108d66e860fd8de30faa524",
+        "predicate": "subclass_of",
+        "subject": "program",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "source",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:0dd15d56d4b33dae3da8591fb3db7270d3e3000b7b3f41d16efe455839c4b46a",
+        "predicate": "type",
+        "subject": "entity",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:0ef434d9d977f02bdc8916cf4e3af1d7b98f48a0038723bfaac18fa8420f1e5f",
+        "predicate": "type",
+        "subject": "country",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:6480a4734220d5accac9b6ba9d3a57f605639c830a1e82d2a88d24e1e7c634e8",
+        "predicate": "type",
+        "subject": "work",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:661367f06f2607eb08a8f2bcd1923b00e3299e21a0f8bac8e93a076d74c78498",
+        "predicate": "type",
+        "subject": "wd:Q90",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "pack-catalog:4f6b8680389aa218627790276117cc2eb656a0ea4c3e48d638deb613166fe77d",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:7296508b5474eb1099577bac700d4dffc0ee668c02b125ee8afe21d1e86c8cae",
+        "predicate": "type",
+        "subject": "organization",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:74f263fc88b0bdbf9aac06a83e9084f6fb6d3025ada1de850420224b439139bf",
+        "predicate": "type",
+        "subject": "program",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:8403daf442ef70a165fab8e67598b64de8162e47ef00655fd5c6db09a568a4fa",
+        "predicate": "type",
+        "subject": "pack:be1cc32fb3858a0b803160d3",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "pack-catalog:4f6b8680389aa218627790276117cc2eb656a0ea4c3e48d638deb613166fe77d",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:9f9cd2952b810946c134cc93e06d28603069ccee5358f36fa847d18b0a64ca8e",
+        "predicate": "type",
+        "subject": "wd:Q142",
+        "object": "entity",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "pack-catalog:4f6b8680389aa218627790276117cc2eb656a0ea4c3e48d638deb613166fe77d",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:a2cff3b0a24ade2a57969ea06922f1c2ec87143d9f8ce682b50a65baa147ed40",
+        "predicate": "type",
+        "subject": "place",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:a7a1aaadaf52d364d4f34b64cc6548118d728b285381136d56d093bdd73ad56c",
+        "predicate": "type",
+        "subject": "city",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:c5e8b545e0e5c25a0dd09d556faabc315b506f335b8212a7204c23fa2997eeea",
+        "predicate": "type",
+        "subject": "person",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      },
+      {
+        "id": "type:f236ebaa956cba45156eba7c48fcfa39f43685c7f6074b2062cc0f3cb0f12387",
+        "predicate": "type",
+        "subject": "agent",
+        "object": "type",
+        "negative": false,
+        "valid_from": null,
+        "valid_to": null,
+        "source": "unllm:ontology:v1",
+        "origin": "metadata",
+        "qualifiers": {}
+      }
+    ],
+    "entities": {
+      "city": {
+        "id": "city",
+        "name": "city",
+        "type": "type"
+      },
+      "country": {
+        "id": "country",
+        "name": "country",
+        "type": "type"
+      },
+      "place": {
+        "id": "place",
+        "name": "place",
+        "type": "type"
+      },
+      "person": {
+        "id": "person",
+        "name": "person",
+        "type": "type"
+      },
+      "organization": {
+        "id": "organization",
+        "name": "organization",
+        "type": "type"
+      },
+      "agent": {
+        "id": "agent",
+        "name": "agent",
+        "type": "type"
+      },
+      "work": {
+        "id": "work",
+        "name": "work",
+        "type": "type"
+      },
+      "program": {
+        "id": "program",
+        "name": "program",
+        "type": "type"
+      },
+      "entity": {
+        "id": "entity",
+        "name": "entity",
+        "type": "type"
+      },
+      "wd:Q90": {
+        "id": "wd:Q90",
+        "name": "Paris",
+        "type": "entity"
+      },
+      "wd:Q142": {
+        "id": "wd:Q142",
+        "name": "France",
+        "type": "entity"
+      },
+      "pack:be1cc32fb3858a0b803160d3": {
+        "id": "pack:be1cc32fb3858a0b803160d3",
+        "name": "The Notebook",
+        "type": "entity"
+      }
+    },
+    "revision": 5
+  }
+}

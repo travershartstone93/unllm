@@ -97,7 +97,7 @@ def train(args):
     print(f"on {device}: {len(data['train'])} training passages, {len(data['dev'])} kept back; {total} steps, from step {step}",
           flush=True)
     bar = Task("reader-train", "Reader training", total=total)
-    bar.step(step)
+    bar.skip(step)
 
     def dev_loss():
         model.eval()

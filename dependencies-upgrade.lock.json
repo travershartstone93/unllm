@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "platform": "Linux x86_64",
+  "downloads": {
+    "souffle.deb": {
+      "url": "https://github.com/souffle-lang/souffle/releases/download/2.5/x86_64-ubuntu-2404-souffle-2.5-Linux.deb",
+      "sha256": "c7e9dd1349506bbb23c4dcf89e87396198006235f79b1cc516c0a2b67ac067bc",
+      "size": 4759908
+    },
+    "ace.tar.gz": {
+      "url": "https://sweaglesw.org/linguistics/ace/download/ace-0.9.34-x86-64.tar.gz",
+      "sha256": "ba37875ff112217c76e35da121879762c21a3d8562b795b5a1dd9e9529d5f64d",
+      "size": 2526613
+    },
+    "erg.dat.bz2": {
+      "url": "https://github.com/delph-in/erg/releases/download/2025/erg-2025-x86-64-0.9.34.dat.bz2",
+      "sha256": "ddf43bd664e6cda0b7b81affa715642a7c0d029ced145ec4928903ab2e69be87",
+      "size": 30369160
+    },
+    "swipl": {
+      "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/swi-prolog-10.0.2-2-x86_64.pkg.tar.zst",
+      "sha256": "c3d75ce8cfc9694087b025d78f80f45f2570489e9171f0cf14d657c597d87b15"
+    },
+    "libncurses6": {
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libncurses6_6.4+20240113-1ubuntu2.2_amd64.deb",
+      "sha256": "59e8527dfd14473393960bfb7c69566f1ad9d576423421dcb8b8dcdbb3e7fca1"
+    }
+  }
+}

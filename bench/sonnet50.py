@@ -91,7 +91,7 @@ def run(n, model):
     path = f"{AUDIT}/sonnet50-a{n}.jsonl"
     done = {json.loads(l)["id"] for l in open(path)} if os.path.exists(path) else set()
     bar = Task("sonnet50", f"Sonnet + unllm, attempt {n}", total=len(sample))
-    bar.step(len(done))
+    bar.skip(len(done))
     with open(path, "a") as f:
         for it, ps in zip(sample, per):
             if it["id"] in done:

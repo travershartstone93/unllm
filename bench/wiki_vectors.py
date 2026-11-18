@@ -306,10 +306,10 @@ def build():
             for k in range(0, len(pids), 200_000):
                 index.add_with_ids(np.ascontiguousarray(v[k:k + 200_000], dtype=np.float32), pids[k:k + 200_000] + (no << 32))
             count = len(pids)
-            bar.step(count, detail="simple (pilot vectors)")
+            bar.skip(count, detail="simple (pilot vectors)")
         else:
             if skip_pid >= 0:  # already in the index from the training sample: count them, do not redo them
-                bar.step(sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+                bar.skip(sqlite3.connect(f"file:{path}?mode=ro", uri=True)
                          .execute("SELECT count(*) FROM passages WHERE pid <= ?", (skip_pid,)).fetchone()[0],
                          detail=f"shard {no} (resuming)")
 

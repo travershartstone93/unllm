@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "aliases": [
+    {"term": "to-do", "surface": "task", "concept": "task"},
+    {"term": "todo", "surface": "task", "concept": "task"},
+    {"term": "shopping", "surface": "task", "concept": "shopping"},
+    {"term": "stopwatch", "surface": "timer", "concept": "elapsed_time"}
+  ],
+  "action_labels": {
+    "add": "append", "insert": "append", "append": "append",
+    "remove": "remove", "delete": "remove",
+    "save": "save", "load": "load", "open": "load",
+    "start": "start", "stop": "stop", "pause": "stop", "reset": "reset",
+    "uppercase": "upper", "lowercase": "lower", "trim": "strip",
+    "copy": "copy", "cut": "cut", "paste": "paste", "undo": "undo", "redo": "redo",
+    "increment": "increment", "decrement": "decrement", "calculate": "calculate",
+    "convert": "convert", "clear": "clear", "select": "select"
+  },
+  "concepts": {
+    "list": {"type": "collection"},
+    "task": {"type": "record_field", "fields": {"text": "text", "done": "bool"}},
+    "shopping": {"type": "record_field", "fields": {"text": "text"}},
+    "timer": {"type": "elapsed_time"},
+    "elapsed_time": {"type": "elapsed_time"},
+    "counter": {"type": "numeric_state"},
+    "calculator": {"type": "interactive_expression"},
+    "text": {"type": "text_state"},
+    "editor": {"type": "editable_document"},
+    "tip": {"type": "percentage_relation", "total_sign": 1, "base_label": "Bill amount"},
+    "tax": {"type": "percentage_relation", "total_sign": 1, "base_label": "Base amount"},
+    "commission": {"type": "percentage_relation", "total_sign": 1, "base_label": "Base amount"},
+    "discount": {"type": "percentage_relation", "total_sign": -1, "base_label": "Base amount"}
+  },
+  "units": {
+    "celsius": {"dimension": "temperature", "scale": "1", "offset": "27315/100", "label": "Celsius"},
+    "fahrenheit": {"dimension": "temperature", "scale": "5/9", "offset": "45967/180", "label": "Fahrenheit"},
+    "kelvin": {"dimension": "temperature", "scale": "1", "offset": "0", "label": "Kelvin"},
+    "metre": {"dimension": "length", "scale": "1", "offset": "0", "label": "Metres"},
+    "meter": {"dimension": "length", "scale": "1", "offset": "0", "label": "Metres"},
+    "kilometre": {"dimension": "length", "scale": "1000", "offset": "0", "label": "Kilometres"},
+    "kilometer": {"dimension": "length", "scale": "1000", "offset": "0", "label": "Kilometres"},
+    "mile": {"dimension": "length", "scale": "201168/125", "offset": "0", "label": "Miles"}
+  }
+}

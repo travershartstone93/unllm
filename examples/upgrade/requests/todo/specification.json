@@ -1,0 +1,103 @@
+{
+  "schema": 2,
+  "program": "application",
+  "title": "Application",
+  "state": {
+    "records": {
+      "type": "records",
+      "initial": [],
+      "fields": {
+        "text": "text",
+        "done": "bool"
+      }
+    },
+    "selection": {
+      "type": "number",
+      "initial": -1.0
+    },
+    "entry_text": {
+      "type": "text",
+      "initial": ""
+    },
+    "entry_done": {
+      "type": "bool",
+      "initial": false
+    }
+  },
+  "views": [
+    {
+      "id": "entry_text_input",
+      "kind": "line_edit",
+      "state": "entry_text",
+      "label": "Text"
+    },
+    {
+      "id": "records_view",
+      "kind": "record_list",
+      "state": "records",
+      "selection": "selection",
+      "display": "text",
+      "checked": "done"
+    },
+    {
+      "id": "records_count_view",
+      "kind": "label",
+      "value": "records_count(records)",
+      "label": "Items"
+    }
+  ],
+  "actions": [
+    {
+      "id": "add",
+      "label": "Add",
+      "effect": "append_record",
+      "state": "records",
+      "values": {
+        "text": "strip(entry_text)",
+        "done": "entry_done"
+      },
+      "selection": "selection",
+      "clear": [
+        "entry_text"
+      ],
+      "requires": "chars(strip(entry_text)) > 0"
+    },
+    {
+      "id": "remove",
+      "label": "Remove",
+      "effect": "remove_record",
+      "state": "records",
+      "selection": "selection"
+    },
+    {
+      "id": "save",
+      "label": "Save",
+      "effect": "save",
+      "state": "records",
+      "shortcut": "Ctrl+S"
+    }
+  ],
+  "events": [],
+  "interpretation": {
+    "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+    "bindings": [
+      {
+        "operation": "append",
+        "state": "records",
+        "predicate": "_operation_n_of"
+      },
+      {
+        "operation": "remove",
+        "state": "records",
+        "predicate": "_operation_n_of"
+      },
+      {
+        "operation": "save",
+        "state": "records",
+        "predicate": "_operation_n_of"
+      }
+    ],
+    "defaults": []
+  },
+  "checks": []
+}

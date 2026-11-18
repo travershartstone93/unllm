@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "downloads": {
+    "antlr-4.13.2-complete.jar": {
+      "url": "https://www.antlr.org/download/antlr-4.13.2-complete.jar",
+      "sha256": "eae2dfa119a64327444672aff63e9ec35a20180dc5b8090b7a6ab85125df4d76"
+    },
+    "antlr4-cpp-runtime-4.13.2-source.zip": {
+      "url": "https://www.antlr.org/download/antlr4-cpp-runtime-4.13.2-source.zip",
+      "sha256": "0ed13668906e86dbc0dcddf30fdee68c10203dea4e83852b4edb810821bee3c4"
+    }
+  },
+  "versions": {
+    "antlr": "4.13.2",
+    "qt_cpp": "6.12.0",
+    "pyside6": "6.12.0"
+  }
+}

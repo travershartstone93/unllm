@@ -1,8 +1,14 @@
 build/
+build-cpp/
 __pycache__/
 search/target/
 build-pipe/
 build2/
+.deps/
+.venv/
+.state/
+.artifacts/
+.benchmarks/
 # Held-out question sets stay on this machine: nothing may tune on them (tests/clean/README.md)
 tests/clean/sealed.tsv
 tests/general/heldout.tsv

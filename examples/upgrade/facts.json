@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "source": {"id":"example:fiction:1","title":"Fictional book and geography example","version":"1"},
+  "entities": [
+    {"id":"example:book","name":"The Copper Almanac","type":"work"},
+    {"id":"example:writer","name":"Mira Vale","type":"person"},
+    {"id":"example:town","name":"Copperhaven","type":"city"},
+    {"id":"example:country","name":"Virelia","type":"country"}
+  ],
+  "claims": [
+    {"predicate":"author","subject":"example:book","object":"example:writer"},
+    {"predicate":"birthplace","subject":"example:writer","object":"example:town"},
+    {"predicate":"country","subject":"example:town","object":"example:country"}
+  ]
+}

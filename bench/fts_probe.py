@@ -54,7 +54,7 @@ def main():
     items = vec_pilot.load(f"{vec_pilot.VEC}/testset.jsonl")
     done = {r["id"] for r in vec_pilot.load(OUT)}
     bar = Task("fts-probe", "Spine audit: first-stage probe", total=len(items))
-    bar.step(len(done))
+    bar.skip(len(done))
     with open(OUT, "a") as f:
         for it in items:
             if it["id"] in done:

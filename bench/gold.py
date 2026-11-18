@@ -83,7 +83,7 @@ def main():
     jobs = sys.argv[1:] or list(JOBS)
     plan = {j: label(j) for j in jobs}
     bar = Task("gold", "Haiku reference answers", total=sum(len(p[0]) for p in plan.values()))
-    bar.step(sum(len(p[0]) - len(p[1]) for p in plan.values()))
+    bar.skip(sum(len(p[0]) - len(p[1]) for p in plan.values()))
     for job, (items, todo, path) in plan.items():
         batches = [todo[i:i + BATCH] for i in range(0, len(todo), BATCH)]
         with open(path, "a") as f, concurrent.futures.ThreadPoolExecutor(3) as ex:

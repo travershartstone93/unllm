@@ -1,0 +1,11 @@
+# Local symbolic runtime. Install into .venv, never into the system Python.
+cvc5==1.3.1
+pydelphin==1.11.0
+hypothesis==6.170.15
+penman==1.3.1
+progress==1.6.1
+pygments==2.21.0
+sortedcontainers==2.4.0
+antlr4-python3-runtime==4.13.2
+PySide6-Essentials==6.12.0
+shiboken6==6.12.0

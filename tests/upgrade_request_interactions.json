@@ -1,0 +1,508 @@
+{
+  "text_counter": {
+    "dialogs": {
+      "save": [
+        "/output/note.txt"
+      ],
+      "confirm": [
+        "cancel"
+      ]
+    },
+    "events": [
+      {
+        "kind": "enter",
+        "target": "body_view",
+        "text": "MiXeD CASE\ncafé 🐦"
+      },
+      {
+        "kind": "expect_text",
+        "target": "chars_view",
+        "value": "Characters: 17"
+      },
+      {
+        "kind": "click",
+        "target": "lower"
+      },
+      {
+        "kind": "expect_text",
+        "target": "body_view",
+        "value": "mixed case\ncafé 🐦"
+      },
+      {
+        "kind": "click",
+        "target": "save"
+      },
+      {
+        "kind": "expect_file",
+        "path": "/output/note.txt",
+        "value": "mixed case\ncafé 🐦"
+      },
+      {
+        "kind": "expect_dirty",
+        "value": false
+      },
+      {
+        "kind": "append",
+        "target": "body_view",
+        "text": "!"
+      },
+      {
+        "kind": "expect_text",
+        "target": "chars_view",
+        "value": "Characters: 18"
+      },
+      {
+        "kind": "click",
+        "target": "save"
+      },
+      {
+        "kind": "expect_file",
+        "path": "/output/note.txt",
+        "value": "mixed case\ncafé 🐦!"
+      },
+      {
+        "kind": "expect_save_calls",
+        "value": 1
+      },
+      {
+        "kind": "append",
+        "target": "body_view",
+        "text": "?"
+      },
+      {
+        "kind": "close"
+      },
+      {
+        "kind": "expect_visible",
+        "value": true
+      },
+      {
+        "kind": "expect_text",
+        "target": "body_view",
+        "value": "mixed case\ncafé 🐦!?"
+      }
+    ]
+  },
+  "decrement": {
+    "events": [
+      {
+        "kind": "enter",
+        "target": "number_view",
+        "text": "17.5"
+      },
+      {
+        "kind": "expect_number",
+        "target": "number_view",
+        "value": 17.5
+      },
+      {
+        "kind": "click",
+        "target": "decrement"
+      },
+      {
+        "kind": "expect_number",
+        "target": "number_result",
+        "value": 6.5
+      },
+      {
+        "kind": "enter",
+        "target": "number_view",
+        "text": "0.25"
+      },
+      {
+        "kind": "expect_number",
+        "target": "number_view",
+        "value": 0.25
+      },
+      {
+        "kind": "click",
+        "target": "decrement"
+      },
+      {
+        "kind": "expect_number",
+        "target": "number_result",
+        "value": -10.75
+      },
+      {
+        "kind": "enter",
+        "target": "number_view",
+        "text": "-100"
+      },
+      {
+        "kind": "expect_number",
+        "target": "number_view",
+        "value": -100.0
+      },
+      {
+        "kind": "click",
+        "target": "decrement"
+      },
+      {
+        "kind": "expect_number",
+        "target": "number_result",
+        "value": -111.0
+      }
+    ]
+  },
+  "todo": {
+    "dialogs": {
+      "save": [
+        "/output/records.json"
+      ],
+      "confirm": [
+        "cancel"
+      ]
+    },
+    "events": [
+      {
+        "kind": "enter",
+        "target": "entry_text_input",
+        "text": "  buy milk  "
+      },
+      {
+        "kind": "click",
+        "target": "add"
+      },
+      {
+        "kind": "expect_text",
+        "target": "entry_text_input",
+        "value": ""
+      },
+      {
+        "kind": "enter",
+        "target": "entry_text_input",
+        "text": "café 🐦"
+      },
+      {
+        "kind": "click",
+        "target": "add"
+      },
+      {
+        "kind": "expect_items",
+        "target": "records_view",
+        "value": [
+          "buy milk",
+          "café 🐦"
+        ]
+      },
+      {
+        "kind": "check",
+        "target": "records_view",
+        "row": 0,
+        "value": true
+      },
+      {
+        "kind": "click",
+        "target": "save"
+      },
+      {
+        "kind": "expect_file",
+        "path": "/output/records.json",
+        "value": [
+          {
+            "text": "buy milk",
+            "done": true
+          },
+          {
+            "text": "café 🐦",
+            "done": false
+          }
+        ]
+      },
+      {
+        "kind": "select",
+        "target": "records_view",
+        "row": 0
+      },
+      {
+        "kind": "click",
+        "target": "remove"
+      },
+      {
+        "kind": "expect_items",
+        "target": "records_view",
+        "value": [
+          "café 🐦"
+        ]
+      },
+      {
+        "kind": "click",
+        "target": "save"
+      },
+      {
+        "kind": "expect_file",
+        "path": "/output/records.json",
+        "value": [
+          {
+            "text": "café 🐦",
+            "done": false
+          }
+        ]
+      },
+      {
+        "kind": "enter",
+        "target": "entry_text_input",
+        "text": "   "
+      },
+      {
+        "kind": "click",
+        "target": "add"
+      },
+      {
+        "kind": "expect_error",
+        "value": true
+      },
+      {
+        "kind": "expect_items",
+        "target": "records_view",
+        "value": [
+          "café 🐦"
+        ]
+      },
+      {
+        "kind": "enter",
+        "target": "entry_text_input",
+        "text": "bread"
+      },
+      {
+        "kind": "click",
+        "target": "add"
+      },
+      {
+        "kind": "close"
+      },
+      {
+        "kind": "expect_visible",
+        "value": true
+      }
+    ]
+  },
+  "stopwatch": {
+    "events": [
+      {
+        "kind": "click",
+        "target": "start"
+      },
+      {
+        "kind": "wait",
+        "milliseconds": 160
+      },
+      {
+        "kind": "expect_number",
+        "target": "elapsed_view",
+        "minimum": 0.05,
+        "maximum": 5
+      },
+      {
+        "kind": "click",
+        "target": "stop"
+      },
+      {
+        "kind": "capture",
+        "target": "elapsed_view",
+        "name": "paused"
+      },
+      {
+        "kind": "wait",
+        "milliseconds": 120
+      },
+      {
+        "kind": "expect_number",
+        "target": "elapsed_view",
+        "capture": "paused"
+      },
+      {
+        "kind": "click",
+        "target": "start"
+      },
+      {
+        "kind": "wait",
+        "milliseconds": 100
+      },
+      {
+        "kind": "click",
+        "target": "stop"
+      },
+      {
+        "kind": "expect_number",
+        "target": "elapsed_view",
+        "greater_than_capture": "paused"
+      },
+      {
+        "kind": "click",
+        "target": "reset"
+      },
+      {
+        "kind": "expect_number",
+        "target": "elapsed_view",
+        "value": 0
+      },
+      {
+        "kind": "wait",
+        "milliseconds": 80
+      },
+      {
+        "kind": "expect_number",
+        "target": "elapsed_view",
+        "value": 0
+      },
+      {
+        "kind": "click",
+        "target": "start"
+      },
+      {
+        "kind": "wait",
+        "milliseconds": 80
+      },
+      {
+        "kind": "click",
+        "target": "reset"
+      },
+      {
+        "kind": "wait",
+        "milliseconds": 80
+      },
+      {
+        "kind": "expect_number",
+        "target": "elapsed_view",
+        "value": 0
+      }
+    ]
+  },
+  "temperature": {
+    "events": [
+      {
+        "kind": "enter",
+        "target": "source_input",
+        "text": "100"
+      },
+      {
+        "kind": "click",
+        "target": "convert"
+      },
+      {
+        "kind": "expect_number",
+        "target": "converted_output",
+        "value": 212
+      },
+      {
+        "kind": "enter",
+        "target": "source_input",
+        "text": "17.5"
+      },
+      {
+        "kind": "click",
+        "target": "convert"
+      },
+      {
+        "kind": "expect_number",
+        "target": "converted_output",
+        "value": 63.5
+      },
+      {
+        "kind": "enter",
+        "target": "source_input",
+        "text": "0.25"
+      },
+      {
+        "kind": "click",
+        "target": "convert"
+      },
+      {
+        "kind": "expect_number",
+        "target": "converted_output",
+        "value": 32.45
+      },
+      {
+        "kind": "enter",
+        "target": "source_input",
+        "text": "-40"
+      },
+      {
+        "kind": "click",
+        "target": "convert"
+      },
+      {
+        "kind": "expect_number",
+        "target": "converted_output",
+        "value": -40
+      }
+    ]
+  },
+  "tip": {
+    "events": [
+      {
+        "kind": "enter",
+        "target": "amount_input",
+        "text": "123.45"
+      },
+      {
+        "kind": "enter",
+        "target": "rate_input",
+        "text": "12.5"
+      },
+      {
+        "kind": "click",
+        "target": "calculate"
+      },
+      {
+        "kind": "expect_number",
+        "target": "part_output",
+        "value": 15.43125
+      },
+      {
+        "kind": "expect_number",
+        "target": "total_output",
+        "value": 138.88125
+      },
+      {
+        "kind": "enter",
+        "target": "amount_input",
+        "text": "80"
+      },
+      {
+        "kind": "enter",
+        "target": "rate_input",
+        "text": "0"
+      },
+      {
+        "kind": "click",
+        "target": "calculate"
+      },
+      {
+        "kind": "expect_number",
+        "target": "part_output",
+        "value": 0
+      },
+      {
+        "kind": "expect_number",
+        "target": "total_output",
+        "value": 80
+      },
+      {
+        "kind": "enter",
+        "target": "amount_input",
+        "text": "0.01"
+      },
+      {
+        "kind": "enter",
+        "target": "rate_input",
+        "text": "15"
+      },
+      {
+        "kind": "click",
+        "target": "calculate"
+      },
+      {
+        "kind": "expect_number",
+        "target": "part_output",
+        "value": 0.0015
+      },
+      {
+        "kind": "expect_number",
+        "target": "total_output",
+        "value": 0.0115
+      }
+    ]
+  }
+}

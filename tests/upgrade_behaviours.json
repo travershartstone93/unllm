@@ -1,0 +1,90 @@
+{
+  "purpose": "Development compositions; no application categories or whole-program templates. Not a blinded benchmark.",
+  "tasks": [
+    {
+      "id": "text_workbench",
+      "spec": {
+        "schema": 2, "program": "text_workbench", "title": "Text Workbench",
+        "state": {"notes": {"type": "text", "initial": ""}},
+        "views": [
+          {"id": "notes_input", "kind": "text_edit", "state": "notes"},
+          {"id": "words", "kind": "label", "value": "words(notes)", "label": "Words"},
+          {"id": "characters", "kind": "label", "value": "chars(notes)", "label": "Characters"}
+        ],
+        "actions": [
+          {"id": "capitalize", "label": "Uppercase", "assign": {"notes": "upper(notes)"}},
+          {"id": "organize", "label": "Sort unique lines", "assign": {"notes": "sort_lines(unique_lines(notes))"}},
+          {"id": "open", "label": "Open", "effect": "load", "state": "notes", "shortcut": "Ctrl+O"},
+          {"id": "save", "label": "Save", "effect": "save", "state": "notes", "shortcut": "Ctrl+S"}
+        ]
+      },
+      "fresh": [
+        {"events": [{"input": "notes_input", "text": "plum\napple\nplum"}, {"button": "organize"}], "expect": {"state": {"notes": "apple\nplum"}, "labels": {"words": "Words: 2"}}}
+      ]
+    },
+    {
+      "id": "conversion",
+      "spec": {
+        "schema": 2, "program": "temperature_relation", "title": "Temperature Conversion",
+        "state": {"celsius": {"type": "number", "initial": 0}, "fahrenheit": {"type": "number", "initial": 32}},
+        "views": [
+          {"id": "celsius_input", "kind": "number_input", "state": "celsius", "label": "Celsius"},
+          {"id": "fahrenheit_output", "kind": "label", "value": "fahrenheit", "label": "Fahrenheit"},
+          {"id": "guarded_ratio", "kind": "label", "value": "fahrenheit / celsius if celsius != 0 else 0", "label": "Ratio"}
+        ],
+        "actions": [{"id": "convert", "label": "Convert", "ensure": "5 * next.fahrenheit == 9 * prev.celsius + 160"}]
+      },
+      "fresh": [
+        {"events": [{"number": "celsius_input", "value": -40}, {"button": "convert"}], "expect": {"state": {"fahrenheit": -40}}},
+        {"events": [{"number": "celsius_input", "value": 37}, {"button": "convert"}], "expect": {"state": {"fahrenheit": 98.6}}}
+      ]
+    },
+    {
+      "id": "paired_state",
+      "spec": {
+        "schema": 2, "program": "two_balances", "title": "Paired State",
+        "state": {"left": {"type": "number", "initial": 3}, "right": {"type": "number", "initial": 7}},
+        "views": [
+          {"id": "left_input", "kind": "number_input", "state": "left", "label": "Left"},
+          {"id": "right_input", "kind": "number_input", "state": "right", "label": "Right"},
+          {"id": "total", "kind": "label", "value": "left + right", "label": "Total"}
+        ],
+        "actions": [
+          {"id": "swap", "label": "Swap", "ensure": "next.left == prev.right and next.right == prev.left"},
+          {"id": "rebalance", "label": "Transfer two", "ensure": "next.left == prev.left - 2 and next.right == prev.right + 2"},
+          {"id": "clamp", "label": "Clamp left to zero", "ensure": "next.left == (0 if prev.left < 0 else prev.left)"}
+        ]
+      },
+      "fresh": [
+        {"initial": {"left": 17, "right": -4}, "events": [{"button": "swap"}, {"button": "rebalance"}], "expect": {"state": {"left": -6, "right": 19}, "labels": {"total": "Total: 13"}}}
+      ]
+    },
+    {
+      "id": "mixed_workspace",
+      "spec": {
+        "schema": 2, "program": "a_name_the_generator_has_no_category_for", "title": "Mixed Workspace",
+        "state": {
+          "draft": {"type": "text", "initial": ""},
+          "snapshot": {"type": "text", "initial": ""},
+          "visits": {"type": "number", "initial": 0},
+          "flag": {"type": "bool", "initial": false}
+        },
+        "views": [
+          {"id": "draft_input", "kind": "text_edit", "state": "draft"},
+          {"id": "snapshot_view", "kind": "label", "value": "snapshot", "label": "Snapshot"},
+          {"id": "word_count", "kind": "label", "value": "words(draft)", "label": "Words"},
+          {"id": "visits", "kind": "label", "value": "visits", "label": "Visits"},
+          {"id": "flag", "kind": "label", "value": "flag", "label": "Flag"}
+        ],
+        "actions": [
+          {"id": "capture", "label": "Capture", "assign": {"snapshot": "upper(strip(draft))", "flag": "not flag"}},
+          {"id": "advance", "label": "Advance by three", "ensure": "next.visits == prev.visits + 3"},
+          {"id": "store", "label": "Save snapshot", "effect": "save", "state": "snapshot"}
+        ]
+      },
+      "fresh": [
+        {"events": [{"input": "draft_input", "text": "  fresh café notes  "}, {"button": "capture"}, {"button": "advance"}, {"button": "store"}], "dialogs": {"save": ["/output/mixed-fresh.txt"]}, "expect": {"state": {"snapshot": "FRESH CAFÉ NOTES", "visits": 3, "flag": true}, "files": {"/output/mixed-fresh.txt": "FRESH CAFÉ NOTES"}}}
+      ]
+    }
+  ]
+}

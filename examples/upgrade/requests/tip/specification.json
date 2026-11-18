@@ -1,0 +1,71 @@
+{
+  "schema": 2,
+  "program": "application",
+  "title": "Application",
+  "state": {
+    "amount": {
+      "type": "number",
+      "initial": 0.0
+    },
+    "rate": {
+      "type": "number",
+      "initial": 0.0
+    },
+    "part": {
+      "type": "number",
+      "initial": 0.0
+    },
+    "total": {
+      "type": "number",
+      "initial": 0.0
+    }
+  },
+  "views": [
+    {
+      "id": "amount_input",
+      "kind": "number_input",
+      "state": "amount",
+      "label": "Bill amount"
+    },
+    {
+      "id": "rate_input",
+      "kind": "number_input",
+      "state": "rate",
+      "label": "Tip percentage"
+    },
+    {
+      "id": "part_output",
+      "kind": "label",
+      "value": "part",
+      "label": "Tip amount"
+    },
+    {
+      "id": "total_output",
+      "kind": "label",
+      "value": "total",
+      "label": "Total"
+    }
+  ],
+  "actions": [
+    {
+      "id": "calculate",
+      "label": "Calculate",
+      "ensure": "100 * next.part == prev.amount * prev.rate and next.total == prev.amount + next.part"
+    }
+  ],
+  "events": [],
+  "interpretation": {
+    "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+    "bindings": [
+      {
+        "operation": "percentage_of",
+        "base": "amount",
+        "rate": "rate",
+        "output": "part",
+        "total_sign": 1
+      }
+    ],
+    "defaults": []
+  },
+  "checks": []
+}

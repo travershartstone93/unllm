@@ -1,0 +1,308 @@
+{
+  "schema": 1,
+  "purpose": "Annotated development validation, including fixture identity correction. Not blinded or an encyclopedia benchmark.",
+  "document": {
+    "source": {
+      "id": "development:reasoning:1",
+      "title": "Fictional reasoning development fixture",
+      "version": "1"
+    },
+    "entities": [
+      {
+        "id": "fixture:book",
+        "name": "The Glass Orchard",
+        "type": "work"
+      },
+      {
+        "id": "fixture:writer",
+        "name": "Nera Vale",
+        "type": "person"
+      },
+      {
+        "id": "fixture:other",
+        "name": "Orin Vale",
+        "type": "person"
+      },
+      {
+        "id": "fixture:city",
+        "name": "Westhaven",
+        "type": "city"
+      },
+      {
+        "id": "fixture:east",
+        "name": "Eastford",
+        "type": "city"
+      },
+      {
+        "id": "fixture:nation",
+        "name": "Beloria",
+        "type": "country"
+      },
+      {
+        "id": "fixture:beacon",
+        "name": "The Beacon"
+      },
+      {
+        "id": "fixture:app",
+        "name": "Atlas",
+        "type": "program"
+      },
+      {
+        "id": "fixture:runtime",
+        "name": "Cedar",
+        "type": "program"
+      },
+      {
+        "id": "fixture:library",
+        "name": "Flint",
+        "type": "program"
+      }
+    ],
+    "claims": [
+      {
+        "predicate": "author",
+        "subject": "fixture:book",
+        "object": "fixture:writer"
+      },
+      {
+        "predicate": "birthplace",
+        "subject": "fixture:writer",
+        "object": "fixture:city"
+      },
+      {
+        "predicate": "country",
+        "subject": "fixture:city",
+        "object": "fixture:nation"
+      },
+      {
+        "predicate": "located_in",
+        "subject": "fixture:beacon",
+        "object": "fixture:city"
+      },
+      {
+        "predicate": "located_in",
+        "subject": "fixture:east",
+        "object": "fixture:nation"
+      },
+      {
+        "predicate": "depends_on",
+        "subject": "fixture:app",
+        "object": "fixture:runtime"
+      },
+      {
+        "predicate": "depends_on",
+        "subject": "fixture:runtime",
+        "object": "fixture:library"
+      },
+      {
+        "predicate": "available",
+        "subject": "fixture:runtime",
+        "object": "true"
+      },
+      {
+        "predicate": "available",
+        "subject": "fixture:library",
+        "object": "true",
+        "negative": true
+      },
+      {
+        "predicate": "height",
+        "subject": "fixture:writer",
+        "object": "1.8"
+      },
+      {
+        "predicate": "height",
+        "subject": "fixture:other",
+        "object": "1.7"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "author_active",
+      "question": "Who wrote The Glass Orchard?",
+      "answers": [
+        "fixture:writer"
+      ]
+    },
+    {
+      "id": "author_noun",
+      "question": "Who is the author of The Glass Orchard?",
+      "answers": [
+        "fixture:writer"
+      ]
+    },
+    {
+      "id": "birth_passive",
+      "question": "Where was Nera Vale born?",
+      "answers": [
+        "fixture:city"
+      ]
+    },
+    {
+      "id": "birth_noun",
+      "question": "What is the birthplace of Nera Vale?",
+      "answers": [
+        "fixture:city"
+      ]
+    },
+    {
+      "id": "author_birth",
+      "question": "Where was the author of The Glass Orchard born?",
+      "answers": [
+        "fixture:city"
+      ]
+    },
+    {
+      "id": "country_in",
+      "question": "Which country is Westhaven in?",
+      "answers": [
+        "fixture:nation"
+      ]
+    },
+    {
+      "id": "country_of",
+      "question": "What is the country of Westhaven?",
+      "answers": [
+        "fixture:nation"
+      ]
+    },
+    {
+      "id": "three_relations",
+      "question": "What is the country of the birthplace of the author of The Glass Orchard?",
+      "answers": [
+        "fixture:nation"
+      ]
+    },
+    {
+      "id": "location_chain",
+      "question": "Where is The Beacon?",
+      "answers": [
+        "fixture:city",
+        "fixture:nation"
+      ]
+    },
+    {
+      "id": "inverse",
+      "question": "Does Beloria contain Westhaven?",
+      "truth": "supported"
+    },
+    {
+      "id": "derived_location",
+      "question": "Is Westhaven in Beloria?",
+      "truth": "supported"
+    },
+    {
+      "id": "unknown_location",
+      "question": "Is The Beacon in Eastford?",
+      "truth": "unknown"
+    },
+    {
+      "id": "unknown_boolean",
+      "question": "Is Nera Vale available?",
+      "truth": "unknown"
+    },
+    {
+      "id": "blocked_transitive",
+      "question": "Is Atlas blocked?",
+      "truth": "supported"
+    },
+    {
+      "id": "requirements",
+      "question": "What does Atlas depend on?",
+      "answers": [
+        "fixture:runtime",
+        "fixture:library"
+      ]
+    },
+    {
+      "id": "dependants",
+      "question": "What depends on Flint?",
+      "answers": [
+        "fixture:app",
+        "fixture:runtime"
+      ]
+    },
+    {
+      "id": "available",
+      "question": "Is Cedar available?",
+      "truth": "supported"
+    },
+    {
+      "id": "explicit_negative",
+      "question": "Is Flint available?",
+      "truth": "refuted"
+    },
+    {
+      "id": "missing_app_availability",
+      "question": "Is Atlas available?",
+      "truth": "unknown"
+    },
+    {
+      "id": "height_positive",
+      "question": "Is Nera Vale taller than Orin Vale?",
+      "truth": "supported"
+    },
+    {
+      "id": "height_negative",
+      "question": "Is Orin Vale taller than Nera Vale?",
+      "truth": "refuted"
+    },
+    {
+      "id": "birth_is_not_location",
+      "question": "Is Nera Vale in Beloria?",
+      "truth": "unknown"
+    },
+    {
+      "id": "type_inheritance",
+      "question": "Is Westhaven a place?",
+      "truth": "supported"
+    },
+    {
+      "id": "city_type",
+      "question": "Is Westhaven a city?",
+      "truth": "supported"
+    },
+    {
+      "id": "writer_type",
+      "question": "Is Nera Vale a person?",
+      "truth": "supported"
+    },
+    {
+      "id": "negative_question",
+      "question": "Is Flint not available?",
+      "truth": "supported"
+    },
+    {
+      "id": "country_to_contains",
+      "question": "Does Beloria contain The Beacon?",
+      "truth": "supported"
+    },
+    {
+      "id": "known_count",
+      "question": "How many countries contain The Beacon?",
+      "answers": [
+        "fixture:nation"
+      ],
+      "count": true
+    },
+    {
+      "id": "author_boolean",
+      "question": "Did Nera Vale write The Glass Orchard?",
+      "truth": "supported"
+    },
+    {
+      "id": "author_unknown",
+      "question": "Did Orin Vale write The Glass Orchard?",
+      "truth": "unknown"
+    }
+  ],
+  "must_reject": [
+    "Every person is in Beloria.",
+    "Nera Vale might be available.",
+    "Nera Vale is very available.",
+    "Is Westhaven in Beloria or Eastford?",
+    "Was The Beacon in Westhaven yesterday?",
+    "Is Nera Vale taller than Orin Vale and more intelligent?"
+  ]
+}

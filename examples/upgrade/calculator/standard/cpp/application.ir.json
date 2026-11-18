@@ -1,0 +1,1492 @@
+{
+  "state": {
+    "entry": [
+      "text",
+      ""
+    ],
+    "after_result": [
+      "bool",
+      false
+    ],
+    "error": [
+      "text",
+      ""
+    ],
+    "last_value": [
+      "number",
+      0.0
+    ]
+  },
+  "functions": [
+    {
+      "name": "clear",
+      "parameters": [],
+      "result": "void",
+      "body": [
+        {
+          "kind": "set",
+          "name": "entry",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": "",
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "error",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": "",
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "after_result",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": false,
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    },
+    {
+      "name": "write_result",
+      "parameters": [
+        [
+          "value",
+          "number"
+        ]
+      ],
+      "result": "void",
+      "body": [
+        {
+          "kind": "set",
+          "name": "last_value",
+          "value": {
+            "kind": "local",
+            "name": "value",
+            "value": null,
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "entry",
+          "value": {
+            "kind": "primitive",
+            "name": "number_text",
+            "value": null,
+            "args": [
+              {
+                "kind": "local",
+                "name": "value",
+                "value": null,
+                "args": []
+              }
+            ]
+          },
+          "body": [],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "after_result",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": true,
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "error",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": "",
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    },
+    {
+      "name": "current_value",
+      "parameters": [],
+      "result": "number",
+      "body": [
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "eq",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "entry",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "literal",
+                "name": "",
+                "value": 0.0,
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "return",
+          "name": "",
+          "value": {
+            "kind": "primitive",
+            "name": "evaluate_expression",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "entry",
+                "value": null,
+                "args": []
+              }
+            ]
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    },
+    {
+      "name": "append",
+      "parameters": [
+        [
+          "text",
+          "text"
+        ],
+        [
+          "fresh",
+          "bool"
+        ]
+      ],
+      "result": "void",
+      "body": [
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "ne",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "error",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "call",
+              "name": "",
+              "value": {
+                "kind": "invoke",
+                "name": "clear",
+                "value": null,
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "and",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "after_result",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "local",
+                "name": "fresh",
+                "value": null,
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "call",
+              "name": "",
+              "value": {
+                "kind": "invoke",
+                "name": "clear",
+                "value": null,
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "gt",
+            "value": null,
+            "args": [
+              {
+                "kind": "binary",
+                "name": "add",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "primitive",
+                    "name": "length",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "state",
+                        "name": "entry",
+                        "value": null,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "length",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "local",
+                        "name": "text",
+                        "value": null,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": 1024.0,
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "set",
+              "name": "error",
+              "value": {
+                "kind": "literal",
+                "name": "",
+                "value": "Expression too long",
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            },
+            {
+              "kind": "return",
+              "name": "",
+              "value": null,
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "after_result",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": false,
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "entry",
+          "value": {
+            "kind": "binary",
+            "name": "add",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "entry",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "local",
+                "name": "text",
+                "value": null,
+                "args": []
+              }
+            ]
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    },
+    {
+      "name": "backspace",
+      "parameters": [],
+      "result": "void",
+      "body": [
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "or",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "after_result",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "binary",
+                "name": "ne",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "state",
+                    "name": "error",
+                    "value": null,
+                    "args": []
+                  },
+                  {
+                    "kind": "literal",
+                    "name": "",
+                    "value": "",
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "call",
+              "name": "",
+              "value": {
+                "kind": "invoke",
+                "name": "clear",
+                "value": null,
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            },
+            {
+              "kind": "return",
+              "name": "",
+              "value": null,
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "set",
+          "name": "entry",
+          "value": {
+            "kind": "primitive",
+            "name": "truncate_last",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "entry",
+                "value": null,
+                "args": []
+              }
+            ]
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    },
+    {
+      "name": "evaluate",
+      "parameters": [],
+      "result": "void",
+      "body": [
+        {
+          "kind": "try",
+          "name": "problem",
+          "value": null,
+          "body": [
+            {
+              "kind": "call",
+              "name": "",
+              "value": {
+                "kind": "invoke",
+                "name": "write_result",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "invoke",
+                    "name": "current_value",
+                    "value": null,
+                    "args": []
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": [
+            {
+              "kind": "set",
+              "name": "error",
+              "value": {
+                "kind": "local",
+                "name": "problem",
+                "value": null,
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            },
+            {
+              "kind": "set",
+              "name": "after_result",
+              "value": {
+                "kind": "literal",
+                "name": "",
+                "value": false,
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "render",
+      "parameters": [],
+      "result": "text",
+      "body": [
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "ne",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "error",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "binary",
+                "name": "add",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "literal",
+                    "name": "",
+                    "value": "Error: ",
+                    "args": []
+                  },
+                  {
+                    "kind": "state",
+                    "name": "error",
+                    "value": null,
+                    "args": []
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "state",
+            "name": "after_result",
+            "value": null,
+            "args": []
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "primitive",
+                "name": "display_number",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "state",
+                    "name": "last_value",
+                    "value": null,
+                    "args": []
+                  },
+                  {
+                    "kind": "literal",
+                    "name": "",
+                    "value": 12,
+                    "args": []
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "eq",
+            "value": null,
+            "args": [
+              {
+                "kind": "state",
+                "name": "entry",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "literal",
+                "name": "",
+                "value": "0",
+                "args": []
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "return",
+          "name": "",
+          "value": {
+            "kind": "state",
+            "name": "entry",
+            "value": null,
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "identifier": "display",
+      "kind": "display",
+      "row": 0,
+      "column": 0,
+      "label": "",
+      "binding": {
+        "function": "render",
+        "arguments": []
+      },
+      "span": 4
+    },
+    {
+      "identifier": "clear",
+      "kind": "button",
+      "row": 1,
+      "column": 0,
+      "label": "C",
+      "binding": {
+        "function": "clear",
+        "arguments": []
+      },
+      "span": 1
+    },
+    {
+      "identifier": "backspace",
+      "kind": "button",
+      "row": 1,
+      "column": 1,
+      "label": "⌫",
+      "binding": {
+        "function": "backspace",
+        "arguments": []
+      },
+      "span": 1
+    },
+    {
+      "identifier": "lparen",
+      "kind": "button",
+      "row": 1,
+      "column": 2,
+      "label": "(",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "(",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "rparen",
+      "kind": "button",
+      "row": 1,
+      "column": 3,
+      "label": ")",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          ")",
+          false
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_7",
+      "kind": "button",
+      "row": 2,
+      "column": 0,
+      "label": "7",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "7",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_8",
+      "kind": "button",
+      "row": 2,
+      "column": 1,
+      "label": "8",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "8",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_9",
+      "kind": "button",
+      "row": 2,
+      "column": 2,
+      "label": "9",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "9",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_4",
+      "kind": "button",
+      "row": 3,
+      "column": 0,
+      "label": "4",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "4",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_5",
+      "kind": "button",
+      "row": 3,
+      "column": 1,
+      "label": "5",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "5",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_6",
+      "kind": "button",
+      "row": 3,
+      "column": 2,
+      "label": "6",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "6",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_1",
+      "kind": "button",
+      "row": 4,
+      "column": 0,
+      "label": "1",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "1",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_2",
+      "kind": "button",
+      "row": 4,
+      "column": 1,
+      "label": "2",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "2",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_3",
+      "kind": "button",
+      "row": 4,
+      "column": 2,
+      "label": "3",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "3",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "digit_0",
+      "kind": "button",
+      "row": 5,
+      "column": 0,
+      "label": "0",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "0",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "decimal",
+      "kind": "button",
+      "row": 5,
+      "column": 1,
+      "label": ".",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          ".",
+          true
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "evaluate",
+      "kind": "button",
+      "row": 5,
+      "column": 2,
+      "label": "=",
+      "binding": {
+        "function": "evaluate",
+        "arguments": []
+      },
+      "span": 1
+    },
+    {
+      "identifier": "divide",
+      "kind": "button",
+      "row": 2,
+      "column": 3,
+      "label": "÷",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "/",
+          false
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "multiply",
+      "kind": "button",
+      "row": 3,
+      "column": 3,
+      "label": "×",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "*",
+          false
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "subtract",
+      "kind": "button",
+      "row": 4,
+      "column": 3,
+      "label": "−",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "-",
+          false
+        ]
+      },
+      "span": 1
+    },
+    {
+      "identifier": "add",
+      "kind": "button",
+      "row": 5,
+      "column": 3,
+      "label": "+",
+      "binding": {
+        "function": "append",
+        "arguments": [
+          "+",
+          false
+        ]
+      },
+      "span": 1
+    }
+  ],
+  "keys": {
+    "0": {
+      "function": "append",
+      "arguments": [
+        "0",
+        true
+      ]
+    },
+    "1": {
+      "function": "append",
+      "arguments": [
+        "1",
+        true
+      ]
+    },
+    "2": {
+      "function": "append",
+      "arguments": [
+        "2",
+        true
+      ]
+    },
+    "3": {
+      "function": "append",
+      "arguments": [
+        "3",
+        true
+      ]
+    },
+    "4": {
+      "function": "append",
+      "arguments": [
+        "4",
+        true
+      ]
+    },
+    "5": {
+      "function": "append",
+      "arguments": [
+        "5",
+        true
+      ]
+    },
+    "6": {
+      "function": "append",
+      "arguments": [
+        "6",
+        true
+      ]
+    },
+    "7": {
+      "function": "append",
+      "arguments": [
+        "7",
+        true
+      ]
+    },
+    "8": {
+      "function": "append",
+      "arguments": [
+        "8",
+        true
+      ]
+    },
+    "9": {
+      "function": "append",
+      "arguments": [
+        "9",
+        true
+      ]
+    },
+    ".": {
+      "function": "append",
+      "arguments": [
+        ".",
+        true
+      ]
+    },
+    "+": {
+      "function": "append",
+      "arguments": [
+        "+",
+        false
+      ]
+    },
+    "-": {
+      "function": "append",
+      "arguments": [
+        "-",
+        false
+      ]
+    },
+    "*": {
+      "function": "append",
+      "arguments": [
+        "*",
+        false
+      ]
+    },
+    "/": {
+      "function": "append",
+      "arguments": [
+        "/",
+        false
+      ]
+    },
+    "(": {
+      "function": "append",
+      "arguments": [
+        "(",
+        true
+      ]
+    },
+    ")": {
+      "function": "append",
+      "arguments": [
+        ")",
+        false
+      ]
+    },
+    "Return": {
+      "function": "evaluate",
+      "arguments": []
+    },
+    "Enter": {
+      "function": "evaluate",
+      "arguments": []
+    },
+    "=": {
+      "function": "evaluate",
+      "arguments": []
+    },
+    "Escape": {
+      "function": "clear",
+      "arguments": []
+    },
+    "Delete": {
+      "function": "clear",
+      "arguments": []
+    },
+    "c": {
+      "function": "clear",
+      "arguments": []
+    },
+    "C": {
+      "function": "clear",
+      "arguments": []
+    },
+    "Backspace": {
+      "function": "backspace",
+      "arguments": []
+    }
+  },
+  "operators": [
+    {
+      "name": "apply_operator",
+      "parameters": [
+        [
+          "operation",
+          "text"
+        ],
+        [
+          "left",
+          "number"
+        ],
+        [
+          "right",
+          "number"
+        ]
+      ],
+      "result": "number",
+      "body": [
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "eq",
+            "value": null,
+            "args": [
+              {
+                "kind": "local",
+                "name": "operation",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "+",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "primitive",
+                "name": "checked_number",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "binary",
+                    "name": "add",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "local",
+                        "name": "left",
+                        "value": null,
+                        "args": []
+                      },
+                      {
+                        "kind": "local",
+                        "name": "right",
+                        "value": null,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "eq",
+            "value": null,
+            "args": [
+              {
+                "kind": "local",
+                "name": "operation",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "-",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "primitive",
+                "name": "checked_number",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "binary",
+                    "name": "subtract",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "local",
+                        "name": "left",
+                        "value": null,
+                        "args": []
+                      },
+                      {
+                        "kind": "local",
+                        "name": "right",
+                        "value": null,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "eq",
+            "value": null,
+            "args": [
+              {
+                "kind": "local",
+                "name": "operation",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "*",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "primitive",
+                "name": "checked_number",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "binary",
+                    "name": "multiply",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "local",
+                        "name": "left",
+                        "value": null,
+                        "args": []
+                      },
+                      {
+                        "kind": "local",
+                        "name": "right",
+                        "value": null,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "if",
+          "name": "",
+          "value": {
+            "kind": "binary",
+            "name": "eq",
+            "value": null,
+            "args": [
+              {
+                "kind": "local",
+                "name": "operation",
+                "value": null,
+                "args": []
+              },
+              {
+                "kind": "literal",
+                "name": "",
+                "value": "/",
+                "args": []
+              }
+            ]
+          },
+          "body": [
+            {
+              "kind": "if",
+              "name": "",
+              "value": {
+                "kind": "unary",
+                "name": "not",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "unary",
+                    "name": "not",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "binary",
+                        "name": "eq",
+                        "value": null,
+                        "args": [
+                          {
+                            "kind": "local",
+                            "name": "right",
+                            "value": null,
+                            "args": []
+                          },
+                          {
+                            "kind": "literal",
+                            "name": "",
+                            "value": 0.0,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "body": [
+                {
+                  "kind": "raise",
+                  "name": "",
+                  "value": {
+                    "kind": "literal",
+                    "name": "",
+                    "value": "Division by zero",
+                    "args": []
+                  },
+                  "body": [],
+                  "otherwise": []
+                }
+              ],
+              "otherwise": []
+            },
+            {
+              "kind": "return",
+              "name": "",
+              "value": {
+                "kind": "primitive",
+                "name": "checked_number",
+                "value": null,
+                "args": [
+                  {
+                    "kind": "binary",
+                    "name": "divide",
+                    "value": null,
+                    "args": [
+                      {
+                        "kind": "local",
+                        "name": "left",
+                        "value": null,
+                        "args": []
+                      },
+                      {
+                        "kind": "local",
+                        "name": "right",
+                        "value": null,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "body": [],
+              "otherwise": []
+            }
+          ],
+          "otherwise": []
+        },
+        {
+          "kind": "raise",
+          "name": "",
+          "value": {
+            "kind": "literal",
+            "name": "",
+            "value": "Operation is not enabled",
+            "args": []
+          },
+          "body": [],
+          "otherwise": []
+        }
+      ]
+    }
+  ],
+  "title": "Calculator",
+  "precision": 12,
+  "requirements": [
+    "app:interactive_expression",
+    "arithmetic:add",
+    "arithmetic:subtract",
+    "arithmetic:multiply",
+    "arithmetic:divide",
+    "control:parentheses",
+    "control:backspace",
+    "control:keyboard"
+  ],
+  "components": [
+    "app-component:add",
+    "app-component:antlr4",
+    "app-component:backspace",
+    "app-component:checked_arithmetic",
+    "app-component:dispatch",
+    "app-component:divide",
+    "app-component:editable_state",
+    "app-component:interactive_expression",
+    "app-component:keyboard",
+    "app-component:multiply",
+    "app-component:parentheses",
+    "app-component:qt_display_cpp",
+    "app-component:qt_grid_cpp",
+    "app-component:qt_window_cpp",
+    "app-component:recover",
+    "app-component:subtract"
+  ]
+}

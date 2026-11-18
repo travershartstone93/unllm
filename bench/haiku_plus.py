@@ -37,7 +37,7 @@ def main():
     path = f"{VEC}/haikuplus{n}.jsonl"
     done = {json.loads(l)["id"]: json.loads(l) for l in open(path)} if os.path.exists(path) else {}
     bar = Task("haiku-plus", f"Haiku + unllm on {n} questions", total=n)
-    bar.step(len(done))
+    bar.skip(len(done))
     with open(path, "a") as f:
         for it in items:
             if it["id"] in done:

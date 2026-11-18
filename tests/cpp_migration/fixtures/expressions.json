@@ -1,0 +1,446 @@
+[
+  {
+    "input": "x - 11",
+    "expected": {
+      "op": "subtract",
+      "args": [
+        {
+          "op": "variable",
+          "args": [],
+          "value": null
+        },
+        {
+          "op": "constant",
+          "args": [],
+          "value": 11
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "x * 1.8 + 32",
+    "expected": {
+      "op": "add",
+      "args": [
+        {
+          "op": "multiply",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 1.8
+            }
+          ],
+          "value": null
+        },
+        {
+          "op": "constant",
+          "args": [],
+          "value": 32
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "x >= 3 and x < 9",
+    "expected": {
+      "op": "and",
+      "args": [
+        {
+          "op": "ge",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 3
+            }
+          ],
+          "value": null
+        },
+        {
+          "op": "lt",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 9
+            }
+          ],
+          "value": null
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "-x if x < 0 else x",
+    "expected": {
+      "op": "if",
+      "args": [
+        {
+          "op": "lt",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 0
+            }
+          ],
+          "value": null
+        },
+        {
+          "op": "negate",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            }
+          ],
+          "value": null
+        },
+        {
+          "op": "variable",
+          "args": [],
+          "value": null
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "not x == 2",
+    "expected": {
+      "op": "not",
+      "args": [
+        {
+          "op": "eq",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 2
+            }
+          ],
+          "value": null
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "x + 2 * 3",
+    "expected": {
+      "op": "add",
+      "args": [
+        {
+          "op": "variable",
+          "args": [],
+          "value": null
+        },
+        {
+          "op": "multiply",
+          "args": [
+            {
+              "op": "constant",
+              "args": [],
+              "value": 2
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 3
+            }
+          ],
+          "value": null
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "(x+2)*3",
+    "expected": {
+      "op": "multiply",
+      "args": [
+        {
+          "op": "add",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 2
+            }
+          ],
+          "value": null
+        },
+        {
+          "op": "constant",
+          "args": [],
+          "value": 3
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "True",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": true
+    }
+  },
+  {
+    "input": "False",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": false
+    }
+  },
+  {
+    "input": "1_000",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": 1000
+    }
+  },
+  {
+    "input": "0x10",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": 16
+    }
+  },
+  {
+    "input": "0b11",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": 3
+    }
+  },
+  {
+    "input": "0o17",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": 15
+    }
+  },
+  {
+    "input": ".5",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": 0.5
+    }
+  },
+  {
+    "input": "1e-06",
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": 1e-06
+    }
+  },
+  {
+    "input": "x if True else 2",
+    "expected": {
+      "op": "if",
+      "args": [
+        {
+          "op": "constant",
+          "args": [],
+          "value": true
+        },
+        {
+          "op": "variable",
+          "args": [],
+          "value": null
+        },
+        {
+          "op": "constant",
+          "args": [],
+          "value": 2
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "1 if x > 0 else 2 if x < -1 else 3",
+    "expected": {
+      "op": "if",
+      "args": [
+        {
+          "op": "gt",
+          "args": [
+            {
+              "op": "variable",
+              "args": [],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 0
+            }
+          ],
+          "value": null
+        },
+        {
+          "op": "constant",
+          "args": [],
+          "value": 1
+        },
+        {
+          "op": "if",
+          "args": [
+            {
+              "op": "lt",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "negate",
+                  "args": [
+                    {
+                      "op": "constant",
+                      "args": [],
+                      "value": 1
+                    }
+                  ],
+                  "value": null
+                }
+              ],
+              "value": null
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 2
+            },
+            {
+              "op": "constant",
+              "args": [],
+              "value": 3
+            }
+          ],
+          "value": null
+        }
+      ],
+      "value": null
+    }
+  },
+  {
+    "input": "True + 1",
+    "error": "Unsupported"
+  },
+  {
+    "input": "not x",
+    "error": "Unsupported"
+  },
+  {
+    "input": "x / 2",
+    "error": "Unsupported"
+  },
+  {
+    "input": "abs(x)",
+    "error": "Unsupported"
+  },
+  {
+    "input": "x > 1 > 0",
+    "error": "Unsupported"
+  },
+  {
+    "input": "01",
+    "error": "SyntaxError"
+  },
+  {
+    "input": "x ** 2",
+    "error": "Unsupported"
+  },
+  {
+    "input": "None",
+    "error": "Unsupported"
+  },
+  {
+    "input": "x + y",
+    "error": "Unsupported"
+  },
+  {
+    "input": "[x]",
+    "error": "Unsupported"
+  },
+  {
+    "input": {
+      "op": "constant",
+      "value": true
+    },
+    "expected": {
+      "op": "constant",
+      "args": [],
+      "value": true
+    }
+  },
+  {
+    "input": {
+      "op": "add",
+      "args": []
+    },
+    "error": "Unsupported"
+  },
+  {
+    "input": {
+      "op": "constant",
+      "value": 1e+20
+    },
+    "error": "Unsupported"
+  },
+  {
+    "input": {
+      "op": "variable",
+      "value": 3
+    },
+    "error": "Unsupported"
+  }
+]

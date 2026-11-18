@@ -93,7 +93,7 @@ def run(name, layers, debug, top=20, passages_from=None):
     done = {r["id"] for r in vec_pilot.load(path)}
     todo = [it for it in items if it["id"] not in done]
     bar = Task(f"audit-{name}", f"Spine audit: {name}", total=len(items))
-    bar.step(len(done))
+    bar.skip(len(done))
 
     def one(it):
         pf = None

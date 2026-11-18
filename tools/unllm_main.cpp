@@ -44,6 +44,10 @@ extern char** environ;
 #include "unllm/reader.h"
 #include "unllm/reranker.h"
 #include "unllm/unllm.h"
+#include "unllm/symbolic.h"
+#ifdef UNLLM_SYMBOLIC_READY
+#include "unllm/json.h"
+#endif
 
 using namespace unllm;
 
@@ -69,6 +73,14 @@ std::string data_file(const std::string& name) {
     const std::string dir = exe_dir();
     for (const auto& p : {dir + "/../share/unllm/" + name, dir + "/../data/" + name})
         if (access(p.c_str(), R_OK) == 0) return p;
+    // A build folder may be nested beneath the source tree, for example the
+    // optional legacy-only verification build in .state/build-legacy.
+    for(auto base=std::filesystem::path(dir);base!=base.parent_path();base=base.parent_path()) {
+        const auto candidate=base/"data"/name;
+        if(std::filesystem::exists(base/"CMakeLists.txt") &&
+           std::filesystem::is_directory(base/"include/unllm") && access(candidate.c_str(),R_OK)==0)
+            return candidate.string();
+    }
     return dir + "/../data/" + name;
 }
 
@@ -84,6 +96,7 @@ struct Reply {
     std::vector<std::string> brief = {};  // the source passages behind a reference answer, for --brief
     std::vector<std::string> top = {};    // the best passages the search ranked, for --passages
     std::string asked = {};               // a follow-up made to stand on its own: the question actually answered
+    std::string structured = {};          // validated symbolic response, including derivations/artifact paths
 };
 
 class Session {
@@ -91,7 +104,9 @@ public:
     Session() {
         auto syn = load_synonyms(data_file("synonyms.txt"));
         if (!syn.empty()) an_.set_synonyms(std::move(syn));
-        if (small_.load(data_file("vectors.bin"))) an_.set_vectors(&small_);
+        const char* engine_mode=getenv("UNLLM_ENGINE");
+        const bool strict_symbolic=Symbolic::enabled() && (!engine_mode || std::string(engine_mode)!="shadow");
+        if (!strict_symbolic && small_.load(data_file("vectors.bin"))) an_.set_vectors(&small_);
         rewrites_.load(data_file("rewrites.txt"));
         // Chat-speak only: typo correction is tuned to machine words and
         // would turn "crush" into "crash".
@@ -100,6 +115,12 @@ public:
         calc_ready_ = calc_.load_units(data_file("units.txt"));
         calc_.load_holidays(data_file("holidays.txt"));
         replies_.load(data_file("categories.txt"));
+        // The new path has no reason to initialize ONNX or Ollama. Reference
+        // excerpts are loaded lazily when the symbolic fragment is unsupported.
+        if (Symbolic::enabled()) {
+            const char* mode = getenv("UNLLM_ENGINE");
+            if (!mode || std::string(mode) != "shadow") return;
+        }
         const char* packs = getenv("UNLLM_PACKS");
         if (lib_.open(packs ? packs : user_data() + "/packs") && !lib_.empty()) {
             // UNLLM_BOOSTS="title,section": search weights, for measuring.
@@ -142,6 +163,7 @@ public:
     void fresh_conversation() {
         dialogue_.reset();
         shown_.clear();
+        context_ = "request-" + std::to_string(getpid()) + "-" + std::to_string(++context_counter_);
     }
     // Chat mode: follow-up questions are made to stand on their own first.
     void set_chat(bool on) { chat_ = on; }
@@ -150,15 +172,72 @@ public:
     struct Conversation {
         Dialogue dialogue;
         std::vector<Passage> shown;
+        std::string context;
     };
     Conversation swap_conversation(Conversation c) {
         std::swap(dialogue_, c.dialogue);
         std::swap(shown_, c.shown);
+        std::swap(context_, c.context);
+        if (context_.empty()) context_ = "chat-" + std::to_string(getpid()) + "-" + std::to_string(++context_counter_);
         dialogue_.set_followups(&followups_);
         return c;
     }
 
     Reply ask(const std::string& question, int64_t now) {
+        const char* language = getenv("UNLLM_CODE_LANGUAGE");
+        if (Symbolic::enabled() && !language && !question.empty() && question[0] != '{' && calc_ready_) {
+            if (auto answer = calc_.evaluate(question, now)) {
+                Card card;
+                card.question = question; card.reading = an_.read(question, now);
+                card.value = answer->value; card.unit = answer->unit;
+                card.answer = answer->text; card.branch = "calc"; card.at = now;
+                dialogue_.remember(card);
+                return {answer->text, {}, "calc"};
+            }
+        }
+        if (Symbolic::enabled()) {
+            auto answer = symbolic_.ask(question, now, context_);
+            const char* mode = getenv("UNLLM_ENGINE");
+            if (mode && std::string(mode) == "shadow") {
+                auto legacy = ask_legacy(question, now);
+                legacy.brief.push_back("Symbolic shadow: " + answer.text);
+#ifdef UNLLM_SYMBOLIC_READY
+                auto object = json::Value::object();
+                object.set("status",json::Value::string("shadow"));
+                object.set("text",json::Value::string(legacy.answer));
+                object.set("symbolic",json::Value::parse(answer.json));
+                legacy.structured = object.dump();
+#endif
+                return legacy;
+            }
+            if (answer.status == "unsupported" && !language)
+                return reference_excerpt(question, now, answer);
+            Reply result{answer.text, {}, "symbolic:" + answer.status};
+            result.structured = answer.json;
+#ifdef UNLLM_SYMBOLIC_READY
+            auto structured=json::Value::parse(answer.json);
+            auto server=json::Value::object();
+            server.set("pid",json::Value::number(getpid()));
+            server.set("executable",json::Value::string(exe_dir()+"/unllm"));
+            server.set("mode",json::Value::string("symbolic"));
+            structured.set("server",server);
+            result.structured=structured.dump();
+            std::set<std::string> sources;
+            for(const auto& [id,entry]:structured["sources"].members()) {
+                const auto source=entry["source"];
+                std::string receipt=source["title"].text();
+                const auto url=source["url"].text();
+                if(!url.empty())receipt+=" — "+url;
+                if(!receipt.empty())sources.insert(receipt);
+            }
+            result.receipts.assign(sources.begin(),sources.end());
+#endif
+            return result;
+        }
+        return ask_legacy(question, now);
+    }
+
+    Reply ask_legacy(const std::string& question, int64_t now) {
         const std::string fixed = speller_.fix(question);
         const std::string q = rewrites_.size() ? rewrites_.apply(fixed) : fixed;
         const Turn turn = dialogue_.interpret(q, now, an_);
@@ -191,6 +270,35 @@ public:
     }
 
 private:
+    Reply reference_excerpt(const std::string& question, int64_t now, const SymbolicReply& symbolic) {
+        if (lib_.empty()) {
+            const char* packs=getenv("UNLLM_PACKS");
+            lib_.open(packs ? packs : user_data()+"/packs");
+        }
+        if (lib_.empty()) return {symbolic.text, {}, "symbolic:unsupported", {}, {}, {}, symbolic.json};
+        const Reading reading=an_.read(question,now);
+        Query query;query.words=reading.terms;query.subject=reading.subject;query.total=4;
+        query.per_shard=5;query.deadline_ms=100;
+        auto passages=lib_.candidates(query);
+        if(passages.empty())return {symbolic.text, {}, "symbolic:unsupported", {}, {}, {}, symbolic.json};
+        Reply reply;
+        reply.answer="Reference excerpt (no symbolic derivation):\n"+passages[0].text.substr(0,1500);
+        reply.branch="reference";
+        reply.receipts.push_back(passages[0].title+" — "+passages[0].url);
+#ifdef UNLLM_SYMBOLIC_READY
+        auto object=json::Value::object();
+        object.set("status",json::Value::string("reference"));
+        object.set("text",json::Value::string(reply.answer));
+        object.set("symbolic",json::Value::parse(symbolic.json));
+        auto sources=json::Value::array();
+        auto source=json::Value::object();
+        source.set("title",json::Value::string(passages[0].title));
+        source.set("url",json::Value::string(passages[0].url));
+        sources.push(source);object.set("sources",sources);
+        reply.structured=object.dump();
+#endif
+        return reply;
+    }
     Reply fresh(const Reading& r, const std::string& fixed, const std::string& q, int64_t now, Card& card) {
         if (calc_ready_)
             if (auto c = calc_.evaluate(fixed, now)) return {c->text, {}, "calc"};
@@ -315,10 +423,33 @@ private:
     bool chat_ = false;
     std::unique_ptr<World> world_;
     std::vector<Passage> shown_;  // Card::world_ref - 1 indexes this
+    Symbolic symbolic_;
+    std::string context_ = "default";
+    unsigned context_counter_ = 0;
 };
 
 // What a one-shot run prints for a reply.
-std::string render(const Reply& r, bool show_branch, bool show_brief, int show_top) {
+std::string render(const Reply& r, bool show_branch, bool show_brief, int show_top, bool as_json=false) {
+#ifdef UNLLM_SYMBOLIC_READY
+    if(as_json) {
+        auto object=r.structured.empty()?json::Value::object():json::Value::parse(r.structured);
+        if(r.structured.empty()) {
+            object.set("status",json::Value::string(r.branch=="calc" ? "complete" : "legacy"));
+            object.set("branch",json::Value::string(r.branch));object.set("text",json::Value::string(r.answer));
+        }
+        if(object["server"].null()) {
+            auto server=json::Value::object();
+            server.set("pid",json::Value::number(getpid()));
+            server.set("executable",json::Value::string(exe_dir()+"/unllm"));
+            const char* mode=getenv("UNLLM_ENGINE");
+            server.set("mode",json::Value::string(mode?mode:"symbolic"));
+            object.set("server",server);
+        }
+        return object.dump()+"\n";
+    }
+#else
+    (void)as_json;
+#endif
     std::string out = r.answer + "\n";
     if (show_branch) out += "[branch: " + r.branch + "]\n";
     if (show_branch && !r.asked.empty()) out += "[asked: " + r.asked + "]\n";
@@ -336,7 +467,8 @@ std::string render(const Reply& r, bool show_branch, bool show_brief, int show_t
 // the question going in to the answer coming out, the resident copy's start
 // included when it had to be started.
 using Clock = std::chrono::steady_clock;
-std::string with_timing(const std::string& out, Clock::time_point since) {
+std::string with_timing(const std::string& out, Clock::time_point since, bool enabled=true) {
+    if(!enabled)return out;
     char buf[48];
     std::snprintf(buf, sizeof buf, "\n  answered in %.1f s\n", std::chrono::duration<double>(Clock::now() - since).count());
     return out + buf;
@@ -349,11 +481,42 @@ std::string with_timing(const std::string& out, Clock::time_point since) {
 std::string socket_path() {
     if (const char* p = getenv("UNLLM_SOCKET")) return p;
     const char* rt = getenv("XDG_RUNTIME_DIR");
-    return (rt ? std::string(rt) : "/tmp") + "/unllm-" + std::to_string(getuid()) + ".sock";
+    return (rt ? std::string(rt) : "/tmp") + "/unllm-upgrade-" + std::to_string(getuid()) +
+           "-" + std::to_string(std::hash<std::string>{}(exe_dir())) + ".sock";
 }
 
 std::string env_fingerprint() {
     std::vector<std::string> v;
+    struct stat binary {};
+    if(stat("/proc/self/exe",&binary)==0)
+        v.push_back("BUILD="+exe_dir()+":"+std::to_string(binary.st_ino)+":"+
+                    std::to_string(binary.st_mtim.tv_sec)+":"+std::to_string(binary.st_mtim.tv_nsec));
+#ifdef UNLLM_SYMBOLIC_READY
+    for(const auto& path: {std::filesystem::path(UNLLM_LOGIC_LIBRARY),
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/"tools/symbolic_worker.py",
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/"data/reasoning_ontology.json",
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/"data/program_semantics.json",
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/"dependencies-upgrade.lock.json",
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/"dependencies-apps.lock.json",
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/"requirements-upgrade.txt",
+                          std::filesystem::path(UNLLM_UPGRADE_ROOT)/".deps/apps/generated/manifest.json"}) {
+        struct stat part {};
+        if(stat(path.c_str(),&part)==0)
+            v.push_back("PART="+path.string()+":"+std::to_string(part.st_size)+":"+
+                        std::to_string(part.st_mtim.tv_sec)+":"+std::to_string(part.st_mtim.tv_nsec));
+    }
+    for(const char* folder:{"upgrade","synthesis","reasoning"}) {
+        std::error_code error;
+        const auto root=std::filesystem::path(UNLLM_UPGRADE_ROOT)/folder;
+        for(const auto& entry:std::filesystem::recursive_directory_iterator(root,error)) {
+            if(!entry.is_regular_file() || entry.path().string().find("__pycache__")!=std::string::npos)continue;
+            struct stat part {};
+            if(stat(entry.path().c_str(),&part)==0)
+                v.push_back("PART="+entry.path().string()+":"+std::to_string(part.st_size)+":"+
+                            std::to_string(part.st_mtim.tv_sec)+":"+std::to_string(part.st_mtim.tv_nsec));
+        }
+    }
+#endif
     for (char** e = environ; *e; ++e) {
         const std::string s = *e;
         if (s.rfind("UNLLM_", 0) != 0) continue;
@@ -368,7 +531,7 @@ std::string env_fingerprint() {
 }
 
 int connect_server() {
-    int fd = ::socket(AF_UNIX, SOCK_STREAM, 0);
+    int fd = ::socket(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if (fd < 0) return -1;
     sockaddr_un addr {};
     addr.sun_family = AF_UNIX;
@@ -408,8 +571,7 @@ void spawn_server() {
     if (pid == 0) {
         if (fork() != 0) _exit(0);  // the middle process leaves at once: no zombie for the client
         setsid();
-        const char* rt = getenv("XDG_RUNTIME_DIR");
-        const std::string log = (rt ? std::string(rt) : "/tmp") + "/unllm-server.log";
+        const std::string log = socket_path()+".log";
         int null = ::open("/dev/null", O_RDONLY);
         int out = ::open(log.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0600);
         if (null >= 0) dup2(null, 0);
@@ -427,7 +589,7 @@ void spawn_server() {
 // The one-shot question through the resident copy, started if need be; nothing
 // when that fails or does not apply, and the caller answers in this process.
 std::optional<std::string> via_server(const std::string& question, int64_t now, bool branch, bool brief, int top,
-                                      const std::string& session = "") {
+                                      const std::string& session = "", bool as_json=false) {
     if (getenv("UNLLM_NO_SERVER") || question.find('\n') != std::string::npos) return std::nullopt;
     int fd = connect_server();
     if (fd < 0) {
@@ -438,8 +600,9 @@ std::optional<std::string> via_server(const std::string& question, int64_t now, 
         }
         if (fd < 0) return std::nullopt;
     }
-    std::string req = "unllm 1 now=" + std::to_string(now) + " branch=" + (branch ? "1" : "0") + " brief=" +
+    std::string req = "unllm-upgrade 2 now=" + std::to_string(now) + " branch=" + (branch ? "1" : "0") + " brief=" +
                       (brief ? "1" : "0") + " passages=" + std::to_string(top) +
+                      " json=" + (as_json ? "1" : "0") +
                       (session.empty() ? "" : " session=" + session) + "\n" + question + "\n" + env_fingerprint();
     if (!write_all(fd, req)) {
         ::close(fd);
@@ -462,7 +625,7 @@ int serve(int idle_s) {
         return 0;
     }
     unlink(path.c_str());
-    int lfd = ::socket(AF_UNIX, SOCK_STREAM, 0);
+    int lfd = ::socket(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if (lfd < 0) return 1;
     sockaddr_un addr {};
     addr.sun_family = AF_UNIX;
@@ -488,13 +651,15 @@ int serve(int idle_s) {
         const int ready = poll(&p, 1, idle_s * 1000);
         if (ready == 0) break;  // idle: leave, the next question starts a fresh copy
         if (ready < 0) continue;
-        int cfd = ::accept(lfd, nullptr, nullptr);
+        // The persistent symbolic worker must not inherit this connection:
+        // an inherited writer would postpone the client's EOF until idle exit.
+        int cfd = ::accept4(lfd, nullptr, nullptr, SOCK_CLOEXEC);
         if (cfd < 0) continue;
         const std::string req = read_all(cfd);
         const auto nl1 = req.find('\n');
         const auto nl2 = nl1 == std::string::npos ? nl1 : req.find('\n', nl1 + 1);
         std::string reply = "MISMATCH\n";
-        if (nl2 != std::string::npos && req.rfind("unllm 1 ", 0) == 0 && req.substr(nl2 + 1) == own) {
+        if (nl2 != std::string::npos && req.rfind("unllm-upgrade 2 ", 0) == 0 && req.substr(nl2 + 1) == own) {
             const std::string head = req.substr(0, nl1), question = req.substr(nl1 + 1, nl2 - nl1 - 1);
             auto field = [&](const char* key, long fallback) {
                 const auto at = head.find(std::string(key) + "=");
@@ -517,13 +682,14 @@ int serve(int idle_s) {
                 s.set_chat(true);
             }
             reply = render(s.ask(question, now ? now : int64_t(time(nullptr))), field("branch", 0) != 0,
-                           field("brief", 0) != 0, int(field("passages", 0)));
+                           field("brief", 0) != 0, int(field("passages", 0)), field("json",0)!=0);
             if (!token.empty()) {
                 chats[token].conversation = s.swap_conversation(Session::Conversation{});
                 chats[token].last = wall;
             }
         }
         write_all(cfd, reply);
+        shutdown(cfd,SHUT_WR);
         ::close(cfd);
     }
     ::close(lfd);
@@ -537,6 +703,7 @@ int main(int argc, char** argv) {
     std::string question, script;
     int64_t fixed_now = 0;
     bool show_branch = false, show_brief = false, serve_mode = false;
+    bool show_json = false, has_spec = false;
     int show_top = 0;
     for (int i = 1; i < argc; ++i) {
         std::string a = argv[i];
@@ -546,6 +713,23 @@ int main(int argc, char** argv) {
         if (a == "--brief") { show_brief = true; continue; }
         if (a == "--passages" && i + 1 < argc) { show_top = std::atoi(argv[++i]); continue; }
         if (a == "--serve") { serve_mode = true; continue; }
+        if (a == "--json") { show_json = true; continue; }
+        if (a == "--engine" && i+1<argc) {
+            const std::string mode=argv[++i];
+            if(mode!="symbolic" && mode!="legacy" && mode!="shadow") {
+                std::fprintf(stderr,"--engine requires symbolic, legacy or shadow\n");return 2;
+            }
+            setenv("UNLLM_ENGINE",mode.c_str(),1);continue;
+        }
+        if (a == "--facts" && i+1<argc) {setenv("UNLLM_FACT_DB",argv[++i],1);continue;}
+        if (a == "--code" && i+1<argc) {setenv("UNLLM_CODE_LANGUAGE",argv[++i],1);continue;}
+        if (a == "--spec" && i+1<argc) {
+            std::ifstream input(argv[++i]);
+            if(!input){std::fprintf(stderr,"Cannot read program specification\n");return 2;}
+            question.assign(std::istreambuf_iterator<char>(input),{});
+            has_spec=true;
+            continue;
+        }
         if (a == "--read" && i + 1 < argc) {  // measuring: the deterministic reading's time window alone
             Analyzer an;
             auto syn = load_synonyms(data_file("synonyms.txt"));
@@ -645,6 +829,11 @@ int main(int argc, char** argv) {
                       "  unllm --brief ...         also print the source passages behind the answer\n"
                       "  unllm --passages N ...    also print the N best passages the search found\n"
                       "  unllm --serve             stay resident and answer one-shot runs over a socket\n"
+                      "  unllm --engine MODE       symbolic (default), legacy, or shadow comparison\n"
+                      "  unllm --facts FILE        use a separate structured-fact SQLite store\n"
+                      "  unllm --json              structured result, sources and checked derivations\n"
+                      "  unllm --code python|cpp   synthesize a program from a supported request\n"
+                      "  unllm --spec FILE         synthesize from a typed JSON specification\n"
                       "                            (started on demand; UNLLM_IDLE seconds idle ends it, 600;\n"
                       "                            UNLLM_NO_SERVER=1 answers in the run itself)\n"
                       "  unllm update --check      ask each source whether newer data exists than the\n"
@@ -654,12 +843,27 @@ int main(int argc, char** argv) {
                       "                            plan; --repair re-embeds shards the index holds wrongly;\n"
                       "                            --full everything; --prune / --rollback the previous set)\n"
                       "Packs: ~/.local/share/unllm/packs (UNLLM_PACKS overrides); build them with\n"
-                      "tools/unllm_ingest.py. Every answer quotes its source; the local Ollama model\n"
-                      "(UNLLM_MODEL, qwen3:4b; \"off\" quotes instead) reads the passages the search found.");
+                      "tools/unllm_ingest.py. Symbolic mode uses the upgrade's structured fact store\n"
+                      "and checked derivations. See docs/UPGRADE.md for setup and supported requests.\n"
+                      "Legacy mode uses the original retrieval/model pipeline (UNLLM_MODEL=off quotes).");
             return 0;
         }
         question += std::string(question.empty() ? "" : " ") + a;
     }
+    const char* selected_engine=getenv("UNLLM_ENGINE");
+    if(selected_engine && std::string(selected_engine)!="symbolic" &&
+       std::string(selected_engine)!="legacy" && std::string(selected_engine)!="shadow") {
+        std::fprintf(stderr,"UNLLM_ENGINE requires symbolic, legacy or shadow\n");return 2;
+    }
+#ifndef UNLLM_SYMBOLIC_READY
+    if((selected_engine && std::string(selected_engine)!="legacy") || getenv("UNLLM_CODE_LANGUAGE") || has_spec) {
+        std::fprintf(stderr,"Symbolic support was disabled at build time; rebuild with UNLLM_SYMBOLIC=ON\n");return 2;
+    }
+#else
+    if((getenv("UNLLM_CODE_LANGUAGE") || has_spec) && selected_engine && std::string(selected_engine)!="symbolic") {
+        std::fprintf(stderr,"Program construction requires --engine symbolic\n");return 2;
+    }
+#endif
     auto now = [&] { return fixed_now ? fixed_now : int64_t(time(nullptr)); };
     if (serve_mode) {
         const char* idle = getenv("UNLLM_IDLE");
@@ -667,8 +871,8 @@ int main(int argc, char** argv) {
     }
     const auto t_start = Clock::now();
     if (!question.empty())
-        if (auto out = via_server(question, now(), show_branch, show_brief, show_top)) {
-            std::fputs(with_timing(*out, t_start).c_str(), stdout);
+        if (auto out = via_server(question, now(), show_branch, show_brief, show_top, "", show_json)) {
+            std::fputs(with_timing(*out, t_start, !show_json).c_str(), stdout);
             return 0;
         }
     // A conversation through the resident copy: one session token for the whole chat,
@@ -687,17 +891,17 @@ int main(int argc, char** argv) {
             if (!std::getline(std::cin, line)) return 0;
             if (line.empty() || line == "quit" || line == "exit") return 0;
             const auto t_line = Clock::now();
-            auto out = via_server(line, now(), show_branch, show_brief, show_top, token);
+            auto out = via_server(line, now(), show_branch, show_brief, show_top, token, show_json);
             if (!out) break;  // no resident copy: carry on in this process below
             served = true;
-            std::fputs(with_timing(*out, t_line).c_str(), stdout);
+            std::fputs(with_timing(*out, t_line, !show_json).c_str(), stdout);
             if (tty) std::printf("\n");
         }
         Session s;
         s.set_chat(true);
         auto answer = [&](const std::string& q) {
             const auto t0 = Clock::now();
-            std::fputs(with_timing(render(s.ask(q, now()), show_branch, show_brief, show_top), t0).c_str(), stdout);
+            std::fputs(with_timing(render(s.ask(q, now()), show_branch, show_brief, show_top, show_json), t0, !show_json).c_str(), stdout);
         };
         answer(line);
         if (tty) std::printf("\n");
@@ -717,7 +921,7 @@ int main(int argc, char** argv) {
     s.set_chat(!script.empty());
     auto answer = [&](const std::string& q) {
         const auto t0 = Clock::now();
-        std::fputs(with_timing(render(s.ask(q, now()), show_branch, show_brief, show_top), t0).c_str(), stdout);
+        std::fputs(with_timing(render(s.ask(q, now()), show_branch, show_brief, show_top, show_json), t0, !show_json).c_str(), stdout);
     };
     if (!script.empty()) {
         std::ifstream f(script);
@@ -728,9 +932,9 @@ int main(int argc, char** argv) {
         std::string line;
         while (std::getline(f, line)) {
             if (line.empty() || line[0] == '#') continue;
-            std::printf("> %s\n", line.c_str());
+            if(!show_json)std::printf("> %s\n", line.c_str());
             answer(line);
-            std::printf("---\n");
+            if(!show_json)std::printf("---\n");
         }
         return 0;
     }
