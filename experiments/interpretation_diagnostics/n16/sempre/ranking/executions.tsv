@@ -1,0 +1,14 @@
+id	arm	contract	meaning	cpp	python
+1	adjusted	lines strip reverse values	exact	pass	pass
+1	supplied	lines strip reverse values	exact	pass	pass
+2	adjusted	lines unique lower values	exact	pass	pass
+2	supplied	lines unique lower values	exact	pass	pass
+3	adjusted	lines reverse unique count	exact	pass	pass
+3	supplied	lines reverse unique count	exact	pass	pass
+4	supplied	lines strip lower values	exact	pass	pass
+5	adjusted	numbers unique double sum	exact	pass	pass
+5	supplied	numbers unique double sum	exact	pass	pass
+6	supplied	numbers negative reverse values	exact	pass	pass
+7	adjusted	numbers double unique count	exact	pass	pass
+7	supplied	numbers double unique count	exact	pass	pass
+8	supplied	numbers unique negative values	exact	pass	pass

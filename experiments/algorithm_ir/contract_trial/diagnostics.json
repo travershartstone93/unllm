@@ -1,0 +1,19 @@
+{
+  "renamed_reversed": "validated",
+  "unknown_relation": [
+    "unsupported",
+    "Unsupported aggregation or relation"
+  ],
+  "wrong_binding": [
+    "unsupported",
+    "Predicate or reduction refers to the wrong parameter"
+  ],
+  "unsupported_structure": [
+    "unsupported",
+    "Supported structure is an if inside a for loop"
+  ],
+  "english_probe": [
+    "unsupported",
+    "The grammar could not analyze this request within its budget."
+  ]
+}

@@ -6,6 +6,7 @@
 #include "unllm/symbolic/proof.h"
 #include "unllm/symbolic/stream_job.h"
 #include <algorithm>
+#include "algorithm_goal.h"
 #include <cstdlib>
 #include <ctime>
 #include <set>
@@ -490,7 +491,7 @@ Json Engine::generate(Json request, Context &ctx, const std::string &question) {
     synthesis_started();
   auto deadline = after_ms(180000);
   Json spec = request["spec"];
-  Json parser_diagnostics;
+  Json parser_diagnostics, goal_candidates;
   auto language = request["language"].text();
   if (request.contains("language") && language.empty())
     throw Unsupported("Provide a target language");
@@ -518,7 +519,15 @@ Json Engine::generate(Json request, Context &ctx, const std::string &question) {
           throw Unsupported("Unbound factual entity in programming request");
         },
         {}, deadline, true);
-    spec = ground_program(m, resources_);
+    goal_candidates = interval_candidates(m, question);
+    if (goal_candidates.size() > 1) {
+      auto reply = message("ambiguous",
+                           "Specify which interval or operation you intend.");
+      reply.set("goal_candidates", goal_candidates);
+      return reply;
+    }
+    spec = goal_candidates.size() ? goal_candidates.at(0)["goal"]
+                                  : ground_program(m, resources_);
     parser_diagnostics = array(m.diagnostics);
     if (language.empty())
       for (auto e : m.semantics.items()) {
@@ -548,10 +557,31 @@ Json Engine::generate(Json request, Context &ctx, const std::string &question) {
     throw Unsupported("emit_only must be Boolean");
   bool emit =
       request["emit_only"].flag() || (language == "python" && python.empty());
+  if (spec.contains("status")) {
+    auto status = required_text(spec, "status");
+    if (status == "clarify") {
+      fields_only(spec, {"status", "question"});
+      return message("clarify", required_text(spec, "question"));
+    }
+    if (status == "unsupported") {
+      fields_only(spec, {"status"});
+      return message("unsupported", "Request exceeds the supplied requirement format");
+    }
+    if (status != "ok")
+      throw Unsupported("Unknown interpretation status");
+    spec = reduction_specification(spec);
+  }
   Json result;
-  if (spec.contains("state") || spec.contains("views") ||
-      spec.contains("actions") || spec["schema"].integer() == 2 ||
-      (spec.contains("program") && spec["program"].text() != "calculator"))
+  if (!spec.contains("program") && spec["input"].text() == "ints" &&
+      spec.contains("output") && spec.contains("examples"))
+    result = build_example_function(spec, language, artifacts, python, emit);
+  else if (spec["program"].text() == "function_contract")
+    result = build_function_contract(spec, language, artifacts, python, emit);
+  else if (spec["program"].text() == "algorithm_goal")
+    result = build_algorithm_goal(spec, language, artifacts, python, emit);
+  else if (spec.contains("state") || spec.contains("views") ||
+           spec.contains("actions") || spec["schema"].integer() == 2 ||
+           (spec.contains("program") && spec["program"].text() != "calculator"))
     result = build_behaviour(BehaviourSpec::from(spec), language, resources_,
                              artifacts, native, deadline, python, emit);
   else if (spec.contains("program"))
@@ -560,7 +590,10 @@ Json Engine::generate(Json request, Context &ctx, const std::string &question) {
   else
     result = build_stream(Program::from(spec), language, resources_, artifacts,
                           native, deadline, python, emit);
-  if (!parser_diagnostics.null()) result.set("parser_diagnostics", parser_diagnostics);
+  if (goal_candidates.size())
+    result.set("goal_candidates", goal_candidates);
+  if (!parser_diagnostics.null())
+    result.set("parser_diagnostics", parser_diagnostics);
   if (result["status"].text() == "validated" ||
       result["status"].text() == "emitted") {
     ctx.last_spec = result["specification"].clone();
@@ -579,7 +612,7 @@ Json Engine::ask(const Json &request, Deadline deadline) {
     if (!structured.is_object())
       throw Unsupported("Structured request must be an object");
     if (structured.contains("input") || structured.contains("program") ||
-        structured.contains("state"))
+        structured.contains("state") || structured.contains("status"))
       effective.set("spec", structured);
     else {
       for (auto field : {"context", "now", "language"})

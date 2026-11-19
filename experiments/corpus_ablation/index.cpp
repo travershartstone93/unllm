@@ -142,6 +142,33 @@ std::string transition_operation(TSNode n, std::string_view src) {
     return "sub";
   return {};
 }
+// The retrieval record identifies the inner function by its original line and
+// digest. Preserve exactly the enclosing declaration bytes for executable
+// reuse.
+void record_template(TSNode function, std::string_view source, Json &records) {
+  TSNode declaration = function;
+  TSNode parent = ts_node_parent(declaration);
+  while (!ts_node_is_null(parent) &&
+         std::string_view(ts_node_type(parent)) == "template_declaration") {
+    declaration = parent;
+    parent = ts_node_parent(parent);
+  }
+  if (ts_node_eq(declaration, function) || ts_node_has_error(declaration))
+    return;
+  for (; !ts_node_is_null(parent); parent = ts_node_parent(parent)) {
+    std::string_view kind = ts_node_type(parent);
+    if (kind == "field_declaration_list" || kind == "function_definition")
+      return;
+  }
+  auto begin = ts_node_start_byte(declaration);
+  auto prefix = source.substr(begin, ts_node_start_byte(function) - begin);
+  auto row = Json::object();
+  row.set("line", Json::number(1 + ts_node_start_point(function).row));
+  row.set("body_hash",
+          Json::string(sha256(std::string(slice(function, source)))));
+  row.set("prefix", Json::string(std::string(prefix)));
+  records.push(row);
+}
 struct Parser {
   std::unique_ptr<TSParser, decltype(&ts_parser_delete)> parser{
       ts_parser_new(), ts_parser_delete};
@@ -155,8 +182,8 @@ struct Parser {
       throw std::runtime_error("tree-sitter grammar ABI");
   }
   void collect(std::string_view s, std::map<std::string, Occurrence> &found,
-               std::map<std::string, unsigned> &operations,
-               unsigned offset = 0) {
+               std::map<std::string, unsigned> &operations, unsigned offset = 0,
+               Json *templates = nullptr) {
     std::unique_ptr<TSTree, decltype(&ts_tree_delete)> tree(
         ts_parser_parse_string(parser.get(), nullptr, s.data(), s.size()),
         ts_tree_delete);
@@ -167,6 +194,8 @@ struct Parser {
       auto n = pending.back();
       pending.pop_back();
       std::string_view kind = ts_node_type(n);
+      if (templates && kind == "function_definition")
+        record_template(n, s, *templates);
       if (!ts_node_has_error(n)) {
         auto op = transition_operation(n, s);
         if (!op.empty())
@@ -227,6 +256,7 @@ struct Index {
   Parser cpp, python;
   std::set<std::string> selected;
   Json operations = Json::object();
+  Json template_records;
   std::set<std::string> seen;
   std::map<std::string, int> df;
   Json witnesses = Json::object();
@@ -254,6 +284,15 @@ struct Index {
     bytes += src.size();
     std::map<std::string, Occurrence> found;
     std::map<std::string, unsigned> observed;
+    if (!template_records.null()) {
+      if (cc) {
+        auto records = Json::array();
+        cpp.collect(src, found, observed, 0, &records);
+        if (records.size())
+          template_records.set(digest, records);
+      }
+      return;
+    }
     if (cc || py)
       (py ? python : cpp).collect(src, found, observed);
     else
@@ -389,8 +428,12 @@ void stack(Index &idx, const fs::path &file, int skip, int stop) {
 } // namespace
 int main(int argc, char **argv) {
   try {
-    if (argc >= 7 && std::string_view(argv[1]) == "--selected") {
+    bool templates =
+        argc > 1 && std::string_view(argv[1]) == "--selected-templates";
+    if (argc >= 7 && (templates || std::string_view(argv[1]) == "--selected")) {
       Index idx(argv[2]);
+      if (templates)
+        idx.template_records = Json::object();
       std::ifstream manifest(argv[3]);
       for (std::string hash; manifest >> hash;)
         idx.selected.insert(hash);
@@ -401,7 +444,14 @@ int main(int argc, char **argv) {
         stack(idx, argv[i], 0, -1);
       if (idx.seen != idx.selected)
         throw std::runtime_error("missing selected documents");
-      idx.save(argv[5]);
+      if (templates) {
+        std::ofstream out(argv[5]);
+        out.exceptions(std::ios::failbit | std::ios::badbit);
+        out << idx.template_records.dump() << '\n';
+        out.close();
+      } else {
+        idx.save(argv[5]);
+      }
       return 0;
     }
     if (argc < 6)

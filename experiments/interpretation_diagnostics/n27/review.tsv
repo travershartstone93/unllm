@@ -1,0 +1,121 @@
+row	predicate	aggregate	binding_or_note
+848	yes	yes	values holds the women's half-marathon figure for each listed country.
+1988	yes	yes	values holds the second-place figure for each money-list rank entry.
+2478	yes	yes	values holds the first election year of each listed incumbent.
+3008	yes	yes	values holds total renewable generation for each listed community.
+3258	yes	no	The population is county-level on this table. A capital's population is a different measurement.
+3384	yes	no	Requests density itself.
+3570	yes	yes	values holds the episode number for each dated situation entry.
+7615	yes	yes	values holds the series number of each listed episode with a director.
+8027	uncertain	uncertain	Unclear relation between Marseille items and the seed.
+9889	uncertain	no	No explicit identification of what 67 represents. Number of three-pointers can be a stored quantity.
+10018	yes	yes	values holds the episode number for each original-air-date entry.
+10178	yes	uncertain	Total number of blocks could mean the number scored.
+10206	yes	no	Asks for a date.
+10789	yes	no	Asks for Kennedy's votes as a quantity.
+11120	yes	yes	values holds the high checkout for each listed player.
+12164	yes	yes	values holds the season number for each listed series-number entry.
+13944	yes	yes	values holds the game number of each listed game with a team.
+15288	yes	no	Requests death toll.
+15811	uncertain	uncertain	Unclear whether 27 is an equality test.
+17425	yes	no	Requests number of medals won rather than number of table entries.
+17438	yes	no	Requests the player's runs.
+19412	yes	uncertain	Points can denote their total or the field being counted.
+20397	yes	uncertain	A record represents a team's result figures. Losses is already a quantity.
+20760	yes	uncertain	Laps is a stored quantity per driver.
+22288	yes	uncertain	Losses is a quantity per record.
+22618	yes	uncertain	Events is itself a count per tournament.
+25719	yes	uncertain	Top-25 is a quantity per record.
+26112	yes	no	Asks for submarine losses as a quantity.
+26274	no	no	Asks which week had this exact attendance. SQL filters strictly below.
+26881	yes	no	Asks for total losses across years.
+27159	yes	uncertain	Losses is a stored quantity.
+27616	yes	no	Asks for a medal total.
+30036	yes	yes	values holds the silver-medal figure for each listed medal-total entry.
+31488	yes	no	Requests the earlier population itself.
+31489	yes	uncertain	Number of points does not unambiguously request row count.
+33337	no	uncertain	English compares receptions. The labeled filter uses Long.
+33905	yes	uncertain	Points is a stored quantity.
+36455	yes	no	Requests rank.
+40761	yes	no	Requests number of goals scored against clubs.
+41015	uncertain	no	450 appears to modify the Luftflotte rather than unambiguously specify a sortie count.
+42674	yes	uncertain	Grid total is ambiguous.
+42919	yes	uncertain	Against is a stored quantity.
+43010	yes	uncertain	Wins is a stored quantity.
+43037	yes	no	Requests position.
+43159	yes	uncertain	Wins is a stored quantity.
+43817	yes	uncertain	Grid total is ambiguous.
+44176	yes	no	Total number of goals requests goals as a quantity.
+44977	uncertain	uncertain	In total does not clearly identify a separate column.
+45523	yes	no	Requests bronze medals as a quantity.
+45961	yes	no	Explicitly requests sum. SQL counts.
+46752	yes	uncertain	Silver is a stored quantity.
+47081	yes	yes	values holds the runners-up figure for each club entry with a winners figure.
+47222	yes	no	Requests week.
+47245	yes	no	Explicitly requests sum. SQL counts.
+47281	yes	no	Asks for total losses for teams.
+48633	yes	uncertain	Total against is ambiguous.
+49854	yes	uncertain	How much does not specify a count.
+50080	yes	uncertain	Draw can refer to the quantity stored in a row.
+51652	yes	uncertain	Number of wins could mean wins as a quantity.
+52489	yes	uncertain	Start is a field. Total number is ambiguous.
+16171	yes	yes	Explicit sum of lanes.
+16247	yes	yes	Explicit sum of frequency.
+17052	yes	yes	Explicit sum of bronze.
+18314	yes	no	Which Drawn asks for a value.
+18866	yes	yes	Explicit sum of year.
+19616	yes	uncertain	How many Drawn could ask for row count or a stored quantity.
+19812	uncertain	uncertain	16 grids does not clearly identify grid position 16.
+20444	yes	yes	Explicit sum of viewers.
+20498	yes	yes	Explicit sum of total.
+21219	yes	yes	Explicit sum of averages.
+21350	yes	yes	Explicit sum of points.
+23074	yes	uncertain	How many seats could ask for a count or the stored quantity.
+23167	yes	yes	Cumulative bronze quantity.
+23939	yes	uncertain	How much Overall does not require summing.
+24395	yes	yes	Explicit sum of totals.
+24518	yes	uncertain	Weeks can be counted or week numbers added.
+24783	yes	yes	Explicit sum of cuts.
+25567	yes	uncertain	How many drawns does not uniquely identify addition.
+25819	uncertain	uncertain	Ranking above 10 may mean a smaller rank number.
+25958	yes	yes	Explicit sum of top-25s.
+26098	yes	no	Requests a player's rank.
+26842	yes	yes	Total of wins requests addition with a typo in events.
+27282	yes	uncertain	Asks for a player's assists with no explicit aggregation.
+27294	yes	no	Asks how many rounds met a condition.
+27775	yes	no	Asks which week.
+31507	yes	no	Which League Cup asks for a value.
+33690	yes	uncertain	Total round is unclear as an aggregate on ordinal round numbers.
+34047	yes	yes	Explicit sum of November.
+35452	uncertain	uncertain	Higher-ranked can mean numerically smaller.
+35894	yes	yes	Explicit sum of gold.
+35906	uncertain	no	Counts times and the wording about being cut is ambiguous.
+35941	yes	no	Requests issue price.
+38765	yes	uncertain	Asks for completed laps. Whether to add multiple rows is unclear.
+39206	yes	uncertain	Asks how many wins players have. Unclear whether to sum across them or return each total.
+41359	yes	no	Requests reg GP itself.
+41758	yes	uncertain	Asks how many gold medals were won. Aggregation across table rows is implicit at best.
+43528	yes	uncertain	Asks about the entry in the singular.
+43577	yes	yes	Explicit sum of draws.
+45661	yes	uncertain	How much Snatch leaves aggregation unclear.
+46068	yes	yes	Explicit 2005 sum.
+46084	yes	no	Requests rank.
+46481	yes	uncertain	Asks how many bronzes the country won. Row aggregation is unclear.
+46981	yes	uncertain	How many wins could be a stored yearly total.
+47021	yes	no	Asks how many lanes have the stated rank.
+47696	yes	uncertain	Total rate does not establish summing multiple rates.
+47796	yes	uncertain	How many wins could be a stored quantity.
+47919	yes	uncertain	How many clubs are involved does not unambiguously require summing numeric rows.
+48787	yes	no	Requests a person's shirt number.
+49042	no	no	English includes 400 and asks for the band. SQL uses strict less-than and sum.
+49855	yes	uncertain	How much Hyndburn leaves the aggregate unclear.
+50295	yes	uncertain	How much elevation leaves aggregation unclear.
+50633	yes	uncertain	How much Scored leaves aggregation unclear.
+50890	yes	yes	Total attendance before a week asks for cumulative attendance.
+51580	no	yes	Explicit sum of points. English specifies the year 1984. SQL filters below 1984.
+51880	yes	no	Requests the FA Cup value.
+52091	yes	yes	Explicit sum of points.
+52127	yes	uncertain	Total point for the listed year could denote a single stored value.
+52982	yes	yes	Explicit sum of wins.
+53487	yes	yes	Explicit sum across people in the specified total region.
+56111	uncertain	yes	Explicit sum but 16 weeks could describe a duration rather than week number 16.

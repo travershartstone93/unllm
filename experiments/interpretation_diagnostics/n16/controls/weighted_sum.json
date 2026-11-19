@@ -1,0 +1,1 @@
+{"version":1,"functions":[{"name":"weighted","params":[["xs","ints"]],"locals":[["out","int",["int","0"]],["position","int",["int","0"]]],"body":[["each","x",["var","xs"],[["set","position",["add",["var","position"],["int","1"]]],["set","out",["add",["var","out"],["mul",["var","position"],["var","x"]]]]]]],"result":"int","return":["var","out"]}]}

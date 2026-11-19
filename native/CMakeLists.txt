@@ -196,7 +196,12 @@ if(UNLLM_TEST_PYTHON_TARGET)
   add_test(NAME target_gui_python COMMAND native_gui_requests_tests "${UNLLM_ROOT}" "$<TARGET_FILE:unllm_generate_gui>" "$<TARGET_FILE:unllm_logic_worker>" python "${UNLLM_TEST_PYTHON_TARGET}")
   set_tests_properties(target_gui_python PROPERTIES TIMEOUT 180 LABELS "python-target")
 endif()
-target_sources(unllm_native_core PRIVATE "${UNLLM_ROOT}/src/symbolic/behaviour_ground.cpp" "${UNLLM_ROOT}/src/symbolic/stream_ground.cpp" "${UNLLM_ROOT}/src/symbolic/program_lexicon.cpp")
+target_sources(unllm_native_core PRIVATE
+  "${UNLLM_ROOT}/src/symbolic/behaviour_ground.cpp"
+  "${UNLLM_ROOT}/src/symbolic/behaviour_requirements.cpp"
+  "${UNLLM_ROOT}/src/symbolic/behaviour_lower.cpp"
+  "${UNLLM_ROOT}/src/symbolic/stream_ground.cpp"
+  "${UNLLM_ROOT}/src/symbolic/program_lexicon.cpp")
 add_executable(native_grounding_tests "${UNLLM_ROOT}/tests/cpp_migration/grounding.cpp")
 target_link_libraries(native_grounding_tests PRIVATE unllm_native_core)
 add_test(NAME native_grounding COMMAND native_grounding_tests "${UNLLM_ROOT}")
@@ -285,11 +290,14 @@ add_executable(numeric_manual_frame EXCLUDE_FROM_ALL
 target_link_libraries(numeric_manual_frame PRIVATE unllm_native_core)
 
 set(ALGORITHM_DIR "${UNLLM_ROOT}/experiments/algorithm_ir")
-add_library(unllm_algorithm_core STATIC "${ALGORITHM_DIR}/repair.cpp" "${ALGORITHM_DIR}/search.cpp" "${ALGORITHM_DIR}/decode.cpp"
-  "${ALGORITHM_DIR}/interpret.cpp" "${ALGORITHM_DIR}/emit.cpp" "${ALGORITHM_DIR}/validate.cpp")
-target_link_libraries(unllm_algorithm_core PUBLIC unllm_native_core)
-add_executable(unllm_algorithm "${ALGORITHM_DIR}/main.cpp" "${ALGORITHM_DIR}/session.cpp")
-target_link_libraries(unllm_algorithm PRIVATE unllm_algorithm_core unllm_native_maintenance)
+target_sources(unllm_native_core PRIVATE "${ALGORITHM_DIR}/decode.cpp" "${ALGORITHM_DIR}/interpret.cpp"
+  "${ALGORITHM_DIR}/emit.cpp" "${ALGORITHM_DIR}/validate.cpp" "${ALGORITHM_DIR}/goal.cpp" "${ALGORITHM_DIR}/contract.cpp"
+  "${UNLLM_ROOT}/src/symbolic/interval_ground.cpp")
+target_sources(unllm_native_core PRIVATE "${ALGORITHM_DIR}/repair.cpp" "${ALGORITHM_DIR}/search.cpp")
+add_library(unllm_algorithm_core STATIC "${ALGORITHM_DIR}/session.cpp")
+target_link_libraries(unllm_algorithm_core PUBLIC unllm_native_core PRIVATE unllm_native_maintenance)
+add_executable(unllm_algorithm "${ALGORITHM_DIR}/main.cpp")
+target_link_libraries(unllm_algorithm PRIVATE unllm_algorithm_core)
 set_target_properties(unllm_algorithm PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
 install(TARGETS unllm_algorithm RUNTIME DESTINATION bin)
 add_executable(algorithm_ir_tests "${ALGORITHM_DIR}/verify.cpp")
@@ -310,6 +318,8 @@ target_link_libraries(interpretation_history_probe PRIVATE unllm_native_core)
 option(UNLLM_CORPUS_ABLATION "Build development-only corpus retrieval experiments" OFF)
 if(UNLLM_CORPUS_ABLATION)
   set(ABLATION_DIR "${UNLLM_ROOT}/experiments/corpus_ablation")
+  add_executable(corpus_dependency_closure EXCLUDE_FROM_ALL "${ABLATION_DIR}/dependency_closure.cpp")
+  target_link_libraries(corpus_dependency_closure PRIVATE unllm_native_core)
   add_executable(corpus_argument_bindings EXCLUDE_FROM_ALL "${ABLATION_DIR}/argument_bindings.cpp")
   target_link_libraries(corpus_argument_bindings PRIVATE unllm_native_core)
   add_executable(corpus_ablation_trial EXCLUDE_FROM_ALL "${ABLATION_DIR}/trial.cpp")
@@ -322,3 +332,12 @@ if(UNLLM_CORPUS_ABLATION)
   target_link_libraries(corpus_ablation_index PRIVATE unllm_native_core LibArchive::LibArchive
     PkgConfig::TREESITTER PkgConfig::MD4C_CORE "${PARQUET_LIB}" "${ARROW_LIB}" ${CMAKE_DL_LIBS})
 endif()
+
+add_executable(interpretation_role_trial EXCLUDE_FROM_ALL
+  "${UNLLM_ROOT}/experiments/interpretation_diagnostics/role_trial/probe.cpp")
+target_include_directories(interpretation_role_trial PRIVATE "${SWIPL_INCLUDE_DIR}")
+target_link_libraries(interpretation_role_trial PRIVATE unllm_native_core unllm_native_logic "${SWIPL_LIBRARY}")
+
+add_executable(algorithm_goal_probe EXCLUDE_FROM_ALL
+  "${ALGORITHM_DIR}/goal_selection/probe.cpp")
+target_link_libraries(algorithm_goal_probe PRIVATE unllm_native_core)

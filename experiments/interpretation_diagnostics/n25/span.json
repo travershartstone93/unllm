@@ -1,0 +1,74 @@
+{
+  "commit": "7c7f87b8ef9d3061652cd25758869e78b57179a4",
+  "training_domains": [
+    "geo_iid",
+    "geo_template",
+    "geo_len",
+    "geo_iid_spans",
+    "geo_template_spans",
+    "geo_len_spans",
+    "geo_iid_f1",
+    "geo_template_f1",
+    "geo_len_f1",
+    "clevr_iid",
+    "clevr_closure",
+    "clevr_iid_spans",
+    "clevr_closure_spans",
+    "clevr_iid_f1",
+    "clevr_closure_f1",
+    "scan_iid",
+    "scan_jump",
+    "scan_right",
+    "scan_around_right",
+    "scan_iid_spans",
+    "scan_right_spans",
+    "scan_around_right_spans",
+    "scan_iid_f1",
+    "scan_right_f1",
+    "scan_around_right_f1"
+  ],
+  "scan_converter_control": "i_twice ( i_jump ( ) )",
+  "requests": [
+    {
+      "case": 1,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 2,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 3,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 4,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 5,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 6,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 7,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 8,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 9,
+      "scan_probe": "outside SCAN command vocabulary"
+    },
+    {
+      "case": 10,
+      "scan_probe": "outside SCAN command vocabulary"
+    }
+  ],
+  "neural_predictions": 0
+}

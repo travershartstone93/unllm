@@ -1,0 +1,1 @@
+{"program":"function_contract","params":[["values","ints"],["cutoff","int"]],"result":"int","behavior":{"aggregate":"count","over":"values","where":{"relation":"gt","parameter":"cutoff"}},"structure":["for","if"]}

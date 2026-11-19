@@ -1,0 +1,542 @@
+{
+  "vanilla": {
+    "flan": {
+      "model": "flan",
+      "parameters": 247577856,
+      "dev-plain": {
+        "total": 24,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 7.33,
+        "correct_ids": []
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 3.76,
+        "correct_ids": []
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 3.88,
+        "correct_ids": []
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 2.01,
+        "correct_ids": []
+      }
+    },
+    "mt0": {
+      "model": "mt0",
+      "parameters": 300176768,
+      "dev-plain": {
+        "total": 24,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 7.21,
+        "correct_ids": []
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 3.1,
+        "correct_ids": []
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 3.0,
+        "correct_ids": []
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 2.09,
+        "correct_ids": []
+      }
+    },
+    "smol": {
+      "model": "smol",
+      "parameters": 361821120,
+      "dev-plain": {
+        "total": 24,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 14.67,
+        "correct_ids": []
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 2,
+        "by_status": {
+          "unsupported": 2
+        },
+        "seconds": 2.29,
+        "correct_ids": [
+          "d23",
+          "d24"
+        ]
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 8.31,
+        "correct_ids": []
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 2,
+        "by_status": {
+          "unsupported": 2
+        },
+        "seconds": 1.59,
+        "correct_ids": [
+          "h15",
+          "h16"
+        ]
+      }
+    },
+    "qwen": {
+      "model": "qwen",
+      "parameters": 494032768,
+      "dev-plain": {
+        "total": 24,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 4.48,
+        "correct_ids": []
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 2,
+        "by_status": {
+          "unsupported": 2
+        },
+        "seconds": 6.92,
+        "correct_ids": [
+          "d23",
+          "d24"
+        ]
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 2.19,
+        "correct_ids": []
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 4.17,
+        "correct_ids": []
+      }
+    },
+    "coder": {
+      "model": "coder",
+      "parameters": 1543714304,
+      "dev-plain": {
+        "total": 24,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 14.17,
+        "correct_ids": []
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 1,
+        "by_status": {
+          "ok": 1
+        },
+        "seconds": 16.24,
+        "correct_ids": [
+          "d16"
+        ]
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 0,
+        "exact": 0,
+        "by_status": {},
+        "seconds": 7.45,
+        "correct_ids": []
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 2,
+        "by_status": {
+          "ok": 2
+        },
+        "seconds": 8.55,
+        "correct_ids": [
+          "h04",
+          "h06"
+        ]
+      }
+    }
+  },
+  "finetuned": {
+    "smol": {
+      "model": "smol",
+      "parameters": 362640320,
+      "dev-plain": {
+        "total": 24,
+        "valid": 24,
+        "exact": 1,
+        "by_status": {
+          "ok": 1
+        },
+        "seconds": 3.81,
+        "correct_ids": [
+          "d13"
+        ]
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 1,
+        "by_status": {
+          "ok": 1
+        },
+        "seconds": 3.96,
+        "correct_ids": [
+          "d13"
+        ]
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 16,
+        "exact": 2,
+        "by_status": {
+          "ok": 2
+        },
+        "seconds": 2.15,
+        "correct_ids": [
+          "h01",
+          "h05"
+        ]
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 2,
+        "by_status": {
+          "ok": 2
+        },
+        "seconds": 2.5,
+        "correct_ids": [
+          "h01",
+          "h05"
+        ]
+      },
+      "training_fit-constrained": {
+        "total": 60,
+        "valid": 60,
+        "exact": 21,
+        "by_status": {
+          "ok": 18,
+          "unsupported": 3
+        },
+        "seconds": 9.56,
+        "correct_ids": [
+          "t03a",
+          "t17b",
+          "t02b",
+          "t16b",
+          "t26b",
+          "t29b",
+          "t04a",
+          "t04b",
+          "t01a",
+          "t20a",
+          "t28a",
+          "t23b",
+          "t21b",
+          "t15a",
+          "t12a",
+          "t24a",
+          "t08a",
+          "t09a",
+          "t14a",
+          "t06a",
+          "t06b"
+        ]
+      },
+      "training": {
+        "rows": 60,
+        "epochs": 5,
+        "batches": 75,
+        "optimizer_steps": 75,
+        "microbatch": 4,
+        "seed": 42,
+        "losses": [
+          4.315117104848226,
+          2.1647127151489256,
+          1.1012900273005168,
+          0.6650371670722961,
+          0.4722532908121745
+        ],
+        "trainable": 819200
+      }
+    },
+    "qwen": {
+      "model": "qwen",
+      "parameters": 494573440,
+      "dev-plain": {
+        "total": 24,
+        "valid": 23,
+        "exact": 9,
+        "by_status": {
+          "ok": 5,
+          "clarify": 2,
+          "unsupported": 2
+        },
+        "seconds": 3.96,
+        "correct_ids": [
+          "d11",
+          "d13",
+          "d16",
+          "d17",
+          "d20",
+          "d21",
+          "d22",
+          "d23",
+          "d24"
+        ]
+      },
+      "dev-constrained": {
+        "total": 24,
+        "valid": 24,
+        "exact": 9,
+        "by_status": {
+          "ok": 5,
+          "clarify": 2,
+          "unsupported": 2
+        },
+        "seconds": 3.3,
+        "correct_ids": [
+          "d11",
+          "d13",
+          "d16",
+          "d17",
+          "d20",
+          "d21",
+          "d22",
+          "d23",
+          "d24"
+        ]
+      },
+      "regression-plain": {
+        "total": 16,
+        "valid": 16,
+        "exact": 8,
+        "by_status": {
+          "ok": 5,
+          "clarify": 1,
+          "unsupported": 2
+        },
+        "seconds": 2.23,
+        "correct_ids": [
+          "h04",
+          "h06",
+          "h07",
+          "h09",
+          "h10",
+          "h14",
+          "h15",
+          "h16"
+        ]
+      },
+      "regression-constrained": {
+        "total": 16,
+        "valid": 16,
+        "exact": 8,
+        "by_status": {
+          "ok": 5,
+          "clarify": 1,
+          "unsupported": 2
+        },
+        "seconds": 2.27,
+        "correct_ids": [
+          "h04",
+          "h06",
+          "h07",
+          "h09",
+          "h10",
+          "h14",
+          "h15",
+          "h16"
+        ]
+      },
+      "training_fit-constrained": {
+        "total": 60,
+        "valid": 60,
+        "exact": 47,
+        "by_status": {
+          "ok": 27,
+          "clarify": 10,
+          "unsupported": 10
+        },
+        "seconds": 8.4,
+        "correct_ids": [
+          "t03a",
+          "t03b",
+          "t18a",
+          "t17a",
+          "t17b",
+          "t02b",
+          "t16a",
+          "t16b",
+          "t30a",
+          "t30b",
+          "t26a",
+          "t29a",
+          "t29b",
+          "t04a",
+          "t04b",
+          "t27b",
+          "t01a",
+          "t20a",
+          "t20b",
+          "t05a",
+          "t05b",
+          "t28a",
+          "t28b",
+          "t19a",
+          "t10b",
+          "t23a",
+          "t21a",
+          "t21b",
+          "t22a",
+          "t22b",
+          "t15b",
+          "t11a",
+          "t13a",
+          "t13b",
+          "t12a",
+          "t12b",
+          "t24a",
+          "t24b",
+          "t08b",
+          "t07a",
+          "t07b",
+          "t25b",
+          "t09a",
+          "t14a",
+          "t14b",
+          "t06a",
+          "t06b"
+        ]
+      },
+      "training": {
+        "rows": 60,
+        "epochs": 5,
+        "batches": 75,
+        "optimizer_steps": 75,
+        "microbatch": 4,
+        "seed": 42,
+        "losses": [
+          2.8800925811131797,
+          0.8084449986616771,
+          0.5601103703180949,
+          0.3519490053256353,
+          0.25259368618329364
+        ],
+        "trainable": 540672
+      }
+    }
+  },
+  "selection": {
+    "plain": [
+      "flan",
+      "mt0",
+      "smol",
+      "qwen",
+      "coder"
+    ],
+    "constrained": [
+      "smol",
+      "qwen",
+      "coder",
+      "flan",
+      "mt0"
+    ]
+  },
+  "models": {
+    "coder": {
+      "repo": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+      "weight": {
+        "sha256": "c1b9b30e907950516ba3c646bdf570d8084c25a6410a0cdca80cf04b11bc13a8",
+        "size": 3087467144,
+        "pointerSize": 135
+      }
+    },
+    "flan": {
+      "repo": "google/flan-t5-base",
+      "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+      "weight": {
+        "sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8",
+        "size": 990345061,
+        "pointerSize": 134
+      }
+    },
+    "mt0": {
+      "repo": "bigscience/mt0-small",
+      "revision": "8116a34237e19160ec003147e758f065876d95f0",
+      "weight": {
+        "sha256": "9e3d320de3e92f254a1d03b0a5771ac960e3e151f9ee00bfbb3d0deb9da42daa",
+        "size": 1200729516,
+        "pointerSize": 135
+      }
+    },
+    "qwen": {
+      "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "weight": {
+        "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+        "size": 988097824,
+        "pointerSize": 134
+      }
+    },
+    "smol": {
+      "repo": "HuggingFaceTB/SmolLM2-360M-Instruct",
+      "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+      "weight": {
+        "sha256": "e6bffe7435d7ddc10fd3b9a9efd429dafbacb1cb17015fb5562664e7532bf86e",
+        "size": 723674912,
+        "pointerSize": 134
+      }
+    }
+  }
+}

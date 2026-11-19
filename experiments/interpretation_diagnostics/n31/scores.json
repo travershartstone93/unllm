@@ -1,0 +1,115 @@
+[
+  {
+    "training_rows": 0,
+    "changed_tensors": 0,
+    "dev": {
+      "total": 24,
+      "exact": 2,
+      "valid": 22,
+      "correct_by_status": {
+        "ok": 0,
+        "clarify": 0,
+        "unsupported": 2
+      },
+      "correct_ids": [
+        "d23",
+        "d24"
+      ]
+    },
+    "regression": {
+      "total": 16,
+      "exact": 3,
+      "valid": 15,
+      "correct_by_status": {
+        "ok": 1,
+        "clarify": 0,
+        "unsupported": 2
+      },
+      "correct_ids": [
+        "h02",
+        "h15",
+        "h16"
+      ]
+    }
+  },
+  {
+    "training_rows": 30,
+    "changed_tensors": 251,
+    "dev": {
+      "total": 24,
+      "exact": 3,
+      "valid": 15,
+      "correct_by_status": {
+        "ok": 1,
+        "clarify": 0,
+        "unsupported": 2
+      },
+      "correct_ids": [
+        "d19",
+        "d23",
+        "d24"
+      ]
+    },
+    "regression": {
+      "total": 16,
+      "exact": 8,
+      "valid": 16,
+      "correct_by_status": {
+        "ok": 6,
+        "clarify": 0,
+        "unsupported": 2
+      },
+      "correct_ids": [
+        "h01",
+        "h02",
+        "h04",
+        "h07",
+        "h08",
+        "h10",
+        "h15",
+        "h16"
+      ]
+    }
+  },
+  {
+    "training_rows": 60,
+    "changed_tensors": 251,
+    "dev": {
+      "total": 24,
+      "exact": 5,
+      "valid": 17,
+      "correct_by_status": {
+        "ok": 5,
+        "clarify": 0,
+        "unsupported": 0
+      },
+      "correct_ids": [
+        "d09",
+        "d10",
+        "d14",
+        "d19",
+        "d20"
+      ]
+    },
+    "regression": {
+      "total": 16,
+      "exact": 8,
+      "valid": 16,
+      "correct_by_status": {
+        "ok": 8,
+        "clarify": 0,
+        "unsupported": 0
+      },
+      "correct_ids": [
+        "h01",
+        "h02",
+        "h04",
+        "h07",
+        "h08",
+        "h09",
+        "h10",
+        "h11"
+      ]
+    }
+  }
+]

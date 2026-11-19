@@ -1,0 +1,352 @@
+[
+  {
+    "id": "upstream",
+    "compiles": true,
+    "execution": [
+      true,
+      true,
+      true
+    ],
+    "result": "pass"
+  },
+  {
+    "id": "S01",
+    "compiles": true,
+    "two_argument_lambda": true,
+    "integer_call": [
+      true
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S02",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S03",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S04",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S05",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S06",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S07",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "S08",
+    "compiles": true,
+    "result": "missing requested structure"
+  },
+  {
+    "id": "B01",
+    "compiles": true,
+    "execution": [
+      "TypeError",
+      "TypeError",
+      "TypeError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B02",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B03",
+    "compiles": true,
+    "execution": [
+      false
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B04",
+    "compiles": true,
+    "execution": [
+      "AttributeError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B05",
+    "compiles": true,
+    "execution": [
+      "EOFError",
+      "EOFError",
+      "EOFError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B06",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B07",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "B08",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "M01",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M02",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M03",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M04",
+    "compiles": true,
+    "execution": [
+      "TypeError",
+      "TypeError",
+      "TypeError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M05",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M06",
+    "compiles": true,
+    "execution": [
+      "TypeError",
+      "TypeError",
+      "TypeError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M07",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "M08",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "C01",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C02",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C03",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C04",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C05",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C06",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C07",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "C08",
+    "compiles": true,
+    "result": "code offered on control"
+  },
+  {
+    "id": "phrase1",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "missing requested structure"
+  },
+  {
+    "id": "phrase2",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "phrase3",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "phrase4",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "phrase5",
+    "compiles": true,
+    "execution": [
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError",
+      "NameError"
+    ],
+    "result": "wrong behavior"
+  },
+  {
+    "id": "phrase6",
+    "compiles": true,
+    "result": "inspect"
+  },
+  {
+    "id": "phrase7",
+    "compiles": true,
+    "result": "inspect"
+  },
+  {
+    "id": "named",
+    "compiles": true,
+    "execution": [
+      true,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false
+    ],
+    "result": "wrong behavior"
+  }
+]

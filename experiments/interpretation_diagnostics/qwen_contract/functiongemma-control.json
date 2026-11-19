@@ -1,0 +1,18 @@
+{
+  "prompt": "What's the temperature in London?",
+  "calls": [
+    {
+      "id": "call_xuzjo7qe",
+      "function": {
+        "index": 0,
+        "name": "get_current_temperature",
+        "arguments": {
+          "location": " London"
+        }
+      }
+    }
+  ],
+  "content": "",
+  "finish": "first_call",
+  "seconds": 0.805
+}

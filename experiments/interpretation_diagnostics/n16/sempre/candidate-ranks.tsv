@@ -1,0 +1,22 @@
+POOL	calibration	Take numeric lines, double the numbers and print each result.	72	22
+POOL	calibration	Read text lines, trim whitespace and report the count.	56	1
+POOL	calibration	Read text lines, lowercase each line, reverse their order and print the remaining lines.	62	24
+POOL	calibration	Read numbers, filter for values below zero and print the total.	69	0
+POOL	calibration	Read numbers, sort the numbers and print the count.	61	0
+POOL	calibration	Read text lines, strip surrounding spaces and print the median.	39	0
+POOL	calibration	Read numbers, reverse the sequence twice and print the resulting values.	56	0
+POOL	calibration	Read numbers, discard duplicate entries and write them to disk.	70	0
+POOL	transfer	Read text lines, trim the ends of each line, remove duplicates, and print each result.	62	0
+POOL	transfer	Read text lines, remove duplicates, trim the ends of each line, and print each result.	56	23
+POOL	transfer	Read lines from standard input, convert to lowercase, discard duplicate entries and print the count.	60	24
+POOL	transfer	Take lines from standard input, reverse all rows, and output each entry.	69	13
+POOL	transfer	Read integers from standard input, keep the negatives, double each value and print the resulting values.	66	0
+POOL	transfer	Read numbers, multiply each number by two and output the sum.	26	1
+POOL	transfer	Read numbers, discard duplicate entries and report the total.	58	1
+POOL	transfer	Read numbers, reverse the sequence, deduplicate the rows and print each result.	50	1
+POOL	transfer	Read numbers, do not reverse their order, and print the resulting values.	51	0
+POOL	transfer	Read numbers, remove only adjacent duplicates and print the remaining values.	49	0
+POOL	transfer	Read text lines, trim whitespace and save them to a file.	28	0
+POOL	transfer	Read numbers, keep only positive values and print their sum.	71	0
+POOL	transfer	Read text lines, remove duplicates unless they are blank and print each result.	31	0
+POOL	transfer	Read numbers, divide by two and output each entry.	60	0

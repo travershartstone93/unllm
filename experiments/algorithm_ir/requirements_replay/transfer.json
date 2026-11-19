@@ -1,0 +1,20 @@
+{
+  "worker_sha256": "aa522a26cc1f8b7a085217906ebd2969de61ab724fc2bd75170cac031364a40b",
+  "scorer_sha256": "ab6229e6490d1393f5b4c6e68e576b1f46821822f9e55a1ebebe13f1ba2a9db4",
+  "rows": [
+    {
+      "case": "transfer",
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "8ce21939acb176a8e8e047233f80ff0d4adc33e40dc967366ba47dd929f975d4"
+    },
+    {
+      "case": "transfer",
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "196ce959dd97f15caffec084ff86917709ea0364027df0c4f68351e6b9a64d8c"
+    }
+  ]
+}

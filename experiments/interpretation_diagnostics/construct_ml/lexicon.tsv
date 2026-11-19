@@ -1,0 +1,21 @@
+# Single-construct phrase examples, shared by lookup and training.
+loop	for loop
+loop	while loop
+loop	loop over
+loop	loop through
+loop	for each
+loop	iterate over
+loop	repeat
+branch	if statement
+branch	conditional
+branch	if else
+branch	otherwise
+branch	branch on
+function	function
+function	subroutine
+function	routine
+function	method
+print	print
+print	display
+print	write to the console
+print	standard output

@@ -1,0 +1,14 @@
+{
+  "6": {
+    "pattern": "hamming|differ.{0,25}bit|bit.{0,25}differ|one.bit|single.bit|power.of.two|popcount",
+    "matched": 9,
+    "outside_top25_tested": 8,
+    "outside_verified": 0
+  },
+  "9": {
+    "pattern": "rotat|periodic|periodicity|repeated.substring|string.period|smallest.period",
+    "matched": 46,
+    "outside_top25_tested": 41,
+    "outside_verified": 0
+  }
+}

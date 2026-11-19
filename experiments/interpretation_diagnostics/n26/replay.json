@@ -1,0 +1,45 @@
+{
+  "train_sha256": "f25078347c2738c3308e2a1e6aa90dc0c944febfee083dd073e26a68d3747bb7",
+  "train_rows": 2379,
+  "question_ids": 1710,
+  "source_rows": [
+    948,
+    949,
+    950
+  ],
+  "inputs_per_snippet": 14,
+  "snippet_executions": 42,
+  "targets": [
+    {
+      "compare_to": {
+        "literal": 5
+      },
+      "target": "cpp",
+      "passed": 14
+    },
+    {
+      "compare_to": {
+        "literal": 5
+      },
+      "target": "python",
+      "passed": 14
+    },
+    {
+      "compare_to": {
+        "input": "cutoff"
+      },
+      "target": "cpp",
+      "passed": 14
+    },
+    {
+      "compare_to": {
+        "input": "cutoff"
+      },
+      "target": "python",
+      "passed": 14
+    }
+  ],
+  "frozen_valid": 16,
+  "frozen_exact_overlaps": 0,
+  "worker_sha256": "aa522a26cc1f8b7a085217906ebd2969de61ab724fc2bd75170cac031364a40b"
+}

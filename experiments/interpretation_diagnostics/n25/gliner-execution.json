@@ -1,0 +1,72 @@
+[
+  {
+    "arm": "gliner",
+    "case": 1,
+    "target": "python",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 1,
+    "target": "cpp",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 6,
+    "target": "python",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 6,
+    "target": "cpp",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 7,
+    "target": "python",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 7,
+    "target": "cpp",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 8,
+    "target": "python",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 8,
+    "target": "cpp",
+    "status": "validated",
+    "executions": 11
+  },
+  {
+    "arm": "gliner",
+    "case": 10,
+    "target": "python",
+    "status": "unsupported",
+    "executions": 0
+  },
+  {
+    "arm": "gliner",
+    "case": 10,
+    "target": "cpp",
+    "status": "unsupported",
+    "executions": 0
+  }
+]

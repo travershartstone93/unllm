@@ -1,0 +1,142 @@
+{
+  "worker_sha256": "aa522a26cc1f8b7a085217906ebd2969de61ab724fc2bd75170cac031364a40b",
+  "scorer_sha256": "ab6229e6490d1393f5b4c6e68e576b1f46821822f9e55a1ebebe13f1ba2a9db4",
+  "rows": [
+    {
+      "case": 1,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "d0d0af4e70b91bc34773037f8f1ce0765f1a45e06b8f03658c914b7e29f78452"
+    },
+    {
+      "case": 1,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "856ce6c51d704a008205f9c29eb366856286e56efb5ba4940cf8ebbc99bcb917"
+    },
+    {
+      "case": 2,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "d0d0af4e70b91bc34773037f8f1ce0765f1a45e06b8f03658c914b7e29f78452"
+    },
+    {
+      "case": 2,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "856ce6c51d704a008205f9c29eb366856286e56efb5ba4940cf8ebbc99bcb917"
+    },
+    {
+      "case": 3,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "82a351cbf6fa5cdf52b3071eb1aa8e71e902e170570217ea09f4016afc94dae4"
+    },
+    {
+      "case": 3,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "d5ed279c4e161abd5d484005c709cc97df4f8e9efcd9421b8df9d274c0940cfa"
+    },
+    {
+      "case": 4,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "2381dc3f9266ec8941d784be42457b374bb33b475ae61dbaca94e920b172dcb6"
+    },
+    {
+      "case": 4,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "06ea94fb92b8024ee3faf6c9dd4b62702702abd63d84548d325fbad285150f10"
+    },
+    {
+      "case": 5,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "2858fa2459351e6b7927012007086ad00d01d40770fd7514bb919a83aff124bc"
+    },
+    {
+      "case": 5,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "cb95410c12e7712ffb2b9acd3c325c57ece2a10792c2fae32e59e0da2a72ec84"
+    },
+    {
+      "case": 6,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "24f8751ea878b595e15a94faa8da8c23ff9b02ec0a2ea591734faace889ad3f7"
+    },
+    {
+      "case": 6,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "2b0162e090bcc5cd9a04869b396116f7f18998395e1060bce404a91cb189e1c9"
+    },
+    {
+      "case": 7,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "d0d0af4e70b91bc34773037f8f1ce0765f1a45e06b8f03658c914b7e29f78452"
+    },
+    {
+      "case": 7,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "856ce6c51d704a008205f9c29eb366856286e56efb5ba4940cf8ebbc99bcb917"
+    },
+    {
+      "case": 8,
+      "target": "python",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "2858fa2459351e6b7927012007086ad00d01d40770fd7514bb919a83aff124bc"
+    },
+    {
+      "case": 8,
+      "target": "cpp",
+      "status": "validated",
+      "executions": 11,
+      "source_sha256": "cb95410c12e7712ffb2b9acd3c325c57ece2a10792c2fae32e59e0da2a72ec84"
+    },
+    {
+      "case": 9,
+      "target": "python",
+      "status": "clarify",
+      "text": "Do you want to count entries greater than, greater than or equal to, less than, less than or equal to, or equal to the cutoff?"
+    },
+    {
+      "case": 9,
+      "target": "cpp",
+      "status": "clarify",
+      "text": "Do you want to count entries greater than, greater than or equal to, less than, less than or equal to, or equal to the cutoff?"
+    },
+    {
+      "case": 10,
+      "target": "python",
+      "status": "unsupported",
+      "text": "Request exceeds the supplied requirement format"
+    },
+    {
+      "case": 10,
+      "target": "cpp",
+      "status": "unsupported",
+      "text": "Request exceeds the supplied requirement format"
+    }
+  ]
+}

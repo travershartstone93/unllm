@@ -1,13 +1,66 @@
 # Plan: improve symbolic request interpretation
 
 Proposed on 2026-11-12, following the [local-model experiment](LOCAL_MODEL_EXPERIMENT.md).
-Status on 2026-11-18. The [native migration](CPP_MIGRATION_PROGRESS.md) is complete and the [numeric pilot](../experiments/symbolic_distillation/numeric_change/README.md) reached its feasibility stop. Milestone 1 passed its [160-trial history comparison](../experiments/interpretation_diagnostics/README.md). Milestone 2 is next. Python module references below identify historical responsibilities. The host implementation uses C++.
+Status on 2026-11-18. The [native migration](CPP_MIGRATION_PROGRESS.md) is complete and the [numeric pilot](../experiments/symbolic_distillation/numeric_change/README.md) reached its feasibility stop. Milestone 1 passed its [160-trial history comparison](../experiments/interpretation_diagnostics/README.md). Milestone 2 passed its development gate on the native GUI behavior path. The first bounded role-binding trial in milestone 3 is complete. Coordinated numerical roles remain open. Python module references below identify historical responsibilities. The host implementation uses C++.
 
 The objective is to understand more ordinary descriptions of already supported
 program behavior while preserving accurate operands, scope and targets. Work stays
 in unllm-upgrade. ACE/ERG with native MRS handling, SWI-Prolog, Soufflé and the existing typed
 construction/cvc5 backends remain the tools. The local-model experiment stays
 isolated and optional. The original checkout and carried user edits are preserved.
+
+For coding requests, the next task is the [English-to-program investigation](#english-to-program-investigation). It defines how to decide whether the failure lies in interpretation, the contract interface, or construction before selecting a parser. Lightweight ML is a candidate. A full generative interpreter remains a last resort.
+
+## English-to-program investigation
+
+**Status: broader evaluation complete; general English coding remains open.** The [integration report](../experiments/interpretation_diagnostics/n16/bridge.md) records six-task parity and independent execution. The adjusted semantic parser passed its narrow stream development gate and then produced zero additional programs on the [32-request frozen evaluation](../experiments/interpretation_diagnostics/n16/broad-results.md). It remains experimental. This investigation connects stages 13b and 15; the GUI milestones retain their own fixtures and criteria.
+
+**Question.** Can the same frozen system turn unfamiliar English into working programs by composing operations it already knows? An improvement on synonyms alone would leave that question open. In N11, English scored 0/6 and construction from supplied types and examples scored 3/6. In N14, five of eight prompts had no ACE analysis, and no prompt produced code. N15 recovered three additional construct-label sets with retrieval but did not score arguments, scope, or code. These results justify testing more than one explanation. [Central experiment log](EXPERIMENT_LOG.md)
+
+**Prefer established industry solutions.** After locating a failure, check how deployed systems solve that class of problem and which maintained implementations unllm could reuse. Record the best-fitting candidate, evidence of production use, what it actually supplies, and what adaptation it needs for local C++ execution and typed contracts. A research toolkit can provide an experimental baseline. Prefer an existing component that passes the frozen evaluation. Justify custom work with a specific uncovered requirement, and keep that work limited to the gap.
+
+Group development failures by mechanism before changing the implementation. For example, misreading a quoted loop name and misreading a quoted function name may share one cause: losing the boundary between a literal and an instruction. Fix that boundary once and test transfer on other constructs. A failed request belongs in the regression suite; adding a regex, alias, or handler keyed to its wording does not establish a general fix. Assess the change on previously unseen requests.
+
+### 1. Freeze what success means
+
+- Use N11, N13, N14 and N15 for development and regression. Retain their original prompts, denominators and results. The previously discussed examples are development cases.
+- Proposed coding evaluation: 24 positive requests, eight each for a requested code structure, a requested behavior, and a behavior with an explicit implementation constraint. Arrange them in pairs. Some pairs express the same meaning differently. Others differ in one consequential detail such as operand order, scope, a required loop, or an excluded effect. Include scalar calculations, sequence processing and nested control flow. Reserve at least half the positive requests for compositions absent from fitting and calibration, with the individual operations represented there. Include eight separate controls covering genuine ambiguity, contradiction and unavailable capabilities. Include valid quoted mentions among the positives to check that a quoted construct name does not trigger it.
+- For each request, record the required inputs, outputs or effects, variable references, scope and order, explicit implementation constraints, permitted defaults, and any unresolved choice. Accept semantically equivalent contracts and alternative implementations. For a bare snippet, declare which structure must appear and which illustrative choices are free. For behavior, write independent expected results with inputs that distinguish the plausible wrong meanings. For clarification, specify the missing choice and the expected result after an answer.
+- Freeze the dataset, training/development split, scoring rules, backend capability inventory, binary revision, and search/time budgets before comparing candidates. Keep acceptance annotations and execution inputs out of training, retrieval and candidate selection. Use independently authored or sourced requests where available and record access and provenance. Label a same-author trial as development validation. Collect the final confirmation set separately.
+
+### 2. Locate the first failing stage
+
+Run the following controls first on the public development cases. Keep the 32 fresh requests sealed during diagnosis and candidate selection. Once the intervention, training data and runtime budgets are frozen, repeat the paired comparisons on those fresh cases. Record the first failed stage and retain every case in the results.
+
+| Input to the test | Evidence it provides |
+| --- | --- |
+| Original English through the current CLI, both languages | Trace parser readings, proposed meanings, selected requirements, emitted code, and independent execution. Record missing instrumentation as unknown. |
+| Independently specified requirements supplied directly to construction | Establish whether the constructor can implement the intended behavior under the same budget. Mark missing contract fields, adapters, and unsupported input signatures individually. Keep example-assisted construction in a separate column when the English request provides no examples. |
+| A supplied correct program IR, on backend failures only | Check the interpreter and both emitters. A passing supplied implementation establishes expressibility. Credit for synthesis requires the constructor to discover the implementation. |
+
+If a reference requirement cannot be expressed or passed to the constructor, the next implementation is the smallest shared typed contract and adapter that can carry it. Repeat the structured control first. If the contract reaches construction and still fails while supplied IR executes, investigate synthesis. If the structured route works and English fails, proceed to step 3. Where multiple failures exist, use only cases with a working structured route to attribute end-to-end gains to interpretation, and also report the full-suite result.
+
+### 3. Compare interpretations on equal terms
+
+Give every interpretation path the same typed target: operations or desired properties, typed arguments, references, scope, required structures, and explicit unknowns. Keep source evidence with each proposal. Run the symbolic path as a baseline. Freeze primitives, constructor, emitters and validators across comparisons. Measure separately whether the intended contract was ever proposed, whether it won, and whether both programs passed.
+
+Use the development failures to choose **one** next intervention:
+
+| Observed pattern | Experiment and comparison |
+| --- | --- |
+| Correct meaning absent despite available target operations | Evaluate a compositional semantic parser trained on English paired with typed meanings. As an offline reference, assess an existing toolkit such as Stanford SEMPRE for its ability to express the target and enumerate these meanings. Define the target operators once. Train or score how spans bind arguments and combine into trees. Compare on held-out trees and role reversals. Record data and grammar authoring costs. Do not port an external runtime to C++ based on development fit alone. |
+| Correct meaning often proposed but the wrong one selected | Keep the candidate pools fixed. Compare symbolic ordering with a small discriminative ranker on identical pools. Log wrong acceptances and abstentions as well as correct selections. |
+| No ACE reading blocks requests that another interpretation path can handle | Run the same coding front end on the original words, first with ACE evidence disabled, then available as an optional source. Compare paired gains, regressions and latency. Decide ACE's coding role from that result. |
+
+For the learned-parser trial, pair development utterances with small typed trees. Derive additional training pairs from valid compositions and separately collected paraphrases. Give learned and symbolic approaches the same primitive definitions and access to the same development annotations. Track which combinations and paraphrase sources are reserved before generating any training data. The reusable part of a semantic parsing toolkit is its composition and search machinery; the experiment measures how much domain supervision unllm actually needs. [SEMPRE toolkit](https://www-nlp.stanford.edu/software/sempre/)
+
+Use training and calibration cases to choose thresholds, including abstention. If multiple causes appear, prioritize the one responsible for the most development failures on backend-capable cases and document ties before testing. A correct label such as “loop” earns no contract credit if the loop binds the wrong collection or encloses the wrong action. A missing primitive is a separate capability decision. A corpus expansion needs a diagnosed data gap. Keep a Serenade vocabulary trial or a full model outside this comparison unless a later, separately specified question calls for it.
+
+### 4. Make a decision from execution
+
+Score each request once, and report Python and C++ failures separately. A positive end-to-end pass requires both outputs to pass independent execution cases and any explicitly requested structural check. Record incorrect accepted contracts, incorrect claimed completions, appropriate clarifications, correct stops, abstentions on supported tasks, latency, and search exhaustion. Inspect every changed decision; gains elsewhere cannot hide a new wrong acceptance.
+
+For this feasibility study, advance a candidate to independent confirmation only if it produces additional both-language passes on at least two previously unseen, structurally different compositions, preserves existing verified passes, and introduces zero new wrong acceptances. These are proposed advancement criteria. Report inherited errors and absolute counts. Confirmation requires fresh prompts, unchanged code and training data, and the applicable existing regression suites. If the candidate misses the criterion, log the first failing stage and stop that line of work. Do not tune on those prompts and rescore them as fresh. This milestone makes a claim only about the evaluated constructs; broader application and project construction remain separate roadmap stages.
 
 ## Baseline and scope
 
@@ -100,6 +153,10 @@ equivalent behavior. A fractional start value and update amount remain separate;
 decrease-by-11 remains subtraction of positive 11; a character metric introduces
 no extra counter control. Incomplete requirements cannot be lowered silently.
 
+**Development result, 2026-11-18.** The C++ grounder builds requirements for compositional GUI behaviors before it creates state, actions or widgets. The selected specification carries the rules and source evidence under `interpretation.requirements`. Diagnostics can retain the graph for each reading, including blocked exclusions and unbound numeric roles. The specialized calculator and stream paths use their existing interpreters.
+
+All 32 frozen requests retained their decisions and the 12 accepted programs retained their prior behavior. A generated C++ counter started at 8.5 and reached 4 after two decrements of 2.25. A generated Python counter reached 13 after two decrements of −2.25. The original “Give me … takes away” fixture and two additional phrasings still reached the 128-reading limit. Milestone 3 will test explicit code intent and grammatical role binding for these cases and ambiguous save targets. [Measurements](../experiments/interpretation_diagnostics/requirements-results.json)
+
 ### 3. Carry intent and bind grammatical roles through constraints
 
 Explicit --code mode already establishes a programming request. Preserve that
@@ -122,6 +179,8 @@ bounded candidate search and measured overhead before migrating the broader
 grounder. Prolog owns dynamic binding and constraint decisions; Soufflé retains
 static capability/type compatibility. There is no per-request background compiler
 invocation. cvc5 retains arithmetic/synthesis ownership.
+
+The [first embedded SWI trial](../experiments/interpretation_diagnostics/role_trial/README.md) recovered the two existing numeric controls and preserved ambiguous save targets on a parseable request. The coordinated counter still exhausted its readings. Inspect the five two-verb readings and test competing attachments before migrating production binding.
 
 Lexical entries describe reusable meanings. They cannot recognize a whole test
 sentence and return its prepared specification. Surface regex fallbacks, program

@@ -52,6 +52,8 @@ repeatable parse diagnostics, typed requirements with source evidence, grammatic
 role binding, scoped exclusions and targeted clarification. Implement in migrated
 C++ modules, without surface-regex fallbacks or whole-request lookup tables.
 
+The coding investigation compared English input, independently supplied requirements, and supplied program IR. The native example-contract bridge passed. A learned parser improved bounded stream construction and failed the broader coding gate. The next interface question is whether supplied requirements for function signatures, behavior, and explicitly requested nesting can survive construction. Prefer established industry solutions for the diagnosed failure class. Document any remaining gap before building a custom mechanism and test it on unseen combinations. [Evaluation and decision rules](SYMBOLIC_INTERPRETATION_PLAN.md#english-to-program-investigation) · [Measured scope](../experiments/interpretation_diagnostics/n16/broad-results.md)
+
 The numeric pilot remains three semantic families and its existing example/search
 caps. Its success establishes transfer of those rules, not generic programming
 knowledge. Afterward choose the next interpretation slice from measured failures;
@@ -534,6 +536,9 @@ all predefined operations or engineering knowledge from the system.
 
 ## 17: End-to-end usefulness and measured speed
 
+The first English-to-algorithm slice accepts bounded integer interval goals through the normal coding CLI and the structured specification interface. Six of nine new in-family requests produced independently checked functions in both languages. All three misses lacked a correct candidate. Broader English construction, clarification and integrated revision gates remain open. [N13 results](../experiments/algorithm_ir/goal_selection/README.md)
+
+
 Join the paths only after structured-specification synthesis works. Exercise fresh
 requests, a required clarification, execution and a changed requirement. Confirm
 that revisions preserve unaffected requirements and regenerate code from structured
@@ -560,4 +565,4 @@ clarifications, resource failures, task-specific engineering additions and laten
 This makes it possible to tell whether more language rules or more synthesis work
 would address the current bottleneck.
 
-Stage 13b parser repeatability passed its [development comparison](../experiments/interpretation_diagnostics/README.md). The next coding milestone is the typed requirements graph. The Stage 14 experiment covers nine supplied programs and 31 oracle cases. The first Stage 15 evaluation reached 10/12 development contracts in both languages, 6/6 correct stops and 5/5 seeded repairs. Reverse and adjacent difference remain open. Stages 16–18 and the independent release evaluation remain ahead. The storage inventory and USB migration are recorded in the [migration report](../experiments/corpus_storage/s0/MIGRATION.md).
+Stage 13b parser repeatability passed its [development comparison](../experiments/interpretation_diagnostics/README.md). The native GUI grounder now lowers typed requirements and passes the [milestone 2 development checks](SYMBOLIC_INTERPRETATION_PLAN.md#2-introduce-an-explicit-typed-requirements-graph). The bounded role-binding trial reached its [experimental stop](../experiments/interpretation_diagnostics/role_trial/README.md). The Stage 14 experiment covers nine supplied programs and 31 oracle cases. The first Stage 15 evaluation reached 10/12 development contracts in both languages, 6/6 correct stops and 5/5 seeded repairs. Reverse and adjacent difference remain open. Stages 16–18 and the independent release evaluation remain ahead. The storage inventory and USB migration are recorded in the [migration report](../experiments/corpus_storage/s0/MIGRATION.md).

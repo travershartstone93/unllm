@@ -1,0 +1,306 @@
+{
+  "n11": [
+    {
+      "task": "count_zero",
+      "english_cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 2305.4406770000001
+      },
+      "english_python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 2409.8689899999999
+      },
+      "direct_constructor": {
+        "status": "examples_validated",
+        "unique_candidates": 290,
+        "reason": "matched supplied examples",
+        "check": {
+          "examples": 10,
+          "cpp": "618cb73573278a7dd74b15de7621c1f4b4e9bdaab34a141817e9be97f178bdac",
+          "python": "c9a977b47c1dfca62b330d2f4183110e34b2c241a72688cfcdc68204a16d60e6"
+        }
+      },
+      "cli_contract_cpp": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      },
+      "cli_contract_python": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      }
+    },
+    {
+      "task": "floor_zero",
+      "english_cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1",
+        "elapsed_ms": 1596.405792
+      },
+      "english_python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1",
+        "elapsed_ms": 1632.346587
+      },
+      "direct_constructor": {
+        "status": "exhausted",
+        "unique_candidates": 2020,
+        "reason": "bounded grammar exhausted"
+      },
+      "cli_contract_cpp": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      },
+      "cli_contract_python": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      }
+    },
+    {
+      "task": "negative_prefix",
+      "english_cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 1847.7123730000001
+      },
+      "english_python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 1827.7573649999999
+      },
+      "direct_constructor": {
+        "status": "examples_validated",
+        "unique_candidates": 553,
+        "reason": "matched supplied examples",
+        "check": {
+          "examples": 10,
+          "cpp": "24910f69cbc4125768e3c47c4c6d2f9ea2b89827af9d7c31271648da0ac27e5a",
+          "python": "2fe09b4ad453d069b45d8851fcc246aa6df76fe8db9f0f76e19e0ae2189ad3df"
+        }
+      },
+      "cli_contract_cpp": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      },
+      "cli_contract_python": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      }
+    },
+    {
+      "task": "offset",
+      "english_cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 1917.3764180000001
+      },
+      "english_python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 2008.2148259999999
+      },
+      "direct_constructor": {
+        "status": "examples_validated",
+        "unique_candidates": 12,
+        "reason": "matched supplied examples",
+        "check": {
+          "examples": 10,
+          "cpp": "8a1cc2118ce928aea1f592d06ad0d6a04007a67ffef5f97d3ef4e0915d1824b0",
+          "python": "41f75c640cdca647ad40c9be28be7d2a468f80fe3e6ebf99c89602a3d67a0e5c"
+        }
+      },
+      "cli_contract_cpp": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      },
+      "cli_contract_python": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      }
+    },
+    {
+      "task": "skip_repeats",
+      "english_cpp": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking",
+        "elapsed_ms": 4205.0377980000003
+      },
+      "english_python": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking",
+        "elapsed_ms": 4199.3885490000002
+      },
+      "direct_constructor": {
+        "status": "exhausted",
+        "unique_candidates": 2020,
+        "reason": "bounded grammar exhausted"
+      },
+      "cli_contract_cpp": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      },
+      "cli_contract_python": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      }
+    },
+    {
+      "task": "weighted_sum",
+      "english_cpp": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking",
+        "elapsed_ms": 4299.343914
+      },
+      "english_python": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking",
+        "elapsed_ms": 4267.4904740000002
+      },
+      "direct_constructor": {
+        "status": "exhausted",
+        "unique_candidates": 963,
+        "reason": "bounded grammar exhausted"
+      },
+      "cli_contract_cpp": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      },
+      "cli_contract_python": {
+        "status": "unsupported",
+        "text": "Unknown field: examples"
+      }
+    }
+  ],
+  "n14": [
+    {
+      "prompt": "Make a for loop",
+      "cpp": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 123.77143
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 122.421081
+      }
+    },
+    {
+      "prompt": "Make an if statement.",
+      "cpp": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 120.313744
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 120.74624300000001
+      }
+    },
+    {
+      "prompt": "Make a function.",
+      "cpp": {
+        "status": "unsupported",
+        "text": "Specify the input type",
+        "elapsed_ms": 63.005786000000001
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "Specify the input type",
+        "elapsed_ms": 61.264417000000002
+      }
+    },
+    {
+      "prompt": "Make a for loop with an if statement inside it.",
+      "cpp": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 154.74159499999999
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 153.047371
+      }
+    },
+    {
+      "prompt": "Write a for loop that prints hello three times.",
+      "cpp": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 250.81418400000001
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 239.43940499999999
+      }
+    },
+    {
+      "prompt": "Write an if statement that returns one if a number is positive and zero otherwise.",
+      "cpp": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 993.47732499999995
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "The grammar could not analyze this request within its budget.",
+        "elapsed_ms": 969.20429000000001
+      }
+    },
+    {
+      "prompt": "Write a function that adds two integers.",
+      "cpp": {
+        "status": "unsupported",
+        "text": "Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 157.48291
+      },
+      "python": {
+        "status": "unsupported",
+        "text": "Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp",
+        "elapsed_ms": 156.18903599999999
+      }
+    },
+    {
+      "prompt": "Write a function that loops over the input integers and counts the ones greater than zero.",
+      "cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _loop_n_1 | Unsupported programming concept: _loop_v_1",
+        "elapsed_ms": 750.49297300000001
+      },
+      "python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _loop_n_1 | Unsupported programming concept: _loop_v_1",
+        "elapsed_ms": 755.40659000000005
+      }
+    }
+  ],
+  "supplied_n11": [
+    {
+      "examples": 18,
+      "cpp": "7553783689555564c9d4829bacb70014fb3d5eef8d82b162f10c77e9706202f9",
+      "python": "3d7afea2e208f6896654c8e62546600222754aae2a87a052fe040ee0433b976f",
+      "task": "floor_zero"
+    },
+    {
+      "examples": 18,
+      "cpp": "3773f484bc270b5c6b95d91ec736fed74d249c6113f7b8ed395c80b673836741",
+      "python": "0ad5d81a088dde7e54ed00bd6b2fc9a8295f3c8f0f519f8b26c2e8621adf8a38",
+      "task": "skip_repeats"
+    },
+    {
+      "examples": 18,
+      "cpp": "20f2dc510c14a3e9dbb1fc0db3665ae3d1f025482a7d682fa7234525b4f3ba96",
+      "python": "67494df64ba476ad9cf6d92b3f2ee0add6efd37e0f37c88cf7b229441fb1ade1",
+      "task": "weighted_sum"
+    }
+  ],
+  "supplied_n14": {
+    "examples": 4,
+    "cpp": "ba53ea54724c613a40b2b9231ed0e2b6df0e37944313e9563f05cea46b3f559a",
+    "python": "ab25c25d6de11547725063ae1b3338d703e7bdedaa3ebaa77b8647bdd23db0ed"
+  }
+}

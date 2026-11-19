@@ -1,0 +1,19 @@
+row	decision	fields supported by this row	reason for decision
+155	partial	count	Counts integers by type. No integer threshold.
+325	conflict	none	English excludes equality and snippet includes equality. Output is a list.
+330	partial	sum	Unconditional list sum.
+497	partial	eq and literal 0	Returns positions.
+734	partial	explicit for	English requests a loop over a dictionary.
+735	partial	explicit for	Same question and intent as row 734.
+885	partial	count	Two simultaneous thresholds on a NumPy array.
+904	partial	gt and literal 4	Returns positions.
+934	partial	count and eq to an input	Dictionary values rather than list elements.
+948	direct	all	Strict count above literal 5. The expression sums booleans.
+949	direct	all	Same English and same source question as row 948. Different implementation.
+950	direct	all	Strict count above a scalar input. Array conversion is an implementation choice.
+1011	partial	sum and gt and literal 0	Input is a dictionary.
+1141	partial	gt and literal 2	Returns positions.
+1285	partial	ge and literal 0	Query over model records.
+1412	partial	eq to an input	Selects data frame rows.
+1510	partial	gt and literal 0	Computes a proportion.
+1788	partial	sum	Unconditional list sum.

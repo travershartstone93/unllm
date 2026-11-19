@@ -1,5 +1,7 @@
 # unllm
 
+Record experiment designs, variables, results and decisions in the [central experiment log](docs/EXPERIMENT_LOG.md).
+
 The default Linux build runs the symbolic engine, program generator, validation, pack ingestion, search and updater in C++. Python is an optional target for generated programs. The earlier Python host and Rust search adapter remain in the checkout as development references. See the [native build and installation guide](docs/UPGRADE.md) and [compatibility results](docs/CPP_MIGRATION_PROGRESS.md).
 
 This directory is the **symbolic upgrade working copy**. Its `build/unllm` defaults to ACE/ERG, SWI-Prolog and Soufflé reasoning. It constructs and validates bounded Python/C++ utilities and stateful Qt programs from typed behaviour contracts, using cvc5 for relational state-transition synthesis. The latest [request repair and tests](docs/REQUEST_REPAIR.md) cover text tools, typed lists, timers, unit conversion and variable percentages in both languages. Start with [the upgrade guide](docs/UPGRADE.md), [measured results](docs/UPGRADE_REPORT.md) and [generated examples](examples/upgrade/README.md). The original sibling directory is separate. The description below covers the original library and the `--engine legacy` pipeline.

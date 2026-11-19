@@ -1,0 +1,5 @@
+{
+  "m47":{"input_type":"image/jpeg","output_type":"application/pdf","multiple":false,"content":"whole","input":"jpg_source_arg","output":"pdf_dest_arg","goal":"pdf_written"},
+  "r28":{"input_type":"application/pdf","output_type":"text/plain","multiple":false,"content":"text","input":"pdf_source_arg","output":"text_dest_arg","goal":"text_written"},
+  "h65":{"input_type":"application/pdf","output_type":"image/jpeg","multiple":true,"content":"embedded_images","input":"pdf_source_arg","output":"picture_dest_arg","goal":"pictures_written"}
+}

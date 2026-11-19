@@ -1,27 +1,15 @@
-#include "grounding_internal.h"
-#include "unllm/symbolic/behaviour.h"
+#include "behaviour_requirements.h"
+
 #include <algorithm>
 #include <charconv>
-#include <numeric>
+
 namespace unllm::native::frames {
 using namespace gui;
 namespace {
-std::string title(std::string name) {
-  bool start = true;
-  for (auto &c : name) {
-    if (c == '_') {
-      c = ' ';
-      start = true;
-    } else {
-      if (start && c >= 'a' && c <= 'z')
-        c -= 32;
-      start = false;
-    }
-  }
-  return name;
-}
-std::string operand(const Graph &g, const Json &ep, std::set<size_t> &used,
-                    const Json &fallback) {
+std::optional<double> linked_amount(const Graph &g, const Json &ep,
+                                    const std::string &relation,
+                                    std::set<size_t> &used, Json &sources,
+                                    std::set<size_t> &prepositions) {
   Terms vars;
   for (auto &[k, v] : ep["args"].members())
     vars.insert(v.text());
@@ -33,8 +21,11 @@ std::string operand(const Graph &g, const Json &ep, std::set<size_t> &used,
       aliases[b].insert(a);
     }
   std::set<double> found;
-  for (auto prep : g.eps.items())
-    if (lemma(predicate(prep)) == "by" && vars.contains(arg(prep, "ARG1"))) {
+  for (size_t j = 0; j < g.eps.size(); ++j) {
+    const auto prep = g.eps.at(j);
+    if (lemma(predicate(prep)) == relation &&
+        (relation == "at" ? arg(ep, "ARG0") == arg(prep, "ARG1")
+                          : vars.contains(arg(prep, "ARG1")))) {
       auto target = arg(prep, "ARG2");
       Terms targets = aliases[target];
       targets.insert(target);
@@ -53,280 +44,48 @@ std::string operand(const Graph &g, const Json &ep, std::set<size_t> &used,
         if (ec != std::errc{} || end != s.data() + s.size() ||
             !std::isfinite(n))
           throw Unsupported("Invalid numeric operand");
+        if (card.contains("literal_sign"))
+          n = card["literal_sign"].text() == "-" ? -std::abs(n) : std::abs(n);
         found.insert(n);
-        used.insert(i);
+        if (!used.insert(i).second)
+          throw Ambiguous("A literal is linked to multiple numeric roles");
+        prepositions.insert(j);
+        sources.push(evidence(prep));
+        sources.push(evidence(card));
       }
     }
+  }
   if (found.size() > 1)
     throw Ambiguous("More than one amount is linked to the action");
-  if (found.empty() && fallback.null())
-    throw Unsupported("The action needs an explicit numeric operand");
-  return found.empty() ? fallback.text() : canonical(num(*found.begin()));
+  if (found.empty())
+    return {};
+  return *found.begin();
 }
-struct Requirements {
-  const Graph &g;
-  const Json &domain, &vocab;
-  Json state = Json::object(), views = Json::array(), actions = Json::array(),
-       events = Json::array(), bindings = Json::array(),
-       defaults = Json::array();
-  std::map<std::string, std::string> targets;
-  Requirements(const Graph &graph, const Json &domain_data,
-               const Json &vocabulary)
-      : g(graph), domain(domain_data), vocab(vocabulary) {}
-  void field(const std::string &n, const std::string &type, Json val,
-             Json schema = {}) {
-    if (state.contains(n))
-      throw Ambiguous("Two semantic roles need the same state name");
-    auto f = obj({{"type", str(type)}, {"initial", val}});
-    if (!schema.null())
-      f.set("fields", schema);
-    state.set(n, f);
-  }
-  void view(const std::string &id, const std::string &kind, Json args) {
-    args.set("id", str(id));
-    args.set("kind", str(kind));
-    views.push(args);
-  }
-  void label(const std::string &id, const std::string &expression,
-             const std::string &caption) {
-    view(id, "label",
-         obj({{"value", str(expression)}, {"label", str(caption)}}));
-  }
-  void input(const std::string &id, const std::string &kind,
-             const std::string &target, const std::string &caption = "") {
-    auto args = obj({{"state", str(target)}});
-    if (!caption.empty())
-      args.set("label", str(caption));
-    view(id, kind, args);
-  }
-  void action(const std::string &name, Json args) {
-    for (auto a : actions.items())
-      if (a["id"].text() == name)
-        return;
-    args.set("id", str(name));
-    args.set("label", str(title(name)));
-    actions.push(args);
-  }
-  void ensure(const std::string &id, const std::string &formula) {
-    action(id, obj({{"ensure", str(formula)}}));
-  }
-  void effect(const std::string &name, const std::string &effect,
-              const std::string &target, Json args = Json::object()) {
-    args.set("effect", str(effect));
-    args.set("state", str(target));
-    if (vocab["SHORTCUTS"].contains(effect))
-      args.set("shortcut", vocab["SHORTCUTS"][effect]);
-    action(name, args);
-  }
-  std::string bind(const std::string &op, const Terms &types,
-                   const Json &ep = {}) {
-    Terms terms, compatible, explicit_;
-    for (auto k : {"ARG1", "ARG2", "ARG3", "ARG4"}) {
-      auto role = g.terms(arg(ep, k));
-      terms.insert(role.begin(), role.end());
-    }
-    for (auto &[name, kind] : targets)
-      if (types.contains(kind)) {
-        compatible.insert(name);
-        if (terms.contains(name) ||
-            (kind == "records" &&
-             any(terms, {"list", "collection", "task", "item"})) ||
-            (kind == "clock" &&
-             any(terms, {"timer", "clock", "elapsed_time"})) ||
-            (name == "body" && any(terms, {"text", "document", "editor"})) ||
-            (name == "value" && any(terms, {"counter", "number", "value"})))
-          explicit_.insert(name);
+Conversion unit_roles(const Graph &g, const Json &domain, const Json &ep,
+                      Json &sources) {
+  Terms source, target, linked{arg(ep, "ARG0"), arg(ep, "ARG1")};
+  auto units = [&](const std::string &v, Terms &out) {
+    for (auto &n : g.terms(v))
+      if (domain["units"].contains(n))
+        out.insert(n);
+  };
+  for (auto e : g.eps.items())
+    if (linked.contains(arg(e, "ARG1"))) {
+      auto w = lemma(predicate(e));
+      if (w == "from" || w == "to") {
+        units(arg(e, "ARG2"), w == "from" ? source : target);
+        sources.push(evidence(e));
       }
-    auto &candidates = explicit_.empty() ? compatible : explicit_;
-    if (candidates.size() != 1)
-      throw Ambiguous("Specify the target for " + op);
-    auto target = *candidates.begin();
-    bindings.push(
-        obj({{"operation", str(op)},
-             {"state", str(target)},
-             {"predicate", str(ep.null() ? "default" : predicate(ep))}}));
-    return target;
-  }
-  void document(bool editor, bool multiline) {
-    field("body", "text", str(""));
-    targets["body"] = "text";
-    input("body_view", editor || multiline ? "text_edit" : "line_edit", "body");
-    if (editor) {
-      defaults.push(str("Document editing supplies New/Open/Save, history and "
-                        "clipboard controls."));
-      for (auto op : {"new", "load", "save", "save_as", "undo", "redo", "cut",
-                      "copy", "paste", "select_all"})
-        effect(op, op, "body");
     }
-  }
-  void collection() {
-    auto schema = obj({{"text", str("text")}});
-    for (auto &w : g.words)
-      for (auto &[n, t] : domain["concepts"][w]["fields"].members())
-        schema.set(n, t);
-    field("records", "records", Json::array(), schema);
-    targets["records"] = "records";
-    field("selection", "number", num(-1));
-    std::string display, checked;
-    for (auto &[n, t] : schema.members()) {
-      auto kind = t.text(), entry = "entry_" + n;
-      field(entry, kind,
-            kind == "bool"     ? boolean(false)
-            : kind == "number" ? num(0)
-                               : str(""));
-      if (kind != "bool")
-        input(entry + "_input", kind == "number" ? "number_input" : "line_edit",
-              entry, title(n));
-      if (kind == "text" && display.empty())
-        display = n;
-      if (kind == "bool" && checked.empty())
-        checked = n;
-    }
-    auto args = obj({{"state", str("records")},
-                     {"selection", str("selection")},
-                     {"display", str(display)}});
-    if (!checked.empty())
-      args.set("checked", str(checked));
-    view("records_view", "record_list", args);
-    label("records_count_view", "records_count(records)", "Items");
-  }
-  void append(const std::string &target) {
-    auto values = Json::object(), clear = Json::array();
-    std::string guard;
-    for (auto &[k, t] : state[target]["fields"].members()) {
-      auto n = "entry_" + k;
-      if (t.text() == "text") {
-        values.set(k, str("strip(" + n + ")"));
-        clear.push(str(n));
-        if (!guard.empty())
-          guard += " and ";
-        guard += "chars(strip(" + n + ")) > 0";
-      } else
-        values.set(k, str(n));
-    }
-    effect("add", "append_record", target,
-           obj({{"selection", str("selection")},
-                {"values", values},
-                {"clear", clear},
-                {"requires", str(guard.empty() ? "True" : guard)}}));
-  }
-  void clock() {
-    field("elapsed", "number", num(0));
-    field("anchor", "number", num(0));
-    field("running", "bool", boolean(false));
-    targets["elapsed"] = "clock";
-    label("elapsed_view", "elapsed", "Seconds");
-    clock_action("tick", "sample_clock", "elapsed", true);
-    events.push(obj({{"kind", str("periodic")},
-                     {"interval_ms", Json::number(25)},
-                     {"action", str("tick")}}));
-  }
-  void clock_action(const std::string &id, const std::string &op,
-                    const std::string &target, bool hidden = false) {
-    auto p = obj({{"anchor", str("anchor")}, {"running", str("running")}});
-    if (hidden)
-      p.set("visible", boolean(false));
-    effect(id, op, target, p);
-  }
-  void scalar() {
-    field("value", "number", num(0));
-    targets["value"] = "number";
-    input("number_view", "number_input", "value");
-    label("number_result", "value", "Value");
-  }
-  void percentage(const std::string &name) {
-    for (auto n : {"amount", "rate", "part", "total"})
-      field(n, "number", num(0));
-    auto def = domain["concepts"][name];
-    input("amount_input", "number_input", "amount", def["base_label"].text());
-    input("rate_input", "number_input", "rate", title(name) + " percentage");
-    label("part_output", "part", title(name) + " amount");
-    label("total_output", "total", "Total");
-    auto sign = def["total_sign"];
-    ensure("calculate", "100 * next.part == prev.amount * prev.rate and "
-                        "next.total == prev.amount " +
-                            std::string(sign.integer() == 1 ? "+" : "-") +
-                            " next.part");
-    bindings.push(obj({{"operation", str("percentage_of")},
-                       {"base", str("amount")},
-                       {"rate", str("rate")},
-                       {"output", str("part")},
-                       {"total_sign", sign}}));
-  }
-  void conversion(const Json &ep) {
-    Terms source, target, linked{arg(ep, "ARG0"), arg(ep, "ARG1")};
-    auto units = [&](const std::string &v, Terms &out) {
-      for (auto &n : g.terms(v))
-        if (domain["units"].contains(n))
-          out.insert(n);
-    };
-    for (auto e : g.eps.items())
-      if (linked.contains(arg(e, "ARG1"))) {
-        auto w = lemma(predicate(e));
-        if (w == "from" || w == "to")
-          units(arg(e, "ARG2"), w == "from" ? source : target);
-      }
-    if (source.empty())
-      units(arg(ep, "ARG2"), source);
-    if (source.size() != 1 || target.size() != 1)
-      throw Ambiguous("Specify one source and one target unit");
-    auto from = *source.begin(), to = *target.begin();
-    auto a = domain["units"][from], b = domain["units"][to];
-    if (a["dimension"].text() != b["dimension"].text())
-      throw Unsupported("Conversion dimensions differ");
-    using Rat = std::pair<int64_t, int64_t>;
-    auto ratio = [](const Json &v) -> Rat {
-      auto s = v.text();
-      auto slash = s.find('/');
-      return {std::stoll(s.substr(0, slash)),
-              slash == s.npos ? 1 : std::stoll(s.substr(slash + 1))};
-    };
-    auto [an, ad] = ratio(a["scale"]);
-    auto [bn, bd] = ratio(b["scale"]);
-    auto [ao, ap] = ratio(a["offset"]);
-    auto [bo, bp] = ratio(b["offset"]);
-    auto norm = [](int64_t &n, int64_t &d) {
-      auto gcd = std::gcd(n, d);
-      n /= gcd;
-      d /= gcd;
-    };
-    norm(an, ad);
-    norm(bn, bd);
-    int64_t off = ao * bp - bo * ap, den = ap * bp;
-    norm(off, den);
-    auto l = std::lcm(std::lcm(ad, bd), den);
-    field("input_value", "number", num(0));
-    field("output_value", "number", num(double(off * bd) / (den * bn)));
-    input("source_input", "number_input", "input_value", a["label"].text());
-    label("converted_output", "output_value", b["label"].text());
-    ensure("convert",
-           std::to_string(bn * (l / bd)) + " * next.output_value == " +
-               std::to_string(an * (l / ad)) + " * prev.input_value + (" +
-               std::to_string(off * (l / den)) + ")");
-    bindings.push(obj({{"operation", str("convert")},
-                       {"source_unit", str(from)},
-                       {"target_unit", str(to)},
-                       {"dimension", a["dimension"]}}));
-  }
-  Json result() {
-    return BehaviourSpec::from(
-               obj({{"schema", Json::number(2)},
-                    {"program", str("application")},
-                    {"title", str("Application")},
-                    {"state", state},
-                    {"views", views},
-                    {"actions", actions},
-                    {"events", events},
-                    {"interpretation",
-                     obj({{"method",
-                           str("ERG semantic frames, typed role binding and "
-                               "explicit domain definitions")},
-                          {"bindings", bindings},
-                          {"defaults", defaults}})}}))
-        .data();
-  }
-};
-Json ground(const Graph &g, const Json &domain, const Json &v) {
+  if (source.empty())
+    units(arg(ep, "ARG2"), source);
+  if (source.size() != 1 || target.size() != 1)
+    throw Ambiguous("Specify one source and one target unit");
+  auto from = *source.begin(), to = *target.begin();
+  return {from, to};
+}
+Json ground(const Graph &g, const Json &domain, const Json &v,
+            BehaviourRequirements &r) {
   auto &words = g.words;
   Terms parts;
   std::vector<Json> conversions;
@@ -353,13 +112,32 @@ Json ground(const Graph &g, const Json &domain, const Json &v) {
   }
   if (!creation)
     throw Unsupported("A construction request needs an explicit creation goal");
-  if (any(words, {"without", "only", "no"}))
-    throw Unsupported("Scoped exclusions need an explicit supported contract");
+  auto sources_for = [&](const Terms &terms) {
+    Json sources = Json::array();
+    for (auto ep : g.eps.items())
+      if (terms.contains(word(ep)))
+        sources.push(evidence(ep));
+    return sources;
+  };
+  for (auto ep : g.eps.items())
+    if (in(v["CREATE"], word(ep))) {
+      r.add(Intent{}, "creation_predicate", arr({evidence(ep)}));
+      break;
+    }
   for (auto e : g.eps.items()) {
     auto p = predicate(e), w = word(e);
-    if (p == "neg")
-      throw Unsupported(
-          "Scoped exclusions need an explicit supported contract");
+    if (p == "neg" || any({w}, {"without", "only", "no"})) {
+      r.add(
+          ScopeConstraint{
+              "Scoped exclusions need an explicit supported contract"},
+          "scope_operator", arr({evidence(e)}), Status::excluded);
+      return lower(r, domain, v);
+    }
+  }
+  for (auto e : g.eps.items()) {
+    auto p = predicate(e), w = word(e);
+    if (lemma(p) == "at")
+      continue; // Every such relation must bind below.
     if (lemma(p) == "operation" && e["lexical_kind"].text() != "action")
       throw Unsupported("An operation label needs an explicit lexical meaning");
     if (p.ends_with("_q") || p == "card" || in(v["STRUCTURAL"], p) ||
@@ -378,125 +156,168 @@ Json ground(const Graph &g, const Json &domain, const Json &v) {
     if (!known)
       throw Unsupported("No semantic frame is defined for " + p);
   }
-  Requirements r{g, domain, v};
   if (parts.size() > 1 || conversions.size() > 1)
     throw Ambiguous("Specify separate relations");
   if (!parts.empty())
-    r.percentage(*parts.begin());
-  if (!conversions.empty())
-    r.conversion(conversions.front());
-  bool coll = any(words, {"list", "collection"}),
-       clock = any(words, {"elapsed_time", "timer", "clock"}),
-       scalar = any(words, {"counter", "number", "value"}) && parts.empty() &&
-                conversions.empty();
-  if (coll)
-    r.collection();
+    r.add(Percentage{*parts.begin()}, "percentage_relation",
+          sources_for(parts));
+  if (!conversions.empty()) {
+    auto sources = arr({evidence(conversions.front())});
+    auto units = unit_roles(g, domain, conversions.front(), sources);
+    for (const auto &e : sources_for({units.from, units.to}).items())
+      sources.push(e);
+    r.add(units, "conversion_roles", sources);
+  }
+  const Terms collection_words{"list", "collection"},
+      clock_words{"elapsed_time", "timer", "clock"},
+      counter_words{"counter", "number", "value"},
+      document_words{"text",      "document", "editor", "word",
+                     "character", "editable", "line"};
+  auto has = [&](const Terms &terms) {
+    return std::any_of(terms.begin(), terms.end(),
+                       [&](const auto &w) { return words.contains(w); });
+  };
+  bool coll = has(collection_words), clock = has(clock_words),
+       scalar = has(counter_words) && parts.empty() && conversions.empty();
+  if (coll) {
+    auto fields = obj({{"text", str("text")}}),
+         sources = sources_for(collection_words);
+    for (auto &w : words) {
+      auto declared = domain["concepts"][w]["fields"];
+      if (declared.size())
+        for (auto ep : sources_for({w}).items())
+          sources.push(ep);
+      for (auto &[n, t] : declared.members())
+        fields.set(n, t);
+    }
+    r.add(StateRequirement{Entity::collection, false, false, fields},
+          "record_collection", sources);
+  }
   if (clock)
-    r.clock();
+    r.add(StateRequirement{Entity::clock}, "elapsed_time",
+          sources_for(clock_words));
   if (any(words,
           {"text", "document", "editor", "word", "character", "editable"}) ||
-      (words.contains("line") && words.contains("count")))
-    r.document(words.contains("editor"),
-               any(words, {"area", "document", "editor"}));
+      (words.contains("line") && words.contains("count"))) {
+    bool editor = words.contains("editor");
+    r.add(StateRequirement{Entity::document, editor,
+                           any(words, {"area", "document", "editor"})},
+          "editable_text", sources_for(document_words));
+    if (editor)
+      r.add(DefaultControls{Entity::document}, "editor_controls",
+            sources_for({"editor"}), Status::justified_default);
+  }
   if (scalar)
-    r.scalar();
-  for (auto e : g.eps.items())
-    if (predicate(e).find("_n_") != std::string::npos &&
-        lemma(predicate(e)) == "count") {
-      auto t = g.terms(arg(e, "ARG0"));
-      std::vector<std::pair<std::string, std::string>> ops;
-      for (auto [noun, op, caption] : {std::tuple{"word", "words", "Words"},
-                                       {"character", "chars", "Characters"},
-                                       {"line", "lines", "Lines"}})
-        if (t.contains(noun))
-          ops.emplace_back(op, caption);
-      if (ops.size() == 1) {
-        auto [op, caption] = ops.front();
-        auto target = r.bind(op, {"text"});
-        r.label(op + "_view", op + "(" + target + ")", caption);
-      } else if (coll && any(t, {"item", "list", "collection", "task"}))
-        r.bind("records_count", {"records"}, e);
-      else
-        throw Unsupported("The count has no uniquely bound quantity");
-    }
-  bool explicit_number = false, explicit_coll = false, explicit_clock = false;
-  std::set<size_t> used;
-  for (auto e : g.eps.items()) {
-    auto w = word(e), p = predicate(e);
-    if (e["lexical_kind"].text() != "action" && p.find("_v_") == p.npos)
+    r.add(StateRequirement{Entity::counter}, "numeric_state",
+          sources_for(counter_words));
+  for (auto ep : g.eps.items()) {
+    if (predicate(ep).find("_n_") == std::string::npos ||
+        lemma(predicate(ep)) != "count")
       continue;
-    if (in(v["CREATE"], w) || in(v["FUNCTION_WORDS"], w) || w == "convert" ||
+    auto nouns = g.terms(arg(ep, "ARG0"));
+    std::vector<std::string> metrics;
+    for (auto [noun, op] : {std::pair{"word", "words"},
+                            {"character", "chars"},
+                            {"line", "lines"}})
+      if (nouns.contains(noun))
+        metrics.emplace_back(op);
+    if (metrics.size() == 1) {
+      auto target = r.bind(g, ep, metrics.front(), {Entity::document});
+      auto sources = arr({evidence(ep)});
+      for (auto e : g.eps.items())
+        if (predicate(e) == "compound" && arg(e, "ARG1") == arg(ep, "ARG0"))
+          sources.push(evidence(e));
+      r.add(Metric{target, metrics.front()}, "count_quantity", sources);
+    } else if (coll && any(nouns, {"item", "list", "collection", "task"})) {
+      r.add(Metric{Entity::collection, "records_count"}, "count_records",
+            arr({evidence(ep)}));
+    } else
+      throw Unsupported("The count has no uniquely bound quantity");
+  }
+  std::set<Entity> with_controls;
+  std::set<size_t> used, prepositions;
+  bool explicit_initial = false;
+  for (auto ep : g.eps.items()) {
+    auto w = word(ep), p = predicate(ep);
+    if ((ep["lexical_kind"].text() != "action" && p.find("_v_") == p.npos) ||
+        in(v["CREATE"], w) || in(v["FUNCTION_WORDS"], w) || w == "convert" ||
         w == "calculate")
       continue;
-    if (v["TEXT_OPS"].contains(w)) {
-      auto op = v["TEXT_OPS"][w].text(), target = r.bind(op, {"text"}, e);
-      r.action(
-          op, obj({{"assign", obj({{target, str(op + "(" + target + ")")}})}}));
-    } else if (v["IO"].contains(w)) {
-      auto op = v["IO"][w].text(), target = r.bind(op, {"text", "records"}, e);
-      r.effect(op, op, target);
-    } else if (coll && any({w}, {"append", "add", "insert"})) {
-      r.append(r.bind("append", {"records"}, e));
-      explicit_coll = true;
-    } else if (coll && any({w}, {"remove", "delete"})) {
-      r.effect("remove", "remove_record", r.bind("remove", {"records"}, e),
-               obj({{"selection", str("selection")}}));
-      explicit_coll = true;
-    } else if (clock && any({w}, {"start", "stop", "pause", "reset"})) {
-      auto target = r.bind(
-          w, w == "reset" && scalar ? Terms{"clock", "number"} : Terms{"clock"},
-          e);
-      if (r.targets[target] == "number") {
-        r.ensure("reset", "next." + target + " == 0");
-        explicit_number = true;
-      } else {
-        auto op = w == "pause" ? "stop" : w;
-        r.clock_action(op, op + "_clock", target);
-        explicit_clock = true;
+    auto sources = arr({evidence(ep)});
+    if (scalar && w == "start" && p.find("_v_") != p.npos &&
+        any(g.terms(arg(ep, "ARG1")), {"counter", "number", "value"})) {
+      if (auto value =
+              linked_amount(g, ep, "at", used, sources, prepositions)) {
+        r.add(InitialValue{*value}, "start_at_amount", sources);
+        explicit_initial = true;
+        continue;
       }
-    } else if (v["MATH_OPS"].contains(w)) {
-      auto target = r.bind(w, {"number"}, e);
+    }
+    auto add_action = [&](ActionKind kind, const std::string &verb,
+                          const std::string &op,
+                          const std::set<Entity> &types) {
+      auto target = r.bind(g, ep, verb, types);
+      r.add(Action{target, kind, verb, op}, "action_target", sources);
+      if (kind == ActionKind::append || kind == ActionKind::remove ||
+          kind == ActionKind::clock)
+        with_controls.insert(target);
+    };
+    if (v["TEXT_OPS"].contains(w)) {
+      auto op = v["TEXT_OPS"][w].text();
+      add_action(ActionKind::transform, op, op, {Entity::document});
+    } else if (v["IO"].contains(w)) {
+      auto op = v["IO"][w].text();
+      add_action(ActionKind::io, op, op,
+                 {Entity::document, Entity::collection});
+    } else if (coll && any({w}, {"append", "add", "insert"}))
+      add_action(ActionKind::append, "append", "append", {Entity::collection});
+    else if (coll && any({w}, {"remove", "delete"}))
+      add_action(ActionKind::remove, "remove", "remove", {Entity::collection});
+    else if (clock && any({w}, {"start", "stop", "pause", "reset"}) &&
+             (w != "reset" || !scalar ||
+              r.bind(g, ep, w, {Entity::clock, Entity::counter}) ==
+                  Entity::clock))
+      add_action(ActionKind::clock, w, w == "pause" ? "stop" : w,
+                 {Entity::clock});
+    else if (v["MATH_OPS"].contains(w)) {
+      auto target = r.bind(g, ep, w, {Entity::counter});
       auto math = v["MATH_OPS"][w];
-      auto op = math.at(0).text(), value = operand(g, e, used, math.at(1));
-      auto name = any({w}, {"increment", "increase"})   ? "increment"
-                  : any({w}, {"decrement", "decrease"}) ? "decrement"
-                                                        : w;
-      r.ensure(name,
-               "next." + target + " == " +
-                   (op == "reset" ? value
-                                  : "prev." + target + " " + op + " " + value));
-      explicit_number = true;
+      auto amount = linked_amount(g, ep, "by", used, sources, prepositions);
+      if (!amount && math.at(1).null())
+        throw Unsupported("The action needs an explicit numeric operand");
+      auto value = amount ? *amount : Json::parse(math.at(1).text()).real();
+      r.add(Change{{target, ActionKind::numeric, w, math.at(0).text()},
+                   value,
+                   amount ? Status::explicit_ : Status::justified_default},
+            "numeric_transition", sources);
+      with_controls.insert(target);
     } else
       throw Unsupported("No action frame is defined for " + p);
   }
-  if (scalar && !explicit_number) {
-    r.ensure("increment", "next.value == prev.value + 1");
-    r.ensure("decrement", "next.value == prev.value - 1");
-    r.ensure("reset", "next.value == 0");
-    r.defaults.push(str("A numeric counter supplies increment/decrement/reset "
-                        "when no change action is specified."));
+  if (scalar && !explicit_initial)
+    r.add(InitialValue{0}, "counter_initial_zero", sources_for(counter_words),
+          Status::justified_default);
+  for (auto [entity, terms] : {std::pair{Entity::counter, counter_words},
+                               {Entity::clock, clock_words},
+                               {Entity::collection, collection_words}})
+    if (r.entities.contains(entity) && !with_controls.contains(entity))
+      r.add(DefaultControls{entity}, "default_controls", sources_for(terms),
+            Status::justified_default);
+  for (size_t i = 0; i < g.eps.size(); ++i) {
+    auto ep = g.eps.at(i);
+    if ((predicate(ep) == "card" && !used.contains(i)) ||
+        (any({lemma(predicate(ep))}, {"at", "by"}) &&
+         !prepositions.contains(i)))
+      r.add(ScopeConstraint{"A numeric requirement has no bound role"},
+            "unbound_numeric_role", arr({evidence(ep)}), Status::unresolved);
   }
-  if (clock && !explicit_clock) {
-    for (std::string op : {"start", "stop", "reset"})
-      r.clock_action(op, op + "_clock", "elapsed");
-    r.defaults.push(
-        str("Elapsed-time measurement supplies start/stop/reset controls."));
-  }
-  if (coll && !explicit_coll) {
-    r.append("records");
-    r.effect("remove", "remove_record", "records",
-             obj({{"selection", str("selection")}}));
-    r.defaults.push(str("Editable collections supply insert/remove controls."));
-  }
-  for (size_t i = 0; i < g.eps.size(); ++i)
-    if (predicate(g.eps.at(i)) == "card" && !used.contains(i))
-      throw Unsupported("A numeric requirement has no bound role");
-  return r.result();
+  return lower(r, domain, v);
 }
 } // namespace
 } // namespace unllm::native::frames
 namespace unllm::native {
-Json ground_program(const Meaning &m, const std::filesystem::path &root, Json *trace) {
+Json ground_program(const Meaning &m, const std::filesystem::path &root,
+                    Json *trace, Json *requirement_readings) {
   using namespace frames;
   if (m.act != "synthesis")
     throw Unsupported("A programming request needs a creation goal");
@@ -516,9 +337,10 @@ Json ground_program(const Meaning &m, const std::filesystem::path &root, Json *t
   std::map<std::string, Json> choices;
   std::set<std::string> rejections, clarifications;
   for (auto eps : analyses.items()) {
+    BehaviourRequirements requirements;
     try {
-      auto spec =
-          gui_request ? ground(Graph(eps), domain, v) : stream_spec(eps, v);
+      auto spec = gui_request ? ground(Graph(eps), domain, v, requirements)
+                              : stream_spec(eps, v);
       auto body = spec.clone();
       body.erase("interpretation");
       if (body.contains("actions")) {
@@ -533,30 +355,41 @@ Json ground_program(const Meaning &m, const std::filesystem::path &root, Json *t
         body.set("actions", sorted);
       }
       auto identity = digest(body);
-      choices.try_emplace(identity, spec);
-      if (trace) trace->push(Json::string("contract " + identity));
+      auto [choice, inserted] = choices.try_emplace(identity, spec);
+      if (inserted && !requirements.nodes.empty())
+        choice->second["interpretation"].set("requirements",
+                                             requirements.describe());
+      if (trace)
+        trace->push(Json::string("contract " + identity));
     } catch (const Unsupported &e) {
-      if (trace) trace->push(Json::string(std::string("unsupported: ") + e.what()));
+      if (trace)
+        trace->push(Json::string(std::string("unsupported: ") + e.what()));
       rejections.insert(e.what());
     } catch (const Ambiguous &e) {
-      if (trace) trace->push(Json::string(std::string("ambiguous: ") + e.what()));
+      if (trace)
+        trace->push(Json::string(std::string("ambiguous: ") + e.what()));
       clarifications.insert(e.what());
     }
+    if (requirement_readings)
+      requirement_readings->push(requirements.describe());
   }
   if (choices.empty()) {
     auto reasons = rejections;
     reasons.insert(clarifications.begin(), clarifications.end());
     std::string detail;
     for (const auto &reason : reasons) {
-      if (!detail.empty()) detail += " | ";
+      if (!detail.empty())
+        detail += " | ";
       detail += reason;
     }
     if (m.exhausted_program_readings)
       throw ResourceLimit("No complete program contract among the first " +
                           std::to_string(m.exhausted_program_readings) +
                           " grammatical readings. Observed reasons: " + detail);
-    if (rejections.empty() && !clarifications.empty()) throw Ambiguous(detail);
-    if (!detail.empty()) throw Unsupported(detail);
+    if (rejections.empty() && !clarifications.empty())
+      throw Ambiguous(detail);
+    if (!detail.empty())
+      throw Unsupported(detail);
     throw Unsupported("No supported program interpretation");
   }
   if (choices.size() != 1)

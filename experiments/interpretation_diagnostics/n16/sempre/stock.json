@@ -1,0 +1,250 @@
+[
+  {
+    "id": 1,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _end_n_of",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _end_n_of",
+      "specification": null
+    }
+  },
+  {
+    "id": 2,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _end_n_of",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _end_n_of",
+      "specification": null
+    }
+  },
+  {
+    "id": 3,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _standard_a_1 | Unsupported programming concept: _standard_n_1",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _standard_a_1 | Unsupported programming concept: _standard_n_1",
+      "specification": null
+    }
+  },
+  {
+    "id": 4,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _take_v_1",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _take_v_1",
+      "specification": null
+    }
+  },
+  {
+    "id": 5,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1",
+      "specification": null
+    }
+  },
+  {
+    "id": 6,
+    "cpp": {
+      "status": "validated",
+      "text": "Generated and validated cpp program: /home/whisper/repo-work/unllm-upgrade/.state/n16-bridge-8zw8jB/stock/job-qWN37l/program.cpp",
+      "specification": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "map",
+            "expr": {
+              "op": "multiply",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 2.0
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          }
+        ],
+        "output": "sum",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": [
+          "Input is printable ASCII and tabs; numbers are finite decimals within +/-1e15.",
+          "Records use key TAB number. Results are written to standard output.",
+          "A single optional filename may replace standard input."
+        ]
+      }
+    },
+    "python": {
+      "status": "validated",
+      "text": "Generated and validated python program: /home/whisper/repo-work/unllm-upgrade/.state/n16-bridge-8zw8jB/stock/job-c0XqRE/program.py",
+      "specification": {
+        "schema": 1,
+        "input": "numbers",
+        "steps": [
+          {
+            "op": "map",
+            "expr": {
+              "op": "multiply",
+              "args": [
+                {
+                  "op": "variable",
+                  "args": [],
+                  "value": null
+                },
+                {
+                  "op": "constant",
+                  "args": [],
+                  "value": 2.0
+                }
+              ],
+              "value": null
+            },
+            "descending": false
+          }
+        ],
+        "output": "sum",
+        "invalid": "error",
+        "name": "process_data",
+        "assumptions": [
+          "Input is printable ASCII and tabs; numbers are finite decimals within +/-1e15.",
+          "Records use key TAB number. Results are written to standard output.",
+          "A single optional filename may replace standard input."
+        ]
+      }
+    }
+  },
+  {
+    "id": 7,
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _discard_n_1 | Unsupported programming concept: _discard_v_1",
+      "specification": null
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _discard_n_1 | Unsupported programming concept: _discard_v_1",
+      "specification": null
+    }
+  },
+  {
+    "id": 8,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _sequence_n_of",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _sequence_n_of",
+      "specification": null
+    }
+  },
+  {
+    "id": 9,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _do_v_1 | Unsupported programming concept: neg",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _do_v_1 | Unsupported programming concept: neg",
+      "specification": null
+    }
+  },
+  {
+    "id": 10,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _only_a_1 | Unsupported programming concept: _only_x_deg",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _only_a_1 | Unsupported programming concept: _only_x_deg",
+      "specification": null
+    }
+  },
+  {
+    "id": 11,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _whitespace/nn_u_unknown",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _whitespace/nn_u_unknown",
+      "specification": null
+    }
+  },
+  {
+    "id": 12,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _only_a_1 | Unsupported programming concept: _only_x_deg",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _only_a_1 | Unsupported programming concept: _only_x_deg",
+      "specification": null
+    }
+  },
+  {
+    "id": 13,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _unless_p_1 | Unsupported programming concept: _unless_x",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _unless_p_1 | Unsupported programming concept: _unless_x",
+      "specification": null
+    }
+  },
+  {
+    "id": 14,
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _divide_n_1 | Unsupported programming concept: _divide_v_1 | Unsupported programming concept: _divide_v_cause",
+      "specification": null
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _divide_n_1 | Unsupported programming concept: _divide_v_1 | Unsupported programming concept: _divide_v_cause",
+      "specification": null
+    }
+  }
+]

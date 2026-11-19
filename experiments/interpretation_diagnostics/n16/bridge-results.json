@@ -1,0 +1,110 @@
+[
+  {
+    "task": "count_zero",
+    "cpp": {
+      "status": "validated",
+      "unique_candidates": 290,
+      "source_sha256": "618cb73573278a7dd74b15de7621c1f4b4e9bdaab34a141817e9be97f178bdac",
+      "reason": null
+    },
+    "python": {
+      "status": "validated",
+      "unique_candidates": 290,
+      "source_sha256": "c9a977b47c1dfca62b330d2f4183110e34b2c241a72688cfcdc68204a16d60e6",
+      "reason": null
+    },
+    "reserved": {
+      "examples": 10,
+      "cpp": "618cb73573278a7dd74b15de7621c1f4b4e9bdaab34a141817e9be97f178bdac",
+      "python": "c9a977b47c1dfca62b330d2f4183110e34b2c241a72688cfcdc68204a16d60e6"
+    }
+  },
+  {
+    "task": "floor_zero",
+    "cpp": {
+      "status": "exhausted",
+      "unique_candidates": 2020,
+      "source_sha256": null,
+      "reason": "bounded grammar exhausted"
+    },
+    "python": {
+      "status": "exhausted",
+      "unique_candidates": 2020,
+      "source_sha256": null,
+      "reason": "bounded grammar exhausted"
+    },
+    "reserved": null
+  },
+  {
+    "task": "negative_prefix",
+    "cpp": {
+      "status": "validated",
+      "unique_candidates": 553,
+      "source_sha256": "24910f69cbc4125768e3c47c4c6d2f9ea2b89827af9d7c31271648da0ac27e5a",
+      "reason": null
+    },
+    "python": {
+      "status": "validated",
+      "unique_candidates": 553,
+      "source_sha256": "2fe09b4ad453d069b45d8851fcc246aa6df76fe8db9f0f76e19e0ae2189ad3df",
+      "reason": null
+    },
+    "reserved": {
+      "examples": 10,
+      "cpp": "24910f69cbc4125768e3c47c4c6d2f9ea2b89827af9d7c31271648da0ac27e5a",
+      "python": "2fe09b4ad453d069b45d8851fcc246aa6df76fe8db9f0f76e19e0ae2189ad3df"
+    }
+  },
+  {
+    "task": "offset",
+    "cpp": {
+      "status": "validated",
+      "unique_candidates": 12,
+      "source_sha256": "8a1cc2118ce928aea1f592d06ad0d6a04007a67ffef5f97d3ef4e0915d1824b0",
+      "reason": null
+    },
+    "python": {
+      "status": "validated",
+      "unique_candidates": 12,
+      "source_sha256": "41f75c640cdca647ad40c9be28be7d2a468f80fe3e6ebf99c89602a3d67a0e5c",
+      "reason": null
+    },
+    "reserved": {
+      "examples": 10,
+      "cpp": "8a1cc2118ce928aea1f592d06ad0d6a04007a67ffef5f97d3ef4e0915d1824b0",
+      "python": "41f75c640cdca647ad40c9be28be7d2a468f80fe3e6ebf99c89602a3d67a0e5c"
+    }
+  },
+  {
+    "task": "skip_repeats",
+    "cpp": {
+      "status": "exhausted",
+      "unique_candidates": 2020,
+      "source_sha256": null,
+      "reason": "bounded grammar exhausted"
+    },
+    "python": {
+      "status": "exhausted",
+      "unique_candidates": 2020,
+      "source_sha256": null,
+      "reason": "bounded grammar exhausted"
+    },
+    "reserved": null
+  },
+  {
+    "task": "weighted_sum",
+    "cpp": {
+      "status": "exhausted",
+      "unique_candidates": 963,
+      "source_sha256": null,
+      "reason": "bounded grammar exhausted"
+    },
+    "python": {
+      "status": "exhausted",
+      "unique_candidates": 963,
+      "source_sha256": null,
+      "reason": "bounded grammar exhausted"
+    },
+    "reserved": null
+  }
+]

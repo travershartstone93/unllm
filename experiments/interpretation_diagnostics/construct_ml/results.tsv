@@ -1,0 +1,58 @@
+# Thresholds in tenths (-1 = off): svm 6, nearest 6
+split	expected	lookup	lookup_svm	lookup_nearest	svm_alone	request
+cal	loop	-	-	-	-	Walk through the input values one at a time.
+cal	function	-	-	-	-	Define a helper taking two dates.
+cal	print	-	-	-	-	Echo the result on the terminal.
+cal	branch	-	branch	branch	branch	Choose between two branches based on a status code.
+cal	function,loop	-	-	-	-	Write a callable that traverses the values item by item.
+cal	loop,print	loop,print	loop,print	loop,print	-	Repeat the operation and print each value.
+cal	branch,print	branch,print	branch,print	branch,print	-	Use an if statement to display a warning.
+cal	branch,function	function	function	function	-	Define a function that contains an if clause.
+cal	loop	loop	loop	loop	-	Use a for loop to sum the values.
+cal	print	-	print	print	print	Send the answer to stdout.
+cal	-	-	-	-	-	Describe the difference between a while loop and recursion.
+cal	-	-	-	-	-	Calculate the average of the collection.
+cal	-	-	-	-	-	Write the answer to a terminal log file on disk.
+cal	-	branch	branch	branch	-	Return the word conditional.
+cal	-	-	-	-	-	Tell me whether a subroutine can be recursive.
+cal	-	-	-	-	-	Convert a string of digits to an integer.
+held	loop	-	-	-	-	Cycle through the records in order.
+held	function	-	-	-	-	Declare a callable taking an array of prices.
+held	print	-	print	print	print	Echo the total on the screen.
+held	branch	-	-	branch	-	Choose between two branches according to the sign.
+held	loop	-	-	-	-	Visit every entry one at a time.
+held	function	-	-	-	-	Package the calculation as a named procedure.
+held	print	-	-	-	-	Send a single line to stdout.
+held	branch	-	-	branch	-	Check the flag and take one path on success and another on failure.
+held	loop,print	-	-	-	-	Traverse the values and echo each one on the terminal.
+held	function,loop	-	-	-	-	Write a helper that visits every item one by one.
+held	branch,function	-	-	-	-	Create a named procedure with a two way decision.
+held	function,print	-	-	-	-	Create a callable that prints the result.
+held	branch,loop	branch,loop	branch,loop	branch,loop	-	Make a for loop containing an if statement.
+held	branch,loop	branch,loop	branch,loop	branch,loop	-	Make an if statement containing a for loop.
+held	branch,function,loop	branch,function,loop	branch,function,loop	branch,function,loop	-	Define a method with a conditional inside a while loop.
+held	function,loop,print	function,loop,print	function,loop,print	function,loop,print	-	Put the values on standard output one at a time using a for loop inside a function.
+held	branch,print	branch,print	branch,print	branch,print	-	If the input is empty display a warning, otherwise display its size.
+held	loop,print	loop	loop	loop	-	For each value, send a line to stdout.
+held	branch,loop,print	branch,print	branch,print	branch,print	-	Walk through each entry and use a conditional to print its name.
+held	function	function	function	function	-	Make a function that returns a value without printing it.
+held	-	-	-	-	-	Explain how a loop sends characters to stdout.
+held	-	loop	loop	loop	-	Return the length of the string "for loop".
+held	-	function	function	function	-	Remove every occurrence of "function" from a string.
+held	-	-	-	-	-	Find the sum of all positive integers.
+held	-	-	-	-	-	Save a line of output in a text file.
+held	-	-	-	-	-	Given a list of terminal names, return them in sorted order.
+held	-	-	-	-	-	Count the positive numbers in the first five entries.
+held	-	-	-	-	-	Count the first five positive numbers.
+held	-	-	-	-	-	Which branch of a decision tree gets visited first?
+held	-	-	-	-	-	Produce the numerical difference between the two values.
+held	-	-	-	-	-	Compute the repeating decimal representation of a fraction.
+held	-	function	function	function	-	Read the name of a method from the configuration file.
+audit	loop	loop	loop	loop	loop	Make a for loop
+audit	branch	branch	branch	branch	-	Make an if statement.
+audit	function	function	function	function	function	Make a function.
+audit	branch,loop	branch,loop	branch,loop	branch,loop	-	Make a for loop with an if statement inside it.
+audit	loop,print	loop	loop	loop	-	Write a for loop that prints hello three times.
+audit	branch	branch	branch	branch	-	Write an if statement that returns one if a number is positive and zero otherwise.
+audit	function	function	function	function	-	Write a function that adds two integers.
+audit	function,loop	function	function	function	-	Write a function that loops over the input integers and counts the ones greater than zero.

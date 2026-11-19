@@ -1,0 +1,16 @@
+# penalty=4 fit_hits=6 margins=-1,1
+expected	raw	adjusted	original_accepted	adjusted_accepted	present	request
+lines strip reverse values	lines strip reverse strip values	lines strip reverse values	-	lines strip reverse values	1	Read text from standard input, trim whitespace, reverse the sequence and print the remaining lines.
+lines unique lower values	lines unique lower strip values	lines unique lower values	-	lines unique lower values	1	Take lines from standard input, discard duplicate entries, convert to lowercase and output each entry.
+lines reverse unique count	lines reverse unique strip count	lines reverse unique count	-	lines reverse unique count	1	Read text lines, reverse their order, deduplicate the rows and print the count.
+lines strip lower values	lines strip unique strip lower reject reject strip reject values	lines strip unique lower reject strip reject values	-	-	0	Clean the ends of the input lines, lowercase the text, and display the lines.
+numbers unique double sum	numbers unique double unique sum	numbers unique double sum	-	numbers unique double sum	1	Take numeric lines, remove duplicates, double each value and report the total.
+numbers negative reverse values	numbers reject negative reverse values	numbers reject negative reverse values	-	-	0	Read numbers, filter for values below zero, reverse all rows and print each result.
+numbers double unique count	numbers double reject unique count	numbers double unique count	-	numbers double unique count	1	Read integers from standard input, double the numbers, discard duplicate entries and output how many remain.
+numbers unique negative values	numbers negative double unique reject negative sum	numbers negative double unique reject negative sum	-	-	0	From the incoming integers keep each distinct value once, then give back the negative ones.
+-	lines reject lower strip values	lines reject lower values	-	-	0	Read text lines, do not convert to lowercase, and print each result.
+-	numbers unique reverse negative reject	numbers unique reverse reject	-	-	0	Read integers from standard input, print their sum and save them to a file.
+-	numbers double unique sum	numbers double unique sum	-	-	0	Read numbers, multiply each number by two except the first and report the total.
+-	lines reject strip values	lines reject values	-	-	0	Read one line of text at a time, remove only adjacent duplicates and print each result.
+-	lines lower reject lower reverse unique lower reject values	lines lower reverse unique lower reject values	-	-	0	Read text lines, lowercase the letters in the first line only, then output each entry.
+-	numbers reject unique unique reject negative reject	numbers reject unique reject negative reject	-	-	0	Read numbers and report the total of the values above zero.

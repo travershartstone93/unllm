@@ -1,0 +1,185 @@
+{
+  "contextual": 12,
+  "contextual_forms": {
+    "count/eq": 8,
+    "count/gt": 3,
+    "count/lt": 1
+  },
+  "executions": [
+    {
+      "passed": 13,
+      "row": 848,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 848,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 1988,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 1988,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 2478,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 2478,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 3008,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 3008,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 3570,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 3570,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 7615,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 7615,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 10018,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 10018,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 11120,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 11120,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 12164,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 12164,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 13944,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 13944,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 30036,
+      "table_answer": 1,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 30036,
+      "table_answer": 1,
+      "target": "python"
+    },
+    {
+      "passed": 13,
+      "row": 47081,
+      "table_answer": 0,
+      "target": "cpp"
+    },
+    {
+      "passed": 13,
+      "row": 47081,
+      "table_answer": 0,
+      "target": "python"
+    }
+  ],
+  "field_combinations": {
+    "aggregate_only": 2,
+    "both_fields": 33,
+    "neither_field": 12,
+    "predicate_only": 73
+  },
+  "heldout_exact_overlaps": 0,
+  "review_counts": {
+    "aggregate/no": 36,
+    "aggregate/uncertain": 49,
+    "aggregate/yes": 35,
+    "predicate/no": 4,
+    "predicate/uncertain": 10,
+    "predicate/yes": 106
+  },
+  "source_table_agreement": {
+    "count/equal": 635,
+    "sum/different": 87,
+    "sum/equal": 7,
+    "sum/sql_null": 108
+  },
+  "total_generated_executions": 312,
+  "witnesses": {
+    "empty_list_sum": 0,
+    "empty_sql_sum": null,
+    "single_column_count": 2,
+    "single_column_sum": 14,
+    "source_count": 1,
+    "source_sum": 20
+  },
+  "worker_sha256": "aa522a26cc1f8b7a085217906ebd2969de61ab724fc2bd75170cac031364a40b"
+}

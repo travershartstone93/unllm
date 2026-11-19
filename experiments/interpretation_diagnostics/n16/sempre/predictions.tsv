@@ -1,0 +1,23 @@
+split	expected	best	gap	vocabulary_covered	request
+calibration	numbers double values	numbers double reject values	0.0	true	Take numeric lines, double the numbers and print each result.
+calibration	lines strip count	lines strip count	0.0	true	Read text lines, trim whitespace and report the count.
+calibration	lines lower reverse values	lines lower reverse strip values	0.32562302266099863	true	Read text lines, lowercase each line, reverse their order and print the remaining lines.
+calibration	numbers negative sum	numbers reject negative unique sum	1.7763568394002505E-15	true	Read numbers, filter for values below zero and print the total.
+calibration	-	numbers reject count	4.440892098500626E-16	true	Read numbers, sort the numbers and print the count.
+calibration	-	lines strip unique reject	3.552713678800501E-15	true	Read text lines, strip surrounding spaces and print the median.
+calibration	-	numbers reverse values	0.0	false	Read numbers, reverse the sequence twice and print the resulting values.
+calibration	-	numbers unique double reject	0.0	false	Read numbers, discard duplicate entries and write them to disk.
+transfer	lines strip unique values	lines strip lower unique strip values	0.3212364846151239	true	Read text lines, trim the ends of each line, remove duplicates, and print each result.
+transfer	lines unique strip values	lines unique strip lower strip values	0.3212364846151239	true	Read text lines, remove duplicates, trim the ends of each line, and print each result.
+transfer	lines lower unique count	lines lower unique strip count	0.8715907251660155	true	Read lines from standard input, convert to lowercase, discard duplicate entries and print the count.
+transfer	lines reverse values	lines reverse strip values	0.10852804546810546	true	Take lines from standard input, reverse all rows, and output each entry.
+transfer	numbers negative double values	numbers negative double unique values	0.0	true	Read integers from standard input, keep the negatives, double each value and print the resulting values.
+transfer	numbers double sum	numbers double sum	0.0	true	Read numbers, multiply each number by two and output the sum.
+transfer	numbers unique sum	numbers unique sum	0.0	true	Read numbers, discard duplicate entries and report the total.
+transfer	numbers reverse unique values	numbers reverse unique values	0.0	true	Read numbers, reverse the sequence, deduplicate the rows and print each result.
+transfer	-	numbers reject reverse values	0.0	true	Read numbers, do not reverse their order, and print the resulting values.
+transfer	-	numbers reject values	0.0	true	Read numbers, remove only adjacent duplicates and print the remaining values.
+transfer	-	lines strip reject	0.0	true	Read text lines, trim whitespace and save them to a file.
+transfer	-	numbers negative reject negative sum	0.0	false	Read numbers, keep only positive values and print their sum.
+transfer	-	lines unique strip values	0.0	false	Read text lines, remove duplicates unless they are blank and print each result.
+transfer	-	numbers double values	0.0	false	Read numbers, divide by two and output each entry.

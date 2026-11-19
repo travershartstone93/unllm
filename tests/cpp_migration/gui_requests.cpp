@@ -53,7 +53,10 @@ int main(int argc, char **argv) {
         throw std::runtime_error(id + " generation: " + report["text"].text() +
                                  " " + report["validation"]["message"].text() +
                                  " " + report["validation"]["stderr"].text());
-      if (canonical(report["specification"]) != canonical(fixture["spec"]))
+      auto actual = report["specification"].clone();
+      if (product && actual["interpretation"].contains("requirements"))
+        actual["interpretation"].erase("requirements");
+      if (canonical(actual) != canonical(fixture["spec"]))
         throw std::runtime_error(id + " produced a different specification");
       fs::path job = report["job"].text(), output = job / "independent-output";
       fs::create_directory(output);

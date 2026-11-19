@@ -1,0 +1,54 @@
+numbers	read numbers
+numbers	read integers from standard input
+numbers	take numeric lines
+numbers	given the input numbers
+numbers	read one integer per line
+lines	read text lines
+lines	read one line of text at a time
+lines	take lines from standard input
+lines	given the input lines
+lines	read text from standard input
+strip	trim whitespace
+strip	strip leading and trailing spaces
+strip	trim the ends of each line
+strip	strip surrounding spaces
+lower	convert to lowercase
+lower	lowercase each line
+lower	make the letters lowercase
+lower	use lower case
+reverse	reverse their order
+reverse	reverse the sequence
+reverse	put the entries in reverse order
+reverse	reverse all rows
+unique	remove duplicates
+unique	keep only the first occurrence of each value
+unique	discard duplicate entries
+unique	deduplicate the rows
+double	double each value
+double	multiply each number by two
+double	double the numbers
+double	multiply all the values by two
+negative	keep only negative numbers
+negative	filter for values below zero
+negative	discard nonnegative values
+negative	keep the negatives
+count	print the count
+count	output how many remain
+count	print the number of remaining entries
+count	report the count
+sum	print their sum
+sum	print the total
+sum	output the sum
+sum	report the total
+values	print each result
+values	output each entry
+values	print the resulting values
+values	print the remaining lines
+reject	do not reverse their order
+reject	remove only adjacent duplicates
+reject	print the median
+reject	save them to a file
+reject	read the string literal
+reject	filter for values above zero
+reject	sort the numbers
+reject	subtract two from each value

@@ -1,0 +1,57 @@
+[
+  {
+    "request": "Write a function that counts values above a cutoff. Use a for loop with an if inside it.",
+    "status": "unsupported",
+    "result": "The grammar could not analyze this request within its budget."
+  },
+  {
+    "request": "Write a function that counts values above a cutoff.",
+    "status": "unsupported",
+    "result": "Unsupported programming concept: _above_n_1 | Unsupported programming concept: _above_p | Unsupported programming concept: _above_p_state"
+  },
+  {
+    "request": "Count the values above the cutoff.",
+    "status": "unsupported",
+    "result": "Unsupported programming concept: _above_p | Unsupported programming concept: _above_p_state"
+  },
+  {
+    "request": "How many entries exceed the limit?",
+    "status": "unsupported",
+    "result": "Unsupported programming concept: _how_x_comp | Unsupported programming concept: abstr_deg"
+  },
+  {
+    "request": "Return the number of elements greater than the threshold.",
+    "status": "unsupported",
+    "result": "Unsupported programming concept: _element_n_1"
+  },
+  {
+    "request": "Count the values.",
+    "status": "emitted",
+    "result": {
+      "schema": 1,
+      "input": "numbers",
+      "steps": [],
+      "output": "count",
+      "invalid": "error",
+      "name": "process_data",
+      "assumptions": [
+        "Input is printable ASCII and tabs; numbers are finite decimals within +/-1e15.",
+        "Records use key TAB number. Results are written to standard output.",
+        "A single optional filename may replace standard input."
+      ]
+    }
+  },
+  {
+    "request": "Make an array from 1-10",
+    "status": "emitted",
+    "result": {
+      "program": "algorithm_goal",
+      "interval": [
+        1,
+        10
+      ],
+      "map": "identity",
+      "reduce": "collect"
+    }
+  }
+]

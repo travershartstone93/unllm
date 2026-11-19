@@ -1,0 +1,14 @@
+{
+  "candidate_id": 908,
+  "definitions": [
+    "sqrt",
+    "is_prime",
+    "prime_factorization",
+    "greatest_prime_factor"
+  ],
+  "construction": 4,
+  "reserved": 77,
+  "fresh_verified": [
+    "HumanEval/77 (vector, both arms)"
+  ]
+}

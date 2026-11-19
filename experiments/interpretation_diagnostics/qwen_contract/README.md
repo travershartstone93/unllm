@@ -1,0 +1,9 @@
+# N21 · Local request interpretation
+
+Run each arm with a fresh single-turn request per item. From this directory run `python3 trial.py 4b-prose`, `python3 trial.py 4b-schema` and `python3 trial.py 1.7b-schema` against local Ollama. The runner uses requests and jsonschema. Warm each model before timing. Keep the English instructions and ten requests identical. Use think=false, temperature zero, seed 42, context 4096 and at most 256 output tokens. Score the raw answer as a single JSON object and check its meaning independently. Inspect the actual clarification question in addition to the keyword check.
+
+Cancel the HTTP stream on a non-object answer prefix, three occurrences of “but wait”, repeated sustained text, over 900 thinking characters or a 45-second deadline. A length-limited incomplete answer fails. A canceled prose response measures time to rejection, not completion latency. In the initial pilot, one answer used all 256 tokens explaining the task in the content field. We tightened the non-object prefix stop and restarted the entire comparison. The pilot is excluded from all scores.
+
+These ten authored prompts cover one supplied signature and two aggregations. Models receive the specification, input names and allowed operations. One sequential run per model and decoding mode, with prompt caching available.
+
+Ollama 0.31.2. Model IDs: 359d7dd4bcda (qwen3:4b), 8f68893c685c (qwen3:1.7b), both Q4_K_M. Median warm wall times were 0.65 s to cancel the 4B prose arm, 5.74 s to complete the 4B schema arm and 2.07 s for the smaller schema arm. Respectively 0, 10 and 10 answers passed schema validation, and 0, 7 and 0 matched all requested semantics. The smaller model added a loop to every answer; the larger model passed the first seven prompts. Both emitted ok on the two controls.

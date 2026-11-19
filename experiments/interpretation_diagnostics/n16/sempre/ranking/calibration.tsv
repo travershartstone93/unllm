@@ -1,0 +1,9 @@
+group	expected	request
+dev	lines strip reverse count	Read text lines, strip surrounding spaces, reverse their order and report the count.
+dev	numbers double reverse values	Take numeric lines, multiply each number by two, reverse the sequence and output each entry.
+dev	lines unique count	Read text from standard input, discard duplicate entries and report the count.
+dev	numbers negative count	Read integers from standard input, filter for values below zero and print the count.
+control	-	Take numeric lines, subtract two from each value and print the resulting values.
+control	-	Read one line of text at a time, do not reverse their order and output each entry.
+control	-	Read text lines and only print the second row.
+control	-	Read integers from standard input and print the median.

@@ -620,8 +620,8 @@ Meaning SemanticParser::parse(const std::string &source,
   for (auto &mrs : response.analyses) {
     try {
       auto m = translate(mrs, text, resolve, focus, programming);
-      if (linked.spans.size())
-        annotate_program(m.semantics, linked.spans);
+      if (m.act == "synthesis")
+        annotate_program(m.semantics, linked.spans, source);
       if (observe_translation) observe_translation(m.act);
       if (m.act == "synthesis")
         programs.push_back(m);

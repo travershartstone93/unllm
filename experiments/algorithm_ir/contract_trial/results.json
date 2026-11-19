@@ -1,0 +1,74 @@
+[
+  {
+    "aggregate": "count",
+    "relation": "gt",
+    "language": "python",
+    "nested": true,
+    "passed": 8,
+    "candidates": 8,
+    "source_sha256": "d0d0af4e70b91bc34773037f8f1ce0765f1a45e06b8f03658c914b7e29f78452"
+  },
+  {
+    "aggregate": "count",
+    "relation": "gt",
+    "language": "cpp",
+    "nested": true,
+    "passed": 8,
+    "candidates": 8,
+    "source_sha256": "856ce6c51d704a008205f9c29eb366856286e56efb5ba4940cf8ebbc99bcb917"
+  },
+  {
+    "aggregate": "sum",
+    "relation": "gt",
+    "language": "python",
+    "nested": true,
+    "passed": 8,
+    "candidates": 9,
+    "source_sha256": "2381dc3f9266ec8941d784be42457b374bb33b475ae61dbaca94e920b172dcb6"
+  },
+  {
+    "aggregate": "sum",
+    "relation": "gt",
+    "language": "cpp",
+    "nested": true,
+    "passed": 8,
+    "candidates": 9,
+    "source_sha256": "06ea94fb92b8024ee3faf6c9dd4b62702702abd63d84548d325fbad285150f10"
+  },
+  {
+    "aggregate": "count",
+    "relation": "ge",
+    "language": "python",
+    "nested": true,
+    "passed": 8,
+    "candidates": 5,
+    "source_sha256": "82a351cbf6fa5cdf52b3071eb1aa8e71e902e170570217ea09f4016afc94dae4"
+  },
+  {
+    "aggregate": "count",
+    "relation": "ge",
+    "language": "cpp",
+    "nested": true,
+    "passed": 8,
+    "candidates": 5,
+    "source_sha256": "d5ed279c4e161abd5d484005c709cc97df4f8e9efcd9421b8df9d274c0940cfa"
+  },
+  {
+    "aggregate": "sum",
+    "relation": "ge",
+    "language": "python",
+    "nested": true,
+    "passed": 8,
+    "candidates": 6,
+    "source_sha256": "91eb763bbd5f31660a162a0cf0c9734e237ecdea41f3f5e9dd9c4e09fc3894cb"
+  },
+  {
+    "aggregate": "sum",
+    "relation": "ge",
+    "language": "cpp",
+    "nested": true,
+    "passed": 8,
+    "candidates": 6,
+    "source_sha256": "7953e93d6811c9e8870828a060e638e1dae73e7c1ef147d45cca2a57bfcec9f8"
+  }
+]

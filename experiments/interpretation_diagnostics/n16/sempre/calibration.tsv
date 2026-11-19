@@ -1,0 +1,9 @@
+group	expected	request
+dev	numbers double values	Take numeric lines, double the numbers and print each result.
+dev	lines strip count	Read text lines, trim whitespace and report the count.
+dev	lines lower reverse values	Read text lines, lowercase each line, reverse their order and print the remaining lines.
+dev	numbers negative sum	Read numbers, filter for values below zero and print the total.
+control	-	Read numbers, sort the numbers and print the count.
+control	-	Read text lines, strip surrounding spaces and print the median.
+control	-	Read numbers, reverse the sequence twice and print the resulting values.
+control	-	Read numbers, discard duplicate entries and write them to disk.

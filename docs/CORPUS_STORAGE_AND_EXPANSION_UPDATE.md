@@ -5,6 +5,18 @@
 **Applies to:** `UPGRADE_PLAN.md`, `CPP_RUNTIME_MIGRATION_PLAN.md`, `SYMBOLIC_INTERPRETATION_PLAN.md`, `CODING_CAPABILITY_ROADMAP.md`, and `FUTURE_CODING_CAPABILITY_ROADMAP.md`  
 **Recommended repository location:** `docs/CORPUS_STORAGE_AND_EXPANSION_UPDATE.md`
 
+### Boilerplate corpus on this host, 2026-11-19
+
+The boilerplate pilot targets C++ only. Its working acquisition target is approximately 5,000 distinct, verified C++ bricks. Candidate counts, retrieval, block selection, assembly, the Big Pickle edit pass and end-to-end scoring all use that same scope. A header and source placed together count as one brick.
+
+The [C++ boilerplate pilot design](CPP_BOILERPLATE_PILOT.md) records the acquired source inventory, indexing design and proposed picker comparison. Test program selection follows inspection of the available bricks.
+
+The active catalog is `unllm/boilerplate/catalog.json` on the Timetec USB volume. It contains one verified C++ namespace/header pair from the pinned Exercism C++ archive. The original two-language B01 snapshot is preserved under `unllm/experiments/boilerplate-B01/` on that volume.
+
+Treat the legacy reference packs, their vectors, the raw code shards, and the function-retrieval indexes as separate datasets. The boilerplate catalog explicitly lists its entries. There is no recursive import from the legacy data root. The catalog is ready for a future picker; the current CLI still runs its existing engine.
+
+Keep the existing checkout for the native sandboxed [target runner](../src/symbolic/target.cpp) and the [dependency and compatibility checks](../src/symbolic/provider_plan.cpp). The latter requires supplied capabilities and its existing logic engine. The [OpenCode replay](../experiments/interpretation_diagnostics/qwen_contract/big_pickle.py) documents the Big Pickle invocation; its test-specific prompt and cancellation rules would require replacement for editing. The symbolic English interpreter and old function-search index do not implement boilerplate selection.
+
 ### Deployment on this host, 2026-11-18
 
 The Timetec USB volume now holds the installed corpus and its indexes. All 587 files matched the internal SHA-256 manifest after remount. The default shell command and the upgrade launchers use the external volume. The internal corpus is available for rollback. Future pack sources and build staging have dedicated directories on the USB drive. Initial programming sources have been acquired. Passage selection, vectorization and the native configuration work in S2 remain open. [Migration evidence, paths and rollback](../experiments/corpus_storage/s0/MIGRATION.md)

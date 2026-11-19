@@ -1,0 +1,978 @@
+[
+ {
+  "task": "m7",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m7",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m7",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m7",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m7",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m7",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m167",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m167",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m167",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m167",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m167",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m167",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m199",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m199",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m199",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m199",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m199",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m199",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m291",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m291",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m291",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m291",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m291",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m291",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m210",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m210",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m210",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m210",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m210",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m210",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m628",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m628",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m628",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m628",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m628",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "m628",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h24",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h24",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h24",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h24",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h24",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h24",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h27",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h27",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h27",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h27",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h27",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h27",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h51",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h51",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h51",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h51",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h51",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h51",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h54",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h54",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h54",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h54",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h54",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h54",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h59",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h59",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h59",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h59",
+  "method": "vector",
+  "arm": "closure",
+  "winner": [
+   "h59",
+   908,
+   "closure"
+  ],
+  "hit": true,
+  "verified": true
+ },
+ {
+  "task": "h59",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h59",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": [
+   "h59",
+   908,
+   "closure"
+  ],
+  "hit": true,
+  "verified": true
+ },
+ {
+  "task": "h92",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h92",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h92",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h92",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h92",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "h92",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupA",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupA",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupA",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupA",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupA",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupA",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupB",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupB",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupB",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupB",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupB",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "lookupB",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh10",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh10",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh10",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh10",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh10",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh10",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh18",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh18",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh18",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh18",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh18",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh18",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh39",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh39",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh39",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh39",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh39",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh39",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh60",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh60",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh60",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh60",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh60",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh60",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh77",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh77",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh77",
+  "method": "vector",
+  "arm": "direct",
+  "winner": [
+   "fresh77",
+   2381,
+   "direct"
+  ],
+  "hit": true,
+  "verified": true
+ },
+ {
+  "task": "fresh77",
+  "method": "vector",
+  "arm": "closure",
+  "winner": [
+   "fresh77",
+   2381,
+   "direct"
+  ],
+  "hit": true,
+  "verified": true
+ },
+ {
+  "task": "fresh77",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh77",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh82",
+  "method": "bm25",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh82",
+  "method": "bm25",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh82",
+  "method": "vector",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh82",
+  "method": "vector",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh82",
+  "method": "hybrid",
+  "arm": "direct",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ },
+ {
+  "task": "fresh82",
+  "method": "hybrid",
+  "arm": "closure",
+  "winner": null,
+  "hit": false,
+  "verified": false
+ }
+]

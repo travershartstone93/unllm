@@ -1,0 +1,418 @@
+[
+  {
+    "id": "B01",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 240.10498699999999
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 240.46788599999999
+    }
+  },
+  {
+    "id": "B02",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 248.300241
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 245.92121900000001
+    }
+  },
+  {
+    "id": "B03",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _character_n_1",
+      "elapsed_ms": 254.56426500000001
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _character_n_1",
+      "elapsed_ms": 242.205513
+    }
+  },
+  {
+    "id": "B04",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _give_v_1 | Unsupported programming concept: _give_v_of | Unsupported programming concept: _give_v_yield",
+      "elapsed_ms": 442.58011499999998
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _give_v_1 | Unsupported programming concept: _give_v_of | Unsupported programming concept: _give_v_yield",
+      "elapsed_ms": 438.71012400000001
+    }
+  },
+  {
+    "id": "B05",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _first_a_1 | Unsupported programming concept: _first_n_of | Unsupported programming concept: dofm | Unsupported programming concept: ord",
+      "elapsed_ms": 913.5231
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _first_a_1 | Unsupported programming concept: _first_n_of | Unsupported programming concept: dofm | Unsupported programming concept: ord",
+      "elapsed_ms": 892.81280400000003
+    }
+  },
+  {
+    "id": "B06",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1",
+      "elapsed_ms": 446.97824600000001
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1",
+      "elapsed_ms": 440.67111899999998
+    }
+  },
+  {
+    "id": "B07",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 621.613652
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 623.66078100000004
+    }
+  },
+  {
+    "id": "B08",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 605.10217799999998
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 619.06178699999998
+    }
+  },
+  {
+    "id": "C01",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _combine_n_1 | Unsupported programming concept: _combine_v_1 | Unsupported programming concept: _combine_v_cause | Unsupported programming concept: loc_nonsp",
+      "elapsed_ms": 501.51487300000002
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _combine_n_1 | Unsupported programming concept: _combine_v_1 | Unsupported programming concept: _combine_v_cause | Unsupported programming concept: loc_nonsp",
+      "elapsed_ms": 496.87874699999998
+    }
+  },
+  {
+    "id": "C02",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 302.27126500000003
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 297.38823300000001
+    }
+  },
+  {
+    "id": "C03",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 252.40953300000001
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 261.36475000000002
+    }
+  },
+  {
+    "id": "C04",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 783.16641100000004
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 787.51991899999996
+    }
+  },
+  {
+    "id": "C05",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _temperature_n_of",
+      "elapsed_ms": 693.34649000000002
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _temperature_n_of",
+      "elapsed_ms": 686.41194299999995
+    }
+  },
+  {
+    "id": "C06",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _private_a_1 | Unsupported programming concept: _private_n_1",
+      "elapsed_ms": 782.21388400000001
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _private_a_1 | Unsupported programming concept: _private_n_1",
+      "elapsed_ms": 750.92139099999997
+    }
+  },
+  {
+    "id": "C07",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _pass_n_1 | Unsupported programming concept: _pass_v_1",
+      "elapsed_ms": 154.228531
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _pass_n_1 | Unsupported programming concept: _pass_v_1",
+      "elapsed_ms": 152.52379199999999
+    }
+  },
+  {
+    "id": "C08",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _pick_v_1",
+      "elapsed_ms": 130.67680899999999
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _pick_v_1",
+      "elapsed_ms": 132.13663199999999
+    }
+  },
+  {
+    "id": "M01",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _use_v_1",
+      "elapsed_ms": 123.31652200000001
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _use_v_1",
+      "elapsed_ms": 125.755589
+    }
+  },
+  {
+    "id": "M02",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _use_v_1",
+      "elapsed_ms": 124.97062
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _use_v_1",
+      "elapsed_ms": 124.529805
+    }
+  },
+  {
+    "id": "M03",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 314.59137700000002
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 308.56586299999998
+    }
+  },
+  {
+    "id": "M04",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 776.74785199999997
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 777.91321600000003
+    }
+  },
+  {
+    "id": "M05",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 592.98437000000001
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 577.397874
+    }
+  },
+  {
+    "id": "M06",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 850.42367999999999
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 883.63443600000005
+    }
+  },
+  {
+    "id": "M07",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 832.44359399999996
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 825.62290599999994
+    }
+  },
+  {
+    "id": "M08",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 817.68909699999995
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 817.23623599999996
+    }
+  },
+  {
+    "id": "S01",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _show_v_1",
+      "elapsed_ms": 221.637642
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _show_v_1",
+      "elapsed_ms": 157.632564
+    }
+  },
+  {
+    "id": "S02",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _sketch_v_1",
+      "elapsed_ms": 206.74458100000001
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _sketch_v_1",
+      "elapsed_ms": 150.855132
+    }
+  },
+  {
+    "id": "S03",
+    "cpp": {
+      "status": "unsupported",
+      "text": "A construction request needs an explicit creation goal",
+      "elapsed_ms": 137.45495500000001
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "A construction request needs an explicit creation goal",
+      "elapsed_ms": 131.910991
+    }
+  },
+  {
+    "id": "S04",
+    "cpp": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 584.08715299999994
+    },
+    "python": {
+      "status": "resource_limit",
+      "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: A construction request needs an explicit creation goal",
+      "elapsed_ms": 593.79738999999995
+    }
+  },
+  {
+    "id": "S05",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _sketch_v_1",
+      "elapsed_ms": 116.970005
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _sketch_v_1",
+      "elapsed_ms": 118.685907
+    }
+  },
+  {
+    "id": "S06",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _sketch_v_1",
+      "elapsed_ms": 337.96580299999999
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _sketch_v_1",
+      "elapsed_ms": 348.36418500000002
+    }
+  },
+  {
+    "id": "S07",
+    "cpp": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _show_v_1",
+      "elapsed_ms": 158.09367900000001
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "Unsupported programming concept: _show_v_1",
+      "elapsed_ms": 159.036192
+    }
+  },
+  {
+    "id": "S08",
+    "cpp": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 200.21903399999999
+    },
+    "python": {
+      "status": "unsupported",
+      "text": "The grammar could not analyze this request within its budget.",
+      "elapsed_ms": 202.790414
+    }
+  }
+]

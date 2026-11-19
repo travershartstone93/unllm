@@ -1,0 +1,1 @@
+{"version":1,"functions":[{"name":"clamp","params":[["xs","ints"]],"locals":[["out","ints",["empty"]]],"body":[["each","x",["var","xs"],[["if",["lt",["var","x"],["int","0"]],[["set","out",["append",["var","out"],["int","0"]]]],[["set","out",["append",["var","out"],["var","x"]]]]]]]],"result":"ints","return":["var","out"]}]}

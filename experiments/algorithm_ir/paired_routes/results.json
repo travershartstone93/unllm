@@ -1,0 +1,121 @@
+{
+  "binary_hashes": [
+    "6660396d91395ffa9a14fad928cd4d07251c15a75670fe095834d1bee7a301b9  build/unllm",
+    "b7722c8eb8553c8b84c9b4a08d08c257f05959e9cb48b48822995d2b93c0e031  build/native/unllm_algorithm",
+    "1974b80552b005f9a7cba496855f31c67255376c68e570ed1e17a03ca38cb29a  build/native/unllm_symbolic_worker",
+    "fd4fa25f543f9e425ae85ab6c442ecccc13564328f11527ddab97cbdde8de78c  build/native/unllm_logic_worker"
+  ],
+  "tasks": [
+    {
+      "task": "offset",
+      "python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp"
+      },
+      "cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp"
+      },
+      "structured": {
+        "status": "examples_validated",
+        "unique_candidates": 12,
+        "reason": "matched supplied examples",
+        "check": {
+          "examples": 10,
+          "cpp": "8a1cc2118ce928aea1f592d06ad0d6a04007a67ffef5f97d3ef4e0915d1824b0",
+          "python": "41f75c640cdca647ad40c9be28be7d2a468f80fe3e6ebf99c89602a3d67a0e5c"
+        }
+      }
+    },
+    {
+      "task": "count_zero",
+      "python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp"
+      },
+      "cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp"
+      },
+      "structured": {
+        "status": "examples_validated",
+        "unique_candidates": 290,
+        "reason": "matched supplied examples",
+        "check": {
+          "examples": 10,
+          "cpp": "618cb73573278a7dd74b15de7621c1f4b4e9bdaab34a141817e9be97f178bdac",
+          "python": "c9a977b47c1dfca62b330d2f4183110e34b2c241a72688cfcdc68204a16d60e6"
+        }
+      }
+    },
+    {
+      "task": "negative_prefix",
+      "python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp"
+      },
+      "cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1 | Unsupported programming concept: loc_nonsp"
+      },
+      "structured": {
+        "status": "examples_validated",
+        "unique_candidates": 553,
+        "reason": "matched supplied examples",
+        "check": {
+          "examples": 10,
+          "cpp": "24910f69cbc4125768e3c47c4c6d2f9ea2b89827af9d7c31271648da0ac27e5a",
+          "python": "2fe09b4ad453d069b45d8851fcc246aa6df76fe8db9f0f76e19e0ae2189ad3df"
+        }
+      }
+    },
+    {
+      "task": "floor_zero",
+      "python": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1"
+      },
+      "cpp": {
+        "status": "resource_limit",
+        "text": "No complete program contract among the first 128 grammatical readings. Observed reasons: Unsupported programming concept: _integer_n_1"
+      },
+      "structured": {
+        "status": "exhausted",
+        "unique_candidates": 2020,
+        "reason": "bounded grammar exhausted"
+      }
+    },
+    {
+      "task": "skip_repeats",
+      "python": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking"
+      },
+      "cpp": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking"
+      },
+      "structured": {
+        "status": "exhausted",
+        "unique_candidates": 2020,
+        "reason": "bounded grammar exhausted"
+      }
+    },
+    {
+      "task": "weighted_sum",
+      "python": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking"
+      },
+      "cpp": {
+        "status": "resource_limit",
+        "text": "ACE could not complete program enumeration: timeout, ran out of time while unpacking"
+      },
+      "structured": {
+        "status": "exhausted",
+        "unique_candidates": 963,
+        "reason": "bounded grammar exhausted"
+      }
+    }
+  ]
+}

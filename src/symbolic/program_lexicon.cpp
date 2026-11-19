@@ -108,12 +108,57 @@ ProgramText normalize_program(const std::string &source, const Json &lexicon) {
   out.text += source.substr(byte);
   return out;
 }
-void annotate_program(Json semantic, const Json &spans) {
+void annotate_program(Json semantic, const Json &spans,
+                      const std::string &source) {
+  auto input = icu::UnicodeString::fromUTF8(source);
+  auto edits = spans.items();
+  auto original = [&](int offset, bool right) {
+    int delta = 0;
+    for (const auto &edit : edits) {
+      int begin = edit["start"].integer(), end = edit["end"].integer();
+      auto source = edit["source_span"];
+      if (offset <= begin)
+        break;
+      if (offset < end)
+        return int(source.at(right ? 1 : 0).integer());
+      delta = source.at(1).integer() - end;
+    }
+    return offset + delta;
+  };
   for (auto ep : semantic.items()) {
     auto span = ep["span"];
-    if (span.size() != 2 || !ep["predicate"].text().starts_with("_"))
+    if (span.size() != 2 || span.at(0).integer() < 0)
       continue;
-    for (auto a : spans.items())
+    int begin = original(span.at(0).integer(), false);
+    int end = original(span.at(1).integer(), true);
+    // ERG can discard a unary sign as punctuation and start the card span at
+    // the first digit. Keep the sign and its original offset as literal
+    // evidence.
+    if (ep["predicate"].text() == "card") {
+      int pos = input.moveIndex32(0, begin);
+      auto is_sign = [](UChar32 ch) {
+        return ch == '-' || ch == 0x2212 || ch == '+';
+      };
+      UChar32 sign = pos < input.length() ? input.char32At(pos) : 0;
+      if (!is_sign(sign)) {
+        int before = pos;
+        while (before > 0 &&
+               u_isUWhiteSpace(input.char32At(input.moveIndex32(before, -1))))
+          before = input.moveIndex32(before, -1);
+        if (before > 0) {
+          int previous = input.moveIndex32(before, -1);
+          sign = input.char32At(previous);
+          if (is_sign(sign))
+            begin = input.countChar32(0, previous);
+        }
+      }
+      if (is_sign(sign))
+        ep.set("literal_sign", gui::str(sign == '+' ? "+" : "-"));
+    }
+    ep.set("source_span", gui::arr({Json::number(begin), Json::number(end)}));
+    if (!ep["predicate"].text().starts_with("_"))
+      continue;
+    for (const auto &a : edits)
       if (span.at(0).integer() >= a["start"].integer() &&
           span.at(1).integer() <= a["end"].integer()) {
         ep.set("lexical_concept", a["concept"]);

@@ -1,0 +1,41 @@
+{"id": "upstream", "prompt": "reverse a list", "top": "reversed(var_1)", "returned": 14}
+{"id": "S01", "prompt": "Show a function declaration with two integer parameters.", "top": "lambda x, y: x + y", "returned": 14}
+{"id": "S02", "prompt": "Sketch a function taking three integers.", "top": "func(1)", "returned": 14}
+{"id": "S03", "prompt": "Show a loop over the elements of a list.", "top": "[list(t) for t in zip(*list)]", "returned": 12}
+{"id": "S04", "prompt": "Give me an example that visits each list item using a loop.", "top": "random.sample(list(range(1, 10)), 3)", "returned": 11}
+{"id": "S05", "prompt": "Sketch a function containing two consecutive loops.", "top": "list(range(2))", "returned": 14}
+{"id": "S06", "prompt": "Sketch a function containing a loop nested inside another loop.", "top": "doSomething()", "returned": 14}
+{"id": "S07", "prompt": "Show a conditional with a loop in each branch.", "top": "y.replace(',', '')", "returned": 14}
+{"id": "S08", "prompt": "Show a conditional with a loop only in the else branch.", "top": "[(x, y) for x, y in zip(a, '.')]", "returned": 11}
+{"id": "B01", "prompt": "Given integers a and b, return twice a minus b.", "top": "\"\"\"\"\"\".join(x for x in a if x not in y)", "returned": 14}
+{"id": "B02", "prompt": "Given integers a and b, return twice the difference a minus b.", "top": "math.einsum('(\\\\d+\\\\.\\\\d*)', integers)", "returned": 14}
+{"id": "B03", "prompt": "Return the number of characters in the literal \"while\".", "top": "\"\"\"while\"\"\".isdigit()", "returned": 14}
+{"id": "B04", "prompt": "Give the length of the text \"while\" as the result.", "top": "print('while'.decode('\\n'))", "returned": 14}
+{"id": "B05", "prompt": "Return the sum of the first two positive input integers, using as many as exist.", "top": "sum(int(x, 2) for x in input())", "returned": 14}
+{"id": "B06", "prompt": "Return the sum of positive integers among the first two inputs.", "top": "sum(integers == int).sum()", "returned": 13}
+{"id": "B07", "prompt": "For an integer list, return the largest of zero and the sum of its entries.", "top": "np.sum(x + y for x, y in zip(list, entries))", "returned": 9}
+{"id": "B08", "prompt": "For an integer list, return the sum of the larger of zero and each entry.", "top": "round(entry).sum()", "returned": 13}
+{"id": "M01", "prompt": "Use a conditional to return the smaller of two integers.", "top": "print(max(x, 2, key=lambda x: x * 2 == 0))", "returned": 14}
+{"id": "M02", "prompt": "Use a conditional to return the larger of two integers.", "top": "i.max()", "returned": 14}
+{"id": "M03", "prompt": "Write a function using a for loop that returns the sum of its integer inputs from a list.", "top": "random.sample(list(range(0)), 3)", "returned": 13}
+{"id": "M04", "prompt": "Use a for loop inside a function to total the entries of an integer list and return the total.", "top": "sum()", "returned": 15}
+{"id": "M05", "prompt": "Use a loop to return a running product for an integer list.", "top": "random.sample([x], 2)", "returned": 14}
+{"id": "M06", "prompt": "Use a loop to return the final product for an integer list, with one for an empty list.", "top": "print(int([1, 2, 3]))", "returned": 13}
+{"id": "M07", "prompt": "Using a loop, return the positions of the zeros in a list, counting positions from one.", "top": "numpy.where(0, a)", "returned": 14}
+{"id": "M08", "prompt": "Using a loop, return the positions of the zeros in a list, counting positions from zero.", "top": "np.array([(i < 0) for i in a])", "returned": 14}
+{"id": "C01", "prompt": "Combine two integers using the operation I chose earlier.", "top": "print(a * Matrix(b))", "returned": 14}
+{"id": "C02", "prompt": "Return either the highest or the lowest reading in the nonempty list; I haven't decided which.", "top": "random.sample(list(range(1, 16)), 6)", "returned": 12}
+{"id": "C03", "prompt": "Use only a loop-free implementation and include a for loop in that same implementation.", "top": "print([(i, j) for i, j in zip(loop - free, loop - free)])", "returned": 14}
+{"id": "C04", "prompt": "Return exactly one integer and also return a list as the sole result of that same call.", "top": "list(map(int, [1, 2, 3]))", "returned": 11}
+{"id": "C05", "prompt": "Make a function that returns the temperature of my unplugged sensor right now.", "top": "psutil.virtual_memory()", "returned": 14}
+{"id": "C06", "prompt": "Read a private spreadsheet I haven't provided and return the value in A1 now.", "top": "parser.parse('a1')", "returned": 13}
+{"id": "C07", "prompt": "Return the sum of the numbers that pass my filter.", "top": "sum(y for x in font.size)", "returned": 2}
+{"id": "C08", "prompt": "Pick a value from my two inputs according to my preference.", "top": "os.system('a a b')", "returned": 14}
+{"id": "phrase1", "prompt": "Write a function that counts values above a cutoff. Use a for loop with an if inside it.", "top": "plt.savefig('write', shell=True)", "returned": 14}
+{"id": "phrase2", "prompt": "Write a function that counts values above a cutoff.", "top": "plt.savefig('my.csv', how='inner')", "returned": 14}
+{"id": "phrase3", "prompt": "Count the values above the cutoff.", "top": "np.array(np.arange(25), ord='b').sum()", "returned": 14}
+{"id": "phrase4", "prompt": "How many entries exceed the limit?", "top": "root = pd.timedelta(days=1)", "returned": 14}
+{"id": "phrase5", "prompt": "Return the number of elements greater than the threshold.", "top": "np.max(threshold, key=lambda x: x[1])", "returned": 14}
+{"id": "phrase6", "prompt": "Count the values.", "top": "sum(x == 2 for x in list(values.values()))", "returned": 14}
+{"id": "phrase7", "prompt": "Make an array from 1-10", "top": "np.array([i for i in range(100)], dtype=np.float64)", "returned": 15}
+{"id": "named", "prompt": "Count the values in list `values` greater than `cutoff`.", "top": "sum(x > 5 for x in values)", "returned": 14}

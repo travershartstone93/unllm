@@ -1,0 +1,101 @@
+# Split, required construct set, raw request. A dash denotes no positive labels.
+train	loop	Make an example of iteration over a list of names.
+train	loop	Go through each line one at a time.
+train	loop	Keep repeating the body until the flag changes.
+train	loop	Walk through the collection item by item.
+train	loop	Traverse all elements of the input.
+train	loop	Cycle through the values until the end.
+train	loop	Show me a loop that visits the elements.
+train	branch	Choose between two branches depending on the flag.
+train	branch	Write a two way decision based on the input.
+train	branch	Test the flag and do one thing on success and another on failure.
+train	branch	Use an if clause to check whether the name is empty.
+train	branch	Add conditional logic to pick between the two actions.
+train	function	Define a callable that takes one integer.
+train	function	Create a helper taking a filename.
+train	function	Write a named procedure to read a value.
+train	function	Declare a function with two parameters.
+train	function	Wrap the calculation in its own method.
+train	print	Show the answer on the terminal.
+train	print	Send the message to stdout.
+train	print	Emit a line of console output.
+train	print	Echo the name on the screen.
+train	print	Write the total to standard output.
+train	loop,branch	Iterate over the numbers and add an if statement inside.
+train	loop,branch	Create a conditional that encloses a while loop.
+train	loop,function	Write a routine that traverses every element.
+train	loop,function	Put a for loop in a function that accepts names.
+train	function,branch	Create a helper with two branches for empty and full input.
+train	branch,print	If the flag is true display its value, otherwise display zero.
+train	loop,print	For each item echo its name on the terminal.
+train	function,print	Define a procedure that prints the argument.
+train	loop,branch,print	Loop through the lines and print a line if a switch is on, otherwise skip it.
+train	loop,function,print	Create a method that cycles through rows and sends each to stdout.
+train	-	Calculate the product of the integers.
+train	-	Return the first positive number.
+train	-	Find the maximum entry in a table.
+train	-	Save the result to a file.
+train	-	Explain how iteration works.
+train	-	What does a function return?
+train	-	Describe what a conditional does in Python.
+train	-	Translate the word stdout into French.
+train	-	Compute a subtotal using only arithmetic.
+train	-	The input contains the word loop. Count its letters.
+train	-	Return a string containing the phrase if statement.
+train	-	Record an error to a log file.
+cal	loop	Walk through the input values one at a time.
+cal	function	Define a helper taking two dates.
+cal	print	Echo the result on the terminal.
+cal	branch	Choose between two branches based on a status code.
+cal	loop,function	Write a callable that traverses the values item by item.
+cal	loop,print	Repeat the operation and print each value.
+cal	branch,print	Use an if statement to display a warning.
+cal	function,branch	Define a function that contains an if clause.
+cal	loop	Use a for loop to sum the values.
+cal	print	Send the answer to stdout.
+cal	-	Describe the difference between a while loop and recursion.
+cal	-	Calculate the average of the collection.
+cal	-	Write the answer to a terminal log file on disk.
+cal	-	Return the word conditional.
+cal	-	Tell me whether a subroutine can be recursive.
+cal	-	Convert a string of digits to an integer.
+held	loop	Cycle through the records in order.
+held	function	Declare a callable taking an array of prices.
+held	print	Echo the total on the screen.
+held	branch	Choose between two branches according to the sign.
+held	loop	Visit every entry one at a time.
+held	function	Package the calculation as a named procedure.
+held	print	Send a single line to stdout.
+held	branch	Check the flag and take one path on success and another on failure.
+held	loop,print	Traverse the values and echo each one on the terminal.
+held	loop,function	Write a helper that visits every item one by one.
+held	branch,function	Create a named procedure with a two way decision.
+held	function,print	Create a callable that prints the result.
+held	loop,branch	Make a for loop containing an if statement.
+held	loop,branch	Make an if statement containing a for loop.
+held	loop,function,branch	Define a method with a conditional inside a while loop.
+held	loop,print,function	Put the values on standard output one at a time using a for loop inside a function.
+held	branch,print	If the input is empty display a warning, otherwise display its size.
+held	loop,print	For each value, send a line to stdout.
+held	loop,branch,print	Walk through each entry and use a conditional to print its name.
+held	function	Make a function that returns a value without printing it.
+held	-	Explain how a loop sends characters to stdout.
+held	-	Return the length of the string "for loop".
+held	-	Remove every occurrence of "function" from a string.
+held	-	Find the sum of all positive integers.
+held	-	Save a line of output in a text file.
+held	-	Given a list of terminal names, return them in sorted order.
+held	-	Count the positive numbers in the first five entries.
+held	-	Count the first five positive numbers.
+held	-	Which branch of a decision tree gets visited first?
+held	-	Produce the numerical difference between the two values.
+held	-	Compute the repeating decimal representation of a fraction.
+held	-	Read the name of a method from the configuration file.
+audit	loop	Make a for loop
+audit	branch	Make an if statement.
+audit	function	Make a function.
+audit	loop,branch	Make a for loop with an if statement inside it.
+audit	loop,print	Write a for loop that prints hello three times.
+audit	branch	Write an if statement that returns one if a number is positive and zero otherwise.
+audit	function	Write a function that adds two integers.
+audit	loop,function	Write a function that loops over the input integers and counts the ones greater than zero.

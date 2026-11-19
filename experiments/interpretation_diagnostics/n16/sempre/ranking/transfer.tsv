@@ -1,0 +1,15 @@
+group	expected	request
+text	lines strip reverse values	Read text from standard input, trim whitespace, reverse the sequence and print the remaining lines.
+text	lines unique lower values	Take lines from standard input, discard duplicate entries, convert to lowercase and output each entry.
+text	lines reverse unique count	Read text lines, reverse their order, deduplicate the rows and print the count.
+text	lines strip lower values	Clean the ends of the input lines, lowercase the text, and display the lines.
+numeric	numbers unique double sum	Take numeric lines, remove duplicates, double each value and report the total.
+numeric	numbers negative reverse values	Read numbers, filter for values below zero, reverse all rows and print each result.
+numeric	numbers double unique count	Read integers from standard input, double the numbers, discard duplicate entries and output how many remain.
+numeric	numbers unique negative values	From the incoming integers keep each distinct value once, then give back the negative ones.
+control	-	Read text lines, do not convert to lowercase, and print each result.
+control	-	Read integers from standard input, print their sum and save them to a file.
+control	-	Read numbers, multiply each number by two except the first and report the total.
+control	-	Read one line of text at a time, remove only adjacent duplicates and print each result.
+control	-	Read text lines, lowercase the letters in the first line only, then output each entry.
+control	-	Read numbers and report the total of the values above zero.

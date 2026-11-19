@@ -1,0 +1,325 @@
+suite	arm	task	method	depth	first_verified	winner	verdict	attempts	validation_seconds
+original	baseline	6	bm25	5			abstained	5	4.838
+original	template	6	bm25	5			abstained	5	4.838
+original	baseline	6	bm25	10			abstained	10	8.013
+original	template	6	bm25	10			abstained	10	8.013
+original	baseline	6	bm25	25			abstained	25	12.881
+original	template	6	bm25	25			abstained	25	12.881
+original	baseline	6	vector	5			abstained	5	0.081
+original	template	6	vector	5			abstained	5	0.081
+original	baseline	6	vector	10			abstained	10	0.191
+original	template	6	vector	10			abstained	10	0.191
+original	baseline	6	vector	25			abstained	25	2.144
+original	template	6	vector	25			abstained	25	2.144
+original	baseline	6	hybrid	5			abstained	5	0.0
+original	template	6	hybrid	5			abstained	5	0.0
+original	baseline	6	hybrid	10			abstained	10	0.166
+original	template	6	hybrid	10			abstained	10	0.166
+original	baseline	6	hybrid	25			abstained	25	3.454
+original	template	6	hybrid	25			abstained	25	3.454
+original	baseline	9	bm25	5			abstained	5	3.343
+original	template	9	bm25	5			abstained	5	3.343
+original	baseline	9	bm25	10			abstained	10	8.13
+original	template	9	bm25	10			abstained	10	8.13
+original	baseline	9	bm25	25			abstained	25	23.164
+original	template	9	bm25	25			abstained	25	23.164
+original	baseline	9	vector	5			abstained	5	1.73
+original	template	9	vector	5			abstained	5	1.73
+original	baseline	9	vector	10			abstained	10	1.97
+original	template	9	vector	10			abstained	10	1.97
+original	baseline	9	vector	25			abstained	25	2.579
+original	template	9	vector	25			abstained	25	2.579
+original	baseline	9	hybrid	5			abstained	5	1.714
+original	template	9	hybrid	5			abstained	5	1.714
+original	baseline	9	hybrid	10			abstained	10	5.222
+original	template	9	hybrid	10			abstained	10	5.222
+original	baseline	9	hybrid	25			abstained	25	10.563
+original	template	9	hybrid	25			abstained	25	10.563
+original	baseline	17	bm25	5			abstained	5	3.271
+original	template	17	bm25	5	1	3281	verified	1	1.711
+original	baseline	17	bm25	10			abstained	10	3.429
+original	template	17	bm25	10	1	3281	verified	1	1.711
+original	baseline	17	bm25	25			abstained	25	10.06
+original	template	17	bm25	25	1	3281	verified	1	1.711
+original	baseline	17	vector	5			abstained	5	7.89
+original	template	17	vector	5	1	3281	verified	1	1.711
+original	baseline	17	vector	10			abstained	10	11.146
+original	template	17	vector	10	1	3281	verified	1	1.711
+original	baseline	17	vector	25			abstained	25	19.444
+original	template	17	vector	25	1	3281	verified	1	1.711
+original	baseline	17	hybrid	5			abstained	5	3.313
+original	template	17	hybrid	5	1	3281	verified	1	1.711
+original	baseline	17	hybrid	10			abstained	10	11.146
+original	template	17	hybrid	10	1	3281	verified	1	1.711
+original	baseline	17	hybrid	25			abstained	25	16.344
+original	template	17	hybrid	25	1	3281	verified	1	1.711
+original	baseline	18	bm25	5			abstained	5	8.357
+original	template	18	bm25	5			abstained	5	8.357
+original	baseline	18	bm25	10			abstained	10	16.752
+original	template	18	bm25	10			abstained	10	16.752
+original	baseline	18	bm25	25			abstained	25	33.293
+original	template	18	bm25	25			abstained	25	33.293
+original	baseline	18	vector	5			abstained	5	3.541
+original	template	18	vector	5			abstained	5	3.541
+original	baseline	18	vector	10			abstained	10	5.307
+original	template	18	vector	10			abstained	10	5.307
+original	baseline	18	vector	25			abstained	25	17.267
+original	template	18	vector	25			abstained	25	17.267
+original	baseline	18	hybrid	5			abstained	5	6.729
+original	template	18	hybrid	5			abstained	5	6.729
+original	baseline	18	hybrid	10			abstained	10	9.9
+original	template	18	hybrid	10			abstained	10	9.9
+original	baseline	18	hybrid	25			abstained	25	26.543
+original	template	18	hybrid	25			abstained	25	26.543
+original	baseline	24	bm25	5			abstained	5	0.196
+original	template	24	bm25	5			abstained	5	0.196
+original	baseline	24	bm25	10			abstained	10	3.399
+original	template	24	bm25	10			abstained	10	3.399
+original	baseline	24	bm25	25			abstained	25	16.874
+original	template	24	bm25	25			abstained	25	16.874
+original	baseline	24	vector	5			abstained	5	0.189
+original	template	24	vector	5			abstained	5	0.189
+original	baseline	24	vector	10			abstained	10	1.863
+original	template	24	vector	10			abstained	10	1.863
+original	baseline	24	vector	25			abstained	25	6.887
+original	template	24	vector	25			abstained	25	6.887
+original	baseline	24	hybrid	5			abstained	5	0.196
+original	template	24	hybrid	5			abstained	5	0.196
+original	baseline	24	hybrid	10			abstained	10	3.402
+original	template	24	hybrid	10			abstained	10	3.402
+original	baseline	24	hybrid	25			abstained	25	10.552
+original	template	24	hybrid	25			abstained	25	10.552
+original	baseline	28	bm25	5	5	3266	verified	5	3.23
+original	template	28	bm25	5	5	3266	verified	5	3.23
+original	baseline	28	bm25	10	5	3266	verified	5	3.23
+original	template	28	bm25	10	5	3266	verified	5	3.23
+original	baseline	28	bm25	25	5	3266	verified	5	3.23
+original	template	28	bm25	25	5	3266	verified	5	3.23
+original	baseline	28	vector	5	3	3266	verified	3	1.743
+original	template	28	vector	5	3	3266	verified	3	1.743
+original	baseline	28	vector	10	3	3266	verified	3	1.743
+original	template	28	vector	10	3	3266	verified	3	1.743
+original	baseline	28	vector	25	3	3266	verified	3	1.743
+original	template	28	vector	25	3	3266	verified	3	1.743
+original	baseline	28	hybrid	5	1	3266	verified	1	0.067
+original	template	28	hybrid	5	1	3266	verified	1	0.067
+original	baseline	28	hybrid	10	1	3266	verified	1	0.067
+original	template	28	hybrid	10	1	3266	verified	1	0.067
+original	baseline	28	hybrid	25	1	3266	verified	1	0.067
+original	template	28	hybrid	25	1	3266	verified	1	0.067
+original	baseline	52	bm25	5	1	5040	verified	1	0.039
+original	template	52	bm25	5	1	5040	verified	1	0.039
+original	baseline	52	bm25	10	1	5040	verified	1	0.039
+original	template	52	bm25	10	1	5040	verified	1	0.039
+original	baseline	52	bm25	25	1	5040	verified	1	0.039
+original	template	52	bm25	25	1	5040	verified	1	0.039
+original	baseline	52	vector	5	2	5040	verified	2	1.56
+original	template	52	vector	5	1	4249	verified	1	1.652
+original	baseline	52	vector	10	2	5040	verified	2	1.56
+original	template	52	vector	10	1	4249	verified	1	1.652
+original	baseline	52	vector	25	2	5040	verified	2	1.56
+original	template	52	vector	25	1	4249	verified	1	1.652
+original	baseline	52	hybrid	5	2	5040	verified	2	1.56
+original	template	52	hybrid	5	1	4249	verified	1	1.652
+original	baseline	52	hybrid	10	2	5040	verified	2	1.56
+original	template	52	hybrid	10	1	4249	verified	1	1.652
+original	baseline	52	hybrid	25	2	5040	verified	2	1.56
+original	template	52	hybrid	25	1	4249	verified	1	1.652
+original	baseline	58	bm25	5			abstained	5	4.665
+original	template	58	bm25	5			abstained	5	4.665
+original	baseline	58	bm25	10			abstained	10	9.362
+original	template	58	bm25	10			abstained	10	9.362
+original	baseline	58	bm25	25			abstained	25	17.373
+original	template	58	bm25	25			abstained	25	17.373
+original	baseline	58	vector	5			abstained	5	0.195
+original	template	58	vector	5			abstained	5	0.195
+original	baseline	58	vector	10			abstained	10	0.395
+original	template	58	vector	10			abstained	10	0.395
+original	baseline	58	vector	25			abstained	25	2.632
+original	template	58	vector	25			abstained	25	2.632
+original	baseline	58	hybrid	5			abstained	5	1.698
+original	template	58	hybrid	5			abstained	5	1.698
+original	baseline	58	hybrid	10			abstained	10	3.377
+original	template	58	hybrid	10			abstained	10	3.377
+original	baseline	58	hybrid	25			abstained	25	6.877
+original	template	58	hybrid	25			abstained	25	6.877
+original	baseline	93	bm25	5	1	1051	verified	1	0.043
+original	template	93	bm25	5	1	1051	verified	1	0.043
+original	baseline	93	bm25	10	1	1051	verified	1	0.043
+original	template	93	bm25	10	1	1051	verified	1	0.043
+original	baseline	93	bm25	25	1	1051	verified	1	0.043
+original	template	93	bm25	25	1	1051	verified	1	0.043
+original	baseline	93	vector	5	1	1052	verified	1	0.038
+original	template	93	vector	5	1	1052	verified	1	0.038
+original	baseline	93	vector	10	1	1052	verified	1	0.038
+original	template	93	vector	10	1	1052	verified	1	0.038
+original	baseline	93	vector	25	1	1052	verified	1	0.038
+original	template	93	vector	25	1	1052	verified	1	0.038
+original	baseline	93	hybrid	5	1	1051	verified	1	0.043
+original	template	93	hybrid	5	1	1051	verified	1	0.043
+original	baseline	93	hybrid	10	1	1051	verified	1	0.043
+original	template	93	hybrid	10	1	1051	verified	1	0.043
+original	baseline	93	hybrid	25	1	1051	verified	1	0.043
+original	template	93	hybrid	25	1	1051	verified	1	0.043
+original	baseline	96	bm25	5	2	4089	verified	2	1.675
+original	template	96	bm25	5	2	4089	verified	2	1.675
+original	baseline	96	bm25	10	2	4089	verified	2	1.675
+original	template	96	bm25	10	2	4089	verified	2	1.675
+original	baseline	96	bm25	25	2	4089	verified	2	1.675
+original	template	96	bm25	25	2	4089	verified	2	1.675
+original	baseline	96	vector	5	1	3202	verified	1	0.04
+original	template	96	vector	5	1	3202	verified	1	0.04
+original	baseline	96	vector	10	1	3202	verified	1	0.04
+original	template	96	vector	10	1	3202	verified	1	0.04
+original	baseline	96	vector	25	1	3202	verified	1	0.04
+original	template	96	vector	25	1	3202	verified	1	0.04
+original	baseline	96	hybrid	5	1	3202	verified	1	0.04
+original	template	96	hybrid	5	1	3202	verified	1	0.04
+original	baseline	96	hybrid	10	1	3202	verified	1	0.04
+original	template	96	hybrid	10	1	3202	verified	1	0.04
+original	baseline	96	hybrid	25	1	3202	verified	1	0.04
+original	template	96	hybrid	25	1	3202	verified	1	0.04
+original	baseline	100	bm25	5			abstained	5	0.2
+original	template	100	bm25	5			abstained	5	0.2
+original	baseline	100	bm25	10			abstained	10	1.992
+original	template	100	bm25	10			abstained	10	1.992
+original	baseline	100	bm25	25			abstained	25	9.231
+original	template	100	bm25	25			abstained	25	9.231
+original	baseline	100	vector	5			abstained	5	0.336
+original	template	100	vector	5			abstained	5	0.336
+original	baseline	100	vector	10			abstained	10	0.768
+original	template	100	vector	10			abstained	10	0.768
+original	baseline	100	vector	25			abstained	25	9.653
+original	template	100	vector	25			abstained	25	9.653
+original	baseline	100	hybrid	5			abstained	5	0.2
+original	template	100	hybrid	5			abstained	5	0.2
+original	baseline	100	hybrid	10			abstained	10	3.569
+original	template	100	hybrid	10			abstained	10	3.569
+original	baseline	100	hybrid	25			abstained	25	12.552
+original	template	100	hybrid	25			abstained	25	12.552
+original	baseline	102	bm25	5			abstained	5	6.414
+original	template	102	bm25	5			abstained	5	6.414
+original	baseline	102	bm25	10			abstained	10	9.662
+original	template	102	bm25	10			abstained	10	9.662
+original	baseline	102	bm25	25			abstained	25	27.608
+original	template	102	bm25	25			abstained	25	27.608
+original	baseline	102	vector	5			abstained	5	3.289
+original	template	102	vector	5			abstained	5	3.289
+original	baseline	102	vector	10			abstained	10	3.485
+original	template	102	vector	10			abstained	10	3.485
+original	baseline	102	vector	25			abstained	25	10.571
+original	template	102	vector	25			abstained	25	10.571
+original	baseline	102	hybrid	5			abstained	5	4.874
+original	template	102	hybrid	5			abstained	5	4.874
+original	baseline	102	hybrid	10			abstained	10	9.946
+original	template	102	hybrid	10			abstained	10	9.946
+original	baseline	102	hybrid	25			abstained	25	19.865
+original	template	102	hybrid	25			abstained	25	19.865
+fresh	baseline	fresh35	bm25	5			abstained	5	8.181
+fresh	template	fresh35	bm25	5			abstained	5	8.181
+fresh	baseline	fresh35	bm25	10			abstained	10	11.438
+fresh	template	fresh35	bm25	10			abstained	10	11.438
+fresh	baseline	fresh35	bm25	25			abstained	25	21.887
+fresh	template	fresh35	bm25	25			abstained	25	21.887
+fresh	baseline	fresh35	vector	5			abstained	5	3.269
+fresh	template	fresh35	vector	5			abstained	5	3.269
+fresh	baseline	fresh35	vector	10			abstained	10	8.405
+fresh	template	fresh35	vector	10			abstained	10	8.405
+fresh	baseline	fresh35	vector	25			abstained	25	16.922
+fresh	template	fresh35	vector	25			abstained	25	16.892
+fresh	baseline	fresh35	hybrid	5			abstained	5	6.684
+fresh	template	fresh35	hybrid	5			abstained	5	6.684
+fresh	baseline	fresh35	hybrid	10			abstained	10	10.163
+fresh	template	fresh35	hybrid	10			abstained	10	10.163
+fresh	baseline	fresh35	hybrid	25			abstained	25	20.171
+fresh	template	fresh35	hybrid	25			abstained	25	20.171
+fresh	baseline	fresh51	bm25	5			abstained	5	7.875
+fresh	template	fresh51	bm25	5			abstained	5	7.875
+fresh	baseline	fresh51	bm25	10			abstained	10	11.119
+fresh	template	fresh51	bm25	10			abstained	10	11.119
+fresh	baseline	fresh51	bm25	25			abstained	25	19.246
+fresh	template	fresh51	bm25	25			abstained	25	19.246
+fresh	baseline	fresh51	vector	5			abstained	5	0.218
+fresh	template	fresh51	vector	5			abstained	5	0.218
+fresh	baseline	fresh51	vector	10			abstained	10	3.527
+fresh	template	fresh51	vector	10			abstained	10	4.084
+fresh	baseline	fresh51	vector	25			abstained	25	7.221
+fresh	template	fresh51	vector	25			abstained	25	7.994
+fresh	baseline	fresh51	hybrid	5			abstained	5	0.218
+fresh	template	fresh51	hybrid	5			abstained	5	0.218
+fresh	baseline	fresh51	hybrid	10			abstained	10	2.032
+fresh	template	fresh51	hybrid	10			abstained	10	2.032
+fresh	baseline	fresh51	hybrid	25			abstained	25	10.222
+fresh	template	fresh51	hybrid	25			abstained	25	10.995
+fresh	baseline	fresh72	bm25	5			abstained	5	6.682
+fresh	template	fresh72	bm25	5			abstained	5	6.682
+fresh	baseline	fresh72	bm25	10			abstained	10	11.717
+fresh	template	fresh72	bm25	10			abstained	10	11.717
+fresh	baseline	fresh72	bm25	25			abstained	25	18.735
+fresh	template	fresh72	bm25	25			abstained	25	18.735
+fresh	baseline	fresh72	vector	5			abstained	5	0.205
+fresh	template	fresh72	vector	5			abstained	5	0.205
+fresh	baseline	fresh72	vector	10			abstained	10	1.955
+fresh	template	fresh72	vector	10			abstained	10	1.955
+fresh	baseline	fresh72	vector	25			abstained	25	4.349
+fresh	template	fresh72	vector	25			abstained	25	4.349
+fresh	baseline	fresh72	hybrid	5			abstained	5	1.789
+fresh	template	fresh72	hybrid	5			abstained	5	1.789
+fresh	baseline	fresh72	hybrid	10			abstained	10	2.027
+fresh	template	fresh72	hybrid	10			abstained	10	2.027
+fresh	baseline	fresh72	hybrid	25			abstained	25	12.203
+fresh	template	fresh72	hybrid	25			abstained	25	12.203
+fresh	baseline	fresh79	bm25	5			abstained	5	6.293
+fresh	template	fresh79	bm25	5			abstained	5	6.293
+fresh	baseline	fresh79	bm25	10			abstained	10	9.457
+fresh	template	fresh79	bm25	10			abstained	10	9.457
+fresh	baseline	fresh79	bm25	25			abstained	25	16.235
+fresh	template	fresh79	bm25	25			abstained	25	16.235
+fresh	baseline	fresh79	vector	5			abstained	5	0.196
+fresh	template	fresh79	vector	5			abstained	5	0.196
+fresh	baseline	fresh79	vector	10			abstained	10	0.391
+fresh	template	fresh79	vector	10			abstained	10	0.391
+fresh	baseline	fresh79	vector	25			abstained	25	0.99
+fresh	template	fresh79	vector	25			abstained	25	0.99
+fresh	baseline	fresh79	hybrid	5			abstained	5	0.201
+fresh	template	fresh79	hybrid	5			abstained	5	0.201
+fresh	baseline	fresh79	hybrid	10			abstained	10	0.398
+fresh	template	fresh79	hybrid	10			abstained	10	0.398
+fresh	baseline	fresh79	hybrid	25			abstained	25	7.086
+fresh	template	fresh79	hybrid	25			abstained	25	7.086
+fresh	baseline	fresh86	bm25	5			abstained	5	0.221
+fresh	template	fresh86	bm25	5			abstained	5	0.221
+fresh	baseline	fresh86	bm25	10			abstained	10	4.956
+fresh	template	fresh86	bm25	10			abstained	10	4.956
+fresh	baseline	fresh86	bm25	25			abstained	25	11.938
+fresh	template	fresh86	bm25	25			abstained	25	11.938
+fresh	baseline	fresh86	vector	5			abstained	5	0.196
+fresh	template	fresh86	vector	5			abstained	5	0.196
+fresh	baseline	fresh86	vector	10			abstained	10	3.501
+fresh	template	fresh86	vector	10			abstained	10	3.47
+fresh	baseline	fresh86	vector	25			abstained	25	11.693
+fresh	template	fresh86	vector	25			abstained	25	11.663
+fresh	baseline	fresh86	hybrid	5			abstained	5	1.733
+fresh	template	fresh86	hybrid	5			abstained	5	1.733
+fresh	baseline	fresh86	hybrid	10			abstained	10	3.495
+fresh	template	fresh86	hybrid	10			abstained	10	3.495
+fresh	baseline	fresh86	hybrid	25			abstained	25	11.698
+fresh	template	fresh86	hybrid	25			abstained	25	11.667
+fresh	baseline	fresh103	bm25	5			abstained	5	6.555
+fresh	template	fresh103	bm25	5			abstained	5	6.555
+fresh	baseline	fresh103	bm25	10			abstained	10	11.578
+fresh	template	fresh103	bm25	10			abstained	10	11.578
+fresh	baseline	fresh103	bm25	25			abstained	25	28.162
+fresh	template	fresh103	bm25	25			abstained	25	28.162
+fresh	baseline	fresh103	vector	5			abstained	5	1.888
+fresh	template	fresh103	vector	5			abstained	5	1.888
+fresh	baseline	fresh103	vector	10			abstained	10	3.738
+fresh	template	fresh103	vector	10			abstained	10	3.738
+fresh	baseline	fresh103	vector	25			abstained	25	6.017
+fresh	template	fresh103	vector	25			abstained	25	6.055
+fresh	baseline	fresh103	hybrid	5			abstained	5	5.11
+fresh	template	fresh103	hybrid	5			abstained	5	5.11
+fresh	baseline	fresh103	hybrid	10			abstained	10	8.612
+fresh	template	fresh103	hybrid	10			abstained	10	8.612
+fresh	baseline	fresh103	hybrid	25			abstained	25	15.691
+fresh	template	fresh103	hybrid	25			abstained	25	15.691

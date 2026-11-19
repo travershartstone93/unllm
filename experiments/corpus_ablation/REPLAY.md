@@ -32,3 +32,34 @@ experiments/corpus_ablation/run.sh "$out" build/native
 experiments/corpus_ablation/score.sh "$out" build/native/unllm_algorithm /usr/bin/python3
 experiments/corpus_ablation/report.sh "$out" "$out"
 ```
+
+## P01 Python dependency packaging
+
+Build the opt-in native resolver with `cmake --build build --target corpus_dependency_closure`. The experimental Python-target frontend parses a source file and inspects compiled code objects for global reads. It sends module symbol facts to the C++ resolver. Command-line output includes the selected names and bundled source for the existing isolated execution checker.
+
+```sh
+python3 experiments/corpus_ablation/python_dependency_facts.py path/to/module.py function_name definition_line
+```
+
+The bounded resolver follows up to 32 unique names, covering plain module-level functions and explicit imports from its standard-library allowlist. Decorated functions, ambiguous or missing definitions, wildcard imports and unsupported imports can prevent packaging. This is a standalone experiment for Python output. The normal synthesis CLI has its existing execution path.
+
+## P03 C++ template declarations
+
+The [protocol](template_acceptance/protocol.txt) freezes the six fresh task IDs and the comparison with P02. The [USB measurement directory](/run/media/whisper/UNLLM_CORPUS/unllm/experiments/template-retest-RmpBZf) holds the frozen queries, rankings, scorer and case-level outputs. Run the following from the upgrade checkout with the corpus mounted. The replay reads the original experiment inputs and writes new outputs in a fresh directory.
+
+```sh
+trial=$(cat .state/template-retest.path)
+replay=$(mktemp -d "$(dirname "$trial")/template-replay-XXXXXX")
+sha256sum -c "$trial/freeze.sha256" || exit 1
+for input in queries.json ranks.json records.jsonl ids.json modules.jsonl evaluate.py score.py; do
+  ln -s "$trial/$input" "$replay/$input"
+done
+cmake --build build --target corpus_ablation_index corpus_dependency_closure
+volume=$(dirname "$(dirname "$trial")")
+build/native/corpus_ablation_index --selected-templates .state/corpus-ablation-tools \
+  "$(cat .state/state-composition.path)/files.ids" "$(cat .state/focused-expansion.path)/sources" \
+  "$replay/templates.json" "$volume"/sources/stack*/*/*.parquet
+python3 "$replay/score.py" "$replay"
+```
+
+The extractor attaches a declaration only when the file digest, definition line and exact body hash match. The scorer saves and hashes winners before running reserved cases. Elapsed times vary across replays.

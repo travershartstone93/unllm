@@ -1,0 +1,330 @@
+{
+  "suite": "Stage 13b milestone 2",
+  "date": "2026-11-18",
+  "baseline": "N04",
+  "fixture_sha256": "d8e5b81aa3e2aaf61f72790818abe4a9d70251f2703a8bf1d67b93ec85248207",
+  "frozen_requests": {
+    "accepted": 12,
+    "unsupported": 8,
+    "ambiguous": 1,
+    "resource_limit": 11
+  },
+  "product_checks": [
+    {
+      "language": "cpp",
+      "question": "Build a counter starting at 8.5 that decreases by 2.25.",
+      "requirements": [
+        {
+          "rule": "creation_predicate",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_build_v_1",
+              "arguments": {
+                "ARG0": "e2",
+                "ARG1": "x3",
+                "ARG2": "x8",
+                "ARG3": "h9"
+              },
+              "source_span": [
+                0,
+                5
+              ],
+              "scope": [
+                "h24",
+                "h9"
+              ]
+            }
+          ],
+          "kind": "creation_intent"
+        },
+        {
+          "rule": "numeric_state",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_counter_n_1",
+              "arguments": {
+                "ARG0": "x8"
+              },
+              "source_span": [
+                8,
+                15
+              ]
+            }
+          ],
+          "entity": "counter",
+          "kind": "state"
+        },
+        {
+          "rule": "start_at_amount",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_start_v_1",
+              "arguments": {
+                "ARG0": "e14",
+                "ARG1": "x8"
+              },
+              "source_span": [
+                16,
+                24
+              ]
+            },
+            {
+              "predicate": "_at_p_state",
+              "arguments": {
+                "ARG0": "e15",
+                "ARG1": "e14",
+                "ARG2": "x16"
+              },
+              "source_span": [
+                25,
+                27
+              ]
+            },
+            {
+              "predicate": "card",
+              "arguments": {
+                "ARG0": "e22",
+                "ARG1": "x16",
+                "CARG": "8.5"
+              },
+              "source_span": [
+                28,
+                31
+              ]
+            }
+          ],
+          "target": "counter",
+          "value": 8.5,
+          "kind": "initial_value"
+        },
+        {
+          "rule": "numeric_transition",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_decrease_v_1",
+              "arguments": {
+                "ARG0": "e23",
+                "ARG1": "x8"
+              },
+              "source_span": [
+                37,
+                46
+              ]
+            },
+            {
+              "predicate": "_by_p_means",
+              "arguments": {
+                "ARG0": "e25",
+                "ARG1": "x8",
+                "ARG2": "x26"
+              },
+              "source_span": [
+                47,
+                49
+              ]
+            },
+            {
+              "predicate": "card",
+              "arguments": {
+                "ARG0": "e32",
+                "ARG1": "x26",
+                "CARG": "2.25"
+              },
+              "source_span": [
+                50,
+                54
+              ]
+            }
+          ],
+          "target": "counter",
+          "operation": "-",
+          "amount": 2.25,
+          "amount_status": "explicit",
+          "kind": "numeric_change"
+        }
+      ],
+      "postcondition": "next.value == prev.value - 2.25",
+      "source_sha256": "ef16a48fdf0810e81ecda1dcc6597fb5d452da704588db583acf3bd54a022c85",
+      "validation_cases": 50,
+      "gui_scenarios": 25,
+      "number_input_before_and_after_two_clicks": [
+        8.5,
+        6.25,
+        4.0
+      ]
+    },
+    {
+      "language": "python",
+      "question": "Build a counter starting at 8.5 that decreases by -2.25.",
+      "requirements": [
+        {
+          "rule": "creation_predicate",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_build_v_1",
+              "arguments": {
+                "ARG0": "e2",
+                "ARG1": "x3",
+                "ARG2": "x8"
+              },
+              "source_span": [
+                0,
+                5
+              ]
+            }
+          ],
+          "kind": "creation_intent"
+        },
+        {
+          "rule": "numeric_state",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_counter_n_1",
+              "arguments": {
+                "ARG0": "x13"
+              },
+              "source_span": [
+                8,
+                15
+              ]
+            }
+          ],
+          "entity": "counter",
+          "kind": "state"
+        },
+        {
+          "rule": "start_at_amount",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_start_v_1",
+              "arguments": {
+                "ARG0": "e26",
+                "ARG1": "x13"
+              },
+              "source_span": [
+                16,
+                24
+              ]
+            },
+            {
+              "predicate": "_at_p_state",
+              "arguments": {
+                "ARG0": "e27",
+                "ARG1": "e26",
+                "ARG2": "x28"
+              },
+              "source_span": [
+                25,
+                27
+              ]
+            },
+            {
+              "predicate": "card",
+              "arguments": {
+                "ARG0": "e34",
+                "ARG1": "x28",
+                "CARG": "8.5"
+              },
+              "source_span": [
+                28,
+                31
+              ]
+            }
+          ],
+          "target": "counter",
+          "value": 8.5,
+          "kind": "initial_value"
+        },
+        {
+          "rule": "numeric_transition",
+          "status": "explicit",
+          "evidence": [
+            {
+              "predicate": "_decrease_v_1",
+              "arguments": {
+                "ARG0": "e35",
+                "ARG1": "x20"
+              },
+              "source_span": [
+                37,
+                46
+              ]
+            },
+            {
+              "predicate": "_by_p_means",
+              "arguments": {
+                "ARG0": "e36",
+                "ARG1": "e35",
+                "ARG2": "x37"
+              },
+              "source_span": [
+                47,
+                49
+              ]
+            },
+            {
+              "predicate": "card",
+              "arguments": {
+                "ARG0": "x37",
+                "ARG1": "i43",
+                "CARG": "2.25"
+              },
+              "source_span": [
+                50,
+                55
+              ],
+              "literal_sign": "-"
+            }
+          ],
+          "target": "counter",
+          "operation": "-",
+          "amount": -2.25,
+          "amount_status": "explicit",
+          "kind": "numeric_change"
+        }
+      ],
+      "postcondition": "next.value == prev.value - -2.25",
+      "source_sha256": "8eb6add38c2b2cc3cc78204cd067fff3d7605474de2d8ceda8e5143c43c9bd67",
+      "validation_cases": 25,
+      "gui_scenarios": 25,
+      "number_input_before_and_after_two_clicks": [
+        8.5,
+        10.75,
+        13.0
+      ]
+    }
+  ],
+  "exploratory_reading_limits": [
+    {
+      "question": "Build a counter that starts at 8.5 and decreases by 2.25.",
+      "readings": 128
+    },
+    {
+      "question": "Build an app that decreases a counter starting at 8.5 by 2.25.",
+      "readings": 128
+    }
+  ],
+  "swapped_role_probe": {
+    "question": "Build a counter starting at -2.25 that decreases by 8.5.",
+    "status": "emitted",
+    "initial": -2.25,
+    "postcondition": "next.value == prev.value - 8.5"
+  },
+  "regression_checks": {
+    "ctest_passed": 35,
+    "ctest_total": 35,
+    "existing_python_apps_via_cli": 6,
+    "independent_interaction_assertions": 39,
+    "blocked_requirements_probed": [
+      "Create a counter without buttons.",
+      "Make a counter with 17 buttons."
+    ]
+  }
+}

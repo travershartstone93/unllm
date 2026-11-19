@@ -1,0 +1,17 @@
+{
+  "frameworks": {
+    "gtest": ["google test", "googletest", "gtest"],
+    "cpputest": ["cpputest"], "qtest": ["qtest", "qtestlib"],
+    "boost-test": ["boost.test", "boost test"], "catch2": ["catch2"],
+    "opencv": ["opencv"], "sfml": ["sfml"], "sdl2": ["sdl2", "sdl 2"],
+    "glfw": ["glfw"], "glut": ["glut"], "irrlicht": ["irrlicht"],
+    "win32": ["win32", "windows dll"], "doctest": ["doctest"],
+    "vulkan": ["vulkan"], "metal": ["metal"], "appkit": ["appkit"], "ctest": ["ctest"]
+  },
+  "outputs": {
+    "output:plugin": ["plugin", "plug-in"], "output:library": ["library", "dll"],
+    "output:executable": ["executable"], "output:interface": ["interface"],
+    "output:enum": ["enum", "enumeration"], "output:suite": ["suite"],
+    "output:header": ["header"], "output:class": ["class", "subclass"]
+  }
+}

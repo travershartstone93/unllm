@@ -1,0 +1,7 @@
+# Development dependency-parser diagnostic
+
+Use the eight public N14 requests, in their published order. Compare presence of an analysis with the recorded ACE results and inspect the attachments from UDPipe 1.4.0 with the publicly distributed English EWT UD 2.5 model. UDPipe provides grammatical dependencies; the observable in this probe is availability of role evidence before a typed contract is built. N14 did not record equivalent edge scores for ACE. Do not compare unlike scores.
+
+Before running inference freeze the listed head lemma, dependent lemma and permitted base relations. Ignore case and relation subtypes. Accept an edge anywhere in the sentence. Score all requested edges per prompt, the total number of edges and the number of CoNLL-U trees returned. Exact direct attachments are a deliberately strict diagnostic; inspect misses for alternative valid analyses. The labels are manually chosen development annotations. A perfect score still needs tests of scope, full semantic coverage, ambiguity and generation before production use. A tree with missing required attachments cannot justify switching the product's parser on sentence coverage alone.
+
+Keep the binary, English model and raw tree outputs in the isolated trial directory. No product dependency or training. Evaluate only the eight previously published requests. Retain the N16 acceptance fixtures for the subsequent frozen candidate.

@@ -1,0 +1,225 @@
+{
+  "flan": {
+    "controls": {
+      "total": 3,
+      "correct": 1,
+      "valid": 3,
+      "ids": [
+        "translate"
+      ],
+      "max_input": 12
+    },
+    "comparison": {
+      "total": 20,
+      "correct": 5,
+      "valid": 15,
+      "ids": [
+        "d01",
+        "d02",
+        "d09",
+        "d11",
+        "d12"
+      ],
+      "max_input": 71
+    },
+    "plain": {
+      "total": 24,
+      "correct": 0,
+      "valid": 0,
+      "ids": [],
+      "max_input": 357
+    },
+    "constrained": {
+      "total": 24,
+      "correct": 0,
+      "valid": 24,
+      "ids": [],
+      "max_input": 357
+    },
+    "fieldwise_exact_ids": [
+      "d21",
+      "d22"
+    ]
+  },
+  "mt0": {
+    "controls": {
+      "total": 3,
+      "correct": 1,
+      "valid": 3,
+      "ids": [
+        "translate"
+      ],
+      "max_input": 12
+    },
+    "comparison": {
+      "total": 20,
+      "correct": 4,
+      "valid": 16,
+      "ids": [
+        "d02",
+        "d10",
+        "d19",
+        "d20"
+      ],
+      "max_input": 87
+    },
+    "plain": {
+      "total": 24,
+      "correct": 0,
+      "valid": 0,
+      "ids": [],
+      "max_input": 392
+    },
+    "constrained": {
+      "total": 24,
+      "correct": 0,
+      "valid": 24,
+      "ids": [],
+      "max_input": 392
+    },
+    "fieldwise_exact_ids": []
+  },
+  "smol": {
+    "controls": {
+      "total": 3,
+      "correct": 1,
+      "valid": 3,
+      "ids": [
+        "capital"
+      ],
+      "max_input": 41
+    },
+    "comparison": {
+      "total": 20,
+      "correct": 7,
+      "valid": 20,
+      "ids": [
+        "d03",
+        "d04",
+        "d07",
+        "d13",
+        "d14",
+        "d17",
+        "d18"
+      ],
+      "max_input": 95
+    },
+    "plain": {
+      "total": 24,
+      "correct": 2,
+      "valid": 16,
+      "ids": [
+        "d17",
+        "d23"
+      ],
+      "max_input": 356
+    },
+    "constrained": {
+      "total": 24,
+      "correct": 2,
+      "valid": 24,
+      "ids": [
+        "d17",
+        "d23"
+      ],
+      "max_input": 356
+    }
+  },
+  "qwen": {
+    "controls": {
+      "total": 3,
+      "correct": 2,
+      "valid": 3,
+      "ids": [
+        "capital",
+        "translate"
+      ],
+      "max_input": 38
+    },
+    "comparison": {
+      "total": 20,
+      "correct": 6,
+      "valid": 20,
+      "ids": [
+        "d03",
+        "d05",
+        "d12",
+        "d13",
+        "d15",
+        "d16"
+      ],
+      "max_input": 93
+    },
+    "plain": {
+      "total": 24,
+      "correct": 1,
+      "valid": 15,
+      "ids": [
+        "d17"
+      ],
+      "max_input": 334
+    },
+    "constrained": {
+      "total": 24,
+      "correct": 3,
+      "valid": 24,
+      "ids": [
+        "d09",
+        "d12",
+        "d17"
+      ],
+      "max_input": 334
+    }
+  },
+  "coder": {
+    "controls": {
+      "total": 3,
+      "correct": 2,
+      "valid": 3,
+      "ids": [
+        "capital",
+        "translate"
+      ],
+      "max_input": 38
+    },
+    "comparison": {
+      "total": 20,
+      "correct": 9,
+      "valid": 20,
+      "ids": [
+        "d01",
+        "d02",
+        "d03",
+        "d07",
+        "d08",
+        "d10",
+        "d11",
+        "d12",
+        "d16"
+      ],
+      "max_input": 93
+    },
+    "plain": {
+      "total": 24,
+      "correct": 3,
+      "valid": 24,
+      "ids": [
+        "d08",
+        "d16",
+        "d17"
+      ],
+      "max_input": 334
+    },
+    "constrained": {
+      "total": 24,
+      "correct": 3,
+      "valid": 24,
+      "ids": [
+        "d08",
+        "d16",
+        "d17"
+      ],
+      "max_input": 334
+    }
+  }
+}

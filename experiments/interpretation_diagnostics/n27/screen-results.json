@@ -1,0 +1,57 @@
+{
+  "aggregate_labels": {
+    "avg": 2201,
+    "count": 5114,
+    "max": 3161,
+    "min": 3231,
+    "none": 40606,
+    "sum": 2042
+  },
+  "candidate_groups": {
+    "other:count/eq": 527,
+    "other:count/gt": 71,
+    "other:count/lt": 78,
+    "other:sum/eq": 83,
+    "other:sum/gt": 59,
+    "other:sum/lt": 78
+  },
+  "count_sum_condition_arities": {
+    "0": 1,
+    "1": 4352,
+    "2": 2093,
+    "3": 617,
+    "4": 93
+  },
+  "inputs": {
+    "train.db": "7b9bafabb43c190c52605322c787604e9019a0d7d602c2dc00833f81b3f28095",
+    "train.jsonl": "b52247eab1ea56bd5d181b54814449495740df52492193f36926bdc2ee822488",
+    "train.tables.jsonl": "5e65a734e355771d398b1e49049b40c98f78632616a2ee4171a4f5995f24eb50"
+  },
+  "predicates": {
+    "eq": 63880,
+    "gt": 6606,
+    "lt": 6243
+  },
+  "sampled_groups": {
+    "other:count/eq": 20,
+    "other:count/gt": 20,
+    "other:count/lt": 20,
+    "other:sum/eq": 20,
+    "other:sum/gt": 20,
+    "other:sum/lt": 20
+  },
+  "stages": {
+    "all_rows": 56355,
+    "count_or_sum": 7156,
+    "integer_threshold": 896,
+    "numeric_predicate_supported_op": 929,
+    "one_condition": 4352,
+    "other_integer_data": 837,
+    "same_column_before_type_filter": 0,
+    "same_integer_data": 0
+  },
+  "tables": 18585,
+  "total_reviewed": 120,
+  "unique_eligible_tables": 832,
+  "unique_eligible_wordings": 896
+}

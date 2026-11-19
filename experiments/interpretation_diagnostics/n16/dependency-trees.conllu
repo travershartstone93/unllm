@@ -1,0 +1,101 @@
+# newdoc id = .state/construct-audit-bc0OHG/prompts
+# newpar
+# sent_id = 1
+# text = Make a for loop
+1	Make	make	VERB	VB	Mood=Imp|VerbForm=Fin	0	root	_	_
+2	a	a	DET	DT	Definite=Ind|PronType=Art	4	det	_	_
+3	for	for	ADP	IN	_	4	case	_	_
+4	loop	loop	NOUN	NN	Number=Sing	1	obj	_	SpacesAfter=\n
+
+# sent_id = 2
+# text = Make an if statement.
+1	Make	make	VERB	VB	Mood=Imp|VerbForm=Fin	0	root	_	_
+2	an	a	DET	DT	Definite=Ind|PronType=Art	4	det	_	_
+3	if	if	ADJ	JJ	Degree=Pos	4	amod	_	_
+4	statement	statement	NOUN	NN	Number=Sing	1	obj	_	SpaceAfter=No
+5	.	.	PUNCT	.	_	1	punct	_	SpacesAfter=\n
+
+# sent_id = 3
+# text = Make a function.
+1	Make	make	VERB	VB	Mood=Imp|VerbForm=Fin	0	root	_	_
+2	a	a	DET	DT	Definite=Ind|PronType=Art	3	det	_	_
+3	function	function	NOUN	NN	Number=Sing	1	obj	_	SpaceAfter=No
+4	.	.	PUNCT	.	_	1	punct	_	SpacesAfter=\n
+
+# sent_id = 4
+# text = Make a for loop with an if statement inside it.
+1	Make	make	VERB	VB	Mood=Imp|VerbForm=Fin	0	root	_	_
+2	a	a	DET	DT	Definite=Ind|PronType=Art	4	det	_	_
+3	for	for	ADP	IN	_	4	case	_	_
+4	loop	loop	NOUN	NN	Number=Sing	1	obj	_	_
+5	with	with	ADP	IN	_	8	case	_	_
+6	an	a	DET	DT	Definite=Ind|PronType=Art	8	det	_	_
+7	if	if	SCONJ	IN	_	8	mark	_	_
+8	statement	statement	NOUN	NN	Number=Sing	1	obl	_	_
+9	inside	inside	ADP	IN	_	10	case	_	_
+10	it	it	PRON	PRP	Case=Acc|Gender=Neut|Number=Sing|Person=3|PronType=Prs	8	nmod	_	SpaceAfter=No
+11	.	.	PUNCT	.	_	1	punct	_	SpacesAfter=\n
+
+# sent_id = 5
+# text = Write a for loop that prints hello three times.
+1	Write	write	ADP	IN	_	4	case	_	_
+2	a	a	DET	DT	Definite=Ind|PronType=Art	4	det	_	_
+3	for	for	ADP	IN	_	4	case	_	_
+4	loop	loop	NOUN	NN	Number=Sing	0	root	_	_
+5	that	that	PRON	WDT	PronType=Rel	6	nsubj	_	_
+6	prints	print	VERB	VBZ	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	4	acl:relcl	_	_
+7	hello	hello	INTJ	UH	_	6	discourse	_	_
+8	three	three	NUM	CD	NumType=Card	9	nummod	_	_
+9	times	time	NOUN	NNS	Number=Plur	6	obl:tmod	_	SpaceAfter=No
+10	.	.	PUNCT	.	_	4	punct	_	SpacesAfter=\n
+
+# sent_id = 6
+# text = Write an if statement that returns one if a number is positive and zero otherwise.
+1	Write	write	ADP	IN	_	4	case	_	_
+2	an	a	DET	DT	Definite=Ind|PronType=Art	4	det	_	_
+3	if	if	ADJ	JJ	Degree=Pos	4	amod	_	_
+4	statement	statement	NOUN	NN	Number=Sing	0	root	_	_
+5	that	that	PRON	WDT	PronType=Rel	6	nsubj	_	_
+6	returns	return	VERB	VBZ	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	4	acl:relcl	_	_
+7	one	one	NUM	CD	NumType=Card	12	obj	_	_
+8	if	if	SCONJ	IN	_	12	mark	_	_
+9	a	a	DET	DT	Definite=Ind|PronType=Art	10	det	_	_
+10	number	number	NOUN	NN	Number=Sing	12	nsubj	_	_
+11	is	be	AUX	VBZ	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	12	cop	_	_
+12	positive	positive	ADJ	JJ	Degree=Pos	6	advcl	_	_
+13	and	and	CCONJ	CC	_	14	cc	_	_
+14	zero	zero	X	FW	Foreign=Yes	12	conj	_	_
+15	otherwise	otherwise	ADV	RB	_	14	advmod	_	SpaceAfter=No
+16	.	.	PUNCT	.	_	4	punct	_	SpacesAfter=\n
+
+# sent_id = 7
+# text = Write a function that adds two integers.
+1	Write	write	ADP	IN	_	3	case	_	_
+2	a	a	DET	DT	Definite=Ind|PronType=Art	3	det	_	_
+3	function	function	NOUN	NN	Number=Sing	0	root	_	_
+4	that	that	PRON	WDT	PronType=Rel	5	nsubj	_	_
+5	adds	add	VERB	VBZ	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	3	acl:relcl	_	_
+6	two	two	NUM	CD	NumType=Card	7	nummod	_	_
+7	integers	integer	NOUN	NNS	Number=Plur	5	obj	_	SpaceAfter=No
+8	.	.	PUNCT	.	_	3	punct	_	SpacesAfter=\n
+
+# sent_id = 8
+# text = Write a function that loops over the input integers and counts the ones greater than zero.
+1	Write	write	ADP	IN	_	3	case	_	_
+2	a	a	DET	DT	Definite=Ind|PronType=Art	3	det	_	_
+3	function	function	NOUN	NN	Number=Sing	0	root	_	_
+4	that	that	PRON	WDT	PronType=Rel	5	nsubj	_	_
+5	loops	loop	VERB	VBZ	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	3	acl:relcl	_	_
+6	over	over	ADP	IN	_	9	case	_	_
+7	the	the	DET	DT	Definite=Def|PronType=Art	9	det	_	_
+8	input	input	NOUN	NN	Number=Sing	9	compound	_	_
+9	integers	integer	NOUN	NNS	Number=Plur	5	obl	_	_
+10	and	and	CCONJ	CC	_	11	cc	_	_
+11	counts	count	NOUN	NNS	Number=Plur	9	conj	_	_
+12	the	the	DET	DT	Definite=Def|PronType=Art	13	det	_	_
+13	ones	one	NOUN	NNS	Number=Plur	11	obj	_	_
+14	greater	greater	ADJ	JJR	Degree=Cmp	13	amod	_	_
+15	than	than	ADP	IN	_	16	case	_	_
+16	zero	zero	NUM	CD	NumType=Card	14	obl	_	SpaceAfter=No
+17	.	.	PUNCT	.	_	3	punct	_	SpacesAfter=\n
+

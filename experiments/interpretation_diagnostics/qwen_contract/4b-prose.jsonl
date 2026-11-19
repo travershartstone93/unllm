@@ -1,0 +1,10 @@
+{"case": 1, "prompt": "Count the values above the cutoff.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.8}
+{"case": 2, "prompt": "How many entries exceed the cutoff?", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.74}
+{"case": 3, "prompt": "How many entries meet or exceed the cutoff?", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.392}
+{"case": 4, "prompt": "Add up the entries that exceed the cutoff.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.458}
+{"case": 5, "prompt": "Count the entries for which the cutoff is greater than the entry.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.369}
+{"case": 6, "prompt": "Count the entries greater than five.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.574}
+{"case": 7, "prompt": "Five was yesterday\u2019s cutoff. Count the entries above the cutoff supplied for this run.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.677}
+{"case": 8, "prompt": "Use a for loop with an if inside it to count entries below the cutoff.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.618}
+{"case": 9, "prompt": "Count the entries on the side of the cutoff I want.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.824}
+{"case": 10, "prompt": "Return the entries above the cutoff in their original order.", "content": "We", "valid": false, "correct": false, "error": "answer began outside JSON object", "thinking_chars": 0, "seconds": 0.971}
