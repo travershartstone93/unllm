@@ -1,0 +1,1056 @@
+[
+  {
+    "id": "text_workbench",
+    "spec": {
+      "schema": 2,
+      "program": "text_workbench",
+      "title": "Text Workbench",
+      "state": {
+        "notes": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "notes_input",
+          "kind": "text_edit",
+          "state": "notes"
+        },
+        {
+          "id": "words",
+          "kind": "label",
+          "value": "words(notes)",
+          "label": "Words"
+        },
+        {
+          "id": "characters",
+          "kind": "label",
+          "value": "chars(notes)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capitalize",
+          "label": "Uppercase",
+          "assign": {
+            "notes": "upper(notes)"
+          }
+        },
+        {
+          "id": "organize",
+          "label": "Sort unique lines",
+          "assign": {
+            "notes": "sort_lines(unique_lines(notes))"
+          }
+        },
+        {
+          "id": "open",
+          "label": "Open",
+          "effect": "load",
+          "state": "notes",
+          "shortcut": "Ctrl+O"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "notes",
+          "shortcut": "Ctrl+S"
+        }
+      ]
+    },
+    "language": "cpp",
+    "expected": {
+      "action_plans": {
+        "open": {
+          "steps": [
+            "confirm_discard",
+            "choose_open",
+            "read_utf8",
+            "commit_state",
+            "remember_path",
+            "mark_saved"
+          ],
+          "achieved": [
+            "committed",
+            "discarded",
+            "load_path",
+            "loaded",
+            "loaded_clean",
+            "opened",
+            "state"
+          ],
+          "goal": "loaded_clean"
+        },
+        "save": {
+          "steps": [
+            "encode_state",
+            "choose_existing_or_save",
+            "write_atomic_utf8",
+            "remember_path",
+            "mark_saved"
+          ],
+          "achieved": [
+            "encoded",
+            "save_path",
+            "saved_clean",
+            "saved_path",
+            "state",
+            "written"
+          ],
+          "goal": "saved_clean"
+        }
+      },
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.cpp": "behaviour:ui.window.cpp",
+        "ui.text_edit.cpp": "behaviour:ui.text_edit.cpp",
+        "ui.label.cpp": "behaviour:ui.label.cpp",
+        "ui.button.cpp": "behaviour:ui.button.cpp",
+        "assign": "behaviour:assign",
+        "action.open.state": "behaviour:action.open.state",
+        "choose_save": "behaviour:choose_save",
+        "choose_existing_or_save": "behaviour:choose_existing_or_save",
+        "mark_saved": "behaviour:mark_saved",
+        "write_atomic_utf8": "behaviour:write_atomic_utf8",
+        "confirm_discard": "behaviour:confirm_discard",
+        "action.open.discarded": "behaviour:action.open.discarded",
+        "choose_open": "behaviour:choose_open",
+        "action.open.opened": "behaviour:action.open.opened",
+        "read_utf8": "behaviour:read_utf8",
+        "action.open.loaded": "behaviour:action.open.loaded",
+        "commit_state": "behaviour:commit_state",
+        "action.open.committed": "behaviour:action.open.committed",
+        "remember_path": "behaviour:remember_path",
+        "action.open.load_path": "behaviour:action.open.load_path",
+        "action.open.loaded_clean": "behaviour:action.open.loaded_clean",
+        "effect.load": "behaviour:effect.load",
+        "action.open.goal": "behaviour:action.open.goal",
+        "action.save.state": "behaviour:action.save.state",
+        "encode_state": "behaviour:encode_state",
+        "action.save.encoded": "behaviour:action.save.encoded",
+        "action.save.save_path": "behaviour:action.save.save_path",
+        "action.save.written": "behaviour:action.save.written",
+        "action.save.saved_path": "behaviour:action.save.saved_path",
+        "action.save.saved_clean": "behaviour:action.save.saved_clean",
+        "effect.save": "behaviour:effect.save",
+        "action.save.goal": "behaviour:action.save.goal",
+        "primitive.chars": "behaviour:primitive.chars",
+        "primitive.sort_lines": "behaviour:primitive.sort_lines",
+        "primitive.unique_lines": "behaviour:primitive.unique_lines",
+        "primitive.upper": "behaviour:primitive.upper",
+        "primitive.words": "behaviour:primitive.words"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.cpp",
+        "ui.text_edit.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "assign",
+        "action.open.state",
+        "choose_save",
+        "choose_existing_or_save",
+        "mark_saved",
+        "write_atomic_utf8",
+        "confirm_discard",
+        "action.open.discarded",
+        "choose_open",
+        "action.open.opened",
+        "read_utf8",
+        "action.open.loaded",
+        "commit_state",
+        "action.open.committed",
+        "remember_path",
+        "action.open.load_path",
+        "action.open.loaded_clean",
+        "effect.load",
+        "action.open.goal",
+        "action.save.state",
+        "encode_state",
+        "action.save.encoded",
+        "action.save.save_path",
+        "action.save.written",
+        "action.save.saved_path",
+        "action.save.saved_clean",
+        "effect.save",
+        "action.save.goal",
+        "primitive.chars",
+        "primitive.sort_lines",
+        "primitive.unique_lines",
+        "primitive.upper",
+        "primitive.words"
+      ],
+      "requirements": [
+        "ui.window.cpp",
+        "ui.text_edit.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "assign",
+        "action.open.goal",
+        "action.save.goal",
+        "primitive.chars",
+        "primitive.sort_lines",
+        "primitive.unique_lines",
+        "primitive.upper",
+        "primitive.words"
+      ]
+    }
+  },
+  {
+    "id": "text_workbench",
+    "spec": {
+      "schema": 2,
+      "program": "text_workbench",
+      "title": "Text Workbench",
+      "state": {
+        "notes": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "notes_input",
+          "kind": "text_edit",
+          "state": "notes"
+        },
+        {
+          "id": "words",
+          "kind": "label",
+          "value": "words(notes)",
+          "label": "Words"
+        },
+        {
+          "id": "characters",
+          "kind": "label",
+          "value": "chars(notes)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capitalize",
+          "label": "Uppercase",
+          "assign": {
+            "notes": "upper(notes)"
+          }
+        },
+        {
+          "id": "organize",
+          "label": "Sort unique lines",
+          "assign": {
+            "notes": "sort_lines(unique_lines(notes))"
+          }
+        },
+        {
+          "id": "open",
+          "label": "Open",
+          "effect": "load",
+          "state": "notes",
+          "shortcut": "Ctrl+O"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "notes",
+          "shortcut": "Ctrl+S"
+        }
+      ]
+    },
+    "language": "python",
+    "expected": {
+      "action_plans": {
+        "open": {
+          "steps": [
+            "confirm_discard",
+            "choose_open",
+            "read_utf8",
+            "commit_state",
+            "remember_path",
+            "mark_saved"
+          ],
+          "achieved": [
+            "committed",
+            "discarded",
+            "load_path",
+            "loaded",
+            "loaded_clean",
+            "opened",
+            "state"
+          ],
+          "goal": "loaded_clean"
+        },
+        "save": {
+          "steps": [
+            "encode_state",
+            "choose_existing_or_save",
+            "write_atomic_utf8",
+            "remember_path",
+            "mark_saved"
+          ],
+          "achieved": [
+            "encoded",
+            "save_path",
+            "saved_clean",
+            "saved_path",
+            "state",
+            "written"
+          ],
+          "goal": "saved_clean"
+        }
+      },
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.python": "behaviour:ui.window.python",
+        "ui.text_edit.python": "behaviour:ui.text_edit.python",
+        "ui.label.python": "behaviour:ui.label.python",
+        "ui.button.python": "behaviour:ui.button.python",
+        "assign": "behaviour:assign",
+        "action.open.state": "behaviour:action.open.state",
+        "choose_save": "behaviour:choose_save",
+        "choose_existing_or_save": "behaviour:choose_existing_or_save",
+        "mark_saved": "behaviour:mark_saved",
+        "write_atomic_utf8": "behaviour:write_atomic_utf8",
+        "confirm_discard": "behaviour:confirm_discard",
+        "action.open.discarded": "behaviour:action.open.discarded",
+        "choose_open": "behaviour:choose_open",
+        "action.open.opened": "behaviour:action.open.opened",
+        "read_utf8": "behaviour:read_utf8",
+        "action.open.loaded": "behaviour:action.open.loaded",
+        "commit_state": "behaviour:commit_state",
+        "action.open.committed": "behaviour:action.open.committed",
+        "remember_path": "behaviour:remember_path",
+        "action.open.load_path": "behaviour:action.open.load_path",
+        "action.open.loaded_clean": "behaviour:action.open.loaded_clean",
+        "effect.load": "behaviour:effect.load",
+        "action.open.goal": "behaviour:action.open.goal",
+        "action.save.state": "behaviour:action.save.state",
+        "encode_state": "behaviour:encode_state",
+        "action.save.encoded": "behaviour:action.save.encoded",
+        "action.save.save_path": "behaviour:action.save.save_path",
+        "action.save.written": "behaviour:action.save.written",
+        "action.save.saved_path": "behaviour:action.save.saved_path",
+        "action.save.saved_clean": "behaviour:action.save.saved_clean",
+        "effect.save": "behaviour:effect.save",
+        "action.save.goal": "behaviour:action.save.goal",
+        "primitive.chars": "behaviour:primitive.chars",
+        "primitive.sort_lines": "behaviour:primitive.sort_lines",
+        "primitive.unique_lines": "behaviour:primitive.unique_lines",
+        "primitive.upper": "behaviour:primitive.upper",
+        "primitive.words": "behaviour:primitive.words"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.python",
+        "ui.text_edit.python",
+        "ui.label.python",
+        "ui.button.python",
+        "assign",
+        "action.open.state",
+        "choose_save",
+        "choose_existing_or_save",
+        "mark_saved",
+        "write_atomic_utf8",
+        "confirm_discard",
+        "action.open.discarded",
+        "choose_open",
+        "action.open.opened",
+        "read_utf8",
+        "action.open.loaded",
+        "commit_state",
+        "action.open.committed",
+        "remember_path",
+        "action.open.load_path",
+        "action.open.loaded_clean",
+        "effect.load",
+        "action.open.goal",
+        "action.save.state",
+        "encode_state",
+        "action.save.encoded",
+        "action.save.save_path",
+        "action.save.written",
+        "action.save.saved_path",
+        "action.save.saved_clean",
+        "effect.save",
+        "action.save.goal",
+        "primitive.chars",
+        "primitive.sort_lines",
+        "primitive.unique_lines",
+        "primitive.upper",
+        "primitive.words"
+      ],
+      "requirements": [
+        "ui.window.python",
+        "ui.text_edit.python",
+        "ui.label.python",
+        "ui.button.python",
+        "assign",
+        "action.open.goal",
+        "action.save.goal",
+        "primitive.chars",
+        "primitive.sort_lines",
+        "primitive.unique_lines",
+        "primitive.upper",
+        "primitive.words"
+      ]
+    }
+  },
+  {
+    "id": "conversion",
+    "spec": {
+      "schema": 2,
+      "program": "temperature_relation",
+      "title": "Temperature Conversion",
+      "state": {
+        "celsius": {
+          "type": "number",
+          "initial": 0
+        },
+        "fahrenheit": {
+          "type": "number",
+          "initial": 32
+        }
+      },
+      "views": [
+        {
+          "id": "celsius_input",
+          "kind": "number_input",
+          "state": "celsius",
+          "label": "Celsius"
+        },
+        {
+          "id": "fahrenheit_output",
+          "kind": "label",
+          "value": "fahrenheit",
+          "label": "Fahrenheit"
+        },
+        {
+          "id": "guarded_ratio",
+          "kind": "label",
+          "value": "fahrenheit / celsius if celsius != 0 else 0",
+          "label": "Ratio"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "5 * next.fahrenheit == 9 * prev.celsius + 160"
+        }
+      ]
+    },
+    "language": "cpp",
+    "expected": {
+      "action_plans": {},
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.cpp": "behaviour:ui.window.cpp",
+        "ui.number_input.cpp": "behaviour:ui.number_input.cpp",
+        "ui.label.cpp": "behaviour:ui.label.cpp",
+        "ui.button.cpp": "behaviour:ui.button.cpp",
+        "solver.transition": "behaviour:solver.transition"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.cpp",
+        "ui.number_input.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "solver.transition"
+      ],
+      "requirements": [
+        "ui.window.cpp",
+        "ui.number_input.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "solver.transition"
+      ]
+    }
+  },
+  {
+    "id": "conversion",
+    "spec": {
+      "schema": 2,
+      "program": "temperature_relation",
+      "title": "Temperature Conversion",
+      "state": {
+        "celsius": {
+          "type": "number",
+          "initial": 0
+        },
+        "fahrenheit": {
+          "type": "number",
+          "initial": 32
+        }
+      },
+      "views": [
+        {
+          "id": "celsius_input",
+          "kind": "number_input",
+          "state": "celsius",
+          "label": "Celsius"
+        },
+        {
+          "id": "fahrenheit_output",
+          "kind": "label",
+          "value": "fahrenheit",
+          "label": "Fahrenheit"
+        },
+        {
+          "id": "guarded_ratio",
+          "kind": "label",
+          "value": "fahrenheit / celsius if celsius != 0 else 0",
+          "label": "Ratio"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "5 * next.fahrenheit == 9 * prev.celsius + 160"
+        }
+      ]
+    },
+    "language": "python",
+    "expected": {
+      "action_plans": {},
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.python": "behaviour:ui.window.python",
+        "ui.number_input.python": "behaviour:ui.number_input.python",
+        "ui.label.python": "behaviour:ui.label.python",
+        "ui.button.python": "behaviour:ui.button.python",
+        "solver.transition": "behaviour:solver.transition"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.python",
+        "ui.number_input.python",
+        "ui.label.python",
+        "ui.button.python",
+        "solver.transition"
+      ],
+      "requirements": [
+        "ui.window.python",
+        "ui.number_input.python",
+        "ui.label.python",
+        "ui.button.python",
+        "solver.transition"
+      ]
+    }
+  },
+  {
+    "id": "paired_state",
+    "spec": {
+      "schema": 2,
+      "program": "two_balances",
+      "title": "Paired State",
+      "state": {
+        "left": {
+          "type": "number",
+          "initial": 3
+        },
+        "right": {
+          "type": "number",
+          "initial": 7
+        }
+      },
+      "views": [
+        {
+          "id": "left_input",
+          "kind": "number_input",
+          "state": "left",
+          "label": "Left"
+        },
+        {
+          "id": "right_input",
+          "kind": "number_input",
+          "state": "right",
+          "label": "Right"
+        },
+        {
+          "id": "total",
+          "kind": "label",
+          "value": "left + right",
+          "label": "Total"
+        }
+      ],
+      "actions": [
+        {
+          "id": "swap",
+          "label": "Swap",
+          "ensure": "next.left == prev.right and next.right == prev.left"
+        },
+        {
+          "id": "rebalance",
+          "label": "Transfer two",
+          "ensure": "next.left == prev.left - 2 and next.right == prev.right + 2"
+        },
+        {
+          "id": "clamp",
+          "label": "Clamp left to zero",
+          "ensure": "next.left == (0 if prev.left < 0 else prev.left)"
+        }
+      ]
+    },
+    "language": "cpp",
+    "expected": {
+      "action_plans": {},
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.cpp": "behaviour:ui.window.cpp",
+        "ui.number_input.cpp": "behaviour:ui.number_input.cpp",
+        "ui.label.cpp": "behaviour:ui.label.cpp",
+        "ui.button.cpp": "behaviour:ui.button.cpp",
+        "solver.transition": "behaviour:solver.transition"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.cpp",
+        "ui.number_input.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "solver.transition"
+      ],
+      "requirements": [
+        "ui.window.cpp",
+        "ui.number_input.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "solver.transition"
+      ]
+    }
+  },
+  {
+    "id": "paired_state",
+    "spec": {
+      "schema": 2,
+      "program": "two_balances",
+      "title": "Paired State",
+      "state": {
+        "left": {
+          "type": "number",
+          "initial": 3
+        },
+        "right": {
+          "type": "number",
+          "initial": 7
+        }
+      },
+      "views": [
+        {
+          "id": "left_input",
+          "kind": "number_input",
+          "state": "left",
+          "label": "Left"
+        },
+        {
+          "id": "right_input",
+          "kind": "number_input",
+          "state": "right",
+          "label": "Right"
+        },
+        {
+          "id": "total",
+          "kind": "label",
+          "value": "left + right",
+          "label": "Total"
+        }
+      ],
+      "actions": [
+        {
+          "id": "swap",
+          "label": "Swap",
+          "ensure": "next.left == prev.right and next.right == prev.left"
+        },
+        {
+          "id": "rebalance",
+          "label": "Transfer two",
+          "ensure": "next.left == prev.left - 2 and next.right == prev.right + 2"
+        },
+        {
+          "id": "clamp",
+          "label": "Clamp left to zero",
+          "ensure": "next.left == (0 if prev.left < 0 else prev.left)"
+        }
+      ]
+    },
+    "language": "python",
+    "expected": {
+      "action_plans": {},
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.python": "behaviour:ui.window.python",
+        "ui.number_input.python": "behaviour:ui.number_input.python",
+        "ui.label.python": "behaviour:ui.label.python",
+        "ui.button.python": "behaviour:ui.button.python",
+        "solver.transition": "behaviour:solver.transition"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.python",
+        "ui.number_input.python",
+        "ui.label.python",
+        "ui.button.python",
+        "solver.transition"
+      ],
+      "requirements": [
+        "ui.window.python",
+        "ui.number_input.python",
+        "ui.label.python",
+        "ui.button.python",
+        "solver.transition"
+      ]
+    }
+  },
+  {
+    "id": "mixed_workspace",
+    "spec": {
+      "schema": 2,
+      "program": "a_name_the_generator_has_no_category_for",
+      "title": "Mixed Workspace",
+      "state": {
+        "draft": {
+          "type": "text",
+          "initial": ""
+        },
+        "snapshot": {
+          "type": "text",
+          "initial": ""
+        },
+        "visits": {
+          "type": "number",
+          "initial": 0
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "draft_input",
+          "kind": "text_edit",
+          "state": "draft"
+        },
+        {
+          "id": "snapshot_view",
+          "kind": "label",
+          "value": "snapshot",
+          "label": "Snapshot"
+        },
+        {
+          "id": "word_count",
+          "kind": "label",
+          "value": "words(draft)",
+          "label": "Words"
+        },
+        {
+          "id": "visits",
+          "kind": "label",
+          "value": "visits",
+          "label": "Visits"
+        },
+        {
+          "id": "flag",
+          "kind": "label",
+          "value": "flag",
+          "label": "Flag"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capture",
+          "label": "Capture",
+          "assign": {
+            "snapshot": "upper(strip(draft))",
+            "flag": "not flag"
+          }
+        },
+        {
+          "id": "advance",
+          "label": "Advance by three",
+          "ensure": "next.visits == prev.visits + 3"
+        },
+        {
+          "id": "store",
+          "label": "Save snapshot",
+          "effect": "save",
+          "state": "snapshot"
+        }
+      ]
+    },
+    "language": "cpp",
+    "expected": {
+      "action_plans": {
+        "store": {
+          "steps": [
+            "encode_state",
+            "choose_existing_or_save",
+            "write_atomic_utf8",
+            "remember_path",
+            "mark_saved"
+          ],
+          "achieved": [
+            "encoded",
+            "save_path",
+            "saved_clean",
+            "saved_path",
+            "state",
+            "written"
+          ],
+          "goal": "saved_clean"
+        }
+      },
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.cpp": "behaviour:ui.window.cpp",
+        "ui.text_edit.cpp": "behaviour:ui.text_edit.cpp",
+        "ui.label.cpp": "behaviour:ui.label.cpp",
+        "ui.button.cpp": "behaviour:ui.button.cpp",
+        "assign": "behaviour:assign",
+        "solver.transition": "behaviour:solver.transition",
+        "action.store.state": "behaviour:action.store.state",
+        "encode_state": "behaviour:encode_state",
+        "action.store.encoded": "behaviour:action.store.encoded",
+        "choose_save": "behaviour:choose_save",
+        "choose_existing_or_save": "behaviour:choose_existing_or_save",
+        "action.store.save_path": "behaviour:action.store.save_path",
+        "write_atomic_utf8": "behaviour:write_atomic_utf8",
+        "action.store.written": "behaviour:action.store.written",
+        "remember_path": "behaviour:remember_path",
+        "action.store.saved_path": "behaviour:action.store.saved_path",
+        "mark_saved": "behaviour:mark_saved",
+        "action.store.saved_clean": "behaviour:action.store.saved_clean",
+        "effect.save": "behaviour:effect.save",
+        "action.store.goal": "behaviour:action.store.goal",
+        "primitive.strip": "behaviour:primitive.strip",
+        "primitive.upper": "behaviour:primitive.upper",
+        "primitive.words": "behaviour:primitive.words"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.cpp",
+        "ui.text_edit.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "assign",
+        "solver.transition",
+        "action.store.state",
+        "encode_state",
+        "action.store.encoded",
+        "choose_save",
+        "choose_existing_or_save",
+        "action.store.save_path",
+        "write_atomic_utf8",
+        "action.store.written",
+        "remember_path",
+        "action.store.saved_path",
+        "mark_saved",
+        "action.store.saved_clean",
+        "effect.save",
+        "action.store.goal",
+        "primitive.strip",
+        "primitive.upper",
+        "primitive.words"
+      ],
+      "requirements": [
+        "ui.window.cpp",
+        "ui.text_edit.cpp",
+        "ui.label.cpp",
+        "ui.button.cpp",
+        "assign",
+        "solver.transition",
+        "action.store.goal",
+        "primitive.strip",
+        "primitive.upper",
+        "primitive.words"
+      ]
+    }
+  },
+  {
+    "id": "mixed_workspace",
+    "spec": {
+      "schema": 2,
+      "program": "a_name_the_generator_has_no_category_for",
+      "title": "Mixed Workspace",
+      "state": {
+        "draft": {
+          "type": "text",
+          "initial": ""
+        },
+        "snapshot": {
+          "type": "text",
+          "initial": ""
+        },
+        "visits": {
+          "type": "number",
+          "initial": 0
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "draft_input",
+          "kind": "text_edit",
+          "state": "draft"
+        },
+        {
+          "id": "snapshot_view",
+          "kind": "label",
+          "value": "snapshot",
+          "label": "Snapshot"
+        },
+        {
+          "id": "word_count",
+          "kind": "label",
+          "value": "words(draft)",
+          "label": "Words"
+        },
+        {
+          "id": "visits",
+          "kind": "label",
+          "value": "visits",
+          "label": "Visits"
+        },
+        {
+          "id": "flag",
+          "kind": "label",
+          "value": "flag",
+          "label": "Flag"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capture",
+          "label": "Capture",
+          "assign": {
+            "snapshot": "upper(strip(draft))",
+            "flag": "not flag"
+          }
+        },
+        {
+          "id": "advance",
+          "label": "Advance by three",
+          "ensure": "next.visits == prev.visits + 3"
+        },
+        {
+          "id": "store",
+          "label": "Save snapshot",
+          "effect": "save",
+          "state": "snapshot"
+        }
+      ]
+    },
+    "language": "python",
+    "expected": {
+      "action_plans": {
+        "store": {
+          "steps": [
+            "encode_state",
+            "choose_existing_or_save",
+            "write_atomic_utf8",
+            "remember_path",
+            "mark_saved"
+          ],
+          "achieved": [
+            "encoded",
+            "save_path",
+            "saved_clean",
+            "saved_path",
+            "state",
+            "written"
+          ],
+          "goal": "saved_clean"
+        }
+      },
+      "providers": {
+        "dispatch": "behaviour:dispatch",
+        "state": "behaviour:state",
+        "ui.window.python": "behaviour:ui.window.python",
+        "ui.text_edit.python": "behaviour:ui.text_edit.python",
+        "ui.label.python": "behaviour:ui.label.python",
+        "ui.button.python": "behaviour:ui.button.python",
+        "assign": "behaviour:assign",
+        "solver.transition": "behaviour:solver.transition",
+        "action.store.state": "behaviour:action.store.state",
+        "encode_state": "behaviour:encode_state",
+        "action.store.encoded": "behaviour:action.store.encoded",
+        "choose_save": "behaviour:choose_save",
+        "choose_existing_or_save": "behaviour:choose_existing_or_save",
+        "action.store.save_path": "behaviour:action.store.save_path",
+        "write_atomic_utf8": "behaviour:write_atomic_utf8",
+        "action.store.written": "behaviour:action.store.written",
+        "remember_path": "behaviour:remember_path",
+        "action.store.saved_path": "behaviour:action.store.saved_path",
+        "mark_saved": "behaviour:mark_saved",
+        "action.store.saved_clean": "behaviour:action.store.saved_clean",
+        "effect.save": "behaviour:effect.save",
+        "action.store.goal": "behaviour:action.store.goal",
+        "primitive.strip": "behaviour:primitive.strip",
+        "primitive.upper": "behaviour:primitive.upper",
+        "primitive.words": "behaviour:primitive.words"
+      },
+      "order": [
+        "dispatch",
+        "state",
+        "ui.window.python",
+        "ui.text_edit.python",
+        "ui.label.python",
+        "ui.button.python",
+        "assign",
+        "solver.transition",
+        "action.store.state",
+        "encode_state",
+        "action.store.encoded",
+        "choose_save",
+        "choose_existing_or_save",
+        "action.store.save_path",
+        "write_atomic_utf8",
+        "action.store.written",
+        "remember_path",
+        "action.store.saved_path",
+        "mark_saved",
+        "action.store.saved_clean",
+        "effect.save",
+        "action.store.goal",
+        "primitive.strip",
+        "primitive.upper",
+        "primitive.words"
+      ],
+      "requirements": [
+        "ui.window.python",
+        "ui.text_edit.python",
+        "ui.label.python",
+        "ui.button.python",
+        "assign",
+        "solver.transition",
+        "action.store.goal",
+        "primitive.strip",
+        "primitive.upper",
+        "primitive.words"
+      ]
+    }
+  }
+]

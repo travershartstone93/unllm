@@ -1,0 +1,36 @@
+{
+  "clear": {"parameters": [], "result": "void", "body": [
+    ["set", "entry", ""], ["set", "error", ""], ["set", "after_result", false]
+  ]},
+  "write_result": {"parameters": [["value","number"]], "result":"void","body":[
+    ["set","last_value",["local","value"]], ["set","entry",["number_text",["local","value"]]],
+    ["set","after_result",true], ["set","error",""]
+  ]},
+  "current_value":{"parameters":[],"result":"number","body":[
+    ["if",["eq",["state","entry"],""],[["return",0]]],
+    ["return",["evaluate_expression",["state","entry"]]]
+  ]},
+  "append":{"parameters":[["text","text"],["fresh","bool"]],"result":"void","body":[
+    ["if",["ne",["state","error"],""],[["call","clear"]]],
+    ["if",["and",["state","after_result"],["local","fresh"]],[["call","clear"]]],
+    ["if",["gt",["add",["length",["state","entry"]],["length",["local","text"]]],1024],[["set","error","Expression too long"],["return"]]],
+    ["set","after_result",false], ["set","entry",["add",["state","entry"],["local","text"]]]
+  ]},
+  "backspace":{"requires":"control:backspace","parameters":[],"result":"void","body":[
+    ["if",["or",["state","after_result"],["ne",["state","error"],""]],[["call","clear"],["return"]]],
+    ["set","entry",["truncate_last",["state","entry"]]]
+  ]},
+  "evaluate":{"parameters":[],"result":"void","body":[
+    ["try",[["call","write_result",["invoke","current_value"]]],[["set","error",["local","problem"]],["set","after_result",false]]]
+  ]},
+  "render":{"parameters":[],"result":"text","body":[
+    ["if",["ne",["state","error"],""],[["return",["add","Error: ",["state","error"]]]]],
+    ["if",["state","after_result"],[["return",["display_number",["state","last_value"],["parameter","precision"]]]]],
+    ["if",["eq",["state","entry"],""],[["return","0"]]], ["return",["state","entry"]]
+  ]},
+  "memory_clear":{"requires":"control:memory","parameters":[],"result":"void","body":[["set","memory",0]]},
+  "memory_recall":{"requires":"control:memory","parameters":[],"result":"void","body":[["call","write_result",["state","memory"]]]},
+  "memory_display":{"requires":"control:memory","parameters":[],"result":"text","body":[
+    ["return",["add","Memory: ",["display_number",["state","memory"],["parameter","precision"]]]]
+  ]}
+}

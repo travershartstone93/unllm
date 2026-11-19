@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "scan",
+      "params": [["n", "int"], ["enabled", "bool"]],
+      "locals": [["total", "int", ["int", "0"]]],
+      "body": [["if", ["var", "enabled"], [["range", "a", ["var", "n"], [["range", "b", ["var", "a"], [["set", "total", ["add", ["var", "total"], ["int", "1"]]]]]]]], []]],
+      "result": "int",
+      "return": ["var", "total"]
+    }
+  ]
+}

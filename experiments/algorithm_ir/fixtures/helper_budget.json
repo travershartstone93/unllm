@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "inner",
+      "params": [["n", "int"]],
+      "locals": [["total", "int", ["int", "0"]]],
+      "result": "int",
+      "body": [["range", "a", ["var", "n"], [["range", "b", ["var", "n"], [["set", "total", ["add", ["var", "total"], ["int", "1"]]]]]]]],
+      "return": ["var", "total"]
+    },
+    {
+      "name": "outer",
+      "params": [["n", "int"]],
+      "locals": [["total", "int", ["int", "0"]]],
+      "result": "int",
+      "body": [["range", "a", ["var", "n"], [["range", "b", ["var", "n"], [["set", "total", ["add", ["var", "total"], ["call", "inner", ["var", "n"]]]]]]]]],
+      "return": ["var", "total"]
+    }
+  ]
+}

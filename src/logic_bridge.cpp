@@ -65,7 +65,13 @@ void initialize() {
     char* argv[] = {name, quiet, signals, flag, none, nullptr};
     if (!PL_initialise(5, argv)) throw std::runtime_error("Cannot initialize embedded SWI-Prolog");
     term_t arg = PL_new_term_ref();
+#ifdef UNLLM_NATIVE_RULE_PATH
+    const char *rules = std::getenv("UNLLM_NATIVE_RULE_PATH");
+    if (!rules || !*rules) throw std::runtime_error("Missing native Prolog rules path");
+    atom(arg, rules);
+#else
     atom(arg, UNLLM_PROLOG_RULES);
+#endif
     call("consult", 1, arg);
     initialized = true;
 }

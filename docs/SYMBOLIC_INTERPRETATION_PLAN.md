@@ -1,20 +1,7 @@
 # Plan: improve symbolic request interpretation
 
 Proposed on 2026-11-12, following the [local-model experiment](LOCAL_MODEL_EXPERIMENT.md).
-This document is a plan; runtime implementation has not started.
-
-Implementation order update: the [C++ runtime migration](CPP_RUNTIME_MIGRATION_PLAN.md)
-comes first. This roadmap is deferred until migration and pilot evaluation. Current
-Python filenames below identify existing responsibilities to replace; future host
-implementation uses native modules. PyDelphin remains a migration reference, not
-a runtime dependency.
-
-Scope update: begin with the [targeted symbolic distillation pilot](TARGETED_SYMBOLIC_DISTILLATION.md)
-for numeric-change grounding. The wider milestones and 30/32 target below remain
-a later roadmap, not prerequisites or scope for that first pilot.
-The reviewed pilot starts with a discovery-only feasibility check, freezes its
-engineering-only baseline, and reserves structural combinations for final
-evaluation. Its contribution and stopping gates are defined in that pilot document.
+Status on 2026-11-18. The [native migration](CPP_MIGRATION_PROGRESS.md) is complete and the [numeric pilot](../experiments/symbolic_distillation/numeric_change/README.md) reached its feasibility stop. Milestone 1 passed its [160-trial history comparison](../experiments/interpretation_diagnostics/README.md). Milestone 2 is next. Python module references below identify historical responsibilities. The host implementation uses C++.
 
 The objective is to understand more ordinary descriptions of already supported
 program behavior while preserving accurate operands, scope and targets. Work stays

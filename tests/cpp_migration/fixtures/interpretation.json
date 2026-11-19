@@ -1,0 +1,1071 @@
+[
+  {
+    "id": "original_text",
+    "question": "Build an app with an editable text area, a character count, and lowercase and save buttons.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "body": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "body_view",
+          "kind": "text_edit",
+          "state": "body"
+        },
+        {
+          "id": "chars_view",
+          "kind": "label",
+          "value": "chars(body)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "lower",
+          "label": "Lower",
+          "assign": {
+            "body": "lower(body)"
+          }
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "body",
+          "shortcut": "Ctrl+S"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "chars",
+            "state": "body",
+            "predicate": "default"
+          },
+          {
+            "operation": "lower",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "save",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "original_counter",
+    "question": "Build an app that decreases a counter by 11.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "value": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "number_view",
+          "kind": "number_input",
+          "state": "value"
+        },
+        {
+          "id": "number_result",
+          "kind": "label",
+          "value": "value",
+          "label": "Value"
+        }
+      ],
+      "actions": [
+        {
+          "id": "decrement",
+          "label": "Decrement",
+          "ensure": "next.value == prev.value - 11.0"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "decrease",
+            "state": "value",
+            "predicate": "_decrease_v_1"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "original_todo",
+    "question": "Make a to-do list app with add, remove, and save buttons.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "records": {
+          "type": "records",
+          "initial": [],
+          "fields": {
+            "text": "text",
+            "done": "bool"
+          }
+        },
+        "selection": {
+          "type": "number",
+          "initial": -1.0
+        },
+        "entry_text": {
+          "type": "text",
+          "initial": ""
+        },
+        "entry_done": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "entry_text_input",
+          "kind": "line_edit",
+          "state": "entry_text",
+          "label": "Text"
+        },
+        {
+          "id": "records_view",
+          "kind": "record_list",
+          "state": "records",
+          "selection": "selection",
+          "display": "text",
+          "checked": "done"
+        },
+        {
+          "id": "records_count_view",
+          "kind": "label",
+          "value": "records_count(records)",
+          "label": "Items"
+        }
+      ],
+      "actions": [
+        {
+          "id": "add",
+          "label": "Add",
+          "effect": "append_record",
+          "state": "records",
+          "values": {
+            "text": "strip(entry_text)",
+            "done": "entry_done"
+          },
+          "selection": "selection",
+          "clear": [
+            "entry_text"
+          ],
+          "requires": "chars(strip(entry_text)) > 0"
+        },
+        {
+          "id": "remove",
+          "label": "Remove",
+          "effect": "remove_record",
+          "state": "records",
+          "selection": "selection"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "records",
+          "shortcut": "Ctrl+S"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "append",
+            "state": "records",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "remove",
+            "state": "records",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "save",
+            "state": "records",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "original_clock",
+    "question": "Create a stopwatch app with start, stop, and reset buttons.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "elapsed": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "anchor": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "running": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "elapsed_view",
+          "kind": "label",
+          "value": "elapsed",
+          "label": "Seconds"
+        }
+      ],
+      "actions": [
+        {
+          "id": "tick",
+          "label": "Tick",
+          "effect": "sample_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running",
+          "visible": false
+        },
+        {
+          "id": "start",
+          "label": "Start",
+          "effect": "start_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        },
+        {
+          "id": "stop",
+          "label": "Stop",
+          "effect": "stop_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        },
+        {
+          "id": "reset",
+          "label": "Reset",
+          "effect": "reset_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        }
+      ],
+      "events": [
+        {
+          "kind": "periodic",
+          "interval_ms": 25,
+          "action": "tick"
+        }
+      ],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "start",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "stop",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "reset",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "original_conversion",
+    "question": "Create an app that converts Celsius to Fahrenheit.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "input_value": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "output_value": {
+          "type": "number",
+          "initial": 32.0
+        }
+      },
+      "views": [
+        {
+          "id": "source_input",
+          "kind": "number_input",
+          "state": "input_value",
+          "label": "Celsius"
+        },
+        {
+          "id": "converted_output",
+          "kind": "label",
+          "value": "output_value",
+          "label": "Fahrenheit"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "5 * next.output_value == 9 * prev.input_value + (160)"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "convert",
+            "source_unit": "celsius",
+            "target_unit": "fahrenheit",
+            "dimension": "temperature"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "original_tip",
+    "question": "Build a tip calculator with bill amount and tip percentage inputs.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "amount": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "rate": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "part": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "total": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "amount_input",
+          "kind": "number_input",
+          "state": "amount",
+          "label": "Bill amount"
+        },
+        {
+          "id": "rate_input",
+          "kind": "number_input",
+          "state": "rate",
+          "label": "Tip percentage"
+        },
+        {
+          "id": "part_output",
+          "kind": "label",
+          "value": "part",
+          "label": "Tip amount"
+        },
+        {
+          "id": "total_output",
+          "kind": "label",
+          "value": "total",
+          "label": "Total"
+        }
+      ],
+      "actions": [
+        {
+          "id": "calculate",
+          "label": "Calculate",
+          "ensure": "100 * next.part == prev.amount * prev.rate and next.total == prev.amount + next.part"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "percentage_of",
+            "base": "amount",
+            "rate": "rate",
+            "output": "part",
+            "total_sign": 1
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "known_failed_coordination",
+    "question": "Build an app with an editable text area, a character count, and uppercase and save buttons, and a counter that increases by 4.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "body": {
+          "type": "text",
+          "initial": ""
+        },
+        "value": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "body_view",
+          "kind": "text_edit",
+          "state": "body"
+        },
+        {
+          "id": "number_view",
+          "kind": "number_input",
+          "state": "value"
+        },
+        {
+          "id": "number_result",
+          "kind": "label",
+          "value": "value",
+          "label": "Value"
+        },
+        {
+          "id": "chars_view",
+          "kind": "label",
+          "value": "chars(body)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "upper",
+          "label": "Upper",
+          "assign": {
+            "body": "upper(body)"
+          }
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "body",
+          "shortcut": "Ctrl+S"
+        },
+        {
+          "id": "increment",
+          "label": "Increment",
+          "ensure": "next.value == prev.value + 4.0"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "chars",
+            "state": "body",
+            "predicate": "default"
+          },
+          {
+            "operation": "upper",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "save",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "increase",
+            "state": "value",
+            "predicate": "_increase_v_cause"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "known_reordered_coordination",
+    "question": "Build an app with an editable text area, a character count, a counter that increases by 4, and uppercase and save buttons.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "body": {
+          "type": "text",
+          "initial": ""
+        },
+        "value": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "body_view",
+          "kind": "text_edit",
+          "state": "body"
+        },
+        {
+          "id": "number_view",
+          "kind": "number_input",
+          "state": "value"
+        },
+        {
+          "id": "number_result",
+          "kind": "label",
+          "value": "value",
+          "label": "Value"
+        },
+        {
+          "id": "chars_view",
+          "kind": "label",
+          "value": "chars(body)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "increment",
+          "label": "Increment",
+          "ensure": "next.value == prev.value + 4.0"
+        },
+        {
+          "id": "upper",
+          "label": "Upper",
+          "assign": {
+            "body": "upper(body)"
+          }
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "body",
+          "shortcut": "Ctrl+S"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "chars",
+            "state": "body",
+            "predicate": "default"
+          },
+          {
+            "operation": "increase",
+            "state": "value",
+            "predicate": "_increase_v_1"
+          },
+          {
+            "operation": "upper",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "save",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "text_paraphrase",
+    "question": "I need a window with a multiline text box where I can see the character count, turn the text uppercase, and save it.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "initial_fraction",
+    "question": "Give me a counter starting at 8.5 whose button takes away 2.25.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "multiply_counter",
+    "question": "Create a counter whose button multiplies its value by 3.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "value": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "number_view",
+          "kind": "number_input",
+          "state": "value"
+        },
+        {
+          "id": "number_result",
+          "kind": "label",
+          "value": "value",
+          "label": "Value"
+        }
+      ],
+      "actions": [
+        {
+          "id": "multiply",
+          "label": "Multiply",
+          "ensure": "next.value == prev.value * 3.0"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "multiply",
+            "state": "value",
+            "predicate": "_multiply_v_cause"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "two_actions",
+    "question": "Create a counter with separate buttons to increase it by 2 and decrease it by 5.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "shopping_paraphrase",
+    "question": "I want a shopping list where I can add entries, delete the selected entry, save it and open it again.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "task_checkboxes",
+    "question": "Make a to-do list with add and remove buttons and a checkbox for each task.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "timer_text",
+    "question": "Build a timer with start and stop buttons and an editable text area with a character count.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "elapsed": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "anchor": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "running": {
+          "type": "bool",
+          "initial": false
+        },
+        "body": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "elapsed_view",
+          "kind": "label",
+          "value": "elapsed",
+          "label": "Seconds"
+        },
+        {
+          "id": "body_view",
+          "kind": "text_edit",
+          "state": "body"
+        },
+        {
+          "id": "chars_view",
+          "kind": "label",
+          "value": "chars(body)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "tick",
+          "label": "Tick",
+          "effect": "sample_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running",
+          "visible": false
+        },
+        {
+          "id": "start",
+          "label": "Start",
+          "effect": "start_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        },
+        {
+          "id": "stop",
+          "label": "Stop",
+          "effect": "stop_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        }
+      ],
+      "events": [
+        {
+          "kind": "periodic",
+          "interval_ms": 25,
+          "action": "tick"
+        }
+      ],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "chars",
+            "state": "body",
+            "predicate": "default"
+          },
+          {
+            "operation": "start",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "stop",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "reverse_conversion",
+    "question": "Create an app that converts Fahrenheit to Celsius.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "input_value": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "output_value": {
+          "type": "number",
+          "initial": -17.77777777777778
+        }
+      },
+      "views": [
+        {
+          "id": "source_input",
+          "kind": "number_input",
+          "state": "input_value",
+          "label": "Fahrenheit"
+        },
+        {
+          "id": "converted_output",
+          "kind": "label",
+          "value": "output_value",
+          "label": "Celsius"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "9 * next.output_value == 5 * prev.input_value + (-160)"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "convert",
+            "source_unit": "fahrenheit",
+            "target_unit": "celsius",
+            "dimension": "temperature"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "kelvin_paraphrase",
+    "question": "Make a temperature converter from Kelvin into Fahrenheit.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "discount_sentence",
+    "question": "I enter an amount and a discount percentage, and the app shows the discount and final price.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "tax_paraphrase",
+    "question": "Make a tax calculator using an amount and an adjustable tax percentage.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "no_save",
+    "question": "Create a multiline text box with a word count and a trim button, with no save button.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "pause_synonym",
+    "question": "Give me a timer that I can start, pause and reset.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "small_fraction",
+    "question": "Make a counter that goes down by 0.125 each time I click its button.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "basic_editor",
+    "question": "Make a basic text editor.",
+    "status": "accepted",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "body": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "body_view",
+          "kind": "text_edit",
+          "state": "body"
+        }
+      ],
+      "actions": [
+        {
+          "id": "new",
+          "label": "New",
+          "effect": "new",
+          "state": "body",
+          "shortcut": "Ctrl+N"
+        },
+        {
+          "id": "load",
+          "label": "Load",
+          "effect": "load",
+          "state": "body",
+          "shortcut": "Ctrl+O"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "body",
+          "shortcut": "Ctrl+S"
+        },
+        {
+          "id": "save_as",
+          "label": "Save As",
+          "effect": "save_as",
+          "state": "body",
+          "shortcut": "Ctrl+Shift+S"
+        },
+        {
+          "id": "undo",
+          "label": "Undo",
+          "effect": "undo",
+          "state": "body",
+          "shortcut": "Ctrl+Z"
+        },
+        {
+          "id": "redo",
+          "label": "Redo",
+          "effect": "redo",
+          "state": "body",
+          "shortcut": "Ctrl+Shift+Z"
+        },
+        {
+          "id": "cut",
+          "label": "Cut",
+          "effect": "cut",
+          "state": "body",
+          "shortcut": "Ctrl+X"
+        },
+        {
+          "id": "copy",
+          "label": "Copy",
+          "effect": "copy",
+          "state": "body",
+          "shortcut": "Ctrl+C"
+        },
+        {
+          "id": "paste",
+          "label": "Paste",
+          "effect": "paste",
+          "state": "body",
+          "shortcut": "Ctrl+V"
+        },
+        {
+          "id": "select_all",
+          "label": "Select All",
+          "effect": "select_all",
+          "state": "body",
+          "shortcut": "Ctrl+A"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [],
+        "defaults": [
+          "Document editing supplies New/Open/Save, history and clipboard controls."
+        ]
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "two_metrics",
+    "question": "Create a multiline text area that shows its character count and word count and has no buttons.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "spellcheck",
+    "question": "Build a text editor that checks spelling automatically.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "encryption",
+    "question": "Make a text editor that encrypts saved files with a password.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "sync",
+    "question": "Make a list app that synchronizes tasks with a remote server.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "dimensions",
+    "question": "Create an app that converts Celsius to miles.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "save_target",
+    "question": "Build an app with a text area and a to-do list and a save button.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "two_counters",
+    "question": "Make an app with two independent counters and increase buttons.",
+    "status": "unsupported",
+    "spec": null
+  },
+  {
+    "id": "reset_target",
+    "question": "Build a timer and a counter with one reset button.",
+    "status": "ambiguous",
+    "spec": null
+  },
+  {
+    "id": "missing_rate",
+    "question": "Make a tax calculator with a fixed rate, but do not specify what that rate is.",
+    "status": "unsupported",
+    "spec": null
+  }
+]

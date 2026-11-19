@@ -1,4 +1,5 @@
 #include "unllm/symbolic/semantics.h"
+#include "unllm/symbolic/grounding.h"
 #include <algorithm>
 #include <set>
 #include <tuple>
@@ -566,32 +567,47 @@ Meaning translate(const Mrs &mrs, const std::string &text,
   out.semantics = semantics(false);
   return out;
 }
-Meaning SemanticParser::parse(const std::string &text, const Resolver &resolve,
+Meaning SemanticParser::parse(const std::string &source,
+                              const Resolver &resolve,
                               const std::vector<std::string> &focus,
-                              Deadline deadline) {
+                              Deadline deadline, bool programming) {
   auto start = std::chrono::steady_clock::now();
-  if (!normal_)
-    normal_ = std::make_unique<AceClient>(root_, 1, maximum_);
-  ParseResult response;
-  try {
-    response = normal_->parse(text, deadline);
-  } catch (...) {
-    normal_.reset();
-    throw;
+  ProgramText linked{source};
+  const bool program_request = programming || creation_request(source);
+  if (program_request) {
+    if (program_lexicon_.null())
+      program_lexicon_ =
+          Json::parse(read_file(root_ / "data/program_semantics.json"));
+    linked = normalize_program(source, program_lexicon_);
   }
-  bool fragment = false;
-  if (response.analyses.empty()) {
-    if (!fragment_)
-      fragment_ =
-          std::make_unique<AceClient>(root_, 1, maximum_, "root_inffrag");
+  auto &text = linked.text;
+  // ACE's zero-weight unpacker breaks ties differently after previous inputs.
+  // Give each program request its own bounded enumeration, including fallback.
+  int limit = program_request ? program_maximum_ : maximum_;
+  auto attempt = [&](bool fragment) {
+    std::unique_ptr<AceClient> fresh;
+    auto &client = program_request ? fresh : (fragment ? fragment_ : normal_);
+    if (!client)
+      client = std::make_unique<AceClient>(root_, programming && !fragment ? 4 : 1,
+                                           limit, fragment ? "root_inffrag" : "root_informal");
     try {
-      response = fragment_->parse(text, deadline);
+      auto result = client->parse(text, deadline);
+      if (observe_parse) observe_parse(text, linked.spans, fragment, result);
+      if (!result.error.empty() && program_request) {
+        if (result.error.starts_with("timeout") ||
+            result.error.find("ran out of RAM") != std::string::npos)
+          throw ResourceLimit("ACE could not complete program enumeration: " + result.error);
+        throw std::runtime_error("ACE program parser error: " + result.error);
+      }
+      return result;
     } catch (...) {
-      fragment_.reset();
+      client.reset();
       throw;
     }
-    fragment = true;
-  }
+  };
+  auto response = attempt(false);
+  bool fragment = response.analyses.empty();
+  if (fragment) response = attempt(true);
   last_ms += std::chrono::duration<double, std::milli>(
                  std::chrono::steady_clock::now() - start)
                  .count();
@@ -603,26 +619,37 @@ Meaning SemanticParser::parse(const std::string &text, const Resolver &resolve,
   std::exception_ptr first;
   for (auto &mrs : response.analyses) {
     try {
-      auto m = translate(mrs, text, resolve, focus);
+      auto m = translate(mrs, text, resolve, focus, programming);
+      if (linked.spans.size())
+        annotate_program(m.semantics, linked.spans);
+      if (observe_translation) observe_translation(m.act);
       if (m.act == "synthesis")
         programs.push_back(m);
       else if (signatures.insert(m.signature()).second)
         candidates.push_back(m);
-    } catch (const Unsupported &) {
+    } catch (const Unsupported &e) {
+      if (observe_translation) observe_translation(std::string("unsupported: ") + e.what());
       if (!first)
         first = std::current_exception();
-    } catch (const Ambiguous &) {
+    } catch (const Ambiguous &e) {
+      if (observe_translation) observe_translation(std::string("ambiguous: ") + e.what());
       if (!first)
         first = std::current_exception();
     }
   }
   if (!programs.empty()) {
     auto m = programs[0];
+    if (response.reached_candidate_limit) {
+      m.exhausted_program_readings = limit;
+      m.diagnostics.push_back("Program reading limit reached: " + std::to_string(limit));
+    }
     for (auto &p : programs)
       m.analyses.push(p.semantics);
     m.diagnostics.push_back("ACE/ERG; " + std::to_string(programs.size()) +
                             " program analyses; zero ranking weights");
-    m.diagnostics.push_back("Normal grammar budget: 1 second");
+    m.diagnostics.push_back(programming
+                                ? "Explicit code grammar budget: 4 seconds"
+                                : "Normal grammar budget: 1 second");
     return m;
   }
   if (candidates.empty()) {

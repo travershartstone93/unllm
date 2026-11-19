@@ -1,0 +1,6 @@
+initial-1	initial	8.5	sub	2.25	Make a counter starting at 8.5 that decreases by 2.25.
+initial-2	initial	-3	add	4	Build a counter with an initial value of -3 that increases by 4.
+direction-1	direction	0	sub	0.125	Make a counter that goes down by 0.125.
+direction-2	direction	0	add	3	Build a counter that goes up by 3.
+removal-1	removal	0	sub	2.5	Make a counter whose button takes away 2.5.
+removal-2	removal	0	sub	7	Build a counter with a button that takes 7 away.

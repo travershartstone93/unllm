@@ -1,7 +1,6 @@
 # Targeted symbolic distillation: first pilot
 
-Design proposed and reviewed on 2026-11-12. Planning only; no teacher run or runtime
-implementation has started.
+The first native discovery run reached the parser limit on both initial-value and both directional seeds. The manual-frame constructor passed in Python and C++. The feasibility gate stopped acquisition before teacher calibration or rule selection. See [measured results and reproduction](../experiments/symbolic_distillation/numeric_change/README.md). The original experimental design follows.
 
 Implementation order update: complete the [C++ runtime migration](CPP_RUNTIME_MIGRATION_PLAN.md)
 first, then freeze a new native baseline for this pilot. The acquisition/evaluation

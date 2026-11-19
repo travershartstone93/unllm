@@ -1,7 +1,6 @@
 # Product and dependency inventory for native migration
 
-Inspected 2026-11-13. This inventory describes the existing supported product,
-not capabilities already available in the new native development build.
+This inventory records the 2026-11-13 pre-port baseline. For the shipped C++ equivalents, dependencies and test results see [the migration report](CPP_MIGRATION_PROGRESS.md) and [installation guide](UPGRADE.md).
 
 ## Profiles and public entry points
 

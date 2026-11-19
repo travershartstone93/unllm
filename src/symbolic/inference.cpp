@@ -118,6 +118,13 @@ Json NativeEngine::snapshot(const Json &facts, const Json &relations,
 Json NativeEngine::query(const Json &facts, const Json &relations,
                          const Json &complete, const Json &goals,
                          Deadline deadline, int limit, const Json &prepared) {
+  return query_with_prepared(facts, relations, complete, goals, deadline, limit,
+                             [&prepared] { return prepared; });
+}
+Json NativeEngine::query_with_prepared(
+    const Json &facts, const Json &relations, const Json &complete,
+    const Json &goals, Deadline deadline, int limit,
+    const std::function<Json()> &load_prepared) {
   if (!goals.is_array() || goals.size() > 64)
     throw Unsupported("Query requires at most 64 goals");
   for (auto g : goals.items())
@@ -134,6 +141,7 @@ Json NativeEngine::query(const Json &facts, const Json &relations,
     input.set("facts", facts);
     input.set("relations", relations);
     input.set("complete", complete);
+    const auto prepared = load_prepared();
     if (!prepared.null())
       input.set("prepared", prepared);
   };

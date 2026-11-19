@@ -490,7 +490,9 @@ int patch(const std::string& index_path, const std::string& out_path, const std:
     // Shards replaced are dropped as well as added; a shard new to the index joins the table.
     std::vector<int> dropped = drop;
     for (const auto& a : adds) dropped.push_back(a.no);
-    std::vector<Index::Shard> shards = ix.shards;
+    std::vector<Index::Shard> shards;
+    for (const auto& shard : ix.shards)
+        if (std::find(drop.begin(), drop.end(), shard.no) == drop.end()) shards.push_back(shard);
     for (const auto& a : adds) {
         bool named = false;
         for (auto& s : shards)

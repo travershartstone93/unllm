@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "prefix",
+      "params": [["xs", "ints"]],
+      "locals": [["carry", "int", ["int", "0"]], ["ys", "ints", ["empty"]]],
+      "body": [["each", "element", ["var", "xs"], [["set", "carry", ["add", ["var", "carry"], ["mul", ["var", "element"], ["int", "-2"]]]], ["set", "ys", ["append", ["var", "ys"], ["var", "carry"]]]]]],
+      "result": "ints",
+      "return": ["var", "ys"]
+    }
+  ]
+}

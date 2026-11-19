@@ -1,0 +1,71 @@
+{
+ "input": "ints",
+ "output": "ints",
+ "steps": [
+  [
+   {
+    "input": [],
+    "output": []
+   },
+   {
+    "input": [
+     "2"
+    ],
+    "output": [
+     "2"
+    ]
+   }
+  ],
+  [
+   {
+    "input": [
+     "3"
+    ],
+    "output": [
+     "3"
+    ]
+   }
+  ],
+  [
+   {
+    "input": [
+     "2",
+     "3"
+    ],
+    "output": [
+     "2",
+     "5"
+    ]
+   }
+  ],
+  [
+   {
+    "input": [
+     "2",
+     "-4",
+     "3"
+    ],
+    "output": [
+     "2",
+     "2",
+     "5"
+    ]
+   }
+  ],
+  [
+   {
+    "input": [
+     "3"
+    ],
+    "output": []
+   }
+  ]
+ ],
+ "expected": [
+  "candidate",
+  "candidate",
+  "candidate",
+  "candidate",
+  "inconsistent"
+ ]
+}

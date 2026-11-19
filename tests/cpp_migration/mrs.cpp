@@ -1,4 +1,5 @@
 #include "unllm/symbolic/mrs.h"
+#include "../../experiments/interpretation_diagnostics/identity.h"
 #include <iostream>
 using namespace unllm::native;
 static void check(bool ok, const char *message) {
@@ -36,6 +37,28 @@ int main(int argc, char **argv) {
       failed = true;
     }
     check(failed, "Unknown MRS field accepted");
+    auto reading = decode_mrs(R"([ TOP: h0 INDEX: e1 RELS: <
+      [ named<0:1> LBL: h2 ARG0: x3 CARG: "h0" ]
+      [ named<0:1> LBL: h4 ARG0: x5 CARG: "Alice" ]
+      [ _see_v_1<2:5> LBL: h6 ARG0: e1 ARG1: x3 ARG2: x5 ] >
+      HCONS: < h0 qeq h6 > ])");
+    auto reordered = decode_mrs(R"([ TOP: h7 INDEX: e8 RELS: <
+      [ _see_v_1<2:5> LBL: h9 ARG0: e8 ARG1: x10 ARG2: x11 ]
+      [ named<0:1> LBL: h12 ARG0: x11 CARG: "Alice" ]
+      [ named<0:1> LBL: h13 ARG0: x10 CARG: "h0" ] >
+      HCONS: < h7 qeq h9 > ])");
+    auto original_id = diagnostics::identity(reading);
+    check(original_id == diagnostics::identity(reordered),
+          "MRS identity changed with variable names or predication order");
+    auto &roles = reordered.rels.front().args;
+    std::swap(roles.at("ARG1"), roles.at("ARG2"));
+    check(original_id != diagnostics::identity(reordered), "MRS identity lost roles");
+    reading.hcons.at(0).set("lo", Json::string("h2"));
+    check(original_id != diagnostics::identity(reading), "MRS identity lost scope");
+    auto partial = decode_ace_response(
+        R"((:results . ()) (:readings . 0) (:error . "timeout, ran out of time while unpacking"))");
+    check(partial.error.starts_with("timeout") && partial.analyses.empty(),
+          "ACE protocol timeout lost");
     AceClient ace(root, 4, 64);
     auto first = ace.parse("Paris is in France.");
     check(!first.analyses.empty(), "No live ACE results");

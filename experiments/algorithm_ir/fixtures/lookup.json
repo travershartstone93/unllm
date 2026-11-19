@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "lookup",
+      "params": [["xs", "ints"], ["i", "int"]],
+      "locals": [],
+      "body": [],
+      "result": "int",
+      "return": ["at", ["var", "xs"], ["var", "i"]]
+    }
+  ]
+}

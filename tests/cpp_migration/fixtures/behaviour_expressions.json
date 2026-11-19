@@ -60,7 +60,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 3.5
   },
   {
     "source": "+x / -y",
@@ -124,7 +141,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 3.75
   },
   {
     "source": "0x_FF + 0b10 + 0o7",
@@ -187,7 +221,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 264
   },
   {
     "source": "1_000.5e-2",
@@ -224,7 +275,24 @@
       "value": 10.005,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 10.005
   },
   {
     "source": "0 <= x < y != 4",
@@ -326,7 +394,24 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": false
   },
   {
     "source": "x if flag else y",
@@ -382,7 +467,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 7.5
   },
   {
     "source": "x / y if y != 0 else 0",
@@ -464,7 +566,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": -3.75
   },
   {
     "source": "flag and x > 0 or not flag",
@@ -547,7 +666,24 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": true
   },
   {
     "source": "text + \" café😀\"",
@@ -597,7 +733,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "  Grüße 😀\r\na a\u001c café😀"
   },
   {
     "source": "upper(strip(text))",
@@ -648,7 +801,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "GRÜSSE 😀\r\nA A"
   },
   {
     "source": "replace(text, \"a\", \"b\")",
@@ -704,7 +874,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "  Grüße 😀\r\nb b\u001c"
   },
   {
     "source": "sort_lines(unique_lines(reverse_lines(text)))",
@@ -762,7 +949,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "  Grüße 😀\na"
   },
   {
     "source": "words(text) + chars(text) + lines(text)",
@@ -846,7 +1050,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 22.0
   },
   {
     "source": "number_text(x)",
@@ -890,7 +1111,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "7.5"
   },
   {
     "source": "records_count(rows)",
@@ -934,7 +1172,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 2.0
   },
   {
     "source": "count_true(rows, \"done\")",
@@ -984,7 +1239,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 1.0
   },
   {
     "source": "[] if flag else rows",
@@ -1040,7 +1312,24 @@
         }
       ]
     },
-    "type": "records"
+    "type": "records",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": []
   },
   {
     "source": "rows == []",
@@ -1090,7 +1379,24 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": false
   },
   {
     "source": "\"yes\" if flag else \"no\"",
@@ -1146,7 +1452,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "yes"
   },
   {
     "source": "\"a\" \"b\"",
@@ -1183,7 +1506,24 @@
       "value": "ab",
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "ab"
   },
   {
     "source": "\"\\u0041\\U0001f600\\x42\\101\\N{LATIN CAPITAL LETTER C}\"",
@@ -1220,7 +1560,24 @@
       "value": "A😀BAC",
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "A😀BAC"
   },
   {
     "source": "r\"a\\n\"",
@@ -1257,7 +1614,24 @@
       "value": "a\\n",
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "a\\n"
   },
   {
     "source": "'''first\nsecond'''",
@@ -1294,7 +1668,24 @@
       "value": "first\nsecond",
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "first\nsecond"
   },
   {
     "source": "\"\\q\"",
@@ -1331,7 +1722,24 @@
       "value": "\\q",
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "\\q"
   },
   {
     "source": "000",
@@ -1368,7 +1776,24 @@
       "value": 0,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 0
   },
   {
     "source": "00_0",
@@ -1405,7 +1830,24 @@
       "value": 0,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 0
   },
   {
     "source": "lower(text,)",
@@ -1449,7 +1891,24 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": "  grüße 😀\r\na a\u001c"
   },
   {
     "source": "(x +\n y)",
@@ -1499,7 +1958,24 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 5.5
   },
   {
     "source": "x # comment",
@@ -1536,7 +2012,24 @@
       "value": null,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 7.5
   },
   {
     "source": "True",
@@ -1573,7 +2066,24 @@
       "value": true,
       "args": []
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": true
   },
   {
     "source": "False",
@@ -1610,7 +2120,24 @@
       "value": false,
       "args": []
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": false
   },
   {
     "source": "\"\"",
@@ -1647,7 +2174,24 @@
       "value": "",
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": ""
   },
   {
     "source": "1e15",
@@ -1684,7 +2228,24 @@
       "value": 1000000000000000.0,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 1000000000000000.0
   },
   {
     "source": "unknown",
@@ -2801,7 +3362,42 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      },
+      "next": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      }
+    },
+    "result": false
   },
   {
     "source": "next.x == prev.y and next.y == prev.x",
@@ -2877,7 +3473,42 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      },
+      "next": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      }
+    },
+    "result": false
   },
   {
     "source": "next.x == (0 if prev.x < 0 else prev.x)",
@@ -2959,7 +3590,42 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      },
+      "next": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      }
+    },
+    "result": true
   },
   {
     "source": "prev.x < next.x < 10",
@@ -3035,7 +3701,42 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      },
+      "next": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      }
+    },
+    "result": false
   },
   {
     "source": "prev.text == next.text",
@@ -3085,7 +3786,42 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      },
+      "next": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      }
+    },
+    "result": true
   },
   {
     "source": "chars(prev.text) == next.x",
@@ -3142,7 +3878,42 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      },
+      "next": {
+        "x": 7.5,
+        "y": -2,
+        "text": "  Grüße 😀\r\na a\u001c",
+        "flag": true,
+        "rows": [
+          {
+            "name": "a",
+            "done": true
+          },
+          {
+            "name": "b",
+            "done": false
+          }
+        ]
+      }
+    },
+    "result": false
   },
   {
     "source": "x + 1",
@@ -3259,7 +4030,11 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "notes": "  Grüße 😀\r\na a\u001c"
+    },
+    "result": 4.0
   },
   {
     "source": "chars(notes)",
@@ -3283,7 +4058,11 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "notes": "  Grüße 😀\r\na a\u001c"
+    },
+    "result": 15.0
   },
   {
     "source": "upper(notes)",
@@ -3307,7 +4086,11 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "notes": "  Grüße 😀\r\na a\u001c"
+    },
+    "result": "  GRÜSSE 😀\r\nA A\u001c"
   },
   {
     "source": "sort_lines(unique_lines(notes))",
@@ -3338,7 +4121,11 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "notes": "  Grüße 😀\r\na a\u001c"
+    },
+    "result": "  Grüße 😀\na"
   },
   {
     "source": "fahrenheit",
@@ -3359,7 +4146,12 @@
       "value": null,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "celsius": -2,
+      "fahrenheit": -2
+    },
+    "result": -2
   },
   {
     "source": "fahrenheit / celsius if celsius != 0 else 0",
@@ -3425,7 +4217,12 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "celsius": -2,
+      "fahrenheit": -2
+    },
+    "result": 1.0
   },
   {
     "source": "5 * next.fahrenheit == 9 * prev.celsius + 160",
@@ -3498,7 +4295,18 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "celsius": -2,
+        "fahrenheit": -2
+      },
+      "next": {
+        "celsius": -2,
+        "fahrenheit": -2
+      }
+    },
+    "result": false
   },
   {
     "source": "left + right",
@@ -3532,7 +4340,12 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "left": -2,
+      "right": -2
+    },
+    "result": -4
   },
   {
     "source": "next.left == prev.right and next.right == prev.left",
@@ -3592,7 +4405,18 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "left": -2,
+        "right": -2
+      },
+      "next": {
+        "left": -2,
+        "right": -2
+      }
+    },
+    "result": true
   },
   {
     "source": "next.left == prev.left - 2 and next.right == prev.right + 2",
@@ -3678,7 +4502,18 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "left": -2,
+        "right": -2
+      },
+      "next": {
+        "left": -2,
+        "right": -2
+      }
+    },
+    "result": false
   },
   {
     "source": "next.left == (0 if prev.left < 0 else prev.left)",
@@ -3744,7 +4579,18 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "left": -2,
+        "right": -2
+      },
+      "next": {
+        "left": -2,
+        "right": -2
+      }
+    },
+    "result": false
   },
   {
     "source": "snapshot",
@@ -3773,7 +4619,14 @@
       "value": null,
       "args": []
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "draft": "  Grüße 😀\r\na a\u001c",
+      "snapshot": "  Grüße 😀\r\na a\u001c",
+      "visits": -2,
+      "flag": true
+    },
+    "result": "  Grüße 😀\r\na a\u001c"
   },
   {
     "source": "words(draft)",
@@ -3809,7 +4662,14 @@
         }
       ]
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "draft": "  Grüße 😀\r\na a\u001c",
+      "snapshot": "  Grüße 😀\r\na a\u001c",
+      "visits": -2,
+      "flag": true
+    },
+    "result": 4.0
   },
   {
     "source": "visits",
@@ -3838,7 +4698,14 @@
       "value": null,
       "args": []
     },
-    "type": "number"
+    "type": "number",
+    "sample": {
+      "draft": "  Grüße 😀\r\na a\u001c",
+      "snapshot": "  Grüße 😀\r\na a\u001c",
+      "visits": -2,
+      "flag": true
+    },
+    "result": -2
   },
   {
     "source": "flag",
@@ -3867,7 +4734,14 @@
       "value": null,
       "args": []
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "draft": "  Grüße 😀\r\na a\u001c",
+      "snapshot": "  Grüße 😀\r\na a\u001c",
+      "visits": -2,
+      "flag": true
+    },
+    "result": true
   },
   {
     "source": "upper(strip(draft))",
@@ -3910,7 +4784,14 @@
         }
       ]
     },
-    "type": "text"
+    "type": "text",
+    "sample": {
+      "draft": "  Grüße 😀\r\na a\u001c",
+      "snapshot": "  Grüße 😀\r\na a\u001c",
+      "visits": -2,
+      "flag": true
+    },
+    "result": "GRÜSSE 😀\r\nA A"
   },
   {
     "source": "not flag",
@@ -3946,7 +4827,14 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "draft": "  Grüße 😀\r\na a\u001c",
+      "snapshot": "  Grüße 😀\r\na a\u001c",
+      "visits": -2,
+      "flag": true
+    },
+    "result": false
   },
   {
     "source": "next.visits == prev.visits + 3",
@@ -4001,6 +4889,204 @@
         }
       ]
     },
-    "type": "bool"
+    "type": "bool",
+    "sample": {
+      "prev": {
+        "draft": "  Grüße 😀\r\na a\u001c",
+        "snapshot": "  Grüße 😀\r\na a\u001c",
+        "visits": -2,
+        "flag": true
+      },
+      "next": {
+        "draft": "  Grüße 😀\r\na a\u001c",
+        "snapshot": "  Grüße 😀\r\na a\u001c",
+        "visits": -2,
+        "flag": true
+      }
+    },
+    "result": false
+  },
+  {
+    "source": "x\n+ y",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "\"a\"\n\"b\"",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "rejected": "Unsupported"
+  },
+  {
+    "source": "(x\n+ y)",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "binary",
+      "name": "add",
+      "value": null,
+      "args": [
+        {
+          "kind": "state",
+          "name": "x",
+          "value": null,
+          "args": []
+        },
+        {
+          "kind": "state",
+          "name": "y",
+          "value": null,
+          "args": []
+        }
+      ]
+    },
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 5.5
+  },
+  {
+    "source": "\nx\n",
+    "state": {
+      "x": {
+        "type": "number",
+        "initial": 0
+      },
+      "y": {
+        "type": "number",
+        "initial": 0
+      },
+      "text": {
+        "type": "text",
+        "initial": ""
+      },
+      "flag": {
+        "type": "bool",
+        "initial": false
+      },
+      "rows": {
+        "type": "records",
+        "fields": {
+          "name": "text",
+          "done": "bool"
+        },
+        "initial": []
+      }
+    },
+    "transition": false,
+    "expected": {
+      "kind": "state",
+      "name": "x",
+      "value": null,
+      "args": []
+    },
+    "type": "number",
+    "sample": {
+      "x": 7.5,
+      "y": -2,
+      "text": "  Grüße 😀\r\na a\u001c",
+      "flag": true,
+      "rows": [
+        {
+          "name": "a",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": false
+        }
+      ]
+    },
+    "result": 7.5
   }
 ]

@@ -1,0 +1,24 @@
+cold	initial-1	Make a counter starting at 8.5 that decreases by 2.25.	0	64	1
+cold	initial-2	Build a counter with an initial value of -3 that increases by 4.	0	64	1
+cold	direction-1	Make a counter that goes down by 0.125.	0	64	1
+cold	direction-2	Build a counter that goes up by 3.	0	64	1
+cold	removal-1	Make a counter whose button takes away 2.5.	0	20	0
+cold	removal-2	Build a counter with a button that takes 7 away.	0	64	1
+resident	initial-1	Make a counter starting at 8.5 that decreases by 2.25.	0	64	1
+resident	initial-2	Build a counter with an initial value of -3 that increases by 4.	0	64	1
+resident	direction-1	Make a counter that goes down by 0.125.	0	64	1
+resident	direction-2	Build a counter that goes up by 3.	0	64	1
+resident	removal-1	Make a counter whose button takes away 2.5.	0	20	0
+resident	removal-2	Build a counter with a button that takes 7 away.	0	64	1
+reordered	removal-2	Build a counter with a button that takes 7 away.	0	64	1
+reordered	removal-1	Make a counter whose button takes away 2.5.	0	20	0
+reordered	direction-2	Build a counter that goes up by 3.	0	64	1
+reordered	direction-1	Make a counter that goes down by 0.125.	0	64	1
+reordered	initial-2	Build a counter with an initial value of -3 that increases by 4.	0	64	1
+reordered	initial-1	Make a counter starting at 8.5 that decreases by 2.25.	0	64	1
+baseline	removal-2	No semantic frame is defined for _take_v_1
+baseline	removal-1	No semantic frame is defined for _take_v_away
+baseline	direction-2	No semantic frame is defined for _go_v_1
+baseline	direction-1	No semantic frame is defined for _go_v_1
+baseline	initial-2	No semantic frame is defined for _initial_a_1
+baseline	initial-1	No semantic frame is defined for subord

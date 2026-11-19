@@ -1,0 +1,224 @@
+[
+  {
+    "arm": "stock",
+    "passed": 3,
+    "incorrect": 1,
+    "exhausted": 12,
+    "proposals": 22450,
+    "pool": 0,
+    "setup_ms": [
+      0.0023749999999999999,
+      0.0024970000000000001,
+      0.0021800000000000001
+    ],
+    "suite_online_ms": [
+      935.021107,
+      507.91500099999996,
+      885.0835479999998
+    ],
+    "index_bytes": 0,
+    "index": {}
+  },
+  {
+    "arm": "none",
+    "passed": 11,
+    "incorrect": 0,
+    "exhausted": 5,
+    "proposals": 12297,
+    "pool": 1335,
+    "setup_ms": [
+      24.268070000000002,
+      22.585488000000002,
+      22.343909
+    ],
+    "suite_online_ms": [
+      557.602997,
+      955.101377,
+      320.72612499999997
+    ],
+    "index_bytes": 0,
+    "index": {}
+  },
+  {
+    "arm": "curated",
+    "passed": 11,
+    "incorrect": 0,
+    "exhausted": 5,
+    "proposals": 12309,
+    "pool": 1335,
+    "setup_ms": [
+      24.328419,
+      25.626570000000001,
+      24.963459
+    ],
+    "suite_online_ms": [
+      586.160696,
+      719.3336610000001,
+      495.247826
+    ],
+    "index_bytes": 8364,
+    "index": {
+      "unique_documents": 1176,
+      "contributing_documents": 140,
+      "eligible_bytes": 3567868,
+      "stack_rows_scanned": 0,
+      "signatures": 28
+    }
+  },
+  {
+    "arm": "512",
+    "passed": 11,
+    "incorrect": 0,
+    "exhausted": 5,
+    "proposals": 12309,
+    "pool": 1335,
+    "setup_ms": [
+      22.927727000000001,
+      42.557572999999998,
+      22.986474000000001
+    ],
+    "suite_online_ms": [
+      317.34368500000005,
+      573.278705,
+      314.38797199999993
+    ],
+    "index_bytes": 8673,
+    "index": {
+      "unique_documents": 1228,
+      "contributing_documents": 146,
+      "eligible_bytes": 3775667,
+      "stack_rows_scanned": 1024,
+      "signatures": 29
+    }
+  },
+  {
+    "arm": "8192",
+    "passed": 11,
+    "incorrect": 0,
+    "exhausted": 5,
+    "proposals": 12315,
+    "pool": 1335,
+    "setup_ms": [
+      23.476319,
+      24.641307000000001,
+      24.493950000000002
+    ],
+    "suite_online_ms": [
+      673.5670179999998,
+      690.3042820000001,
+      524.778399
+    ],
+    "index_bytes": 14336,
+    "index": {
+      "unique_documents": 2087,
+      "contributing_documents": 277,
+      "eligible_bytes": 8189801,
+      "stack_rows_scanned": 16384,
+      "signatures": 48
+    }
+  },
+  {
+    "arm": "full",
+    "passed": 11,
+    "incorrect": 0,
+    "exhausted": 5,
+    "proposals": 12132,
+    "pool": 1335,
+    "setup_ms": [
+      24.364815,
+      25.032544999999999,
+      25.510587999999998
+    ],
+    "suite_online_ms": [
+      492.81063199999994,
+      572.484453,
+      574.2580240000001
+    ],
+    "index_bytes": 42723,
+    "index": {
+      "unique_documents": 19810,
+      "contributing_documents": 2813,
+      "eligible_bytes": 98540542,
+      "stack_rows_scanned": 328299,
+      "signatures": 138
+    }
+  },
+  {
+    "arm": "placebo",
+    "passed": 11,
+    "incorrect": 0,
+    "exhausted": 5,
+    "proposals": 12390,
+    "pool": 1335,
+    "setup_ms": [
+      26.229527999999998,
+      105.141746,
+      27.313663999999999
+    ],
+    "suite_online_ms": [
+      320.87733599999996,
+      429.122778,
+      410.700187
+    ],
+    "index_bytes": 42723,
+    "index": {
+      "unique_documents": 19810,
+      "contributing_documents": 2813,
+      "eligible_bytes": 98540542,
+      "stack_rows_scanned": 328299,
+      "signatures": 138
+    }
+  },
+  {
+    "arm": "reuse-curated",
+    "passed": 6,
+    "incorrect": 0,
+    "exhausted": 10,
+    "proposals": 20758,
+    "pool": 28,
+    "setup_ms": [
+      0.26689499999999999,
+      0.25725100000000001,
+      0.25615500000000002
+    ],
+    "suite_online_ms": [
+      489.89283499999993,
+      474.72068400000006,
+      480.6285430000001
+    ],
+    "index_bytes": 8364,
+    "index": {
+      "unique_documents": 1176,
+      "contributing_documents": 140,
+      "eligible_bytes": 3567868,
+      "stack_rows_scanned": 0,
+      "signatures": 28
+    }
+  },
+  {
+    "arm": "reuse-full",
+    "passed": 10,
+    "incorrect": 0,
+    "exhausted": 6,
+    "proposals": 13158,
+    "pool": 138,
+    "setup_ms": [
+      1.2955019999999999,
+      1.316208,
+      1.277469
+    ],
+    "suite_online_ms": [
+      438.865291,
+      307.767337,
+      313.291062
+    ],
+    "index_bytes": 42723,
+    "index": {
+      "unique_documents": 19810,
+      "contributing_documents": 2813,
+      "eligible_bytes": 98540542,
+      "stack_rows_scanned": 328299,
+      "signatures": 138
+    }
+  }
+]

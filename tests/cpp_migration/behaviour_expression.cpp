@@ -25,6 +25,14 @@ int main(int argc, char **argv) {
           throw std::runtime_error(
               "Expression parity: " + f["source"].text() + "\n" + error +
               (result ? "\n" + canonical(result->value.data()) : ""));
+        auto actual = evaluate_behaviour(result->value, f["sample"]);
+        auto expected = f["result"];
+        bool matches = actual.is_number() && expected.is_number()
+                           ? actual.real() == expected.real()
+                           : canonical(actual) == canonical(expected);
+        if (!matches)
+          throw std::runtime_error("Reference evaluation mismatch: " +
+                                   f["source"].text());
         ++accepted;
       } else {
         if (result)
@@ -34,8 +42,11 @@ int main(int argc, char **argv) {
       }
     }
     auto state = fixtures.at(0)["state"];
+    std::string chain = "True";
+    for (int i = 0; i < 14; ++i)
+      chain = "True == (" + chain + ") == True";
     for (auto input :
-         {std::string(2049, 'x'), std::string(1, char(0xff)),
+         {chain, std::string(2049, 'x'), std::string(1, char(0xff)),
           std::string(1, '\0'),
           std::string(129, '(') + "x" + std::string(129, ')'),
           std::string("\"\\ud800\""), std::string("\"\\U00110000\"")}) {

@@ -1,5 +1,5 @@
 // unllm: questions about the world, answered from the reference packs built
-// on this machine (tools/unllm_ingest.py), with a calculator and honest fixed
+// on this machine (unllm_ingest_native add), with a calculator and honest fixed
 // replies for what no reference can answer (news, opinions, new writing).
 // Every answer quotes its source and says where it came from; nothing is
 // invented. No network beyond the local Ollama, which reads the passages the
@@ -45,6 +45,7 @@ extern char** environ;
 #include "unllm/reranker.h"
 #include "unllm/unllm.h"
 #include "unllm/symbolic.h"
+#include "unllm/native_layout.h"
 #ifdef UNLLM_SYMBOLIC_READY
 #include "unllm/json.h"
 #endif
@@ -85,6 +86,7 @@ std::string data_file(const std::string& name) {
 }
 
 std::string user_data() {
+    if (const char* data = getenv("UNLLM_DATA"); data && *data) return data;
     const char* xdg = getenv("XDG_DATA_HOME");
     return (xdg ? std::string(xdg) : home_path("/.local/share")) + "/unllm";
 }
@@ -492,6 +494,32 @@ std::string env_fingerprint() {
         v.push_back("BUILD="+exe_dir()+":"+std::to_string(binary.st_ino)+":"+
                     std::to_string(binary.st_mtim.tv_sec)+":"+std::to_string(binary.st_mtim.tv_nsec));
 #ifdef UNLLM_SYMBOLIC_READY
+    if(unllm::NativeLayout::selected()) {
+        const auto layout=unllm::NativeLayout::locate(exe_dir(),UNLLM_UPGRADE_ROOT);
+        const auto& root=layout.resources;
+        auto record=[&](const std::filesystem::path& path) {
+            struct stat part {};
+            if(stat(path.c_str(),&part)==0)
+                v.push_back("NATIVE="+path.string()+":"+std::to_string(part.st_ino)+":"+std::to_string(part.st_size)+":"+
+                            std::to_string(part.st_mtim.tv_sec)+":"+std::to_string(part.st_mtim.tv_nsec));
+        };
+        record(layout.bin/"unllm_symbolic_worker");
+        record(layout.bin/"unllm_logic_worker");
+        record(layout.lib/"libunllm_native_logic.so");
+        record(root/".deps/erg.dat");
+        record(root/".deps/ace-0.9.34/ace");
+        for(const auto* file:{"data/behaviour_operators.json","data/reasoning_relations.json",
+                              "data/program_frame_vocabulary.json","data/calculator_methods.json",
+                              "data/reasoning_ontology.json","data/program_semantics.json",
+                              ".deps/apps/generated/manifest.json","dependencies-native.lock.json"})record(root/file);
+        std::error_code error;
+        for(const char* folder:{"resources/targets","reasoning"}) {
+            for(const auto &entry:std::filesystem::recursive_directory_iterator(root/folder,error))
+                if(entry.is_regular_file())record(entry.path());
+        }
+    }
+#ifndef UNLLM_DEFAULT_NATIVE_RUNTIME
+    else {
     for(const auto& path: {std::filesystem::path(UNLLM_LOGIC_LIBRARY),
                           std::filesystem::path(UNLLM_UPGRADE_ROOT)/"tools/symbolic_worker.py",
                           std::filesystem::path(UNLLM_UPGRADE_ROOT)/"data/reasoning_ontology.json",
@@ -516,7 +544,16 @@ std::string env_fingerprint() {
                             std::to_string(part.st_mtim.tv_sec)+":"+std::to_string(part.st_mtim.tv_nsec));
         }
     }
+    }
 #endif
+#endif
+    for (const auto& path : {std::filesystem::path(getenv("UNLLM_PACKS") ? getenv("UNLLM_PACKS") : user_data()+"/packs"),
+                             std::filesystem::path(getenv("UNLLM_MEANING") ? getenv("UNLLM_MEANING") : user_data()+"/vectors")}) {
+        struct stat part {};
+        if(stat(path.c_str(),&part)==0)
+            v.push_back("CORPUS="+path.string()+":"+std::to_string(part.st_ino)+":"+
+                        std::to_string(part.st_mtim.tv_sec)+":"+std::to_string(part.st_mtim.tv_nsec));
+    }
     for (char** e = environ; *e; ++e) {
         const std::string s = *e;
         if (s.rfind("UNLLM_", 0) != 0) continue;
@@ -637,8 +674,8 @@ int serve(int idle_s) {
         return 1;
     }
     umask(old);
-    Session s;
     const std::string own = env_fingerprint();
+    Session s;
     // One conversation per chat session token, kept for half an hour after its last turn.
     struct Chat {
         Session::Conversation conversation;
@@ -691,6 +728,11 @@ int serve(int idle_s) {
         write_all(cfd, reply);
         shutdown(cfd,SHUT_WR);
         ::close(cfd);
+        // A client with this service's environment observed a replaced pack,
+        // index or executable. Its local retry serves this request while the
+        // next connection starts a worker on the published set.
+        if(reply=="MISMATCH\n" && nl2!=std::string::npos &&
+           req.substr(nl2+1)!=own && req.substr(nl2+1)==env_fingerprint()) break;
     }
     ::close(lfd);
     unlink(path.c_str());
@@ -700,6 +742,14 @@ int serve(int idle_s) {
 }  // namespace
 
 int main(int argc, char** argv) {
+#ifdef UNLLM_DEFAULT_NATIVE_RUNTIME
+    if (argc >= 2 && std::string_view(argv[1]) == "--algorithm") {
+        const auto tool = unllm::NativeLayout::locate(exe_dir(), UNLLM_UPGRADE_ROOT).bin / "unllm_algorithm";
+        execv(tool.c_str(), argv + 1);
+        std::perror("unllm --algorithm");
+        return 1;
+    }
+#endif
     std::string question, script;
     int64_t fixed_now = 0;
     bool show_branch = false, show_brief = false, serve_mode = false;
@@ -707,6 +757,13 @@ int main(int argc, char** argv) {
     int show_top = 0;
     for (int i = 1; i < argc; ++i) {
         std::string a = argv[i];
+        if (a == "--") {
+            while (++i < argc) {
+                if (!question.empty()) question += ' ';
+                question += argv[i];
+            }
+            break;
+        }
         if (a == "--script" && i + 1 < argc) { script = argv[++i]; continue; }
         if (a == "--now" && i + 1 < argc) { fixed_now = std::atoll(argv[++i]); continue; }
         if (a == "--branch") { show_branch = true; continue; }
@@ -783,6 +840,27 @@ int main(int argc, char** argv) {
             return r ? 0 : 1;
         }
         if (a == "update") {
+            std::vector<std::string> rest;
+            std::string verb = "run";
+            for (int j = i + 1; j < argc; ++j) {
+                const std::string b = argv[j];
+                if (b == "--check") verb = "check";
+                else if (b == "--prune") verb = "prune";
+                else if (b == "--rollback") verb = "rollback";
+                else rest.push_back(b);
+            }
+#ifdef UNLLM_SYMBOLIC_READY
+            if (unllm::NativeLayout::selected()) {
+                auto update=unllm::NativeLayout::locate(exe_dir(),UNLLM_UPGRADE_ROOT).bin/"unllm_update_native";
+                std::vector<const char*> args={update.c_str(),verb.c_str()};
+                for(const auto& option:rest) args.push_back(option.c_str());
+                args.push_back(nullptr);
+                execv(update.c_str(),const_cast<char* const*>(args.data()));
+                std::perror("unllm update");
+                return 1;
+            }
+#endif
+#ifndef UNLLM_DEFAULT_NATIVE_RUNTIME
             // Keeping the packs current (tools/unllm_update.py): "unllm update --check" asks each source whether newer
             // data exists than the packs were built from, downloading nothing. The tool is looked for in UNLLM_TOOLS,
             // beside the binary's source tree, then under the data folder.
@@ -804,20 +882,12 @@ int main(int argc, char** argv) {
             }
             // "unllm update" runs the update; --check only asks; --prune and --rollback act on the previous set; the
             // rest (--dry-run, --full, --repair, --source NAME, --json) pass through to the tool.
-            std::vector<std::string> rest;
-            std::string verb = "run";
-            for (int j = i + 1; j < argc; ++j) {
-                const std::string b = argv[j];
-                if (b == "--check") verb = "check";
-                else if (b == "--prune") verb = "prune";
-                else if (b == "--rollback") verb = "rollback";
-                else rest.push_back(b);
-            }
             std::vector<const char*> args = {"python3", tool.c_str(), verb.c_str()};
             for (const auto& r : rest) args.push_back(r.c_str());
             args.push_back(nullptr);
             execvp("python3", const_cast<char* const*>(args.data()));
             std::perror("unllm update: python3");
+#endif
             return 1;
         }
         if (a == "--help" || a == "-h") {
@@ -830,6 +900,9 @@ int main(int argc, char** argv) {
                       "  unllm --passages N ...    also print the N best passages the search found\n"
                       "  unllm --serve             stay resident and answer one-shot runs over a socket\n"
                       "  unllm --engine MODE       symbolic (default), legacy, or shadow comparison\n"
+#ifdef UNLLM_DEFAULT_NATIVE_RUNTIME
+                      "  unllm --algorithm --help  construct and check bounded algorithms from examples\n"
+#endif
                       "  unllm --facts FILE        use a separate structured-fact SQLite store\n"
                       "  unllm --json              structured result, sources and checked derivations\n"
                       "  unllm --code python|cpp   synthesize a program from a supported request\n"
@@ -843,7 +916,7 @@ int main(int argc, char** argv) {
                       "                            plan; --repair re-embeds shards the index holds wrongly;\n"
                       "                            --full everything; --prune / --rollback the previous set)\n"
                       "Packs: ~/.local/share/unllm/packs (UNLLM_PACKS overrides); build them with\n"
-                      "tools/unllm_ingest.py. Symbolic mode uses the upgrade's structured fact store\n"
+                      "unllm_ingest_native add. Symbolic mode uses the upgrade's structured fact store\n"
                       "and checked derivations. See docs/UPGRADE.md for setup and supported requests.\n"
                       "Legacy mode uses the original retrieval/model pipeline (UNLLM_MODEL=off quotes).");
             return 0;

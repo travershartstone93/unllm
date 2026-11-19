@@ -1,0 +1,78 @@
+[
+  {
+    "repo": "cp-algorithms/cp-algorithms",
+    "revision": "e742ddc318548b41baab2ce85982283a8560613f",
+    "acquisition_url": "https://codeload.github.com/cp-algorithms/cp-algorithms/tar.gz/e742ddc318548b41baab2ce85982283a8560613f",
+    "retrieved_utc": "2026-11-19T01:13:51Z",
+    "stage": "raw",
+    "redistribution": "pending per-file review",
+    "archive_bytes": 2056085,
+    "archive_sha256": "036394d444d14cc100f53fefc8491d31df1587cab0b2deacb68dac090abdd654",
+    "regular_files": 359,
+    "root_license_file": "LICENSE",
+    "root_license_heading": "Attribution-ShareAlike 4.0 International"
+  },
+  {
+    "repo": "exercism/cpp",
+    "revision": "3ad5d0e99c0972b7e429d30c9539954207238b37",
+    "acquisition_url": "https://codeload.github.com/exercism/cpp/tar.gz/3ad5d0e99c0972b7e429d30c9539954207238b37",
+    "retrieved_utc": "2026-11-19T01:13:52Z",
+    "stage": "raw",
+    "redistribution": "pending per-file review",
+    "archive_bytes": 13480794,
+    "archive_sha256": "c8357bd244dbedac1d6872ea34ef1eb2a04b201d77cb9b7db2250b0579aa5108",
+    "regular_files": 1375,
+    "root_license_file": "LICENSE",
+    "root_license_heading": "MIT License"
+  },
+  {
+    "repo": "exercism/python",
+    "revision": "479f11b44b02337b0413e805b948491c2179615a",
+    "acquisition_url": "https://codeload.github.com/exercism/python/tar.gz/479f11b44b02337b0413e805b948491c2179615a",
+    "retrieved_utc": "2026-11-19T01:13:50Z",
+    "stage": "raw",
+    "redistribution": "pending per-file review",
+    "archive_bytes": 1498911,
+    "archive_sha256": "5ae6a2c4e87c95c2602bde8910eb08b9eca65ede3b79876e7233cf13073f7a89",
+    "regular_files": 2226,
+    "root_license_file": "LICENSE",
+    "root_license_heading": "MIT License"
+  },
+  {
+    "repo": "martinmoene/optional-lite",
+    "revision": "3ec38aa59df24122f08471f5d57b381bf043b091",
+    "acquisition_url": "https://raw.githubusercontent.com/martinmoene/optional-lite/3ec38aa59df24122f08471f5d57b381bf043b091",
+    "retrieved_utc": "2026-11-19T01:23:38Z",
+    "stage": "raw selected files",
+    "redistribution": "pending per-file review",
+    "files_bytes": 142201,
+    "regular_files": 5,
+    "selected_paths": [
+      "LICENSE.txt",
+      "README.md",
+      "include/nonstd/optional.hpp",
+      "test/optional-main.t.cpp",
+      "test/optional.t.cpp"
+    ],
+    "root_license_file": "LICENSE.txt",
+    "root_license_heading": "Boost Software License - Version 1.0 - August 17th, 2003"
+  },
+  {
+    "repo": "more-itertools/more-itertools",
+    "revision": "c0ede7fcd50340170bc7f428b7b658f6e767a34c",
+    "acquisition_url": "https://raw.githubusercontent.com/more-itertools/more-itertools/c0ede7fcd50340170bc7f428b7b658f6e767a34c",
+    "retrieved_utc": "2026-11-19T01:23:38Z",
+    "stage": "raw selected files",
+    "redistribution": "pending per-file review",
+    "files_bytes": 145668,
+    "regular_files": 4,
+    "selected_paths": [
+      "LICENSE",
+      "README.rst",
+      "more_itertools/recipes.py",
+      "tests/test_recipes.py"
+    ],
+    "root_license_file": "LICENSE",
+    "root_license_heading": "Copyright (c) 2012 Erik Rose"
+  }
+]

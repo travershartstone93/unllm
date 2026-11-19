@@ -2,9 +2,8 @@
 #include <chrono>
 #include <cvc5/cvc5.h>
 #include <functional>
-#include <gmp.h>
+#include "solver_numbers.h"
 #include <map>
-#include <mpfr.h>
 #include <set>
 namespace unllm::native {
 ExpressionSolution synthesize_expression(const Expr &target, bool predicate,
@@ -36,7 +35,7 @@ ExpressionSolution synthesize_expression(const Expr &target, bool predicate,
     values.insert(n);
   std::vector<Term> literals;
   for (auto n : values)
-    literals.push_back(tm.mkReal(canonical(Json::real(n))));
+    literals.push_back(tm.mkReal(solver_decimal(Json::real(n))));
   grammar.addRules(constant, literals);
   grammar.addRules(number, {x, constant, tm.mkTerm(Kind::ADD, {number, number}),
                             tm.mkTerm(Kind::SUB, {number, number}),
@@ -62,7 +61,7 @@ ExpressionSolution synthesize_expression(const Expr &target, bool predicate,
       return input;
     if (e.op == "constant")
       return e.value.is_boolean() ? tm.mkBoolean(e.value.flag())
-                                  : tm.mkReal(canonical(e.value));
+                                  : tm.mkReal(solver_decimal(e.value));
     std::vector<Term> args;
     for (auto &a : e.args)
       args.push_back(encode(a));
@@ -91,24 +90,7 @@ ExpressionSolution synthesize_expression(const Expr &target, bool predicate,
     }
     if (t.isRealValue()) {
       auto rational = t.getRealValue();
-      if (rational.size() > 65536)
-        throw ResourceLimit("Solver rational exceeds decoding budget");
-      mpq_t exact;
-      mpq_init(exact);
-      if (mpq_set_str(exact, rational.c_str(), 10) != 0 ||
-          mpz_sgn(mpq_denref(exact)) == 0) {
-        mpq_clear(exact);
-        throw Unsupported("Malformed solver rational");
-      }
-      mpq_canonicalize(exact);
-      // Retain enough rational precision to resolve a binary64 rounding
-      // boundary, including subnormal values, before rounding to the target.
-      mpfr_t rounded;
-      mpfr_init2(rounded, mpz_sizeinbase(mpq_denref(exact), 2) + 2200);
-      mpfr_set_q(rounded, exact, MPFR_RNDN);
-      double value = mpfr_get_d(rounded, MPFR_RNDN);
-      mpfr_clear(rounded);
-      mpq_clear(exact);
+      double value = solver_binary64(rational);
       return {"constant", {}, Json::real(value)};
     }
     if (t.isBooleanValue())

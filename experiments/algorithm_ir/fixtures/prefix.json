@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "prefix",
+      "params": [["numbers", "ints"]],
+      "locals": [["total", "int", ["int", "0"]], ["out", "ints", ["empty"]]],
+      "body": [["each", "element", ["var", "numbers"], [["set", "total", ["add", ["var", "total"], ["mul", ["var", "element"], ["int", "1"]]]], ["set", "out", ["append", ["var", "out"], ["var", "total"]]]]]],
+      "result": "ints",
+      "return": ["var", "out"]
+    }
+  ]
+}

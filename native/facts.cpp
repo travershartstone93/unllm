@@ -1,4 +1,5 @@
 // Isolated maintenance endpoint; production command routing is not changed.
+#include "runtime_paths.h"
 #include "unllm/symbolic/importers.h"
 #include "unllm/symbolic/inference.h"
 #include <charconv>
@@ -22,19 +23,30 @@ struct Options {
   bool fetch = true;
 };
 Options parse(int argc, char **argv) {
-  if (argc < 3)
+  if (argc < 2)
     throw Unsupported(
-        "Usage: unllm_facts_native ROOT [--database PATH] "
+        "Usage: unllm_facts_native [ROOT] [--database PATH] "
         "{status|prepare|import-json|import-packs|import-wikidata} [OPTIONS]");
   Options o;
-  o.root = std::filesystem::absolute(argv[1]);
-  o.database = o.root / ".state/cpp-migration/facts.sqlite";
-  o.cache = o.root / ".state/cpp-migration/wikidata";
-  o.worker = std::filesystem::canonical("/proc/self/exe").parent_path() /
-             "unllm_logic_worker";
+  auto bin = std::filesystem::canonical("/proc/self/exe").parent_path();
+  auto installed = bin.parent_path() / "share/unllm";
+  int i = 1;
+  if (std::filesystem::is_regular_file(installed /
+                                       "dependencies-native.lock.json") &&
+      !std::filesystem::is_directory(argv[1])) {
+    o.root = installed;
+    auto state = runtime_state();
+    o.database = runtime_database(state);
+    o.cache = state / "wikidata";
+  } else {
+    o.root = std::filesystem::absolute(argv[i++]);
+    o.database = runtime_database(o.root / ".state");
+    o.cache = o.root / ".state/wikidata";
+  }
+  o.worker = bin / "unllm_logic_worker";
   if (auto home = std::getenv("HOME"))
     o.packs = std::filesystem::path(home) / ".local/share/unllm/packs";
-  int i = 2;
+
   auto value = [&](const std::string &flag) -> std::string {
     if (++i >= argc)
       throw Unsupported("Missing value for " + flag);

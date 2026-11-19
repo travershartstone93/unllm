@@ -1,0 +1,1408 @@
+{
+  "internal_root": "/home/whisper/.local/share/unllm",
+  "usb_root": "/run/media/whisper/UNLLM_CORPUS/unllm",
+  "device": {
+    "serial": "DD56419883CA2",
+    "uuid": "1f243ff1-6e8f-4562-af7c-f6edf0bf3300",
+    "bytes": 256060514304,
+    "transport": "USB UAS 10 Gbit/s",
+    "filesystem": "ext4"
+  },
+  "packs": [
+    {
+      "name": "gutenberg-poetry",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "gutenberg-poetry",
+        "kind": "poems",
+        "source": "gutenberg-poetry-corpus",
+        "version": "v001",
+        "license": "Public domain (US)",
+        "attribution": "From {title} by {author} (Project Gutenberg)",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "gutenberg-poetry-v001.ndjson.gz",
+            "docs": 1191,
+            "passages": 291722,
+            "status": "done"
+          }
+        ],
+        "docs": 1191,
+        "passages": 291722,
+        "built": "2026-10-16T13:56:44",
+        "quality": {
+          "passages_checked": 6000,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.03,
+            "broken characters": 0.03,
+            "raw formulas": 0.0,
+            "tiny passages": 0.0
+          }
+        }
+      },
+      "bytes": 241095349,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 205447168
+      },
+      "ranked_indexes": {
+        "tantivy": 35647465
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-askubuntu",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-askubuntu",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From askubuntu.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "askubuntu.com.7z",
+            "docs": 134883,
+            "passages": 773657,
+            "status": "done"
+          }
+        ],
+        "docs": 134883,
+        "passages": 773657,
+        "built": "2026-10-16T14:04:17",
+        "quality": {
+          "passages_checked": 4913,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.18,
+            "leftover markup": 0.1,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.39
+          }
+        }
+      },
+      "bytes": 416693572,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 346968064
+      },
+      "ranked_indexes": {
+        "tantivy": 69724817
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-astronomy",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-astronomy",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From astronomy.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "astronomy.stackexchange.com.7z",
+            "docs": 10354,
+            "passages": 64790,
+            "status": "done"
+          }
+        ],
+        "docs": 10354,
+        "passages": 64790,
+        "built": "2026-10-16T14:04:37",
+        "quality": {
+          "passages_checked": 5961,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.03,
+            "leftover markup": 0.05,
+            "broken characters": 0.0,
+            "raw formulas": 0.07,
+            "tiny passages": 0.02
+          }
+        }
+      },
+      "bytes": 46611486,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 39092224
+      },
+      "ranked_indexes": {
+        "tantivy": 7518545
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-bicycles",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-bicycles",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From bicycles.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "bicycles.stackexchange.com.7z",
+            "docs": 15625,
+            "passages": 84996,
+            "status": "done"
+          }
+        ],
+        "docs": 15625,
+        "passages": 84996,
+        "built": "2026-10-16T14:04:59",
+        "quality": {
+          "passages_checked": 5990,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.12
+          }
+        }
+      },
+      "bytes": 56785097,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 47673344
+      },
+      "ranked_indexes": {
+        "tantivy": 9111042
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-biology",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-biology",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From biology.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "biology.stackexchange.com.7z",
+            "docs": 15276,
+            "passages": 95612,
+            "status": "done"
+          }
+        ],
+        "docs": 15276,
+        "passages": 95612,
+        "built": "2026-10-16T14:05:27",
+        "quality": {
+          "passages_checked": 5969,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.08
+          }
+        }
+      },
+      "bytes": 64413095,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 53538816
+      },
+      "ranked_indexes": {
+        "tantivy": 10873571
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-chemistry",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-chemistry",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From chemistry.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "chemistry.stackexchange.com.7z",
+            "docs": 22287,
+            "passages": 138412,
+            "status": "done"
+          }
+        ],
+        "docs": 22287,
+        "passages": 138412,
+        "built": "2026-10-16T14:06:15",
+        "quality": {
+          "passages_checked": 5977,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.33,
+            "broken characters": 0.0,
+            "raw formulas": 0.54,
+            "tiny passages": 0.07
+          }
+        }
+      },
+      "bytes": 91363500,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 76562432
+      },
+      "ranked_indexes": {
+        "tantivy": 14800350
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-cooking",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-cooking",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From cooking.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "cooking.stackexchange.com.7z",
+            "docs": 20376,
+            "passages": 99000,
+            "status": "done"
+          }
+        ],
+        "docs": 20376,
+        "passages": 99000,
+        "built": "2026-10-16T14:06:39",
+        "quality": {
+          "passages_checked": 5994,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.13
+          }
+        }
+      },
+      "bytes": 66052890,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 55595008
+      },
+      "ranked_indexes": {
+        "tantivy": 10457174
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-diy",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-diy",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From diy.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "diy.stackexchange.com.7z",
+            "docs": 35544,
+            "passages": 176915,
+            "status": "done"
+          }
+        ],
+        "docs": 35544,
+        "passages": 176915,
+        "built": "2026-10-16T14:07:14",
+        "quality": {
+          "passages_checked": 5989,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.05
+          }
+        }
+      },
+      "bytes": 119935967,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 101634048
+      },
+      "ranked_indexes": {
+        "tantivy": 18301221
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-electronics",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-electronics",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From electronics.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "electronics.stackexchange.com.7z",
+            "docs": 79691,
+            "passages": 482487,
+            "status": "done"
+          }
+        ],
+        "docs": 79691,
+        "passages": 482487,
+        "built": "2026-10-16T14:08:51",
+        "quality": {
+          "passages_checked": 5929,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.29,
+            "leftover markup": 0.62,
+            "broken characters": 0.0,
+            "raw formulas": 1.33,
+            "tiny passages": 0.08
+          }
+        }
+      },
+      "bytes": 303069644,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 255926272
+      },
+      "ranked_indexes": {
+        "tantivy": 47142647
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-ell",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-ell",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From ell.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "ell.stackexchange.com.7z",
+            "docs": 43809,
+            "passages": 279156,
+            "status": "done"
+          }
+        ],
+        "docs": 43809,
+        "passages": 279156,
+        "built": "2026-10-16T14:09:36",
+        "quality": {
+          "passages_checked": 5989,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.05,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.02
+          }
+        }
+      },
+      "bytes": 131684197,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 108568576
+      },
+      "ranked_indexes": {
+        "tantivy": 23114922
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-english",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-english",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From english.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "english.stackexchange.com.7z",
+            "docs": 64962,
+            "passages": 382752,
+            "status": "done"
+          }
+        ],
+        "docs": 64962,
+        "passages": 382752,
+        "built": "2026-10-16T14:10:49",
+        "quality": {
+          "passages_checked": 5981,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.02,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.1
+          }
+        }
+      },
+      "bytes": 203194533,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 168247296
+      },
+      "ranked_indexes": {
+        "tantivy": 34946527
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-gardening",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-gardening",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From gardening.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "gardening.stackexchange.com.7z",
+            "docs": 11953,
+            "passages": 54534,
+            "status": "done"
+          }
+        ],
+        "docs": 11953,
+        "passages": 54534,
+        "built": "2026-10-16T14:10:59",
+        "quality": {
+          "passages_checked": 5997,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.15
+          }
+        }
+      },
+      "bytes": 39256033,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 33026048
+      },
+      "ranked_indexes": {
+        "tantivy": 6229271
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-health",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-health",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From health.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "health.stackexchange.com.7z",
+            "docs": 3710,
+            "passages": 29433,
+            "status": "done"
+          }
+        ],
+        "docs": 3710,
+        "passages": 29433,
+        "built": "2026-10-16T14:11:05",
+        "quality": {
+          "passages_checked": 5988,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.2
+          }
+        }
+      },
+      "bytes": 18722783,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 15241216
+      },
+      "ranked_indexes": {
+        "tantivy": 3480865
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-history",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-history",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From history.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "history.stackexchange.com.7z",
+            "docs": 11103,
+            "passages": 84010,
+            "status": "done"
+          }
+        ],
+        "docs": 11103,
+        "passages": 84010,
+        "built": "2026-10-16T14:11:22",
+        "quality": {
+          "passages_checked": 5989,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.13
+          }
+        }
+      },
+      "bytes": 60554478,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 49909760
+      },
+      "ranked_indexes": {
+        "tantivy": 10644010
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-lifehacks",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-lifehacks",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From lifehacks.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "lifehacks.stackexchange.com.7z",
+            "docs": 2218,
+            "passages": 11222,
+            "status": "done"
+          }
+        ],
+        "docs": 2218,
+        "passages": 11222,
+        "built": "2026-10-16T14:11:25",
+        "quality": {
+          "passages_checked": 5996,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.23
+          }
+        }
+      },
+      "bytes": 7101778,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 5758976
+      },
+      "ranked_indexes": {
+        "tantivy": 1342090
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-math",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-math",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From math.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "math.stackexchange.com.7z",
+            "docs": 693286,
+            "passages": 3319216,
+            "status": "done"
+          }
+        ],
+        "docs": 693286,
+        "passages": 3319216,
+        "built": "2026-10-16T14:31:45",
+        "quality": {
+          "passages_checked": 5981,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.82,
+            "broken characters": 0.0,
+            "raw formulas": 1.25,
+            "tiny passages": 0.08
+          }
+        }
+      },
+      "bytes": 2135143136,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 1827409920
+      },
+      "ranked_indexes": {
+        "tantivy": 307732509
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-mechanics",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-mechanics",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From mechanics.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "mechanics.stackexchange.com.7z",
+            "docs": 13056,
+            "passages": 63529,
+            "status": "done"
+          }
+        ],
+        "docs": 13056,
+        "passages": 63529,
+        "built": "2026-10-16T14:32:12",
+        "built_seconds": 15,
+        "quality": {
+          "passages_checked": 5989,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.1
+          }
+        }
+      },
+      "bytes": 43579591,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 36589568
+      },
+      "ranked_indexes": {
+        "tantivy": 6989288
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-money",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-money",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From money.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "money.stackexchange.com.7z",
+            "docs": 23682,
+            "passages": 133810,
+            "status": "done"
+          }
+        ],
+        "docs": 23682,
+        "passages": 133810,
+        "built": "2026-10-16T14:32:39",
+        "built_seconds": 27,
+        "quality": {
+          "passages_checked": 5953,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.02,
+            "tiny passages": 0.08
+          }
+        }
+      },
+      "bytes": 89986694,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 76132352
+      },
+      "ranked_indexes": {
+        "tantivy": 13853615
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-outdoors",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-outdoors",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From outdoors.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "outdoors.stackexchange.com.7z",
+            "docs": 5613,
+            "passages": 36664,
+            "status": "done"
+          }
+        ],
+        "docs": 5613,
+        "passages": 36664,
+        "built": "2026-10-16T14:32:47",
+        "built_seconds": 7,
+        "quality": {
+          "passages_checked": 5988,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.33
+          }
+        }
+      },
+      "bytes": 23971697,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 19714048
+      },
+      "ranked_indexes": {
+        "tantivy": 4256919
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-pets",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-pets",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From pets.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "pets.stackexchange.com.7z",
+            "docs": 5890,
+            "passages": 37716,
+            "status": "done"
+          }
+        ],
+        "docs": 5890,
+        "passages": 37716,
+        "built": "2026-10-16T14:32:55",
+        "built_seconds": 8,
+        "quality": {
+          "passages_checked": 5999,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.02,
+            "raw formulas": 0.0,
+            "tiny passages": 0.13
+          }
+        }
+      },
+      "bytes": 25248576,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 21012480
+      },
+      "ranked_indexes": {
+        "tantivy": 4235377
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-physics",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-physics",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From physics.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "physics.stackexchange.com.7z",
+            "docs": 96454,
+            "passages": 568351,
+            "status": "done"
+          }
+        ],
+        "docs": 96454,
+        "passages": 568351,
+        "built": "2026-10-16T14:35:46",
+        "built_seconds": 171,
+        "quality": {
+          "passages_checked": 5992,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.53,
+            "broken characters": 0.0,
+            "raw formulas": 1.37,
+            "tiny passages": 0.0
+          }
+        }
+      },
+      "bytes": 411166920,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 352907264
+      },
+      "ranked_indexes": {
+        "tantivy": 58258922
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-superuser",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-superuser",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From superuser.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "superuser.com.7z",
+            "docs": 171885,
+            "passages": 900106,
+            "status": "done"
+          }
+        ],
+        "docs": 171885,
+        "passages": 900106,
+        "built": "2026-10-16T14:39:25",
+        "built_seconds": 219,
+        "quality": {
+          "passages_checked": 5445,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.11,
+            "leftover markup": 0.15,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.4
+          }
+        }
+      },
+      "bytes": 519921391,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 435269632
+      },
+      "ranked_indexes": {
+        "tantivy": 84651045
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-travel",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-travel",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From travel.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "travel.stackexchange.com.7z",
+            "docs": 34976,
+            "passages": 197432,
+            "status": "done"
+          }
+        ],
+        "docs": 34976,
+        "passages": 197432,
+        "built": "2026-10-16T14:39:59",
+        "built_seconds": 33,
+        "quality": {
+          "passages_checked": 5993,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.08
+          }
+        }
+      },
+      "bytes": 125510901,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 105066496
+      },
+      "ranked_indexes": {
+        "tantivy": 20443676
+      },
+      "sidecars": []
+    },
+    {
+      "name": "se-unix",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "se-unix",
+        "kind": "qa",
+        "source": "archive.org/stackexchange",
+        "version": "2026-10",
+        "license": "CC BY-SA (per post)",
+        "attribution": "From unix.stackexchange.com, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "unix.stackexchange.com.7z",
+            "docs": 106920,
+            "passages": 621842,
+            "status": "done"
+          }
+        ],
+        "docs": 106920,
+        "passages": 621842,
+        "built": "2026-10-16T14:42:15",
+        "built_seconds": 136,
+        "quality": {
+          "passages_checked": 4569,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.5,
+            "leftover markup": 0.53,
+            "broken characters": 0.02,
+            "raw formulas": 0.0,
+            "tiny passages": 0.2
+          }
+        }
+      },
+      "bytes": 367900426,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 308121600
+      },
+      "ranked_indexes": {
+        "tantivy": 59778099
+      },
+      "sidecars": []
+    },
+    {
+      "name": "wikipedia-en",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "wikipedia-en",
+        "kind": "encyclopedia",
+        "source": "HuggingFaceFW/finewiki",
+        "version": "2025-08.en",
+        "license": "CC BY-SA 4.0",
+        "attribution": "From Wikipedia, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "000_00000.parquet",
+            "docs": 421432,
+            "passages": 4225865,
+            "status": "done"
+          },
+          {
+            "file": "shard-001.sqlite",
+            "input": "000_00001.parquet",
+            "docs": 454254,
+            "passages": 4273532,
+            "status": "done"
+          },
+          {
+            "file": "shard-002.sqlite",
+            "input": "000_00002.parquet",
+            "docs": 451129,
+            "passages": 4255051,
+            "status": "done"
+          },
+          {
+            "file": "shard-003.sqlite",
+            "input": "000_00003.parquet",
+            "docs": 476065,
+            "passages": 4340586,
+            "status": "done"
+          },
+          {
+            "file": "shard-004.sqlite",
+            "input": "000_00004.parquet",
+            "docs": 456895,
+            "passages": 4268259,
+            "status": "done"
+          },
+          {
+            "file": "shard-005.sqlite",
+            "input": "000_00005.parquet",
+            "docs": 461613,
+            "passages": 4179553,
+            "status": "done"
+          },
+          {
+            "file": "shard-006.sqlite",
+            "input": "000_00006.parquet",
+            "docs": 453191,
+            "passages": 4108175,
+            "status": "done"
+          },
+          {
+            "file": "shard-007.sqlite",
+            "input": "000_00007.parquet",
+            "docs": 436458,
+            "passages": 4153859,
+            "status": "done"
+          },
+          {
+            "file": "shard-008.sqlite",
+            "input": "000_00008.parquet",
+            "docs": 444926,
+            "passages": 4121499,
+            "status": "done"
+          },
+          {
+            "file": "shard-009.sqlite",
+            "input": "000_00009.parquet",
+            "docs": 415352,
+            "passages": 4112591,
+            "status": "done"
+          },
+          {
+            "file": "shard-010.sqlite",
+            "input": "000_00010.parquet",
+            "docs": 440941,
+            "passages": 4132824,
+            "status": "done"
+          },
+          {
+            "file": "shard-011.sqlite",
+            "input": "000_00011.parquet",
+            "docs": 417781,
+            "passages": 4136352,
+            "status": "done"
+          },
+          {
+            "file": "shard-012.sqlite",
+            "input": "000_00012.parquet",
+            "docs": 436496,
+            "passages": 4180216,
+            "status": "done"
+          },
+          {
+            "file": "shard-013.sqlite",
+            "input": "000_00013.parquet",
+            "docs": 401273,
+            "passages": 4081577,
+            "status": "done"
+          },
+          {
+            "file": "shard-014.sqlite",
+            "input": "000_00014.parquet",
+            "docs": 446498,
+            "passages": 4179974,
+            "status": "done"
+          }
+        ],
+        "docs": 6614304,
+        "passages": 62749913,
+        "built": "2026-10-16T16:33:53",
+        "built_seconds": 6698,
+        "quality": {
+          "passages_checked": 5996,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.08,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.4
+          }
+        }
+      },
+      "bytes": 58373951419,
+      "file_count": 98,
+      "databases": {
+        "shard-001.sqlite": 3431014400,
+        "shard-000.sqlite": 3378388992,
+        "shard-003.sqlite": 3544158208,
+        "shard-002.sqlite": 3409686528,
+        "shard-004.sqlite": 3410939904,
+        "shard-005.sqlite": 3382849536,
+        "shard-006.sqlite": 3326611456,
+        "shard-007.sqlite": 3346145280,
+        "shard-008.sqlite": 3313238016,
+        "shard-009.sqlite": 3312685056,
+        "shard-010.sqlite": 3350106112,
+        "shard-011.sqlite": 3345784832,
+        "shard-012.sqlite": 3375800320,
+        "shard-013.sqlite": 3255881728,
+        "shard-014.sqlite": 3403943936
+      },
+      "ranked_indexes": {
+        "tantivy": 7786714493
+      },
+      "sidecars": []
+    },
+    {
+      "name": "wikipedia-simple",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "wikipedia-simple",
+        "kind": "encyclopedia",
+        "source": "HuggingFaceFW/finewiki",
+        "version": "2025-08.simple",
+        "license": "CC BY-SA 4.0",
+        "attribution": "From Wikipedia, \"{title}\"",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "000_00000.parquet",
+            "docs": 265292,
+            "passages": 914444,
+            "status": "done"
+          }
+        ],
+        "docs": 265292,
+        "passages": 914444,
+        "built": "2026-10-16T13:56:01",
+        "quality": {
+          "passages_checked": 5998,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.12,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.17
+          }
+        }
+      },
+      "bytes": 872233461,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 754769920
+      },
+      "ranked_indexes": {
+        "tantivy": 117462842
+      },
+      "sidecars": []
+    },
+    {
+      "name": "wiktionary-en",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "wiktionary-en",
+        "kind": "definitions",
+        "source": "kaikki.org",
+        "version": "2026-10",
+        "license": "CC BY-SA 4.0 and GFDL",
+        "attribution": "From Wiktionary",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "kaikki.org-dictionary-English.jsonl",
+            "docs": 1491730,
+            "passages": 1678582,
+            "status": "done"
+          }
+        ],
+        "docs": 1491730,
+        "passages": 1678582,
+        "built": "2026-10-16T14:00:50",
+        "quality": {
+          "passages_checked": 6000,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.0
+          }
+        }
+      },
+      "bytes": 676873509,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 563474432
+      },
+      "ranked_indexes": {
+        "tantivy": 113398384
+      },
+      "sidecars": []
+    },
+    {
+      "name": "wordnet-en",
+      "manifest": {
+        "format": "unllm-pack/1",
+        "name": "wordnet-en",
+        "kind": "definitions",
+        "source": "globalwordnet/english-wordnet",
+        "version": "2025",
+        "license": "CC BY 4.0",
+        "attribution": "From WordNet",
+        "ingest_version": "4",
+        "shards": [
+          {
+            "file": "shard-000.sqlite",
+            "input": "english-wordnet-2025-json.zip",
+            "docs": 135969,
+            "passages": 176124,
+            "status": "done"
+          }
+        ],
+        "docs": 135969,
+        "passages": 176124,
+        "built": "2026-10-16T13:56:08",
+        "quality": {
+          "passages_checked": 6000,
+          "defect_percent": {
+            "number holes": 0.0,
+            "empty brackets": 0.0,
+            "leftover markup": 0.0,
+            "broken characters": 0.0,
+            "raw formulas": 0.0,
+            "tiny passages": 0.0
+          }
+        }
+      },
+      "bytes": 72398781,
+      "file_count": 18,
+      "databases": {
+        "shard-000.sqlite": 58589184
+      },
+      "ranked_indexes": {
+        "tantivy": 13808916
+      },
+      "sidecars": []
+    }
+  ],
+  "vectors": {
+    "meaning.unl2": 21060633,
+    "wiki-full.unlpq": 4194715328,
+    "wikipedia-simple.unlpq": 54764368
+  },
+  "packages": [
+    "gcc 16.2.1+r23+gd564253eb6c8-1",
+    "cmake 4.4.4-1.1",
+    "sqlite 3.53.4-1",
+    "xapian-core 1:2.1.0-1.1",
+    "rsync 3.5.1-2.1",
+    "e2fsprogs 1.47.4-1.1",
+    "udisks2 2.11.2-1.1"
+  ]
+}

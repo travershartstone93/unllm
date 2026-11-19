@@ -1,0 +1,17 @@
+task	stock	none	curated	512	8192	full	placebo	reuse-curated	reuse-full
+affine_labels	exhausted	passed	passed	passed	passed	passed	passed	passed	passed
+alternating_polarity	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted
+centered_integral	exhausted	passed	passed	passed	passed	passed	passed	exhausted	passed
+complement	passed	passed	passed	passed	passed	passed	passed	passed	passed
+exclusive_energy_debt	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted
+margin_total	exhausted	passed	passed	passed	passed	passed	passed	exhausted	passed
+negative_charge	exhausted	passed	passed	passed	passed	passed	passed	exhausted	exhausted
+negative_quadratic	exhausted	passed	passed	passed	passed	passed	passed	exhausted	passed
+negative_scan	incorrect	passed	passed	passed	passed	passed	passed	passed	passed
+neighbor_gap	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted
+ones_count	passed	passed	passed	passed	passed	passed	passed	passed	passed
+positive_energy	exhausted	passed	passed	passed	passed	passed	passed	passed	passed
+positive_headroom	exhausted	passed	passed	passed	passed	passed	passed	exhausted	passed
+positive_mass	passed	passed	passed	passed	passed	passed	passed	passed	passed
+prefix_spread	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted
+reverse_complement	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted	exhausted

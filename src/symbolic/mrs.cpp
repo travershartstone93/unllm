@@ -174,7 +174,7 @@ Mrs decode_mrs(const std::string &source) {
     m.variables.try_emplace(m.top);
   return m;
 }
-std::vector<std::string> ace_mrs_strings(const std::string &response) {
+ParseResult decode_ace_response(const std::string &response) {
   bounded(response);
   antlr4::ANTLRInputStream input(response);
   AceProtocolLexer lexer(&input);
@@ -186,9 +186,11 @@ std::vector<std::string> ace_mrs_strings(const std::string &response) {
   parser.removeErrorListeners();
   parser.addErrorListener(&errors);
   auto *tree = parser.document();
-  std::vector<std::string> results;
+  ParseResult result;
   for (auto *v : tree->value()) {
     auto values = v->value();
+    if (values.size() == 2 && atom(values[0]) == ":error" && values[1]->STRING())
+      result.error = unquote(values[1]->STRING()->getText());
     if (values.size() != 2 || atom(values[0]) != ":results")
       continue;
     for (auto *row : values[1]->value())
@@ -197,16 +199,16 @@ std::vector<std::string> ace_mrs_strings(const std::string &response) {
         if (entries.size() == 2 && atom(entries[0]) == ":mrs") {
           if (!entries[1]->STRING())
             throw Unsupported("ACE MRS value is not a string");
-          results.push_back(unquote(entries[1]->STRING()->getText()));
+          result.analyses.push_back(decode_mrs(unquote(entries[1]->STRING()->getText())));
         }
       }
   }
-  return results;
+  return result;
 }
 AceClient::AceClient(const std::filesystem::path &root, int timeout,
                      int maximum, const std::string &grammar_root)
-    : process_({(root / ".deps/bin/ace").string(), "-g",
-                (root / ".deps/erg.dat").string(), "-n",
+    : process_({"/usr/bin/env", "LC_ALL=C.UTF-8", (root / ".deps/ace-0.9.34/ace").string(), "--maxent=/dev/null",
+                "-g", (root / ".deps/erg.dat").string(), "-n",
                 std::to_string(maximum), "-r", grammar_root,
                 "--timeout=" + std::to_string(timeout), "--tsdb-notes",
                 "--tsdb-stdout", "--report-labels"}),
@@ -235,8 +237,9 @@ ParseResult AceClient::parse(const std::string &text, Deadline outer_deadline) {
     }
     result.raw += s + "\n";
   }
-  for (auto &s : ace_mrs_strings(result.raw))
-    result.analyses.push_back(decode_mrs(s));
+  auto decoded = decode_ace_response(result.raw);
+  result.analyses = std::move(decoded.analyses);
+  result.error = std::move(decoded.error);
   result.reached_candidate_limit =
       result.analyses.size() >= static_cast<size_t>(maximum_);
   return result;

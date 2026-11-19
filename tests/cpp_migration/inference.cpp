@@ -87,6 +87,20 @@ int main(int argc, char **argv) {
     check(cached["used_prepared"].flag(), "Prepared materialization reuse");
     verifier.check(cached["solutions"].at(0)["proofs"], {transit},
                    Json::object());
+    int restored = 0;
+    auto from_store = [&] {
+      return engine.query_with_prepared(facts, relations, complete, goals,
+                                        after_ms(5000), 100, [&] {
+                                          ++restored;
+                                          return prepared;
+                                        });
+    };
+    from_store();
+    check(restored == 0, "Warm query read the prepared snapshot again");
+    engine.reset();
+    from_store();
+    from_store();
+    check(restored == 1, "Worker restart must restore the snapshot once");
     // Independent worker state must not contaminate an existing engine.
     NativeEngine other(argv[1], argv[2]);
     other.snapshot(Json::array(), relations, Json::array(), after_ms(5000));

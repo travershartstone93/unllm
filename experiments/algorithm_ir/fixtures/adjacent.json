@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "differences",
+      "params": [["xs", "ints"]],
+      "locals": [["ys", "ints", ["empty"]]],
+      "body": [["range", "idx", ["len", ["var", "xs"]], [["if", ["lt", ["int", "0"], ["var", "idx"]], [["set", "ys", ["append", ["var", "ys"], ["sub", ["at", ["var", "xs"], ["var", "idx"]], ["at", ["var", "xs"], ["sub", ["var", "idx"], ["int", "1"]]]]]]], []]]]],
+      "result": "ints",
+      "return": ["var", "ys"]
+    }
+  ]
+}

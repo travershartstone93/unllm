@@ -1,0 +1,16 @@
+{
+  "original": {
+    "passed": false,
+    "returncode": 1,
+    "error": [
+      "NameError: name 'prime_factorization' is not defined"
+    ],
+    "num_cases": 81
+  },
+  "with_dependencies": {
+    "passed": true,
+    "returncode": 0,
+    "error": [],
+    "num_cases": 81
+  }
+}

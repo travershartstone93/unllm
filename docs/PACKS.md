@@ -34,40 +34,19 @@ Hugging Face publishes for it (`SHA256SUMS` in the folder).
 
 ## Building packs
 
-The builder is `tools/unllm_ingest.py`. It needs Python 3 with `pyarrow` for
-the Wikipedia files, and `7z` for StackExchange.
+The installed C++ builder is `unllm_ingest_native`. In the build tree it is `build/native/unllm_ingest_native`. It reads Parquet through Arrow C++ and Stack Exchange archives through libarchive and libxml2.
 
+```text
+unllm_ingest_native add PATH... [--name NAME] [--workers N] [--force]
+unllm_ingest_native stage PATH [--name NAME]
+unllm_ingest_native progress [--watch]
+unllm_ingest_native inbox [--night-only] [--max-hours N]
+unllm_ingest_native list
+unllm_ingest_native check [NAME]
+unllm_ingest_native remove NAME
 ```
-unllm_ingest.py add PATH...         build packs from files or folders, in that order
-unllm_ingest.py progress [--watch]  bars for the build running now and the ones queued
-unllm_ingest.py inbox               build whatever has been dropped in the inbox folder
-unllm_ingest.py list                the installed packs
-unllm_ingest.py check [NAME]        measure text defects in the installed packs
-unllm_ingest.py remove NAME         delete a pack
-```
 
-**Watching a build.** `progress --watch` redraws every two seconds: one bar
-for all the work (weighted by source size, with how many tasks are done and
-the time left at the speed measured so far), then one line per task, in the
-order they will run, marked done, NOW or waiting. The task being built shows
-what it is doing ("312,000 of 470,000 articles", "posts: 1.2 of 3.4 GB",
-"building the search index (4 min so far)"). The builder writes these
-figures to small files in `~/.local/share/unllm/progress`, and removes them
-when it finishes. A watch window restarts itself when the tool is updated.
-
-**In the system tray.** On KDE Plasma, the machine's progress tray
-(`~/.local/lib/taskprogress/progress_tray.py`, user service `progress-tray`)
-shows the same jobs as progress items in the tray, like a file copy in
-Dolphin: one appears when a job starts and closes when it ends ("stopped" if
-its process died). It is not part of this repo. `tools/taskprogress.py` here
-only loads that helper, so the scripts in `tools/` and `bench/` report their
-own progress with `from taskprogress import Task`.
-
-Packs go to `~/.local/share/unllm/packs`. A build happens in a separate
-`NAME.building` folder and replaces the installed pack in one step, so
-unllm keeps answering from the old pack until the new one is ready. Long
-builds are gentle on the machine: low priority, a pause whenever the CPU
-passes 85 C, and resumable file by file if interrupted.
+Builds stage shards separately and exchange the finished pack with the installed version. The default location is `~/.local/share/unllm/packs`. Progress shows completed and total shards for the current ingestion. Multi-shard additions checkpoint completed shards and reuse them after an interrupted build when the source files and settings match. The ranked package builds a native index before installing each pack. Use `unllm_index --migrate PACKS_ROOT` for packs indexed by the earlier Tantivy implementation.
 
 **Every build is checked before it is installed.** The builder reads a random
 sample of about 6,000 passages and counts the kinds of damage real sources
@@ -184,7 +163,7 @@ wrong one.
 ## The pipeline: reranker and reader (since 2026-10-22)
 
 With the packs in place, a world question runs search -> reranker -> reader. The
-word search (SQLite and Tantivy) and the meaning search (the vector index, see
+word search (SQLite and the native ranked index) and the meaning search (the vector index, see
 above) each give their top 25; the pool, meaning list first and duplicates
 dropped, goes to the reranker; the top 10 come back in its order; the reader
 answers from the top 3 and cites the passage it used, or the top passage is

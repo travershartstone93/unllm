@@ -4,6 +4,7 @@ namespace unllm::native {
 class BehaviourSpec {
   Json value_;
   explicit BehaviourSpec(Json value) : value_(std::move(value)) {}
+
 public:
   static BehaviourSpec from(const Json &value);
   Json data() const { return value_.clone(); }

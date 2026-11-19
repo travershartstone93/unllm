@@ -1,0 +1,54 @@
+[
+ [
+  {},
+  "incomplete"
+ ],
+ [
+  {
+   "input": "ints",
+   "examples": []
+  },
+  "incomplete"
+ ],
+ [
+  {
+   "input": "ints",
+   "output": "int",
+   "examples": []
+  },
+  "incomplete"
+ ],
+ [
+  {
+   "input": "text",
+   "output": "int",
+   "examples": []
+  },
+  "unsupported"
+ ],
+ [
+  {
+   "input": "ints",
+   "output": "graph",
+   "examples": []
+  },
+  "unsupported"
+ ],
+ [
+  {
+   "input": "ints",
+   "output": "int",
+   "examples": [
+    {
+     "input": [],
+     "output": "0"
+    },
+    {
+     "input": [],
+     "output": "1"
+    }
+   ]
+  },
+  "inconsistent"
+ ]
+]

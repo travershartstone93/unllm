@@ -1,7 +1,12 @@
 #include "unllm/symbolic/engine.h"
+#include "unllm/symbolic/behaviour_job.h"
+#include "unllm/symbolic/calculator.h"
+#include "unllm/symbolic/grounding.h"
 #include "unllm/symbolic/linking.h"
 #include "unllm/symbolic/proof.h"
+#include "unllm/symbolic/stream_job.h"
 #include <algorithm>
+#include <cstdlib>
 #include <ctime>
 #include <set>
 namespace unllm::native {
@@ -183,7 +188,7 @@ std::string Engine::label(const std::string &id, const Context &ctx) const {
 }
 std::string Engine::sentence(const Goal &g, const Context &ctx) const {
   std::string s = label(g.subject, ctx), o = label(g.object, ctx),
-       no = g.negative ? "not " : "";
+              no = g.negative ? "not " : "";
   if (g.predicate == "located_in")
     return s + " is " + no + "in " + o;
   if (g.predicate == "contains")
@@ -277,8 +282,9 @@ Json Engine::evaluate(const Meaning &meaning, Context &ctx, int64_t now,
        complete = store.completeness();
   for (auto c : ctx.complete.items())
     complete.push(c);
-  auto result = native.query(facts, relations, complete, array(meaning.goals),
-                             deadline, 100, store.prepared(native.input_key(facts, relations)));
+  auto result = native.query_with_prepared(
+      facts, relations, complete, array(meaning.goals), deadline, 100,
+      [&] { return store.prepared(native.input_key(facts, relations)); });
   auto checked = Json::array(), sources = Json::object();
   std::set<std::string> seen;
   ProofChecker checker(claims, relations, complete);
@@ -479,12 +485,122 @@ Json Engine::answer(const Meaning &meaning, Context &ctx, int64_t now,
   }
   return result;
 }
+Json Engine::generate(Json request, Context &ctx, const std::string &question) {
+  if (synthesis_started)
+    synthesis_started();
+  auto deadline = after_ms(180000);
+  Json spec = request["spec"];
+  Json parser_diagnostics;
+  auto language = request["language"].text();
+  if (request.contains("language") && language.empty())
+    throw Unsupported("Provide a target language");
+  if (question.starts_with(":code ") || question.starts_with(":revise ")) {
+    if (ctx.last_spec.null())
+      return message("unknown", "Generate a program first.");
+    spec = ctx.last_spec.clone();
+    if (question.starts_with(":code "))
+      language = trim(question.substr(6));
+    else {
+      auto changes = Json::parse(question.substr(8));
+      if (!changes.is_object())
+        throw Unsupported(
+            "A revision must be an object of specification fields");
+      merge(spec, changes);
+      language = ctx.last_language;
+    }
+  }
+  if (!request.contains("spec") && spec.null()) {
+    // An implicit creation intent can arrive from the factual parser. Ground
+    // its original words with the same isolated code budget as an explicit request.
+    auto m = parser.parse(
+        question,
+        [](const std::string &, bool) -> std::string {
+          throw Unsupported("Unbound factual entity in programming request");
+        },
+        {}, deadline, true);
+    spec = ground_program(m, resources_);
+    parser_diagnostics = array(m.diagnostics);
+    if (language.empty())
+      for (auto e : m.semantics.items()) {
+        auto w = key(e["carg"].text()), l = lemma(e["predicate"].text());
+        if (w == "cpp" || w == "c++" || l == "cpp" || l == "c++")
+          language = "cpp";
+      }
+  }
+  if (!spec.is_object())
+    throw Unsupported("Expected a typed program specification");
+  if (language.empty())
+    language = "python";
+  language = key(language);
+  if (language == "c++")
+    language = "cpp";
+  if (language == "py")
+    language = "python";
+  if (language != "cpp" && language != "python")
+    throw Unsupported("Code generation supports Python and C++");
+  auto artifacts = resources_ / ".state/cpp-migration/generated";
+  if (auto value = std::getenv("UNLLM_ARTIFACTS"); value && *value)
+    artifacts = value;
+  std::string python;
+  if (auto value = std::getenv("UNLLM_PYTHON_TARGET"))
+    python = value;
+  if (request.contains("emit_only") && !request["emit_only"].is_boolean())
+    throw Unsupported("emit_only must be Boolean");
+  bool emit =
+      request["emit_only"].flag() || (language == "python" && python.empty());
+  Json result;
+  if (spec.contains("state") || spec.contains("views") ||
+      spec.contains("actions") || spec["schema"].integer() == 2 ||
+      (spec.contains("program") && spec["program"].text() != "calculator"))
+    result = build_behaviour(BehaviourSpec::from(spec), language, resources_,
+                             artifacts, native, deadline, python, emit);
+  else if (spec.contains("program"))
+    result = build_calculator(CalculatorSpec::from(spec), language, resources_,
+                              artifacts, native, deadline, python, emit);
+  else
+    result = build_stream(Program::from(spec), language, resources_, artifacts,
+                          native, deadline, python, emit);
+  if (!parser_diagnostics.null()) result.set("parser_diagnostics", parser_diagnostics);
+  if (result["status"].text() == "validated" ||
+      result["status"].text() == "emitted") {
+    ctx.last_spec = result["specification"].clone();
+    ctx.last_language = language;
+  }
+  return result;
+}
 Json Engine::ask(const Json &request, Deadline deadline) {
   if (!request.is_object())
     throw Unsupported("Request must be an object");
+  parser.last_ms = 0;
+  auto effective = request.clone();
+  auto text = trim(request["question"].text());
+  if (text.starts_with('{')) {
+    auto structured = Json::parse(text);
+    if (!structured.is_object())
+      throw Unsupported("Structured request must be an object");
+    if (structured.contains("input") || structured.contains("program") ||
+        structured.contains("state"))
+      effective.set("spec", structured);
+    else {
+      for (auto field : {"context", "now", "language"})
+        if (request.contains(field) && !structured.contains(field))
+          structured.set(field, request[field]);
+      effective = structured;
+      text = trim(effective["question"].text());
+    }
+  }
+  if (effective.contains("spec") || text.starts_with(":code ") ||
+      text.starts_with(":revise ") || creation_request(text) ||
+      (effective.contains("language") && !text.starts_with(':') &&
+       !effective.contains("goals"))) {
+    auto &ctx = context(effective.contains("context")
+                            ? required_text(effective, "context")
+                            : "default");
+    return generate(effective, ctx, text);
+  }
   store.begin_read();
   try {
-    auto result = ask_snapshot(request.clone(), deadline);
+    auto result = ask_snapshot(effective, deadline);
     store.end_read();
     return result;
   } catch (...) {
@@ -501,22 +617,6 @@ Json Engine::ask_snapshot(Json request, Deadline deadline) {
                                         : "default";
   auto &ctx = context(id);
   auto text = trim(request["question"].text());
-  if (text.starts_with('{')) {
-    auto structured = Json::parse(text);
-    if (!structured.is_object())
-      throw Unsupported("Structured request must be an object");
-    if (structured.contains("input") || structured.contains("program"))
-      request.set("spec", structured);
-    else {
-      request = structured;
-      request.set("context", Json::string(id));
-      request.set("now", Json::number(now));
-    }
-  }
-  if (request.contains("spec") || request.contains("language") ||
-      text.starts_with(":code ") || text.starts_with(":revise "))
-    throw Unsupported("Program construction has not yet been migrated into "
-                      "this native development build.");
   if (text.starts_with(":complete ")) {
     auto parts = command_words(text);
     if (parts.size() != 3)
@@ -591,9 +691,10 @@ Json Engine::ask_snapshot(Json request, Deadline deadline) {
           break;
         }
       meaning = interpret(text, ctx, id, deadline);
-      if (meaning.act == "synthesis")
-        throw Unsupported("Program construction has not yet been migrated into "
-                          "this native development build.");
+      if (meaning.act == "synthesis") {
+        store.end_read();
+        return generate(request, ctx, text);
+      }
       if (meaning.act == "explain") {
         if (!ctx.previous)
           return message("unknown", "Ask a factual question first.");

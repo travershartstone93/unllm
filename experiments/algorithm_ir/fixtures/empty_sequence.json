@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "empty_sequence",
+      "params": [["values", "ints"]],
+      "locals": [],
+      "result": "bool",
+      "body": [],
+      "return": ["eq", ["len", ["var", "values"]], ["int", "0"]]
+    }
+  ]
+}

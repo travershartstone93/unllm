@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "positive",
+      "params": [["n", "int"]],
+      "locals": [],
+      "body": [],
+      "result": "bool",
+      "return": ["lt", ["int", "0"], ["var", "n"]]
+    },
+    {
+      "name": "sum",
+      "params": [["xs", "ints"]],
+      "locals": [["s", "int", ["int", "0"]]],
+      "body": [["each", "x", ["var", "xs"], [["if", ["call", "positive", ["var", "x"]], [["set", "s", ["add", ["var", "s"], ["var", "x"]]]], []]]]],
+      "result": "int",
+      "return": ["var", "s"]
+    }
+  ]
+}

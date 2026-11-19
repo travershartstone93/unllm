@@ -18,7 +18,10 @@ int main(int argc, char **argv) {
     return 3;
   const auto home =
       (std::filesystem::path(argv[1]) / ".deps/native/usr/lib/swipl").string();
-  if (setenv("SWI_HOME_DIR", home.c_str(), 1) != 0)
+  const auto rules =
+      std::filesystem::absolute(argv[1]) / "reasoning/prolog/rules.pl";
+  if (setenv("UNLLM_NATIVE_RULE_PATH", rules.c_str(), 1) != 0 ||
+      setenv("SWI_HOME_DIR", home.c_str(), 1) != 0)
     return 3;
   std::string line;
   char c;

@@ -1,0 +1,442 @@
+[
+  {
+    "id": "text_counter",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "body": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "body_view",
+          "kind": "text_edit",
+          "state": "body"
+        },
+        {
+          "id": "chars_view",
+          "kind": "label",
+          "value": "chars(body)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "lower",
+          "label": "Lower",
+          "assign": {
+            "body": "lower(body)"
+          }
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "body",
+          "shortcut": "Ctrl+S"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "chars",
+            "state": "body",
+            "predicate": "default"
+          },
+          {
+            "operation": "lower",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "save",
+            "state": "body",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "decrement",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "value": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "number_view",
+          "kind": "number_input",
+          "state": "value"
+        },
+        {
+          "id": "number_result",
+          "kind": "label",
+          "value": "value",
+          "label": "Value"
+        }
+      ],
+      "actions": [
+        {
+          "id": "decrement",
+          "label": "Decrement",
+          "ensure": "next.value == prev.value - 11.0"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "decrease",
+            "state": "value",
+            "predicate": "_decrease_v_1"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "todo",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "records": {
+          "type": "records",
+          "initial": [],
+          "fields": {
+            "text": "text",
+            "done": "bool"
+          }
+        },
+        "selection": {
+          "type": "number",
+          "initial": -1.0
+        },
+        "entry_text": {
+          "type": "text",
+          "initial": ""
+        },
+        "entry_done": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "entry_text_input",
+          "kind": "line_edit",
+          "state": "entry_text",
+          "label": "Text"
+        },
+        {
+          "id": "records_view",
+          "kind": "record_list",
+          "state": "records",
+          "selection": "selection",
+          "display": "text",
+          "checked": "done"
+        },
+        {
+          "id": "records_count_view",
+          "kind": "label",
+          "value": "records_count(records)",
+          "label": "Items"
+        }
+      ],
+      "actions": [
+        {
+          "id": "add",
+          "label": "Add",
+          "effect": "append_record",
+          "state": "records",
+          "values": {
+            "text": "strip(entry_text)",
+            "done": "entry_done"
+          },
+          "selection": "selection",
+          "clear": [
+            "entry_text"
+          ],
+          "requires": "chars(strip(entry_text)) > 0"
+        },
+        {
+          "id": "remove",
+          "label": "Remove",
+          "effect": "remove_record",
+          "state": "records",
+          "selection": "selection"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "records",
+          "shortcut": "Ctrl+S"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "append",
+            "state": "records",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "remove",
+            "state": "records",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "save",
+            "state": "records",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "stopwatch",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "elapsed": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "anchor": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "running": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "elapsed_view",
+          "kind": "label",
+          "value": "elapsed",
+          "label": "Seconds"
+        }
+      ],
+      "actions": [
+        {
+          "id": "tick",
+          "label": "Tick",
+          "effect": "sample_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running",
+          "visible": false
+        },
+        {
+          "id": "start",
+          "label": "Start",
+          "effect": "start_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        },
+        {
+          "id": "stop",
+          "label": "Stop",
+          "effect": "stop_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        },
+        {
+          "id": "reset",
+          "label": "Reset",
+          "effect": "reset_clock",
+          "state": "elapsed",
+          "anchor": "anchor",
+          "running": "running"
+        }
+      ],
+      "events": [
+        {
+          "kind": "periodic",
+          "interval_ms": 25,
+          "action": "tick"
+        }
+      ],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "start",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "stop",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          },
+          {
+            "operation": "reset",
+            "state": "elapsed",
+            "predicate": "_operation_n_of"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "temperature",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "input_value": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "output_value": {
+          "type": "number",
+          "initial": 32.0
+        }
+      },
+      "views": [
+        {
+          "id": "source_input",
+          "kind": "number_input",
+          "state": "input_value",
+          "label": "Celsius"
+        },
+        {
+          "id": "converted_output",
+          "kind": "label",
+          "value": "output_value",
+          "label": "Fahrenheit"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "5 * next.output_value == 9 * prev.input_value + (160)"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "convert",
+            "source_unit": "celsius",
+            "target_unit": "fahrenheit",
+            "dimension": "temperature"
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  },
+  {
+    "id": "tip",
+    "spec": {
+      "schema": 2,
+      "program": "application",
+      "title": "Application",
+      "state": {
+        "amount": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "rate": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "part": {
+          "type": "number",
+          "initial": 0.0
+        },
+        "total": {
+          "type": "number",
+          "initial": 0.0
+        }
+      },
+      "views": [
+        {
+          "id": "amount_input",
+          "kind": "number_input",
+          "state": "amount",
+          "label": "Bill amount"
+        },
+        {
+          "id": "rate_input",
+          "kind": "number_input",
+          "state": "rate",
+          "label": "Tip percentage"
+        },
+        {
+          "id": "part_output",
+          "kind": "label",
+          "value": "part",
+          "label": "Tip amount"
+        },
+        {
+          "id": "total_output",
+          "kind": "label",
+          "value": "total",
+          "label": "Total"
+        }
+      ],
+      "actions": [
+        {
+          "id": "calculate",
+          "label": "Calculate",
+          "ensure": "100 * next.part == prev.amount * prev.rate and next.total == prev.amount + next.part"
+        }
+      ],
+      "events": [],
+      "interpretation": {
+        "method": "ERG semantic frames, typed role binding and explicit domain definitions",
+        "bindings": [
+          {
+            "operation": "percentage_of",
+            "base": "amount",
+            "rate": "rate",
+            "output": "part",
+            "total_sign": 1
+          }
+        ],
+        "defaults": []
+      },
+      "checks": []
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "name": "copy",
+      "params": [["xs", "ints"]],
+      "locals": [],
+      "body": [["each", "x", ["var", "xs"], [["set", "xs", ["append", ["var", "xs"], ["var", "x"]]]]]],
+      "result": "ints",
+      "return": ["var", "xs"]
+    }
+  ]
+}

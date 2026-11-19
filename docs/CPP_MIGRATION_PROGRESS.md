@@ -1,15 +1,8 @@
 # Native migration implementation evidence
 
-Implementation started 2026-11-13 following authorization to execute the full
-upgrade path. This is an incremental port, not a completed C++ product or a
-claim of general algorithm synthesis. Stages 13–17 remain after migration.
-Last implementation update: 2026-11-17.
+The default symbolic build and the working `build/unllm` use the C++ host. The first-party host covers interpretation, reasoning, construction, both code emitters, validation, ingestion, ranked search and update transactions. The installed package excludes the earlier Python host and Rust search executable. The coding-capability roadmap follows this migration.
 
 ## Isolation and baseline
-
-Work is confined to `unllm-upgrade`. The existing product binary and Python
-reference remain available; new host code uses a separate `native/CMakeLists.txt`
-and `build-cpp`. No CLI cutover or installed-command replacement has happened.
 
 `.state/cpp-migration/baseline/` contains the pre-port source archive, SHA-256
 manifest, tracked/untracked status, carried diff, Git revision, executable/grammar
@@ -58,11 +51,36 @@ API. The original sibling's carried diff still hashes to
 - `resources/targets/streams/common.py` is generated-program source data, read
   by the C++ emitter. It is never imported by the host. The optional target
   interpreter is used only to run generated Python programs.
+- The native facts command imports JSON, reference packs and cached Wikidata
+  records, reports database counts and prepares reusable inference snapshots.
+  Packs with two candidate identities for a name now skip the ambiguous relation.
+  Tests used offline Wikidata fixtures. Live HTTP import remains unverified.
+- The native shared application path parses typed specifications and expressions,
+  evaluates expressions, synthesizes simultaneous state transitions with cvc5
+  and constructs handlers from verified provider plans. Its Python and C++ GUI
+  emitters generate standalone Qt applications. A C++ validator drives real
+  widgets, checks state, labels, timer traces and files, and runs the C++ drivers
+  again with ASan/UBSan. A separate C++ checker judges both output languages.
+- The schema 1 calculator path constructs a controller, enabled operations,
+  widget grid and keyboard bindings from checked component providers. Native
+  cvc5 synthesizes the optional memory updates and the division guard. Targets
+  use the staged ANTLR arithmetic parser. The native validator generates its
+  arithmetic inputs and expected values independently of that parser.
+- English creation requests now use ACE/MRS through the public CLI when
+  `UNLLM_SYMBOLIC_RUNTIME=native` is set. Structured input, replay and revision
+  share the same native worker. Generated-Python execution requires an explicit
+  target interpreter. Its optional ANTLR package can be mounted separately via
+  `UNLLM_PYTHON_TARGET_ANTLR4`.
+- The native maintenance development tool checks FineWiki English and Simple,
+  Stack Exchange, Wiktionary, WordNet and the fixed poetry source. Source
+  comparisons, checksum caching and unknown-source reporting have offline
+  fixture coverage.
 
 ## Checks completed
 
-All eleven current native CTest suites passed on 2026-11-17 in 64.80 seconds.
-The complete run is recorded in `.state/cpp-migration/native-tests.log`.
+The earlier 17 native suites passed on November 18 in 42.83 seconds. The run is recorded
+in `.state/cpp-migration/native-status-nov18.log`. The optional Python target
+rerun also passed all 181 execution checks across ten generated programs.
 
 | Suite | Evidence |
 | --- | --- |
@@ -77,6 +95,9 @@ The complete run is recorded in `.state/cpp-migration/native-tests.log`.
 | Program | Frozen component identities, eleven accepted specifications and thirteen rejected specifications; every accepted component plan independently proof checked. |
 | Stream emitters | Ten Python outputs passed 181 isolated oracle cases. Ten C++ outputs passed 362 checks across normal and sanitizer builds. The native oracle was also compared against all 181 frozen reference cases; final combined checks are in the current log. |
 | Stream job | A new specification completed native planning, SyGuS, compilation and independent execution. Deliberately emitting `x+11` against the requested `x-11` contract was rejected. Python emission worked with no target interpreter supplied. |
+| Importers and facts CLI | Pack import and five offline Wikidata scenarios matched the reference. Command tests cover import, status, prepare, cache reuse and errors. A manual query reused the prepared snapshot and cited both imported premises. |
+| Behaviour expressions and specifications | 98 expression cases and 50 application specifications matched the reference. The spec corpus includes 21 expected rejections. Accepted expression trees were also evaluated against reference outputs. |
+| Behaviour solver and planner | Six transitions passed 46 numerical checks. A contradictory transition failed. Eight plans matched the reference across both target languages. Removing the atomic writer prevented a save plan. |
 
 A fresh manual factual conversation inferred Mira's location through London and
 England, listed both premises, withdrew support after correction and restored it
@@ -88,45 +109,95 @@ algorithm synthesis or overall speedup.
 Captured Python reference outputs are development fixtures only. New tests and
 host modules are C++; the default native test graph does not launch Python.
 
-## Open migration gates
+## English and GUI acceptance on November 18
 
-The inventory and reference reruns are recorded, but the full migration gates
-remain open. Unicode-version compatibility, exhaustive serialization vectors,
-process hardening and no-Python installation still need evidence. Factual importers
-and the facts command remain to port. English program grounding, application and
-shared-behavior specifications/solvers/emitters, GUI validation, public maintenance,
-search/profile migration and packaging remain incomplete. The new utility command
-does not replace the production CLI or implement arbitrary programs.
+| Boundary | Measured result | Evidence under `.state/cpp-migration/` |
+| --- | --- | --- |
+| English grounding | All 32 live requests matched the frozen reference disposition and every accepted specification. The original task oracles still score 20/32, including 8/8 negative cases. | `ground-parity.log`, `baseline/interpretation.json` |
+| Public CLI | The six original English prompts each produced an independently exercised Python and C++ app, with 39 UI assertions per language. The CLI also validated a counter that decrements by 13. | `gui-trial/public-{python,cpp}.log`, `english-trial/decrement13.json` |
+| Calculator | All four typed configurations passed in both languages. Across four Python apps the validator checked 500 arithmetic and GUI outcomes. Across four C++ apps the normal and sanitizer builds checked 1,000. | `calculator-trial/{cpp,python}/*-result.json` |
+| Behavior composition | Each language passed the four fixed specifications plus a new specification with generated coefficients. Fresh interaction cases followed ordinary validation. Both validators caught a deliberately reversed decrement. | `gui-trial/compositions-python.log`, `native-extended.log` |
+| Worker protocol | Replay, revision, recovery after an invalid revision, context isolation, reset, mixed factual/programming requests, malformed JSON, size limits and truncated frames passed. | `protocol-test.log` |
+| Source checks | Six source profiles passed local metadata fixtures covering current, changed and unavailable sources. | `source-checks.log` |
 
-The downloaded cvc5 SDK includes unused upstream Java/Python bindings; final
-packaging must select only native runtime artifacts. System ICU/OpenSSL/SQLite
-versions are observed rather than a completed reproducible deployment bundle.
-Native source paths are currently checkout-relative; relocation is not tested.
-No performance improvement or production parity is claimed from these small tests.
+The expanded 26-suite native run passed in 238.11 seconds
+(`install-trial/native-regression-all.log`). The source-check fixtures use no
+live sources or installed packs.
 
-Reproduce current development checks with:
+## Relocated installation checks
+
+The native CMake installation includes the symbolic worker, logic worker, ACE,
+ERG, native solver libraries, reasoning data and target resources. A probe ran
+the staged prefix at `/opt/unllm` with a fresh writable state directory, an
+allowlist of system libraries and a C++/Qt toolchain. The checkout and Python
+runtime were absent from this filesystem.
+
+- The worker recorded a factual assertion and answered a follow-up. It emitted
+  Python calculator source, then compiled and exercised a C++ calculator. Its
+  normal and sanitizer builds passed 254 arithmetic and GUI checks in total.
+- The separately built public CLI was copied into the staged prefix for this
+  test. With `UNLLM_SYMBOLIC_RUNTIME=native`, it located the installed worker
+  beside itself and passed the same 254 C++ checks from an English prompt.
+- The installed facts command imported a fixture and prepared 41 tuples. A
+  fresh worker read the same user-state database and answered “Is Northport in
+  Vale?” with a supported result. The process traces passed the Python-launch
+  and shared-library checks.
+
+The release probe is `tests/cpp_migration/installed_runtime.sh PREFIX NEW_DIR`.
+The public command is exercised when `PREFIX/bin/unllm` is present. This run's
+reports and traces are under `.state/cpp-migration/install-trial/combined-isolation/`.
+
+The package now builds the public CLI and native workers together. Build, install and existing-pack conversion instructions are in [the upgrade guide](UPGRADE.md). The working checkout and an installed prefix use separate default state paths. Set `UNLLM_FACT_DB` to select an existing database explicitly.
+
+## Warm factual-query latency
+
+The resident C++ worker now reads and validates the prepared SQLite snapshot
+when it needs to load or restore a reasoning world. A repeat query on the same
+resident world skips that work. A native regression test counts snapshot reads
+for a warm hit and after a worker reset.
+
+Each release-build batch replayed 30 pairs of identical structured fact queries
+against copies of the same database, alternating which worker answered first.
+All 90 answer pairs matched after the change.
+
+| p95 in milliseconds | Batch 1 | Batch 2 | Batch 3 |
+| --- | ---: | ---: | ---: |
+| Native before | 8.09 | 7.94 | 8.01 |
+| Reference in those batches | 8.32 | 7.74 | 8.13 |
+| Native after | 6.56 | 6.56 | 1.89 |
+| Reference in those batches | 7.72 | 8.77 | 2.14 |
+
+The reference timing also moved between batches. These figures cover a warm
+worker protocol round trip for one structured factual query. Cold start,
+English parsing and code generation have separate performance gates. The input
+and individual samples are under
+`.state/cpp-migration/install-trial/latency-release-{before,after}/`.
+
+## Release results
+
+- A clean configure, build, install and 33-test run passed on Linux x86_64 in a namespace without Python or Cargo, with staged native SDKs and system libraries. The build and installed-package probes record process traces.
+- Isolated installed runs covered default symbolic, legacy and shadow operation, importing and preparing facts, C++ calculator compilation and sanitizer execution, Python source emission, and ranked and FTS pack search. An explicitly configured Python target separately passed 127 calculator checks.
+- In 108 saved ranked searches on a seven-passage fixture the C++ adapter reproduced every Tantivy result in order. The largest score difference was about 0.000001. Existing packs need a one-time native index build. Full-scale corpus ranking and live network refresh were outside these fixture runs.
+- Native maintenance tests cover Parquet, 7z/XML, gzip poetry, dictionary and local document ingestion, parallel shards, quality checks and TSV scoring. An offline update downloaded fixture input, checked its hash, encoded a real shard, rebuilt indexes, rejected a lower-scoring candidate, published an acceptable candidate and rolled back. Transaction tests forced 13 process exits and exercised an external vector index location.
+- Across three batches of 30 paired inputs each, all eight measured host stages met the plan's p95 tolerance. Native solving took roughly 21–29 ms at p95 versus 18–24 ms for the reference. Cold single-request launches measured 0.10–0.26 s native and 0.17–0.38 s reference. One end-to-end calculator run took 24.34 s native versus 25.91 s reference. Peak child RSS was 405,360 and 428,544 KiB respectively. The calculator run includes compilation and validation and supplies only one observation per version.
+
+The working CLI passed all 33 suites. In a separate four-turn trial it recorded two location assertions, answered the transitive question and cited both premises when asked why. The standalone ingest probe also installed, checked, forcibly replaced, removed and reimported a fixture pack via the inbox. Multi-shard restart tests retained the completed SQLite shard across an interruption.
+
+In this working copy, the files `release-final.path`, `cutover-installed.path`, `target-final.path`, `final-fts.path` and `cli-check.path` under `.state/cpp-migration/` point to the frozen build logs, process traces and target or CLI results. `stage-trial.path` and `end-to-end.path` locate the timing samples.
+
+Reproduce a release check with a fresh evidence directory for each command.
 
 ```sh
-cmake -S native -B build-cpp -DCMAKE_BUILD_TYPE=Debug
-cmake --build build-cpp --parallel 2
-ctest --test-dir build-cpp --output-on-failure --no-tests=error
+tests/cpp_migration/clean_build.sh "$PWD/.state/clean-release"
+tests/cpp_migration/installed_runtime.sh "$PWD/.state/clean-release/prefix" "$PWD/.state/installed-release"
 ```
 
-Run optional Python-target checks explicitly (the test driver remains C++):
+To include update scoring and real encoding in the installed test, set `UNLLM_TEST_REFRESH_FIXTURE` to the absolute path of the compiled `native_refresh_fixture` and `UNLLM_TEST_EMBED_MODEL` to a local BGE embedding model directory. Fixture runs leave production packs in place. The historical comparator wrote its normal index-progress file under the user's data directory.
 
-```sh
-build-cpp/native_stream_emit_tests "$PWD" python /usr/bin/python3
-```
+The baseline source archive and saved hybrid executable under `.state/cpp-migration` preserve the earlier version for explicit whole-version comparisons. The package never invokes that reference on a failed request.
 
-The isolated native stream command accepts a typed JSON specification:
+## Roadmap review after the port
 
-```sh
-build-cpp/unllm_generate_stream "$PWD" "$PWD/build-cpp/unllm_logic_worker" \
-  specification.json cpp "$PWD/.state/cpp-migration/generated"
-```
+The native baseline preserves the interpretation result of 20/32 on the existing request set. A useful next comparison is the Stage 13 numeric pilot against an engineering-only baseline, scoring wrong acceptances and unnecessary clarifications as well as correct requests. In parallel, Stage 14 can exercise a typed loop and checked integer-sequence operations from a supplied specification. Compare the interpreter, generated Python and generated C++ on identical inputs. Stage 15 then freezes the primitives and checks whether the engine can discover the structure for an unfamiliar task. This separates gains in understanding English from gains in writing algorithms. [Foundational roadmap](CODING_CAPABILITY_ROADMAP.md)
 
-For Python, choose `python` and supply `--python-target /usr/bin/python3` to
-validate, or `--emit-only` to emit without an interpreter. The current sandbox
-exposes `/usr` and the job; target toolchains outside `/usr` still need the later
-packaging/runtime-bundle work. Emission without validation is reported as
-`emitted`, never `validated`.
+The storage proposal adds a distinct prerequisite for programming packs. Budget for the existing and newly built ranked indexes simultaneously during migration, and verify that all readers and writers resolve the same mounted volume. New programming packs can then be compared against synthesis alone on a small provenance-tracked pilot. The proposed project-trained model, multi-toolkit dashboard and repository-editing experiments come later. [Storage and corpus update](CORPUS_STORAGE_AND_EXPANSION_UPDATE.md) · [Future coding roadmap](FUTURE_CODING_CAPABILITY_ROADMAP.md)

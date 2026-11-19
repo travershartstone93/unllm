@@ -1,15 +1,36 @@
-// Development endpoint until all migration gates pass; production is unchanged.
+// Line-delimited request endpoint for the C++ symbolic runtime.
+#include "runtime_paths.h"
 #include "unllm/symbolic/engine.h"
 #include <iostream>
 #include <unistd.h>
 using namespace unllm::native;
 int main(int argc, char **argv) {
-  if (argc != 4) {
-    std::cerr << "Usage: unllm_symbolic_worker ROOT FACT_DB LOGIC_WORKER\n";
-    return 2;
-  }
   try {
-    Engine engine(argv[2], argv[1], argv[3]);
+    std::filesystem::path root, database, logic;
+    bool events = argc > 1 && std::string(argv[argc - 1]) == "--events";
+    int positional = argc - (events ? 1 : 0);
+    if (positional == 4) {
+      root = argv[1];
+      database = argv[2];
+      logic = argv[3];
+    } else if (positional == 1) {
+      auto bin = std::filesystem::canonical("/proc/self/exe").parent_path();
+      root = bin.parent_path() / "share/unllm";
+      logic = bin / "unllm_logic_worker";
+      auto user = runtime_state();
+      database = runtime_database(user);
+      if (!std::getenv("UNLLM_ARTIFACTS"))
+        setenv("UNLLM_ARTIFACTS", (user / "artifacts").c_str(), 1);
+    } else {
+      std::cerr << "Usage: unllm_symbolic_worker [ROOT FACT_DB LOGIC_WORKER] "
+                   "[--events]\n";
+      return 2;
+    }
+    Engine engine(database, root, logic);
+    if (events)
+      engine.synthesis_started = [] {
+        std::cout << R"({"event":"synthesis_started"})" << std::endl;
+      };
     std::string line;
     char c;
     while (std::cin.get(c)) {

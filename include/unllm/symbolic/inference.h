@@ -1,6 +1,7 @@
 #pragma once
 #include "model.h"
 #include "process.h"
+#include <functional>
 #include <memory>
 namespace unllm::native {
 class NativeEngine {
@@ -14,6 +15,9 @@ public:
   Json query(const Json &facts, const Json &relations, const Json &complete,
              const Json &goals, Deadline deadline, int limit = 100,
              const Json &prepared = {});
+  Json query_with_prepared(const Json &facts, const Json &relations,
+                           const Json &complete, const Json &goals, Deadline deadline,
+                           int limit, const std::function<Json()> &load_prepared);
   Json application_plan(const Json &facts, const Json &relations,
                         const Json &requirements, const std::string &language,
                         Deadline deadline);

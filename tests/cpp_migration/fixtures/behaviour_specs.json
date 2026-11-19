@@ -1,0 +1,3376 @@
+[
+  {
+    "id": "text_workbench",
+    "input": {
+      "schema": 2,
+      "program": "text_workbench",
+      "title": "Text Workbench",
+      "state": {
+        "notes": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "notes_input",
+          "kind": "text_edit",
+          "state": "notes"
+        },
+        {
+          "id": "words",
+          "kind": "label",
+          "value": "words(notes)",
+          "label": "Words"
+        },
+        {
+          "id": "characters",
+          "kind": "label",
+          "value": "chars(notes)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capitalize",
+          "label": "Uppercase",
+          "assign": {
+            "notes": "upper(notes)"
+          }
+        },
+        {
+          "id": "organize",
+          "label": "Sort unique lines",
+          "assign": {
+            "notes": "sort_lines(unique_lines(notes))"
+          }
+        },
+        {
+          "id": "open",
+          "label": "Open",
+          "effect": "load",
+          "state": "notes",
+          "shortcut": "Ctrl+O"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "notes",
+          "shortcut": "Ctrl+S"
+        }
+      ]
+    },
+    "expected": {
+      "schema": 2,
+      "program": "text_workbench",
+      "title": "Text Workbench",
+      "state": {
+        "notes": {
+          "type": "text",
+          "initial": ""
+        }
+      },
+      "views": [
+        {
+          "id": "notes_input",
+          "kind": "text_edit",
+          "state": "notes"
+        },
+        {
+          "id": "words",
+          "kind": "label",
+          "value": "words(notes)",
+          "label": "Words"
+        },
+        {
+          "id": "characters",
+          "kind": "label",
+          "value": "chars(notes)",
+          "label": "Characters"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capitalize",
+          "label": "Uppercase",
+          "assign": {
+            "notes": "upper(notes)"
+          }
+        },
+        {
+          "id": "organize",
+          "label": "Sort unique lines",
+          "assign": {
+            "notes": "sort_lines(unique_lines(notes))"
+          }
+        },
+        {
+          "id": "open",
+          "label": "Open",
+          "effect": "load",
+          "state": "notes",
+          "shortcut": "Ctrl+O"
+        },
+        {
+          "id": "save",
+          "label": "Save",
+          "effect": "save",
+          "state": "notes",
+          "shortcut": "Ctrl+S"
+        }
+      ],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "conversion",
+    "input": {
+      "schema": 2,
+      "program": "temperature_relation",
+      "title": "Temperature Conversion",
+      "state": {
+        "celsius": {
+          "type": "number",
+          "initial": 0
+        },
+        "fahrenheit": {
+          "type": "number",
+          "initial": 32
+        }
+      },
+      "views": [
+        {
+          "id": "celsius_input",
+          "kind": "number_input",
+          "state": "celsius",
+          "label": "Celsius"
+        },
+        {
+          "id": "fahrenheit_output",
+          "kind": "label",
+          "value": "fahrenheit",
+          "label": "Fahrenheit"
+        },
+        {
+          "id": "guarded_ratio",
+          "kind": "label",
+          "value": "fahrenheit / celsius if celsius != 0 else 0",
+          "label": "Ratio"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "5 * next.fahrenheit == 9 * prev.celsius + 160"
+        }
+      ]
+    },
+    "expected": {
+      "schema": 2,
+      "program": "temperature_relation",
+      "title": "Temperature Conversion",
+      "state": {
+        "celsius": {
+          "type": "number",
+          "initial": 0
+        },
+        "fahrenheit": {
+          "type": "number",
+          "initial": 32
+        }
+      },
+      "views": [
+        {
+          "id": "celsius_input",
+          "kind": "number_input",
+          "state": "celsius",
+          "label": "Celsius"
+        },
+        {
+          "id": "fahrenheit_output",
+          "kind": "label",
+          "value": "fahrenheit",
+          "label": "Fahrenheit"
+        },
+        {
+          "id": "guarded_ratio",
+          "kind": "label",
+          "value": "fahrenheit / celsius if celsius != 0 else 0",
+          "label": "Ratio"
+        }
+      ],
+      "actions": [
+        {
+          "id": "convert",
+          "label": "Convert",
+          "ensure": "5 * next.fahrenheit == 9 * prev.celsius + 160"
+        }
+      ],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "paired_state",
+    "input": {
+      "schema": 2,
+      "program": "two_balances",
+      "title": "Paired State",
+      "state": {
+        "left": {
+          "type": "number",
+          "initial": 3
+        },
+        "right": {
+          "type": "number",
+          "initial": 7
+        }
+      },
+      "views": [
+        {
+          "id": "left_input",
+          "kind": "number_input",
+          "state": "left",
+          "label": "Left"
+        },
+        {
+          "id": "right_input",
+          "kind": "number_input",
+          "state": "right",
+          "label": "Right"
+        },
+        {
+          "id": "total",
+          "kind": "label",
+          "value": "left + right",
+          "label": "Total"
+        }
+      ],
+      "actions": [
+        {
+          "id": "swap",
+          "label": "Swap",
+          "ensure": "next.left == prev.right and next.right == prev.left"
+        },
+        {
+          "id": "rebalance",
+          "label": "Transfer two",
+          "ensure": "next.left == prev.left - 2 and next.right == prev.right + 2"
+        },
+        {
+          "id": "clamp",
+          "label": "Clamp left to zero",
+          "ensure": "next.left == (0 if prev.left < 0 else prev.left)"
+        }
+      ]
+    },
+    "expected": {
+      "schema": 2,
+      "program": "two_balances",
+      "title": "Paired State",
+      "state": {
+        "left": {
+          "type": "number",
+          "initial": 3
+        },
+        "right": {
+          "type": "number",
+          "initial": 7
+        }
+      },
+      "views": [
+        {
+          "id": "left_input",
+          "kind": "number_input",
+          "state": "left",
+          "label": "Left"
+        },
+        {
+          "id": "right_input",
+          "kind": "number_input",
+          "state": "right",
+          "label": "Right"
+        },
+        {
+          "id": "total",
+          "kind": "label",
+          "value": "left + right",
+          "label": "Total"
+        }
+      ],
+      "actions": [
+        {
+          "id": "swap",
+          "label": "Swap",
+          "ensure": "next.left == prev.right and next.right == prev.left"
+        },
+        {
+          "id": "rebalance",
+          "label": "Transfer two",
+          "ensure": "next.left == prev.left - 2 and next.right == prev.right + 2"
+        },
+        {
+          "id": "clamp",
+          "label": "Clamp left to zero",
+          "ensure": "next.left == (0 if prev.left < 0 else prev.left)"
+        }
+      ],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "mixed_workspace",
+    "input": {
+      "schema": 2,
+      "program": "a_name_the_generator_has_no_category_for",
+      "title": "Mixed Workspace",
+      "state": {
+        "draft": {
+          "type": "text",
+          "initial": ""
+        },
+        "snapshot": {
+          "type": "text",
+          "initial": ""
+        },
+        "visits": {
+          "type": "number",
+          "initial": 0
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "draft_input",
+          "kind": "text_edit",
+          "state": "draft"
+        },
+        {
+          "id": "snapshot_view",
+          "kind": "label",
+          "value": "snapshot",
+          "label": "Snapshot"
+        },
+        {
+          "id": "word_count",
+          "kind": "label",
+          "value": "words(draft)",
+          "label": "Words"
+        },
+        {
+          "id": "visits",
+          "kind": "label",
+          "value": "visits",
+          "label": "Visits"
+        },
+        {
+          "id": "flag",
+          "kind": "label",
+          "value": "flag",
+          "label": "Flag"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capture",
+          "label": "Capture",
+          "assign": {
+            "snapshot": "upper(strip(draft))",
+            "flag": "not flag"
+          }
+        },
+        {
+          "id": "advance",
+          "label": "Advance by three",
+          "ensure": "next.visits == prev.visits + 3"
+        },
+        {
+          "id": "store",
+          "label": "Save snapshot",
+          "effect": "save",
+          "state": "snapshot"
+        }
+      ]
+    },
+    "expected": {
+      "schema": 2,
+      "program": "a_name_the_generator_has_no_category_for",
+      "title": "Mixed Workspace",
+      "state": {
+        "draft": {
+          "type": "text",
+          "initial": ""
+        },
+        "snapshot": {
+          "type": "text",
+          "initial": ""
+        },
+        "visits": {
+          "type": "number",
+          "initial": 0
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "views": [
+        {
+          "id": "draft_input",
+          "kind": "text_edit",
+          "state": "draft"
+        },
+        {
+          "id": "snapshot_view",
+          "kind": "label",
+          "value": "snapshot",
+          "label": "Snapshot"
+        },
+        {
+          "id": "word_count",
+          "kind": "label",
+          "value": "words(draft)",
+          "label": "Words"
+        },
+        {
+          "id": "visits",
+          "kind": "label",
+          "value": "visits",
+          "label": "Visits"
+        },
+        {
+          "id": "flag",
+          "kind": "label",
+          "value": "flag",
+          "label": "Flag"
+        }
+      ],
+      "actions": [
+        {
+          "id": "capture",
+          "label": "Capture",
+          "assign": {
+            "snapshot": "upper(strip(draft))",
+            "flag": "not flag"
+          }
+        },
+        {
+          "id": "advance",
+          "label": "Advance by three",
+          "ensure": "next.visits == prev.visits + 3"
+        },
+        {
+          "id": "store",
+          "label": "Save snapshot",
+          "effect": "save",
+          "state": "snapshot"
+        }
+      ],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "defaults",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      }
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "actions": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "load",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "load",
+          "state": "rows"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "load",
+          "state": "rows"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "save",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "save",
+          "state": "rows"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "save",
+          "state": "rows"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "save_as",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "save_as",
+          "state": "rows"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "save_as",
+          "state": "rows"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "new",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "new",
+          "state": "rows"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "new",
+          "state": "rows"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "start_clock",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "start_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "start_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "stop_clock",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "stop_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "stop_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "sample_clock",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "sample_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "sample_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "reset_clock",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "reset_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "reset_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "flag"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "undo",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "undo",
+          "state": "text"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "undo",
+          "state": "text"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "redo",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "redo",
+          "state": "text"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "redo",
+          "state": "text"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "cut",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "cut",
+          "state": "text"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "cut",
+          "state": "text"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "copy",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "copy",
+          "state": "text"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "copy",
+          "state": "text"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "paste",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "paste",
+          "state": "text"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "paste",
+          "state": "text"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "select_all",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "select_all",
+          "state": "text"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "kind": "line_edit",
+          "id": "editor",
+          "state": "text"
+        }
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "effect": "select_all",
+          "state": "text"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "append",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "append_record",
+          "state": "rows",
+          "values": {
+            "name": "text",
+            "done": "flag"
+          },
+          "clear": [
+            "text"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "append_record",
+          "state": "rows",
+          "values": {
+            "name": "text",
+            "done": "flag"
+          },
+          "clear": [
+            "text"
+          ]
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "set",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "set_record",
+          "state": "rows",
+          "selection": "x",
+          "values": {
+            "done": "True"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "set_record",
+          "state": "rows",
+          "selection": "x",
+          "values": {
+            "done": "True"
+          }
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "remove",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "remove_record",
+          "state": "rows",
+          "selection": "x"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "remove_record",
+          "state": "rows",
+          "selection": "x"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "swap",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.x == prev.y and next.y == prev.x"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.x == prev.y and next.y == prev.x"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "assign",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "assign": {
+            "flag": "not flag",
+            "rows": "[] if flag else rows"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "assign": {
+            "flag": "not flag",
+            "rows": "[] if flag else rows"
+          }
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "quadratic",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.y == prev.x * prev.x"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.y == prev.x * prev.x"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "fraction",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.y == prev.x / 2"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.y == prev.x / 2"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "label-independent",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "program": "arbitrary label",
+      "title": "☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁"
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "program": "arbitrary label",
+      "title": "☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁",
+      "schema": 2,
+      "views": [],
+      "actions": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "rec-view",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "id": "list",
+          "state": "rows",
+          "selection": "x",
+          "kind": "record_list",
+          "display": "name",
+          "checked": "done"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "views": [
+        {
+          "id": "list",
+          "state": "rows",
+          "selection": "x",
+          "kind": "record_list",
+          "display": "name",
+          "checked": "done"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "actions": [],
+      "events": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "timer",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "tick",
+          "ensure": "next.x == prev.x + 1"
+        }
+      ],
+      "events": [
+        {
+          "kind": "periodic",
+          "interval_ms": 10,
+          "action": "tick"
+        }
+      ]
+    },
+    "expected": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "tick",
+          "ensure": "next.x == prev.x + 1"
+        }
+      ],
+      "events": [
+        {
+          "kind": "periodic",
+          "interval_ms": 10,
+          "action": "tick"
+        }
+      ],
+      "program": "application",
+      "schema": 2,
+      "title": "application",
+      "views": [],
+      "checks": []
+    }
+  },
+  {
+    "id": "bad-unknown",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "magic",
+          "state": "x"
+        }
+      ]
+    },
+    "error": "Unknown effect or incompatible state."
+  },
+  {
+    "id": "bad-editable",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "cut",
+          "state": "text"
+        }
+      ]
+    },
+    "error": "This edit effect needs an editable view for the state."
+  },
+  {
+    "id": "bad-clock",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "start_clock",
+          "state": "x",
+          "anchor": "y",
+          "running": "text"
+        }
+      ]
+    },
+    "error": "Clock effects need elapsed/anchor numbers and a running flag."
+  },
+  {
+    "id": "bad-require",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "requires": "x",
+          "assign": {
+            "x": "0"
+          }
+        }
+      ]
+    },
+    "error": "An action precondition must be Boolean."
+  },
+  {
+    "id": "bad-unsafe",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "assign": {
+            "text": "open(\"a\")"
+          }
+        }
+      ]
+    },
+    "error": "Unsupported expression construct: Call"
+  },
+  {
+    "id": "bad-type",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "assign": {
+            "x": "text"
+          }
+        }
+      ]
+    },
+    "error": "Assignment outcome type mismatch."
+  },
+  {
+    "id": "bad-no-output",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "prev.x == prev.y"
+        }
+      ]
+    },
+    "error": "A transition must constrain one or more numeric next states."
+  },
+  {
+    "id": "bad-third-degree",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.y == prev.x * prev.y * prev.x"
+        }
+      ]
+    },
+    "error": "Transition synthesis supports polynomials through degree two."
+  },
+  {
+    "id": "bad-denom",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.y == prev.x / prev.y"
+        }
+      ]
+    },
+    "error": "Formal transition division needs a nonzero literal denominator."
+  },
+  {
+    "id": "bad-zero",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "ensure": "next.x == prev.y / 0"
+        }
+      ]
+    },
+    "error": "Formal transition division needs a nonzero literal denominator."
+  },
+  {
+    "id": "bad-two",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "assign": {
+            "x": "0"
+          },
+          "effect": "new"
+        }
+      ]
+    },
+    "error": "An action needs one outcome contract."
+  },
+  {
+    "id": "bad-missing",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "append_record",
+          "state": "rows",
+          "values": {
+            "name": "text"
+          }
+        }
+      ]
+    },
+    "error": "Append must supply every record field."
+  },
+  {
+    "id": "bad-clear",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "actions": [
+        {
+          "id": "click",
+          "effect": "append_record",
+          "state": "rows",
+          "values": {
+            "name": "text",
+            "done": "flag"
+          },
+          "clear": [
+            "x"
+          ]
+        }
+      ]
+    },
+    "error": "Clear targets must be text states."
+  },
+  {
+    "id": "bad-shapes",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        },
+        "others": {
+          "type": "records",
+          "initial": [],
+          "fields": {
+            "different": "number"
+          }
+        }
+      },
+      "actions": [
+        {
+          "id": "copy",
+          "assign": {
+            "others": "rows if flag else []"
+          }
+        }
+      ]
+    },
+    "error": "Record schemas differ across the assignment."
+  },
+  {
+    "id": "invalid-empty",
+    "input": {
+      "state": {}
+    },
+    "error": "Provide 1 to 32 typed state fields."
+  },
+  {
+    "id": "invalid-unknown",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "extra": 1
+    },
+    "error": "Unknown behaviour specification fields."
+  },
+  {
+    "id": "invalid-checks",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "checks": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ]
+    },
+    "error": "Acceptance-check budget exceeded."
+  },
+  {
+    "id": "invalid-bad-id",
+    "input": {
+      "state": {
+        "_x": {
+          "type": "number",
+          "initial": 0
+        }
+      }
+    },
+    "error": "Identifiers must be short ASCII names."
+  },
+  {
+    "id": "invalid-bad-record",
+    "input": {
+      "state": {
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": [
+            {
+              "name": "A",
+              "done": 0
+            }
+          ]
+        }
+      }
+    },
+    "error": "Invalid initial state: rows"
+  },
+  {
+    "id": "invalid-label",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "title": "bad\u001f"
+    },
+    "error": "Invalid application label."
+  },
+  {
+    "id": "invalid-period",
+    "input": {
+      "state": {
+        "x": {
+          "type": "number",
+          "initial": 0
+        },
+        "y": {
+          "type": "number",
+          "initial": 0
+        },
+        "text": {
+          "type": "text",
+          "initial": ""
+        },
+        "flag": {
+          "type": "bool",
+          "initial": false
+        },
+        "rows": {
+          "type": "records",
+          "fields": {
+            "name": "text",
+            "done": "bool"
+          },
+          "initial": []
+        }
+      },
+      "events": [
+        {
+          "kind": "periodic",
+          "interval_ms": 1,
+          "action": "none"
+        }
+      ]
+    },
+    "error": "Invalid periodic event binding."
+  }
+]

@@ -19,12 +19,13 @@ struct Mrs {
   Json data() const;
 };
 Mrs decode_mrs(const std::string &source);
-std::vector<std::string> ace_mrs_strings(const std::string &response);
+
 struct ParseResult {
   std::vector<Mrs> analyses;
-  std::string raw, notes;
+  std::string raw, notes, error;
   bool reached_candidate_limit = false;
 };
+ParseResult decode_ace_response(const std::string &response);
 class AceClient {
 public:
   AceClient(const std::filesystem::path &root, int timeout_seconds = 1,

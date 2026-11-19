@@ -1,0 +1,360 @@
+{
+  "schema": 1,
+  "dependencies": {
+    "confirm_discard": [
+      "choose_existing_or_save",
+      "write_atomic_utf8",
+      "mark_saved"
+    ],
+    "choose_existing_or_save": [
+      "choose_save"
+    ],
+    "read_clock": [
+      "clock.monotonic"
+    ]
+  },
+  "graphs": {
+    "persistence": {
+      "state": null,
+      "discarded": [
+        "confirm_discard",
+        [
+          "state"
+        ]
+      ],
+      "opened": [
+        "choose_open",
+        [
+          "discarded"
+        ]
+      ],
+      "loaded": [
+        "read_utf8",
+        [
+          "opened"
+        ]
+      ],
+      "committed": [
+        "commit_state",
+        [
+          "loaded"
+        ]
+      ],
+      "load_path": [
+        "remember_path",
+        [
+          "committed"
+        ]
+      ],
+      "loaded_clean": [
+        "mark_saved",
+        [
+          "load_path"
+        ]
+      ],
+      "encoded": [
+        "encode_state",
+        [
+          "state"
+        ]
+      ],
+      "save_path": [
+        "choose_existing_or_save",
+        [
+          "state"
+        ]
+      ],
+      "new_path": [
+        "choose_save",
+        [
+          "state"
+        ]
+      ],
+      "written": [
+        "write_atomic_utf8",
+        [
+          "encoded",
+          "save_path"
+        ]
+      ],
+      "written_as": [
+        "write_atomic_utf8",
+        [
+          "encoded",
+          "new_path"
+        ]
+      ],
+      "saved_path": [
+        "remember_path",
+        [
+          "written"
+        ]
+      ],
+      "saved_as_path": [
+        "remember_path",
+        [
+          "written_as"
+        ]
+      ],
+      "saved_clean": [
+        "mark_saved",
+        [
+          "saved_path"
+        ]
+      ],
+      "saved_as_clean": [
+        "mark_saved",
+        [
+          "saved_as_path"
+        ]
+      ],
+      "empty": [
+        "empty_state",
+        [
+          "discarded"
+        ]
+      ],
+      "new_committed": [
+        "commit_state",
+        [
+          "empty"
+        ]
+      ],
+      "cleared_path": [
+        "clear_path",
+        [
+          "new_committed"
+        ]
+      ],
+      "new_clean": [
+        "mark_saved",
+        [
+          "cleared_path"
+        ]
+      ]
+    },
+    "undo": {
+      "state": null,
+      "edited": [
+        "edit_undo",
+        [
+          "state"
+        ]
+      ]
+    },
+    "redo": {
+      "state": null,
+      "edited": [
+        "edit_redo",
+        [
+          "state"
+        ]
+      ]
+    },
+    "cut": {
+      "state": null,
+      "edited": [
+        "edit_cut",
+        [
+          "state"
+        ]
+      ]
+    },
+    "copy": {
+      "state": null,
+      "edited": [
+        "edit_copy",
+        [
+          "state"
+        ]
+      ]
+    },
+    "paste": {
+      "state": null,
+      "edited": [
+        "edit_paste",
+        [
+          "state"
+        ]
+      ]
+    },
+    "select_all": {
+      "state": null,
+      "edited": [
+        "edit_select_all",
+        [
+          "state"
+        ]
+      ]
+    },
+    "append_record": {
+      "state": null,
+      "updated": [
+        "append_record",
+        [
+          "state"
+        ]
+      ]
+    },
+    "remove_record": {
+      "state": null,
+      "updated": [
+        "remove_record",
+        [
+          "state"
+        ]
+      ]
+    },
+    "set_record": {
+      "state": null,
+      "updated": [
+        "set_record",
+        [
+          "state"
+        ]
+      ]
+    },
+    "start_clock": {
+      "state": null,
+      "now": [
+        "read_clock",
+        [
+          "state"
+        ]
+      ],
+      "anchored": [
+        "anchor_clock",
+        [
+          "now"
+        ]
+      ],
+      "running": [
+        "enable_clock",
+        [
+          "anchored"
+        ]
+      ]
+    },
+    "stop_clock": {
+      "state": null,
+      "now": [
+        "read_clock",
+        [
+          "state"
+        ]
+      ],
+      "sampled": [
+        "update_duration",
+        [
+          "now"
+        ]
+      ],
+      "stopped": [
+        "disable_clock",
+        [
+          "sampled"
+        ]
+      ]
+    },
+    "reset_clock": {
+      "state": null,
+      "stopped": [
+        "disable_clock",
+        [
+          "state"
+        ]
+      ],
+      "zero": [
+        "zero_duration",
+        [
+          "stopped"
+        ]
+      ]
+    },
+    "sample_clock": {
+      "state": null,
+      "now": [
+        "read_clock",
+        [
+          "state"
+        ]
+      ],
+      "sampled": [
+        "update_duration",
+        [
+          "now"
+        ]
+      ]
+    }
+  },
+  "effects": {
+    "load": {
+      "graph": "persistence",
+      "goal": "loaded_clean"
+    },
+    "save": {
+      "graph": "persistence",
+      "goal": "saved_clean"
+    },
+    "save_as": {
+      "graph": "persistence",
+      "goal": "saved_as_clean"
+    },
+    "new": {
+      "graph": "persistence",
+      "goal": "new_clean"
+    },
+    "undo": {
+      "graph": "undo",
+      "goal": "edited"
+    },
+    "redo": {
+      "graph": "redo",
+      "goal": "edited"
+    },
+    "cut": {
+      "graph": "cut",
+      "goal": "edited"
+    },
+    "copy": {
+      "graph": "copy",
+      "goal": "edited"
+    },
+    "paste": {
+      "graph": "paste",
+      "goal": "edited"
+    },
+    "select_all": {
+      "graph": "select_all",
+      "goal": "edited"
+    },
+    "append_record": {
+      "graph": "append_record",
+      "goal": "updated"
+    },
+    "remove_record": {
+      "graph": "remove_record",
+      "goal": "updated"
+    },
+    "set_record": {
+      "graph": "set_record",
+      "goal": "updated"
+    },
+    "start_clock": {
+      "graph": "start_clock",
+      "goal": "running"
+    },
+    "stop_clock": {
+      "graph": "stop_clock",
+      "goal": "stopped"
+    },
+    "reset_clock": {
+      "graph": "reset_clock",
+      "goal": "zero"
+    },
+    "sample_clock": {
+      "graph": "sample_clock",
+      "goal": "sampled"
+    }
+  }
+}

@@ -15,4 +15,5 @@ struct BehaviourExpression {
 };
 BehaviourExpression behaviour_expression(const Json &source, const Json &state,
                                          bool transition = false);
+Json evaluate_behaviour(const BehaviourValue &value, const Json &state);
 } // namespace unllm::native

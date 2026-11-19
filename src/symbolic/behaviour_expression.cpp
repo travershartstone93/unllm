@@ -22,9 +22,21 @@ Json BehaviourValue::data() const {
 namespace {
 using E = BehaviourExpression;
 using P = BehaviourExprParser;
+size_t expanded_nodes(const BehaviourValue &value) {
+  size_t n = 1;
+  for (const auto &arg : value.args)
+    n += expanded_nodes(arg);
+  return n;
+}
 E node(const std::string &kind, const std::string &name,
        std::vector<BehaviourValue> args, const std::string &type,
        Json value = {}) {
+  // Chained comparisons use their middle operand twice in the lowered tree.
+  size_t expanded = 1;
+  for (const auto &arg : args)
+    expanded += expanded_nodes(arg);
+  if (expanded > 512)
+    throw Unsupported("Expanded expression tree budget exceeded");
   return {{kind, name, value, std::move(args)}, type};
 }
 void require(bool yes, const std::string &message) {

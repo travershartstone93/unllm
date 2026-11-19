@@ -2,13 +2,14 @@
 
 This working copy adds a model-free reasoning and program-construction path. The original `../unllm` directory and ActivityScope's copy are separate. Run this copy's `build/unllm` explicitly.
 
-The runtime uses ACE/ERG and PyDelphin for English semantics, SQLite for source claims, compiled Soufflé for background relations, embedded SWI-Prolog for queries and interactive rules, and cvc5 for bounded scalar synthesis. Python uses AST emission; C++ uses structured emission, Clang and clang-format. Calculator applications use ANTLR for arithmetic parsing and Qt for their windows. There is no generative fallback in symbolic mode. [REQUEST_REPAIR.md](REQUEST_REPAIR.md) records the latest English-to-application checks; [UPGRADE_REPORT.md](UPGRADE_REPORT.md) records the earlier reasoning and utility measurements.
+The runtime uses ACE/ERG and native ANTLR parsers for English semantics, SQLite for source claims, compiled Soufflé for background relations, embedded SWI-Prolog for queries and interactive rules, and cvc5 for bounded scalar synthesis. C++ emits both target languages from typed specifications. Clang compiles and checks C++ output. Calculator applications use ANTLR for arithmetic parsing and Qt for their windows. There is no generative fallback in symbolic mode. [REQUEST_REPAIR.md](REQUEST_REPAIR.md) records the latest English-to-application checks; [UPGRADE_REPORT.md](UPGRADE_REPORT.md) records the earlier reasoning and utility measurements.
 
 ## Run the installed working copy
 
 ```sh
 cd /home/whisper/repo-work/unllm-upgrade
-python3 tools/setup_upgrade.py --check
+tools/setup_native.sh
+cmake -S . -B build -DUNLLM_PACKAGE_NATIVE=ON -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel 2
 UNLLM_NO_SERVER=1 ./build/unllm
 ```
@@ -34,27 +35,27 @@ The location answer includes both places and exposes both premises. The hypothet
 
 Without `UNLLM_NO_SERVER=1`, the CLI uses its own resident service. Its socket is derived from this executable's directory and user ID. The client checks build and configuration identity before using it. `--json` includes the serving executable, process, native library, rule version, typed interpretation, proof and sources. One-shot calls start fresh conversations. Assertions are session state; import a source document to retain facts across conversations.
 
-`--engine symbolic` is the development default in this copy. `--engine legacy` runs the original retrieval/model path; `UNLLM_MODEL=off` disables its generative answerer. `--engine shadow` retains legacy output and attaches the symbolic result for comparison. An explicitly requested symbolic mode fails clearly in a build configured with `UNLLM_SYMBOLIC=OFF`.
+`--engine symbolic` is the default in this copy. `--engine legacy` runs the original retrieval/model path; `UNLLM_MODEL=off` disables its generative answerer. `--engine shadow` retains legacy output and attaches the symbolic result for comparison. An explicitly requested symbolic mode fails clearly in a build configured with `UNLLM_SYMBOLIC=OFF`.
 
 ## Add structured knowledge
 
 ```sh
-.venv/bin/python tools/unllm_facts.py status
-.venv/bin/python tools/unllm_facts.py --database .state/demo.sqlite import-json examples/upgrade/facts.json
-.venv/bin/python tools/unllm_facts.py --database .state/demo.sqlite prepare
+./build/native/unllm_facts_native status
+./build/native/unllm_facts_native --database .state/demo.sqlite import-json examples/upgrade/facts.json
+./build/native/unllm_facts_native --database .state/demo.sqlite prepare
 ./build/unllm --facts .state/demo.sqlite 'What is the country of the birthplace of the author of The Copper Almanac?'
 ```
 
 The example source is fictional and is labelled that way. Every document has a stable source ID, entities and claims; importing that ID again atomically replaces its claims. Use namespaced entity IDs. Declared type IDs such as `city` cannot be reused as ordinary entities. Multiple entities may share a name; the runtime asks for clarification instead of merging them.
 
-The default store is `.state/facts.sqlite`; `--facts` or `UNLLM_FACT_DB` selects another. SQLite uses WAL and each factual request holds one read snapshot through interpretation, evidence checks and rendering. Imports preserve source metadata and explicit claim polarity. Optional `valid_from`/`valid_to` are Unix seconds with a half-open interval. Unsupported semantic qualifiers are rejected. A `source_location` qualifier is provenance metadata and is accepted.
+In the checkout the default store is `.state/facts.sqlite`. An installed worker uses `$XDG_STATE_HOME/unllm-native/facts.sqlite` or `~/.local/state/unllm-native/facts.sqlite`. `--facts` or `UNLLM_FACT_DB` selects another. SQLite uses WAL and each factual request holds one read snapshot through interpretation, evidence checks and rendering. Imports preserve source metadata and explicit claim polarity. Optional `valid_from`/`valid_to` are Unix seconds with a half-open interval. Unsupported semantic qualifiers are rejected. A `source_location` qualifier is provenance metadata and is accepted.
 
 Adapters also support exact structured values from installed packs and a bounded Wikidata import:
 
 ```sh
-.venv/bin/python tools/unllm_facts.py import-packs --titles Paris France Frankenstein 'Mary Shelley'
-.venv/bin/python tools/unllm_facts.py import-wikidata Q150827 Q47152 Q90 Q142 --depth 1 --max-entities 30
-.venv/bin/python tools/unllm_facts.py prepare
+./build/native/unllm_facts_native import-packs --titles Paris France Frankenstein 'Mary Shelley'
+./build/native/unllm_facts_native import-wikidata Q150827 Q47152 Q90 Q142 --depth 1 --max-entities 30
+./build/native/unllm_facts_native prepare
 ```
 
 Only the Wikidata import needs network access; `--offline` uses its existing `.state/wikidata` cache. Answering does not fetch facts from the network. Pack access is read-only. The adapters deliberately skip ambiguous infobox text and unsupported qualified Wikidata statements. This produces a small structured knowledge base, rather than treating every retrieved sentence as an accepted fact.
@@ -200,22 +201,18 @@ This compatibility capability still uses its original calculator specification a
 
 ## Reproduce installation and checks
 
-The locked bundle targets Linux x86_64 and was tested on this CachyOS/Arch host. It uses an Arch SWI package and an Ubuntu Soufflé package; another distribution needs compatible system libraries or native builds. It needs a C++ toolchain, CMake, pkg-config/json-c development headers, Clang, clang-format, bubblewrap, uv, tar/zstd and ar. Calculator setup also needs Java and host Qt6 Widgets/Test development files (tested with Qt 6.12.0). The optional legacy search/model dependencies retain their existing CMake switches. Install locally with:
+The tested platform is Linux x86_64 with Qt 6, Clang, bubblewrap, SWI-Prolog, Soufflé, cvc5 and ACE/ERG. The setup script stages checksum-verified SDKs. CMake also checks for system development libraries including ICU, SQLite, Xapian, libarchive, libxml2 and md4c. The native build uses Java to generate parsers. See the dependency lock files in the project root.
 
 ```sh
-python3 tools/setup_upgrade.py --build
+tools/setup_native.sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DUNLLM_PACKAGE_NATIVE=ON
+cmake --build build --parallel 4
 ctest --test-dir build --output-on-failure
-.venv/bin/python tools/benchmark_reasoning.py
-.venv/bin/python tools/benchmark_upgrade.py
-.venv/bin/python tools/benchmark_apps.py
-.venv/bin/python tools/export_app_examples.py
-.venv/bin/python tools/benchmark_behaviours.py
-.venv/bin/python tools/export_behaviour_examples.py
-.venv/bin/python tools/verify_requests.py
-.venv/bin/python tools/export_request_examples.py
-.venv/bin/python tools/benchmark_prolog.py
-.venv/bin/python tools/check_upgrade_cli.py
-.venv/bin/python tools/check_upgrade_cli.py --compare
+cmake --install build --prefix "$PWD/.state/native-prefix"
 ```
 
-Dependency archives and checksums are in `dependencies-upgrade.lock.json` and `dependencies-apps.lock.json`; Python versions are in `requirements-upgrade.txt`. Setup builds ANTLR 4.13.2 locally and generates both language parsers from the same grammar. PySide6 Essentials and shiboken6 are pinned to 6.12.0. The setup check verifies grammar artifacts and reports the host Qt version. `.deps`, `.venv`, `.state`, `.artifacts` and `.benchmarks` are local ignored directories. The new development benchmarks do not read the existing sealed question sets. Their scores establish the measured supported examples; they are not blind evidence of general language, reasoning or programming ability.
+Fresh symbolic builds select the native package by default. Run the installed CLI with `--engine legacy` for the original answer pipeline or `--engine shadow` for a comparison. Configuring the historical source build with `UNLLM_PACKAGE_NATIVE=OFF` selects the previous implementation and dependency graph. The explicit option upgrades an existing CMake cache. An installed prefix keeps programs in `bin` and packaged grammars, rules and target resources in `share/unllm`. The SQLite FTS profile can be built with `-DUNLLM_TANTIVY=OFF`. Ranked builds use the C++ implementation backed by Xapian. For existing Tantivy packs, run `unllm_index --migrate PACKS_ROOT` from the new installation to build native indexes from SQLite. It leaves the old indexes in place. Until conversion, these packs use SQLite FTS.
+
+Set `UNLLM_PYTHON_TARGET=/usr/bin/python3` to execute generated Python. GUI targets require PySide6. Generated Python calculators also need the matching ANTLR4 target runtime, which can be supplied with `UNLLM_PYTHON_TARGET_ANTLR4`. Without a target interpreter, requesting Python produces source with an emitted status. Native C++ compilation and validation use the installed compiler and sanitizer toolchains.
+
+The isolated build and installed runtime tests and the earlier comparison measurements are described in [the migration report](CPP_MIGRATION_PROGRESS.md).
