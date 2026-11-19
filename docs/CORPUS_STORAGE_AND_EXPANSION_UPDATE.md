@@ -15,7 +15,7 @@ The active catalog is `unllm/boilerplate/catalog.json` on the Timetec USB volume
 
 Treat the legacy reference packs, their vectors, the raw code shards, and the function-retrieval indexes as separate datasets. The boilerplate catalog explicitly lists its entries. There is no recursive import from the legacy data root. The catalog is ready for a future picker; the current CLI still runs its existing engine.
 
-Keep the existing checkout for the native sandboxed [target runner](../src/symbolic/target.cpp) and the [dependency and compatibility checks](../src/symbolic/provider_plan.cpp). The latter requires supplied capabilities and its existing logic engine. The [OpenCode replay](../experiments/interpretation_diagnostics/qwen_contract/big_pickle.py) documents the Big Pickle invocation; its test-specific prompt and cancellation rules would require replacement for editing. The symbolic English interpreter and old function-search index do not implement boilerplate selection.
+Keep the existing checkout for the native sandboxed [target runner](../src/symbolic/target.cpp) and the [dependency and compatibility checks](../src/symbolic/provider_plan.cpp). The latter requires supplied capabilities and its existing logic engine. The [OpenCode replay](../archive/interpretation_diagnostics/qwen_contract/big_pickle.py) documents the Big Pickle invocation; its test-specific prompt and cancellation rules would require replacement for editing. The symbolic English interpreter and old function-search index do not implement boilerplate selection.
 
 ### Deployment on this host, 2026-11-18
 
@@ -381,7 +381,7 @@ At each step, keep the evaluation queries and parser/index version frozen. Measu
 
 ### Experiment D3 — Hybrid corpus-to-code feasibility and ablation
 
-A bounded arithmetic-fragment pilot is complete. Across 16 tasks, corpus-free extended search solved 11, and adding source-frequency rankings solved the same 11. Direct fragment reuse improved from 6 to 10 when two source shards were added. The broader D3 evaluation remains open. [Pilot results and replay](../experiments/corpus_ablation/README.md)
+A bounded arithmetic-fragment pilot is complete. Across 16 tasks, corpus-free extended search solved 11, and adding source-frequency rankings solved the same 11. Direct fragment reuse improved from 6 to 10 when two source shards were added. The broader D3 evaluation remains open. [Pilot results and replay](../archive/corpus_ablation/README.md)
 
 The **invoke/reuse/adapt/synthesize** design is selected at the policy level by section 6.5, but the effectiveness of its component extraction, validation, ranking, and IR/opaque representation must be measured before broad deployment.
 

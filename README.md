@@ -1,6 +1,12 @@
 # unllm
 
-Record experiment designs, variables, results and decisions in the [central experiment log](docs/EXPERIMENT_LOG.md).
+## Current C++ coding pipeline
+
+Start with the [integrated runner](experiments/boilerplate/integrated/README.md). Big Pickle interprets the English request. The deterministic picker assigns bricks, and Qwen picks only for roles still empty. The assembler connects the bricks, builds the program and runs its behavior tests. Passing programs finish there. Remaining gaps or failed checks trigger a focused edit and another test run.
+
+The [pilot plan](docs/CPP_BOILERPLATE_PILOT.md) and [experiment log](docs/EXPERIMENT_LOG.md) track active work. The [research archive](archive/README.md) contains earlier attempts and their replay materials.
+
+## Native engine
 
 The default Linux build runs the symbolic engine, program generator, validation, pack ingestion, search and updater in C++. Python is an optional target for generated programs. The earlier Python host and Rust search adapter remain in the checkout as development references. See the [native build and installation guide](docs/UPGRADE.md) and [compatibility results](docs/CPP_MIGRATION_PROGRESS.md).
 

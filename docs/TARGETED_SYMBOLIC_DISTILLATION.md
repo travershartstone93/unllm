@@ -1,6 +1,6 @@
 # Targeted symbolic distillation: first pilot
 
-The first native discovery run reached the parser limit on both initial-value and both directional seeds. The manual-frame constructor passed in Python and C++. The feasibility gate stopped acquisition before teacher calibration or rule selection. See [measured results and reproduction](../experiments/symbolic_distillation/numeric_change/README.md). The original experimental design follows.
+The first native discovery run reached the parser limit on both initial-value and both directional seeds. The manual-frame constructor passed in Python and C++. The feasibility gate stopped acquisition before teacher calibration or rule selection. See [measured results and reproduction](../archive/symbolic_distillation/numeric_change/README.md). The original experimental design follows.
 
 Implementation order update: complete the [C++ runtime migration](CPP_RUNTIME_MIGRATION_PLAN.md)
 first, then freeze a new native baseline for this pilot. The acquisition/evaluation
@@ -380,7 +380,7 @@ move gates after acceptance exposure. A later slice needs its own hypothesis/bud
 
 ## Minimal implementation layout
 
-Proposed capsule: experiments/symbolic_distillation/numeric_change, containing the
+Proposed capsule: archive/symbolic_distillation/numeric_change, containing the
 scope/schema, split/gold manifests, teacher prompt/configuration, discovery
 provenance, bounded selector, verifier and results. Teacher data and draft clauses
 are isolated from normal runtime files. Accepted numeric bindings lower through existing

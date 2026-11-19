@@ -2,7 +2,7 @@
 
 Completed on 2026-11-12. Keep the model out of the normal unllm path. The tested
 model interpreters were slower and less reliable overall than the grammar.
-The isolated [experiment](../experiments/local_interpreter/README.md) remains
+The isolated [experiment](../archive/local_interpreter/README.md) remains
 configurable and reproducible; no model name or model call was added to the normal
 CLI. All 57 captured core source/executable hashes remain unchanged.
 
@@ -124,7 +124,7 @@ own checks. No interpreter fixes were made as part of this experiment.
 
 ## Isolation and reproduction
 
-The implementation is under experiments/local_interpreter. It requires an explicit
+The implementation is under archive/local_interpreter. It requires an explicit
 model argument or environment variable and does not download models. Its extra
 JSON Schema dependency is installed under the ignored .deps/interpreter-experiment
 directory, with a separate version lock. Seven protocol/contract tests pass,
@@ -135,11 +135,11 @@ protocol tests are separate from the model-quality scores above.
 The original checkout's 151 baseline tracked paths and existing diff remain
 unchanged. There are no unexpected changes to carried user edits. Reproduction
 commands and configuration controls are in the
-[experiment guide](../experiments/local_interpreter/README.md).
+[experiment guide](../archive/local_interpreter/README.md).
 
 Raw local reports: [combined summary](../.benchmarks/local_interpreter_summary.json),
 [grammar and 4B](../.benchmarks/local_interpreter_experiment.json),
 [8B](../.benchmarks/local_interpreter_experiment_8b.json), and
 [diagnostic apps](../.benchmarks/local_interpreter_demos.json). These are ignored
-runtime artifacts. The frozen [cases](../experiments/local_interpreter/cases.json)
+runtime artifacts. The frozen [cases](../archive/local_interpreter/cases.json)
 and experimental implementation remain available for inspection.

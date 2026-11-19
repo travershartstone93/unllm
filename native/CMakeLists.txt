@@ -283,10 +283,10 @@ add_executable(native_stage_replay EXCLUDE_FROM_ALL "${UNLLM_ROOT}/tests/cpp_mig
 target_link_libraries(native_stage_replay PRIVATE unllm_native_core)
 
 add_executable(numeric_discovery_probe EXCLUDE_FROM_ALL
-  "${UNLLM_ROOT}/experiments/symbolic_distillation/numeric_change/probe.cpp")
+  "${UNLLM_ROOT}/archive/symbolic_distillation/numeric_change/probe.cpp")
 target_link_libraries(numeric_discovery_probe PRIVATE unllm_native_core)
 add_executable(numeric_manual_frame EXCLUDE_FROM_ALL
-  "${UNLLM_ROOT}/experiments/symbolic_distillation/numeric_change/frame.cpp")
+  "${UNLLM_ROOT}/archive/symbolic_distillation/numeric_change/frame.cpp")
 target_link_libraries(numeric_manual_frame PRIVATE unllm_native_core)
 
 set(ALGORITHM_DIR "${UNLLM_ROOT}/experiments/algorithm_ir")
@@ -312,12 +312,12 @@ target_link_libraries(algorithm_search_tests PRIVATE unllm_algorithm_core)
 add_test(NAME algorithm_search COMMAND algorithm_search_tests)
 
 add_executable(interpretation_history_probe EXCLUDE_FROM_ALL
-  "${UNLLM_ROOT}/experiments/interpretation_diagnostics/history.cpp")
+  "${UNLLM_ROOT}/archive/interpretation_diagnostics/history.cpp")
 target_link_libraries(interpretation_history_probe PRIVATE unllm_native_core)
 
 option(UNLLM_CORPUS_ABLATION "Build development-only corpus retrieval experiments" OFF)
 if(UNLLM_CORPUS_ABLATION)
-  set(ABLATION_DIR "${UNLLM_ROOT}/experiments/corpus_ablation")
+  set(ABLATION_DIR "${UNLLM_ROOT}/archive/corpus_ablation")
   add_executable(corpus_dependency_closure EXCLUDE_FROM_ALL "${ABLATION_DIR}/dependency_closure.cpp")
   target_link_libraries(corpus_dependency_closure PRIVATE unllm_native_core)
   add_executable(corpus_argument_bindings EXCLUDE_FROM_ALL "${ABLATION_DIR}/argument_bindings.cpp")
@@ -334,7 +334,7 @@ if(UNLLM_CORPUS_ABLATION)
 endif()
 
 add_executable(interpretation_role_trial EXCLUDE_FROM_ALL
-  "${UNLLM_ROOT}/experiments/interpretation_diagnostics/role_trial/probe.cpp")
+  "${UNLLM_ROOT}/archive/interpretation_diagnostics/role_trial/probe.cpp")
 target_include_directories(interpretation_role_trial PRIVATE "${SWIPL_INCLUDE_DIR}")
 target_link_libraries(interpretation_role_trial PRIVATE unllm_native_core unllm_native_logic "${SWIPL_LIBRARY}")
 

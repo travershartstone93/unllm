@@ -1,5 +1,7 @@
 # C++ brick picker
 
+The current converter pipeline runs `evidence-bge` first, calls `ollama` only for roles that still need a brick, and uses `resolve` to combine the assignments. For the build and commands used by the pilot, start with the [integrated runner](../integrated/README.md). The standalone comparisons below document earlier picker experiments.
+
 The picker accepts a shortlist of catalog cards and an array of atomic requirements. Each role gets exactly one existing brick ID or JSON null. The shared resolver deduplicates assigned bricks in role order and lists unfilled role IDs. A brick may serve more than one role. A model or input error exits nonzero so a caller can distinguish failure from an uncovered role.
 
 A catalog card has a unique string `id`, a `description` and optional string `tags`. A role has a unique string `id`, its `text` and optional `requires`. Required tags must all appear on the chosen card. Tags are explicit compatibility constraints supplied by the caller. Each matcher uses the same resolver.

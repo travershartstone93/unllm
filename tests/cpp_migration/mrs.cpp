@@ -1,5 +1,5 @@
 #include "unllm/symbolic/mrs.h"
-#include "../../experiments/interpretation_diagnostics/identity.h"
+#include "../../archive/interpretation_diagnostics/identity.h"
 #include <iostream>
 using namespace unllm::native;
 static void check(bool ok, const char *message) {

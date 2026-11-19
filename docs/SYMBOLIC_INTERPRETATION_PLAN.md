@@ -1,7 +1,7 @@
 # Plan: improve symbolic request interpretation
 
 Proposed on 2026-11-12, following the [local-model experiment](LOCAL_MODEL_EXPERIMENT.md).
-Status on 2026-11-18. The [native migration](CPP_MIGRATION_PROGRESS.md) is complete and the [numeric pilot](../experiments/symbolic_distillation/numeric_change/README.md) reached its feasibility stop. Milestone 1 passed its [160-trial history comparison](../experiments/interpretation_diagnostics/README.md). Milestone 2 passed its development gate on the native GUI behavior path. The first bounded role-binding trial in milestone 3 is complete. Coordinated numerical roles remain open. Python module references below identify historical responsibilities. The host implementation uses C++.
+Status on 2026-11-18. The [native migration](CPP_MIGRATION_PROGRESS.md) is complete and the [numeric pilot](../archive/symbolic_distillation/numeric_change/README.md) reached its feasibility stop. Milestone 1 passed its [160-trial history comparison](../archive/interpretation_diagnostics/README.md). Milestone 2 passed its development gate on the native GUI behavior path. The first bounded role-binding trial in milestone 3 is complete. Coordinated numerical roles remain open. Python module references below identify historical responsibilities. The host implementation uses C++.
 
 The objective is to understand more ordinary descriptions of already supported
 program behavior while preserving accurate operands, scope and targets. Work stays
@@ -13,7 +13,7 @@ For coding requests, the next task is the [English-to-program investigation](#en
 
 ## English-to-program investigation
 
-**Status: broader evaluation complete; general English coding remains open.** The [integration report](../experiments/interpretation_diagnostics/n16/bridge.md) records six-task parity and independent execution. The adjusted semantic parser passed its narrow stream development gate and then produced zero additional programs on the [32-request frozen evaluation](../experiments/interpretation_diagnostics/n16/broad-results.md). It remains experimental. This investigation connects stages 13b and 15; the GUI milestones retain their own fixtures and criteria.
+**Status: broader evaluation complete; general English coding remains open.** The [integration report](../archive/interpretation_diagnostics/n16/bridge.md) records six-task parity and independent execution. The adjusted semantic parser passed its narrow stream development gate and then produced zero additional programs on the [32-request frozen evaluation](../archive/interpretation_diagnostics/n16/broad-results.md). It remains experimental. This investigation connects stages 13b and 15; the GUI milestones retain their own fixtures and criteria.
 
 **Question.** Can the same frozen system turn unfamiliar English into working programs by composing operations it already knows? An improvement on synonyms alone would leave that question open. In N11, English scored 0/6 and construction from supplied types and examples scored 3/6. In N14, five of eight prompts had no ACE analysis, and no prompt produced code. N15 recovered three additional construct-label sets with retrieval but did not score arguments, scope, or code. These results justify testing more than one explanation. [Central experiment log](EXPERIMENT_LOG.md)
 
@@ -155,7 +155,7 @@ no extra counter control. Incomplete requirements cannot be lowered silently.
 
 **Development result, 2026-11-18.** The C++ grounder builds requirements for compositional GUI behaviors before it creates state, actions or widgets. The selected specification carries the rules and source evidence under `interpretation.requirements`. Diagnostics can retain the graph for each reading, including blocked exclusions and unbound numeric roles. The specialized calculator and stream paths use their existing interpreters.
 
-All 32 frozen requests retained their decisions and the 12 accepted programs retained their prior behavior. A generated C++ counter started at 8.5 and reached 4 after two decrements of 2.25. A generated Python counter reached 13 after two decrements of −2.25. The original “Give me … takes away” fixture and two additional phrasings still reached the 128-reading limit. Milestone 3 will test explicit code intent and grammatical role binding for these cases and ambiguous save targets. [Measurements](../experiments/interpretation_diagnostics/requirements-results.json)
+All 32 frozen requests retained their decisions and the 12 accepted programs retained their prior behavior. A generated C++ counter started at 8.5 and reached 4 after two decrements of 2.25. A generated Python counter reached 13 after two decrements of −2.25. The original “Give me … takes away” fixture and two additional phrasings still reached the 128-reading limit. Milestone 3 will test explicit code intent and grammatical role binding for these cases and ambiguous save targets. [Measurements](../archive/interpretation_diagnostics/requirements-results.json)
 
 ### 3. Carry intent and bind grammatical roles through constraints
 
@@ -180,7 +180,7 @@ grounder. Prolog owns dynamic binding and constraint decisions; Soufflé retains
 static capability/type compatibility. There is no per-request background compiler
 invocation. cvc5 retains arithmetic/synthesis ownership.
 
-The [first embedded SWI trial](../experiments/interpretation_diagnostics/role_trial/README.md) recovered the two existing numeric controls and preserved ambiguous save targets on a parseable request. The coordinated counter still exhausted its readings. Inspect the five two-verb readings and test competing attachments before migrating production binding.
+The [first embedded SWI trial](../archive/interpretation_diagnostics/role_trial/README.md) recovered the two existing numeric controls and preserved ambiguous save targets on a parseable request. The coordinated counter still exhausted its readings. Inspect the five two-verb readings and test competing attachments before migrating production binding.
 
 Lexical entries describe reusable meanings. They cannot recognize a whole test
 sentence and return its prepared specification. Surface regex fallbacks, program

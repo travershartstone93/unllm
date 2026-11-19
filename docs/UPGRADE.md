@@ -85,7 +85,7 @@ The native module accepts up to 100,000 input claims and 500,000 derived tuples,
 
 ## Generate Python or C++
 
-For a callable integer-sequence function, pass input and output types and input-output examples through `--code`. Include the empty input and represent signed integers as decimal strings. The search can return `exhausted`. A validated function has passed the supplied examples in the requested target. [Example and reserved-case checks](../experiments/interpretation_diagnostics/n16/bridge.md)
+For a callable integer-sequence function, pass input and output types and input-output examples through `--code`. Include the empty input and represent signed integers as decimal strings. The search can return `exhausted`. A validated function has passed the supplied examples in the requested target. [Example and reserved-case checks](../archive/interpretation_diagnostics/n16/bridge.md)
 
 ```sh
 ./build/unllm --code python 'Write a program that reads positive numbers, triples them, and prints their sum.'
