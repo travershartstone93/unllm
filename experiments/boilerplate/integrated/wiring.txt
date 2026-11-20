@@ -1,0 +1,20 @@
+Describe the reusable responsibilities and optional dataflow for a C++ program. Use no tools. Return exactly one JSON object:
+{"responsibilities":[{"id":"s1","text":"..."}],"wiring":{"OUTPUT_ROLE_ID":null}}
+Give two to four independent responsibilities, without naming bricks or libraries. For each requested output role, replace null with a JSON list of statements only if the following vocabulary can express the entire behavior. Keep null for unsupported behavior. Preserve thresholds, equality, source order, column positions, output types, and independent state. Do not return source code. Do not invent operations.
+
+Each statement is an array beginning with its operation name. Expressions are integers, literal strings, {"ref":"variable"}, or arrays beginning with an expression operation and its positional operands. Variables are declared before use.
+Statements:
+ ["let","name",expression] declares a fresh local.
+ ["each_row",[statements...]] visits the headerless TSV source in order. Inside its body ["field",zero_based_column] is text and ["row_number"] is the one-based integer position.
+ ["if",boolean_expression,[statements...]] executes its body when true.
+ ["append",list_variable,value] appends a value of the list's element type.
+ ["match",pairs_variable,pair_key,side_boolean,row_number] matches FIFO against the earliest opposite entry, or retains the current row.
+ ["write_array",values] writes a JSON array of strings or signed integers to this role's output.
+ ["decode_gzip"] decodes all members of the gzip source to this role's binary output and validates their checksums.
+Expressions:
+ ["texts"] or ["integers"] makes an empty list.
+ ["integer",text] parses a decimal integer.
+ ["lt",a,b], ["le",a,b], ["ge",a,b], ["gt",a,b], ["eq",a,b] are comparisons.
+ ["latch"] creates independent keyed latch storage. ["first_activation",latch_variable,key_text,trigger_boolean,rearm_boolean] returns true only on the first trigger for the key until rearmed.
+ ["pairs"] creates FIFO matcher storage keyed by a (text, integer) pair. ["pair",text,integer] constructs the key. ["unmatched",pairs_variable] returns outstanding integer row numbers in order.
+Pass variables as {"ref":"name"} everywhere except the declaration name. A completed plan ends with one output writer. Missing input and CLI argument-count handling are supplied by the runtime.

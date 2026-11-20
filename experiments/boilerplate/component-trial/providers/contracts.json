@@ -1,0 +1,21 @@
+{
+ "types":{"rows":"brick_data::Rows","strings":"std::vector<std::string>","integers":"std::vector<std::int64_t>","prerequisites":"brick_data::Graph","layers":"brick_data::Layers"},
+ "outcomes":{
+  "threshold_entries":{"meaning":"Emit only entries into a condition per key; suppress repeats until the independent reset condition is reached. Retain observation order.","parameters":{"key_column":"column","value_column":"column","trigger":"comparison","threshold":"integer","reset":"comparison","reset_threshold":"integer","emit":["key","row_number"]}},
+  "unmatched_opposites":{"meaning":"One-to-one, oldest opposite-side match on equal text reference and integer amount; report outstanding one-based row positions in original order.","parameters":{"reference_column":"column","amount_column":"column","side_column":"column","first_side":"text"}},
+  "parallel_layers":{"meaning":"Alphabetically ordered maximal ready groups of a declared dependency graph. Duplicate prerequisites count once. Reject cycles and undeclared targets before publishing output.","parameters":{}},
+  "original_bytes":{"meaning":"Recover original bytes of all concatenated compressed members in order; verify member checksums and throw on a broken checksum.","parameters":{}},
+  "ordered_column":{"meaning":"Return one text column from every record in original order, preserving repetitions.","parameters":{"column":"column"}}
+ },
+ "providers":[
+  {"id":"tab_records","brick":"t80","from":"in:text/tab-separated-values","to":"rows","header":"tab_provider.hpp","call":"brick_data::tab_records"},
+  {"id":"column","brick":"t80","from":"rows","to":"strings","effect":"ordered_column","args":["column"],"header":"tab_provider.hpp","call":"brick_data::column"},
+  {"id":"threshold_keys","brick":"k42","from":"rows","to":"strings","effect":"threshold_entries","when":{"emit":"key"},"args":["key_column","value_column","trigger","threshold","reset","reset_threshold"],"header":"threshold_provider.hpp","call":"brick_data::threshold_entries<true>"},
+  {"id":"threshold_rows","brick":"k42","from":"rows","to":"integers","effect":"threshold_entries","when":{"emit":"row_number"},"args":["key_column","value_column","trigger","threshold","reset","reset_threshold"],"header":"threshold_provider.hpp","call":"brick_data::threshold_entries<false>"},
+  {"id":"reconcile","brick":"f81","from":"rows","to":"integers","effect":"unmatched_opposites","args":["reference_column","amount_column","side_column","first_side"],"header":"pairs_provider.hpp","call":"brick_data::unmatched_rows"},
+  {"id":"schedule","brick":"d82","from":"prerequisites","to":"layers","effect":"parallel_layers","header":"dependency_waves.hpp","call":"unllm::dependency_waves"},
+  {"id":"inflate","brick":"g83","from":"in:application/gzip","to":"out:application/octet-stream","effect":"original_bytes","header":"gzip_stream.hpp","call":"unllm::expand_gzip"},
+  {"id":"write_texts","brick":"j85","from":"strings","to":"out:application/json","header":"json_sequence.hpp","call":"unllm::write_json_sequence","destination_first":true},
+  {"id":"write_numbers","brick":"j85","from":"integers","to":"out:application/json","header":"json_sequence.hpp","call":"unllm::write_json_sequence","destination_first":true}
+ ]
+}

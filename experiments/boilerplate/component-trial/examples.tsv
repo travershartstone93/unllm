@@ -1,0 +1,58 @@
+k42	Only notify once per machine until its recovery signal arrives
+k42	Remember which channels are latched and let each resume independently
+k42	Hysteresis with independent activation and release conditions for each key
+k42	Suppress a repeated warning for an account until it clears
+k42	Record entry into the alarm state rather than every sample in that state
+k42	A reset for one device should let its next trigger through
+t80	Read a tab-separated table a record at a time
+t80	Split each input row on tab characters retaining empty columns
+t80	Enumerate tab-delimited samples with their line positions
+t80	Visit each TSV record and provide its columns to my callback
+t80	Parse headerless tabular text using literal tabs
+t80	Yield ordered field strings for each line of a TSV stream
+f81	Pair incoming credits with the oldest pending debit for the same identifier
+f81	Reconcile two event sources one occurrence at a time
+f81	Cancel matching items from opposing feeds in arrival order
+f81	Return unmatched record positions after duplicate-aware pairing
+f81	For each compound key match the earliest outstanding opposite entry
+f81	Settle duplicate counterpart records first come first served
+d82	Group independent jobs into successive prerequisite layers
+d82	Detect loops or references to nonexistent vertices in a dependency graph
+d82	Levelize a directed acyclic graph into deterministic batches
+d82	Schedule all currently runnable tasks together before releasing the next tier
+d82	Compute topological generations of a declared node set
+d82	Validate prerequisite edges and report simultaneous execution rounds
+g83	Expand compressed gzip members into the original byte stream
+g83	Inflate a sequence of RFC1952 members with checksum verification
+g83	Recover binary data from a gzip file and check its trailer
+g83	Stream a gzipped file to its uncompressed destination
+g83	Verify gzip integrity while decoding successive members
+g83	Use zlib to decompress each joined gzip stream in order
+u84	Prevent a second enrollment in a pending queue
+u84	Provide an ordered waiting list with cancellation and later reentry
+u84	Remove a member by value without disturbing service order
+u84	Pop the oldest queued unique entry as an optional result
+u84	A first come first served list supporting withdrawals
+u84	Queue a name at most once until it is served or removed
+j85	Serialize this sequence of integers to a JSON array file
+j85	Write a list of names as properly escaped JSON strings
+j85	Encode an ordered collection as a JSON list
+j85	Save the positions to disk in JSON array form
+j85	Output all collected identifiers in order inside a JSON array
+j85	Convert a vector of scalar values to a JSON array on disk
+-	Validate the number of supplied command line options
+-	Test that the source path exists before doing any work
+-	Report a useful usage error when two positional paths are missing
+-	Create a directory if it is missing
+-	Write arbitrary binary bytes to a file
+-	Count all notices including consecutive repeats
+-	Split quoted CSV columns including commas inside quoted fields
+-	Encode a single JSON object mapping strings to objects
+-	Compress data to make a new gzip stream
+-	Generate all possible topological sorts
+-	Allocate tickets by priority instead of arrival time
+-	Persist an encrypted SQLite database
+-	Index a graph from a JSON document without validating edges
+-	Plot an interactive chart with alarm thresholds
+-	Copy a plain byte stream to standard output
+-	Sort the supplied names alphabetically

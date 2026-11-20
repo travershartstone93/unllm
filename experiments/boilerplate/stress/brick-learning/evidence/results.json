@@ -1,0 +1,306 @@
+{
+  "experiment": "B31",
+  "fixture": "seven original components and three text operations",
+  "catalog_cards": [
+    10,
+    11
+  ],
+  "requests": {
+    "create": {
+      "prompt_sha256": "f9de6c3f28fd7619deac411a218baf3805b0c5c39d3e0d7fcf3f1fcb8aad5458",
+      "response_sha256": "c7ee97d9f10e992fae4606acd80ee1d2b4bf0ad4018fedfe1aae21100b0c5e10",
+      "interpreter": {
+        "model": "qwen3:8b",
+        "prompt_eval_count": 811,
+        "eval_count": 179
+      }
+    },
+    "transfer": {
+      "prompt_sha256": "bc01501337c14993df5c13e092f78b22e6bbb01be1a122fc81ebefb52bb2d719",
+      "response_sha256": "0b41588038ceec80394da14e731cd2fa03ee4f4da8bda45c5a3deb5c099b1081",
+      "interpreter": {
+        "model": "qwen3:8b",
+        "prompt_eval_count": 814,
+        "eval_count": 175
+      }
+    }
+  },
+  "earlier_interpreter_attempts": {
+    "initial_nine_card_fixture": {
+      "create": {
+        "model": "qwen3:8b",
+        "prompt_eval_count": 751,
+        "eval_count": 181,
+        "input_type": "text/uri-list"
+      },
+      "transfer": {
+        "model": "qwen3:8b",
+        "prompt_eval_count": 754,
+        "eval_count": 191,
+        "input_type": "text/uri-list"
+      }
+    },
+    "ten_card_before_literal_prompt": {
+      "create": {
+        "model": "qwen3:8b",
+        "prompt_eval_count": 777,
+        "eval_count": 181,
+        "input_type": "text/plain"
+      },
+      "transfer": {
+        "model": "qwen3:8b",
+        "prompt_eval_count": 780,
+        "eval_count": 179,
+        "input_type": "text/uri-list"
+      }
+    }
+  },
+  "checks": {
+    "create_before": {
+      "order": false,
+      "comments": false,
+      "escaped": false,
+      "missing": true,
+      "embedded-nul": true
+    },
+    "create_whole_file": {
+      "order": true,
+      "comments": false,
+      "escaped": true,
+      "missing": true,
+      "embedded-nul": true
+    },
+    "create_per_line": {
+      "order": true,
+      "comments": true,
+      "escaped": true,
+      "missing": true,
+      "embedded-nul": true
+    },
+    "transfer_before": {
+      "lengths": false,
+      "escaped": false,
+      "empty": false,
+      "missing": true,
+      "embedded-nul": true
+    },
+    "transfer_after": {
+      "lengths": true,
+      "escaped": true,
+      "empty": true,
+      "missing": true,
+      "embedded-nul": true
+    },
+    "transfer_removed": {
+      "lengths": false,
+      "escaped": false,
+      "empty": false,
+      "missing": true,
+      "embedded-nul": true
+    }
+  },
+  "transfer": {
+    "before": {
+      "response_sha256": "0b41588038ceec80394da14e731cd2fa03ee4f4da8bda45c5a3deb5c099b1081",
+      "status": "partial",
+      "bricks": [
+        "j85",
+        "x19"
+      ],
+      "typed_gaps": [
+        {
+          "name": "gap_0_0",
+          "signature": "inline std::vector<std::string> gap_0_0(const char* input_path)",
+          "from": "in:text/uri-list",
+          "to": "strings"
+        }
+      ],
+      "steps": [
+        {
+          "from": "in:text/uri-list",
+          "to": "strings"
+        },
+        {
+          "from": "strings",
+          "to": "integers",
+          "provider": "byte_lengths"
+        },
+        {
+          "from": "integers",
+          "to": "out:application/json",
+          "provider": "write_numbers"
+        }
+      ]
+    },
+    "after": {
+      "response_sha256": "0b41588038ceec80394da14e731cd2fa03ee4f4da8bda45c5a3deb5c099b1081",
+      "status": "complete",
+      "bricks": [
+        "gir_g_uri_list_extract_uris",
+        "j85",
+        "x19"
+      ],
+      "typed_gaps": [],
+      "steps": [
+        {
+          "from": "in:text/uri-list",
+          "to": "strings",
+          "provider": "gir_g_uri_list_extract_uris"
+        },
+        {
+          "from": "strings",
+          "to": "integers",
+          "provider": "byte_lengths"
+        },
+        {
+          "from": "integers",
+          "to": "out:application/json",
+          "provider": "write_numbers"
+        }
+      ]
+    },
+    "removed": {
+      "response_sha256": "0b41588038ceec80394da14e731cd2fa03ee4f4da8bda45c5a3deb5c099b1081",
+      "status": "partial",
+      "bricks": [
+        "j85",
+        "x19"
+      ],
+      "typed_gaps": [
+        {
+          "name": "gap_0_0",
+          "signature": "inline std::vector<std::string> gap_0_0(const char* input_path)",
+          "from": "in:text/uri-list",
+          "to": "strings"
+        }
+      ],
+      "steps": [
+        {
+          "from": "in:text/uri-list",
+          "to": "strings"
+        },
+        {
+          "from": "strings",
+          "to": "integers",
+          "provider": "byte_lengths"
+        },
+        {
+          "from": "integers",
+          "to": "out:application/json",
+          "provider": "write_numbers"
+        }
+      ]
+    }
+  },
+  "admitted": {
+    "call": "unllm_generated::read_g_uri_list_extract_uris",
+    "description": "Splits an URI list conforming to the text/uri-list\nmime type defined in RFC 2483 into individual URIs,\ndiscarding any comments. The URIs are not validated.",
+    "from": "in:text/uri-list",
+    "header": "gir_g_uri_list_extract_uris.hpp",
+    "id": "gir_g_uri_list_extract_uris",
+    "metadata_sha256": "c3a72413f743c0a3487c3d6aee62471719356315090deb131ae2c1d0b7b77268",
+    "mode": "per-line",
+    "package": "glib-2.0",
+    "symbol": "g_uri_list_extract_uris",
+    "to": "strings",
+    "installed_package": "glib2 2.90.1-1.1"
+  },
+  "receipt": {
+    "header": "gir_g_uri_list_extract_uris.hpp",
+    "sha256": "c1cae328e204dcf402a6e8cd8fd0d3e9ecef5dea3d07046d9764a0197db9a5c7",
+    "test_sha256": "bc0447aafd8102dc25ab1d63a83b650d69c39d9308f52b189ff3e3832a6f78ca",
+    "behavior": {
+      "order": {
+        "pass_": true
+      },
+      "comments": {
+        "pass_": true
+      },
+      "escaped": {
+        "pass_": true
+      },
+      "missing": {
+        "pass_": true
+      },
+      "embedded-nul": {
+        "pass_": true
+      }
+    }
+  },
+  "failed_client_control": {
+    "first_program_checks": {
+      "order": true,
+      "comments": true,
+      "escaped": true,
+      "missing": true,
+      "embedded-nul": true
+    },
+    "published": false,
+    "receipt_issued": false
+  },
+  "calls": {
+    "english": 2,
+    "brick_generation": 0,
+    "editor": 0,
+    "transfer_selection": 0
+  },
+  "provider_hints": [],
+  "production_usb_run": false,
+  "replication": {
+    "interpretations": {
+      "create": {
+        "prompt_sha256": "f9de6c3f28fd7619deac411a218baf3805b0c5c39d3e0d7fcf3f1fcb8aad5458",
+        "response_sha256": "c7ee97d9f10e992fae4606acd80ee1d2b4bf0ad4018fedfe1aae21100b0c5e10",
+        "input_tokens": 811,
+        "output_tokens": 179
+      },
+      "transfer": {
+        "prompt_sha256": "bc01501337c14993df5c13e092f78b22e6bbb01be1a122fc81ebefb52bb2d719",
+        "response_sha256": "0b41588038ceec80394da14e731cd2fa03ee4f4da8bda45c5a3deb5c099b1081",
+        "input_tokens": 814,
+        "output_tokens": 175
+      },
+      "published-transfer": {
+        "prompt_sha256": "7b4d5491e1fc3f2bddcb206c77bae999e5011a604a40da83942f87af4673c37c",
+        "response_sha256": "0b41588038ceec80394da14e731cd2fa03ee4f4da8bda45c5a3deb5c099b1081",
+        "input_tokens": 819,
+        "output_tokens": 175
+      }
+    },
+    "learned_header_identical": true,
+    "fresh_transfer_on_published_catalog": {
+      "lengths": {
+        "pass_": true
+      },
+      "escaped": {
+        "pass_": true
+      },
+      "empty": {
+        "pass_": true
+      },
+      "missing": {
+        "pass_": true
+      },
+      "embedded-nul": {
+        "pass_": true
+      }
+    },
+    "fresh_transfer_steps": [
+      {
+        "from": "in:text/uri-list",
+        "to": "strings",
+        "provider": "gir_g_uri_list_extract_uris"
+      },
+      {
+        "from": "strings",
+        "to": "integers",
+        "provider": "byte_lengths"
+      },
+      {
+        "from": "integers",
+        "to": "out:application/json",
+        "provider": "write_numbers"
+      }
+    ]
+  }
+}

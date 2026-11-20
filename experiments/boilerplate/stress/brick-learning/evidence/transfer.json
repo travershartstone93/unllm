@@ -1,0 +1,26 @@
+{
+  "input_type": "text/uri-list",
+  "roles": [
+    {
+      "id": "r1",
+      "text": "Read a URI list, compute the byte length of each URI, and write a JSON array of integers in original order.",
+      "output_type": "application/json",
+      "multiple": false,
+      "content": "whole",
+      "requirement": {
+        "outcome": "byte_lengths",
+        "parameters": {},
+        "runtime": [
+          "artifact"
+        ],
+        "uncovered": []
+      }
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "a",
+      "text": "Read the URI list, compute the byte length of each URI, and write a JSON array of integers in original order."
+    }
+  ]
+}

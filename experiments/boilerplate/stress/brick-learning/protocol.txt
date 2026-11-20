@@ -1,0 +1,10 @@
+B31. Freeze the two English requests before generation. Capture one interpretation per request.
+First require a typed gap and failing functional tests with discovery and editing off.
+For create, search the installed library metadata and emit one adapter if unambiguous.
+Do not expose the task checks or standalone client to the interpreter or generator.
+Admit only after the first program and the independent adapter client pass.
+For transfer use identical interpretation bytes, native planner, compiler and tests in
+both arms. Disable discovery and editing. The only treatment is the admitted brick.
+Require a failing baseline, actual binding of the new brick and all checks passing.
+Retest the original base after promotion. A failed independent client must not publish.
+Report any use of fixture inputs, tokens by stage, and unsuccessful attempts separately.

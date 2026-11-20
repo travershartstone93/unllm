@@ -1,0 +1,11 @@
+{
+  "value_types":{"string":"std::string","integer":"std::int64_t"},
+  "classes":[{
+    "brick":"u84","type":"unllm::UniqueFifo","header":"unique_fifo.hpp",
+    "methods":{
+      "insert_unique":{"meaning":"Append a previously absent value to the back; report whether membership changed. Removed values can rejoin.","member":"push","parameter":"value","result":"bool"},
+      "cancel_value":{"meaning":"Remove a waiting value by equality and report whether it was present.","member":"cancel","parameter":"value","result":"bool"},
+      "take_oldest":{"meaning":"Remove and return the oldest remaining value, or an empty optional if none remain.","member":"pop","parameter":"none","result":"optional"}
+    }
+  }]
+}

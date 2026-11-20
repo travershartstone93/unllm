@@ -119,4 +119,121 @@ Json checked_provider_plan(
   out.set("wires", obligations);
   return out;
 }
+
+// Minimize missing conversions first. A lower-ranked real dependency is always
+// preferable to a hole. Only the requested semantic operation may change
+// values.
+Json checked_port_plan(const std::vector<PortProvider> &providers,
+                       const std::string &input, const std::string &output,
+                       const Names &guarantees, NativeEngine &engine,
+                       Deadline deadline) {
+  using State = std::pair<std::string, std::size_t>;
+  using Cost =
+      std::tuple<unsigned, unsigned, unsigned>; // holes, length, unranked
+  using Visit = std::pair<Cost, State>;
+  struct Link {
+    State previous;
+    std::string id;
+  };
+  const State start{input, 0}, finish{output, guarantees.size()};
+  std::map<State, Cost> best{{start, {0, 0, 0}}};
+  std::map<State, Link> previous;
+  std::set<Visit> pending{{best.at(start), start}};
+  std::set<std::string> ports{output}, ids;
+  for (const auto &p : providers) {
+    if (p.id.empty() || !ids.insert(p.id).second)
+      throw Unsupported("Missing or duplicate port provider ID");
+    ports.insert(p.accepts);
+    ports.insert(p.produces);
+  }
+  if (guarantees.empty() || input == output)
+    throw Unsupported(
+        "Expected an observable result and distinct external ports");
+  while (!pending.empty()) {
+    if (std::chrono::steady_clock::now() >= deadline)
+      throw ResourceLimit("Port planning deadline exceeded");
+    auto [cost, state] = *pending.begin();
+    pending.erase(pending.begin());
+    if (state == finish)
+      break;
+    if (state.first == output)
+      continue;
+    auto offer = [&](const State &to, const std::string &id, unsigned hole,
+                     unsigned unranked) {
+      if (to.first == input)
+        return;
+      const auto [holes, steps, rank] = cost;
+      Cost next{holes + hole, steps + 1, rank + unranked};
+      auto found = best.find(to);
+      if (found != best.end()) {
+        if (found->second <= next)
+          return;
+        pending.erase({found->second, to});
+      }
+      best[to] = next;
+      previous[to] = {state, id};
+      pending.emplace(next, to);
+    };
+    for (const auto &p : providers) {
+      if (p.accepts != state.first)
+        continue;
+      if (!p.guarantee.empty() &&
+          (state.second >= guarantees.size() || state.second != p.occurrence ||
+           p.guarantee != guarantees[state.second]))
+        continue;
+      offer({p.produces, state.second + !p.guarantee.empty()}, p.id, 0,
+            !p.preferred);
+    }
+    for (const auto &port : ports)
+      if (port != state.first &&
+          (port != output || state.second == guarantees.size()))
+        offer({port, state.second}, "", 1, 0);
+  }
+
+  Json result = Json::object(), steps = Json::array(), holes = Json::array();
+  result.set("steps", steps);
+  result.set("holes", holes);
+  if (!best.contains(finish)) {
+    result.set("status", Json::string("unsupported"));
+    result.set("requested_outcomes", strings(guarantees));
+    return result;
+  }
+  std::vector<State> path;
+  for (auto s = finish; s != start; s = previous.at(s).previous)
+    path.push_back(s);
+  std::reverse(path.begin(), path.end());
+  // The established application planner resolves the dependency tree and its
+  // port proofs. In a partial plan the proof is conditional on named
+  // interfaces.
+  ProviderCatalog proof_catalog{
+      {"source", {"value_0", "cpp", {}, {}, {input}}}};
+  std::vector<std::pair<std::string, std::string>> wires;
+  for (std::size_t i = 0; i < path.size(); ++i) {
+    const auto &to = path[i];
+    const auto &link = previous.at(to);
+    auto before = "value_" + std::to_string(i);
+    auto after = "value_" + std::to_string(i + 1);
+    auto id = link.id.empty() ? "assumption_" + std::to_string(i)
+                              : "brick_" + link.id + "_" + std::to_string(i);
+    proof_catalog.emplace(
+        id,
+        Provider{after, "cpp", {before}, {link.previous.first}, {to.first}});
+    wires.emplace_back(before, after);
+    auto step = Json::object();
+    step.set("from", Json::string(link.previous.first));
+    step.set("to", Json::string(to.first));
+    if (link.id.empty())
+      holes.push(step);
+    else
+      step.set("provider", Json::string(link.id));
+    steps.push(step);
+  }
+  result.set("proof",
+             checked_provider_plan(
+                 proof_catalog, {wires.back().second}, wires, "cpp", {},
+                 "ports_", "brick port contracts and explicit assumptions",
+                 engine, deadline));
+  result.set("status", Json::string(holes.size() ? "partial" : "complete"));
+  return result;
+}
 } // namespace unllm::native

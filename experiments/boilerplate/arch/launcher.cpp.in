@@ -1,0 +1,50 @@
+// Reusable positional C++ CLI. The converter sees the system runtime, one input
+// and a private output directory. Publish a fresh output only after success.
+#include <cstdlib>
+#include <iterator>
+#include <stdexcept>
+#include <filesystem>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cerrno>
+#include <sys/wait.h>
+#include <unistd.h>
+
+namespace fs = std::filesystem;
+struct Scratch {
+    fs::path dir;
+    ~Scratch() { std::error_code ignored; fs::remove_all(dir, ignored); }
+};
+
+int main(int argc, char** argv) {
+    try {
+        if (argc != 3) throw std::runtime_error("Expected input and fresh output paths");
+        auto input = fs::canonical(argv[1]);
+        auto output = fs::absolute(argv[2]);
+        if (!fs::is_regular_file(input) || fs::exists(fs::symlink_status(output)))
+            throw std::runtime_error("Expected a regular input and a fresh output");
+        auto pattern = (output.parent_path() / ".unllm-XXXXXX").string();
+        if (!mkdtemp(pattern.data())) throw std::runtime_error("Cannot stage output");
+        Scratch scratch{pattern};
+        std::vector<const char*> cmd = {"/usr/bin/bwrap","--die-with-parent","--new-session",
+            "--unshare-all","--clearenv","--setenv","PATH","/usr/bin","--setenv","HOME","/tmp",
+            "--ro-bind","/usr","/usr","--symlink","usr/bin","/bin","--symlink","usr/lib","/lib",
+            "--symlink","usr/lib","/lib64","--proc","/proc","--dev","/dev","--tmpfs","/tmp",
+            "--ro-bind",input.c_str(),"/input","--bind",scratch.dir.c_str(),"/out",
+            "--chdir","/tmp","--",tool};
+        cmd.insert(cmd.end(), std::begin(arguments), std::end(arguments));
+        cmd.push_back(nullptr);
+        auto child = fork();
+        if (child < 0) throw std::runtime_error("Cannot start converter");
+        if (child == 0) { execv(cmd[0], const_cast<char* const*>(cmd.data())); _exit(127); }
+        int status;
+        while (waitpid(child, &status, 0) < 0)
+            if (errno != EINTR) throw std::runtime_error("Cannot wait for converter");
+        if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) return 1;
+        auto result = scratch.dir / "result";
+        if (!fs::is_regular_file(fs::symlink_status(result))) throw std::runtime_error("Missing output");
+        fs::create_hard_link(result, output);
+        return 0;
+    } catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
+}

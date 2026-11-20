@@ -77,3 +77,8 @@ To repeat the 60-run comparison, supply a fresh output path. Times include proce
 "$picker/compare.sh" "$bin" "$data/catalog.json" "$data/cases.json" /tmp/picker-comparison qwen3:4b-instruct-2507-q4_K_M qwen3:8b
 jq -s -f "$picker/score.jq" /tmp/picker-comparison/rows.jsonl
 ```
+
+
+### Supervised component picking
+
+`brick-picker trained CATALOG ROLES MODEL_JSON BGE_DIR` classifies each reusable responsibility against the eligible catalog entries and a no-brick class. Inference runs in C++ with ONNX Runtime. The B27 experiment supplies the offline training data, a saved classifier, a comparison with Qwen on gaps and a tested integration with the program editor. [Training and evaluation](../component-trial/README.md)

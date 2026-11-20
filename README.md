@@ -2,7 +2,7 @@
 
 ## Current C++ coding pipeline
 
-Start with the [integrated runner](experiments/boilerplate/integrated/README.md). Big Pickle interprets the English request. The deterministic picker assigns bricks, and Qwen picks only for roles still empty. The assembler connects the bricks, builds the program and runs its behavior tests. Passing programs finish there. Remaining gaps or failed checks trigger a focused edit and another test run.
+Start with the [integrated runner](experiments/boilerplate/integrated/README.md). OpenCode interprets English with Big Pickle first, Iceman second, then the other hosted free models in the order OpenCode lists them. If that sequence fails with a quota error, the runner tries OVHcloud and then AI Horde. The [Arch lookup](experiments/boilerplate/arch/README.md) checks for a whole program first. When it has no verified hit, the deterministic picker assigns bricks. A unique converter adapter can fill a matching output. With the expanded catalog enabled, the component picker also selects reusable helpers before the emitter connects them. The pipeline compiles the emitted program and runs its behavior tests. Passing programs finish there. Remaining gaps or failed checks trigger a focused edit and another test run.
 
 The [pilot plan](docs/CPP_BOILERPLATE_PILOT.md) and [experiment log](docs/EXPERIMENT_LOG.md) track active work. The [research archive](archive/README.md) contains earlier attempts and their replay materials.
 

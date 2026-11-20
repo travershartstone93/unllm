@@ -4,9 +4,15 @@ def compatible($r; $input):
 . as $spec |
 [.roles[] as $r |
   $selection[0].bindings[$r.id] as $id |
-  ($adapters[0][$id // ""] // null) as $a |
-  {role:$r.id, proposed:$proposal[0].bindings[$r.id], selected:$id,
-   adapter:(if ($a | compatible($r; $spec.input_type)) then $a else null end)}
+  ($spec.requirements[$r.id] // $r.requirement // {}) as $requirements |
+  (if $id != null then
+     [$id | select($adapters[0][.] | compatible($r; $spec.input_type))]
+   elif ($requirements | all(.[]; . == null or . == [] or . == {})) then
+     [$adapters[0] | to_entries[] | select(.value | compatible($r; $spec.input_type)) | .key]
+   else [] end) as $matches |
+  (if ($matches|length)==1 then $matches[0] else null end) as $adapter_id |
+  {role:$r.id, proposed:$proposal[0].bindings[$r.id], selected:$id, adapter_id:$adapter_id,
+   adapter:$adapters[0][$adapter_id // ""]}
 ] as $rows |
 ($rows | map(select(.adapter != null) | .adapter.input) | unique) as $inputs |
 if ($inputs|length)>1 then error("incompatible input ports") else . end |

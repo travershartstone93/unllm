@@ -60,6 +60,17 @@ if [[ ${2:-} == bge ]]; then
     if "$bin" guarded-bge cards roles reviews missing-model > unexpected 2> diagnostic; then exit 1; fi
     test ! -s unexpected && test -s diagnostic
     if [[ -n ${PICKER_BGE_TEST_MODEL:-} ]]; then
+        # Constant logits isolate eligibility, class margin, abstention and ID validation.
+        jq -n '{format:1,catalog:["a","d"],margin:0.5,
+            heads:(["-","a","d"]|to_entries|map({id:.value,bias:([1,3,0][.key]),weights:[range(384)|0]}))}' > head.json
+        "$bin" trained cards roles head.json "$PICKER_BGE_TEST_MODEL" |
+            jq -e '.bindings=={p:"a",n:"a",t:null}' >/dev/null
+        jq '.margin=2.1' head.json > wide
+        "$bin" trained cards roles wide "$PICKER_BGE_TEST_MODEL" |
+            jq -e 'all(.bindings[]; .==null)' >/dev/null
+        jq '.catalog=["a"]' head.json > mismatched
+        if "$bin" trained cards roles mismatched "$PICKER_BGE_TEST_MODEL" > unexpected 2> diagnostic; then exit 1; fi
+        test ! -s unexpected && test -s diagnostic
         jq '.examples += [{text:"Measure the trapped gas",brick:"a"},{text:"Measure the trapped gas",brick:"d"}]' reviews > ties
         echo '[{"id":"tied","text":"Measure the trapped gas"},{"id":"excluded","text":"Sample chamber pressure","requires":["missing-tag"]}]' > probe
         for mode in guarded-bge evidence-bge; do

@@ -1,0 +1,22 @@
+{
+  "texts": {"args":0,"code":"std::vector<std::string>{}"},
+  "integers": {"args":0,"code":"std::vector<std::int64_t>{}"},
+  "integer": {"args":1,"code":"std::stoll(@0)"},
+  "lt": {"args":2,"code":"(@0 < @1)"},
+  "le": {"args":2,"code":"(@0 <= @1)"},
+  "ge": {"args":2,"code":"(@0 >= @1)"},
+  "gt": {"args":2,"code":"(@0 > @1)"},
+  "eq": {"args":2,"code":"(@0 == @1)"},
+  "append": {"args":2,"kind":"action","code":"@0.push_back(@1)"},
+  "field": {"args":1,"scope":"row","code":"fields.at(@0)"},
+  "row_number": {"args":0,"scope":"row","code":"static_cast<std::int64_t>(row)"},
+  "each_row": {"args":1,"kind":"rows","brick":"t80","header":"tab_rows.hpp","input":"text/tab-separated-values","code":"unllm::tab_rows(input_path, [&](std::size_t row, const std::vector<std::string>& fields)"},
+  "latch": {"args":0,"brick":"k42","header":"keyed_latch.hpp","code":"unllm::KeyedLatch{}"},
+  "first_activation": {"args":4,"brick":"k42","header":"keyed_latch.hpp","code":"@0.observe(@1, @2 ? unllm::LatchEvent::trigger : (@3 ? unllm::LatchEvent::rearm : unllm::LatchEvent::hold))"},
+  "pairs": {"args":0,"brick":"f81","header":"fifo_pairs.hpp","code":"unllm::FifoPairs<std::pair<std::string, std::int64_t>>{}"},
+  "pair": {"args":2,"code":"std::make_pair(@0, @1)"},
+  "match": {"args":4,"kind":"action","brick":"f81","header":"fifo_pairs.hpp","code":"@0.observe(@1, @2, @3)"},
+  "unmatched": {"args":1,"brick":"f81","header":"fifo_pairs.hpp","code":"std::vector<std::int64_t>(@0.unmatched().begin(), @0.unmatched().end())"},
+  "write_array": {"args":1,"kind":"sink","brick":"j85","header":"json_sequence.hpp","output":"application/json","code":"unllm::write_json_sequence(output_path, @0)"},
+  "decode_gzip": {"args":0,"kind":"sink","brick":"g83","header":"gzip_stream.hpp","input":"application/gzip","output":"application/octet-stream","code":"unllm::expand_gzip(input_path, output_path)"}
+}

@@ -1,0 +1,51 @@
+# outcome | input | output | C++ callable | ordered parameters | behavior
+named_lists|in:application/json|named_lists|bricks::named<bricks::NamedLists>||Read a JSON object of string lists preserving duplicates and order within each list.
+named_sets|in:application/json|prerequisites|bricks::named<brick_data::Graph>||Read named sets of strings from JSON, collapsing duplicate members in each set.
+nested_lists|in:application/json|layers|bricks::groups||Read an ordered JSON array of string arrays, preserving repetitions and empty groups.
+object_keys|in:application/json|strings|bricks::keys||List the keys of a JSON object in ascending UTF-8 byte order.
+xml_names|in:application/xml|strings|bricks::xml_names|xpath:text|Report the names of XPath-selected nodes in document order.
+xml_text|in:application/xml|strings|bricks::xml_text|xpath:text|Read text or attribute values from an XPath selection in document order.
+xml_paths|in:application/xml|strings|bricks::xml_paths|xpath:text|Report absolute node paths for an XPath element selection.
+xml_attributes|in:application/xml|strings|bricks::xml_attributes|xpath:text|List all attribute names for each selected XML element in document order.
+sort_lines|strings|strings|bricks::sorted||Stable ascending bytewise sorting of strings, retaining duplicates.
+reverse_order|strings|strings|bricks::reversed||Reverse the outer collection; elements and repetitions stay intact.
+unique_lines|strings|strings|bricks::unique||Remove duplicate strings, retaining their first occurrence in original order.
+adjacent_unique|strings|strings|bricks::consecutive||Collapse each run of adjacent equal strings into one string.
+trim_lines|strings|strings|bricks::trim||Strip ASCII whitespace from both ends of each string.
+nonempty_lines|strings|strings|bricks::nonempty||Keep exactly the nonempty strings in input order.
+matching_lines|strings|strings|bricks::contains_text|needle:text|Keep strings containing a case-sensitive literal substring.
+prefixed_lines|strings|strings|bricks::prefix|prefix:text|Keep strings beginning with a case-sensitive literal prefix.
+first_items|strings|strings|bricks::take_first|count:column|Take at most the first count elements.
+last_items|strings|strings|bricks::take_last|count:column|Take at most the last count elements in original order.
+byte_lengths|strings|integers|bricks::lengths||Return each string's length in bytes.
+item_count|strings|integers|bricks::count||Return the number of input items in a one-element integer array.
+file_names|in:inode/directory|strings|bricks::files||List direct regular files in a directory, sorted by relative path; exclude symbolic links.
+directory_names|in:inode/directory|strings|bricks::directories||List immediate real directories, sorted by relative path.
+recursive_files|in:inode/directory|strings|bricks::tree||List all regular files recursively by sorted relative path without following symlinks.
+symbolic_links|in:inode/directory|strings|bricks::links||List symbolic links recursively by sorted relative path without traversing them.
+filter_extension|strings|strings|bricks::suffix|extension:text|Keep paths with the specified case-sensitive filename extension, including its dot.
+basenames|strings|strings|bricks::basename||Return the filename part of each path.
+filename_stems|strings|strings|bricks::stem||Remove the directory and final extension from each filename.
+extensions|strings|strings|bricks::extension||Return the final extension, including the dot, for each path.
+parent_paths|strings|strings|bricks::parent||Return the parent directory of each path.
+normalize_paths|strings|strings|bricks::normalize||Lexically normalize paths, independent of filesystem contents.
+database_tables|in:application/vnd.sqlite3|strings|bricks::sql::tables||List non-internal SQLite table names in ascending order.
+database_views|in:application/vnd.sqlite3|strings|bricks::sql::views||List SQLite view names in ascending order.
+table_columns|in:application/vnd.sqlite3|strings|bricks::sql::columns|table:text|List a table's SQLite column names in declaration order.
+primary_keys|in:application/vnd.sqlite3|strings|bricks::sql::primary_keys|table:text|List primary key columns in composite key order.
+foreign_tables|in:application/vnd.sqlite3|strings|bricks::sql::foreign_tables|table:text|List distinct referenced SQLite table names in ascending order.
+integrity_check|in:application/vnd.sqlite3|strings|bricks::sql::integrity||Run SQLite integrity_check and return its messages.
+count_rows|in:application/vnd.sqlite3|integers|bricks::sql::count|table:text|Return a named table's row count as a one-element integer array.
+text_column|in:application/vnd.sqlite3|strings|bricks::sql::values|table:text,column:text|Read a non-null text column from a rowid table in rowid order.
+database_backup|in:application/vnd.sqlite3|out:application/vnd.sqlite3|bricks::sql::snapshot||Use SQLite online backup to create a consistent fresh destination database.
+store_text_rows|strings|out:application/vnd.sqlite3|bricks::sql::store_lines||Create a fresh SQLite database containing table lines(value TEXT NOT NULL), inserting one row per input string in a transaction.
+archive_members|in:application/x-tar|strings|bricks::archives::names<>||List all archive member paths in archive order.
+archive_files|in:application/x-tar|strings|bricks::archives::names<AE_IFREG>||List regular file members in archive order.
+archive_directories|in:application/x-tar|strings|bricks::archives::names<AE_IFDIR>||List directory members in archive order.
+archive_symlinks|in:application/x-tar|strings|bricks::archives::names<AE_IFLNK>||List symbolic link members in archive order.
+archive_sizes|in:application/x-tar|integers|bricks::archives::sizes||Return declared byte sizes for regular file members in archive order.
+archive_format|in:application/x-tar|strings|bricks::archives::formats||Report the detected archive format at the first member, or an empty list for an empty archive.
+archive_member_bytes|in:application/x-tar|out:application/octet-stream|bricks::archives::extract|member:text|Copy exactly one regular member by its full name to the supplied destination, rejecting missing or ambiguous matches.
+pack_tar|in:application/octet-stream|out:application/x-tar|bricks::archives::pack<ARCHIVE_FORMAT_TAR_PAX_RESTRICTED>||Create a tar archive containing the input as one regular file under its basename.
+pack_zip|in:application/octet-stream|out:application/zip|bricks::archives::pack<ARCHIVE_FORMAT_ZIP>||Create a zip archive containing the input as one regular file under its basename.
+gzip_compress|in:application/octet-stream|out:application/gzip|bricks::archives::pack<ARCHIVE_FORMAT_RAW>||Gzip-compress one input file, preserving its bytes on decompression.

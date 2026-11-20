@@ -1,0 +1,5 @@
+[
+  {"package":"img2pdf","binary":"img2pdf","input":"image/jpeg","output":"application/pdf","content":"whole","terms":"convert JPG JPEG image to PDF document","argv":["--output","OUT","IN"]},
+  {"package":"poppler","binary":"pdftotext","input":"application/pdf","output":"text/plain","content":"text","terms":"extract plain text from PDF","argv":["IN","OUT"]},
+  {"package":"libjpeg-turbo","binary":"djpeg","input":"image/jpeg","output":"image/x-portable-pixmap","content":"whole","terms":"decode convert JPG JPEG image to binary PPM portable pixmap","argv":["-rgb","-ppm","-outfile","OUT","IN"]}
+]

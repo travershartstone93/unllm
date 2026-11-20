@@ -1,0 +1,1 @@
+{"id":"k42","description":"Keyed event latch for C++ streams: suppress repeated alerts per identifier until a reset condition re-arms that identifier.","tags":[],"outputs":["A boolean indicating the transition into an active state. Caller supplies the key and trigger, hold or rearm event and handles input parsing and output formatting."]}

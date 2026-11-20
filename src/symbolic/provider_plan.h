@@ -15,4 +15,15 @@ Json checked_provider_plan(
     const std::string &language, const std::set<std::string> &disabled,
     const std::string &prefix, const std::string &source, NativeEngine &engine,
     Deadline deadline);
+// Single-input value transformations. Empty guarantees denote representation
+// adapters.
+struct PortProvider {
+  std::string id, accepts, produces, guarantee;
+  bool preferred = false;
+  std::size_t occurrence = 0;
+};
+Json checked_port_plan(const std::vector<PortProvider> &providers,
+                       const std::string &input, const std::string &output,
+                       const Names &guarantees, NativeEngine &engine,
+                       Deadline deadline);
 } // namespace unllm::native

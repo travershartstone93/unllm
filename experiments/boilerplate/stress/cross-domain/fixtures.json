@@ -1,0 +1,19 @@
+{
+ "inventory":[
+  ["thresholds","A\t3\nA\t2\nA\t2\nA\t4\nA\t1\nA\t5\nA\t2\n",["A","A"]],
+  ["interleaved","B\t0\nA\t2\nB\t1\nA\t6\nB\t5\nB\t2\nA\t1",["B","A","B","A"]],
+  ["no-alert","Z\t5\nZ\t3\n",[]],["empty","",[]]],
+ "sensors":[
+  ["thresholds","N\t29\nN\t30\nN\t31\nN\t26\nN\t30\nN\t25\nN\t30\n",[2,7]],
+  ["interleaved","N\t30\nS\t33\nS\t25\nN\t35\nS\t30\nN\t25\nN\t32",[1,2,5,7]],
+  ["no-warning","N\t-2\nS\t25\n",[]],["empty","",[]]],
+ "finance":[
+  ["fifo","book\tABC\t100\nbook\tABC\t100\nbank\tABC\t100\n",[2]],
+  ["opposite-first","bank\tA\t-25\nbook\tB\t25\nbook\tA\t25\nbook\tA\t-25\nbank\tB\t25\nbank\tZ\t0",[3,6]],
+  ["zero-pair","bank\tZ\t0\nbook\tZ\t0\n",[]],["empty","",[]]],
+ "build":[
+  ["independent-and-diamond","{\"app\":[\"b\",\"a\",\"a\"],\"z\":[],\"b\":[\"root\"],\"root\":[],\"a\":[\"root\"]}",[["root","z"],["a","b"],["app"]]],
+  ["long-chain","{\"c\":[\"b\"],\"a\":[],\"b\":[\"a\"]}",[["a"],["b"],["c"]]],
+  ["cycle-after-ready","{\"ok\":[],\"a\":[\"b\"],\"b\":[\"a\"]}",null],
+  ["missing-target","{\"a\":[\"forgotten\"]}",null],["empty-graph","{}",[]]]
+}

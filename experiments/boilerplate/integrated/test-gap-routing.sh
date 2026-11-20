@@ -27,10 +27,6 @@ case $1 in
     else
       cat "$REFERENCE/proposals.json"
     fi ;;
-  ollama)
-    [[ $CHECK_CASE == B ]]
-    jq -e 'map(.id)==["r2"]' "$3" >/dev/null
-    jq -n '{bindings:{r2:"h65"},selected:["h65"],missing:[]}' ;;
   resolve) exec "$ORIGINAL_PICKER" "$@" ;;
   *) exit 2 ;;
 esac
@@ -41,10 +37,23 @@ for case in A B; do
     out="$work/$case"
     "$pilot/run.sh" "$REFERENCE/request.txt" "$out" "$pilot/convert-check.sh"
     jq -e '.passed and (.stage5_used|not)' "$out/result.json" >/dev/null
+    test ! -e "$out/qwen.json"
     if [[ $case == A ]]; then
-        test ! -e "$out/qwen.json"
         jq -e 'length==0' "$out/unfilled.json" >/dev/null
     else
-        jq -e '.bindings=={r1:"r28",r2:"h65"}' "$out/selection.json" >/dev/null
+        jq -e '.bindings=={r1:"r28",r2:null}' "$out/selection.json" >/dev/null
+        jq -e '[.rows[].adapter_id]==["r28","h65"]' "$out/route.json" >/dev/null
     fi
+done
+
+# A MIME match alone cannot choose between competing adapters or satisfy extra operations.
+jq '. + {duplicate:.h65}' "$pilot/adapters.json" > "$work/ambiguous.json"
+spec="$out/calls/interpret/response.json"
+jq '.roles[1].requirement={operations:[{outcome:"sort"}]}' "$spec" > "$work/extra.json"
+for control in ambiguous extra; do
+    adapters="$pilot/adapters.json"; input="$spec"
+    if [[ $control == ambiguous ]]; then adapters="$work/ambiguous.json"; else input="$work/extra.json"; fi
+    jq --slurpfile proposal "$out/proposals.json" --slurpfile selection "$out/selection.json" \
+        --slurpfile adapters "$adapters" -f "$pilot/route.jq" "$input" |
+        jq -e '.rows[0].bound and (.rows[1].bound|not)' >/dev/null
 done

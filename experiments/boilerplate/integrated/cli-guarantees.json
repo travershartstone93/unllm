@@ -1,0 +1,5 @@
+{
+ "artifact":"A reusable C++17 command-line executable with one source path and one destination argument per output.",
+ "arguments":"An incorrect argument count returns a nonzero status.",
+ "exceptions":"A standard C++ exception from any operation returns a nonzero process status."
+}

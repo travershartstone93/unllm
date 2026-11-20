@@ -296,6 +296,52 @@ Value resolve(const std::vector<Entry>& cards, const std::vector<Entry>& roles, 
 }
 
 #ifdef UNLLM_HAVE_ONNX
+// Logistic-regression scores use the same unprefixed embeddings as offline training.
+Value trained_bindings(const std::vector<Entry>& cards, const std::vector<Entry>& roles,
+                       const Value& model, const char* encoder_dir) {
+    Names ids;
+    for (const auto& card : cards) ids.insert(card.id);
+    if (model["format"].integer() != 1 || strings(model["catalog"]) != ids)
+        throw std::runtime_error("Trained picker model does not match catalog");
+    struct Head { double bias; std::vector<double> weights; };
+    std::map<std::string, Head> heads;
+    for (const auto& row : model["heads"].items()) {
+        Head head{row["bias"].real(), {}};
+        for (const auto& weight : row["weights"].items()) head.weights.push_back(weight.real());
+        if (!heads.emplace(row["id"].text(), std::move(head)).second)
+            throw std::runtime_error("Duplicate trained label");
+    }
+    if (heads.size() != ids.size() + 1 || !heads.count("-"))
+        throw std::runtime_error("Incomplete trained label set");
+    for (const auto& id : ids) if (!heads.count(id)) throw std::runtime_error("Missing trained label");
+    unllm::Meaning encoder;
+    if (!encoder.load_model(encoder_dir)) throw std::runtime_error("Cannot load BGE encoder");
+    Value bindings = Value::object();
+    for (const auto& role : roles) {
+        auto vector = encoder.embed(role.text, false);
+        if (vector.empty()) throw std::runtime_error("Empty BGE embedding");
+        auto score = [&](const std::string& id) {
+            const auto& head = heads.at(id);
+            if (head.weights.size() != vector.size()) throw std::runtime_error("Wrong embedding dimension");
+            return std::inner_product(vector.begin(), vector.end(), head.weights.begin(), head.bias);
+        };
+        double best = score("-"), next = -std::numeric_limits<double>::infinity();
+        std::string winner;
+        for (const auto& card : cards) {
+            if (!eligible(card, role)) continue;
+            double value = score(card.id);
+            if (value > best) {
+                next = best;
+                best = value;
+                winner = card.id;
+            } else next = std::max(next, value);
+        }
+        bool accept = !winner.empty() && best > next && best - next >= model["margin"].real();
+        bindings.set(role.id, accept ? Value::string(winner) : Value());
+    }
+    return bindings;
+}
+
 class ExampleVectors {
     unllm::Meaning encoder;
     std::map<std::string, std::vector<std::vector<float>>> examples;
@@ -397,6 +443,13 @@ int main(int argc, char** argv) try {
     Value request = load(argv[3]);
     auto roles = entries(request, "text", "requires");
     Value bindings, answer, first_pass;
+#ifdef UNLLM_HAVE_ONNX
+    if (mode == "trained" && argc == 6) {
+        bindings = trained_bindings(cards, roles, load(argv[4]), argv[5]);
+        std::cout << resolve(cards, roles, bindings).dump() << '\n';
+        return 0;
+    }
+#endif
     if ((mode == "bm25" || mode == "bm25-capped") && argc == 4)
         bindings = lexical(cards, roles, mode == "bm25-capped");
     else if ((mode == "reviewed" || mode == "reviewed-guard") && argc == 5)

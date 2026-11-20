@@ -1,0 +1,17 @@
+k42	React to a rising condition once; wait for a clear before notifying again for that key
+t80	Pass each TSV line number and its separated fields to a visitor
+f81	One-to-one cancellation across duplicate entries in opposing event streams
+d82	Produce layers of tasks whose predecessors have completed
+g83	Unpack a multipart gzip file while detecting damaged members
+u84	A cancelable queue for nonduplicated attendees
+j85	Save an ordered vector of event names as JSON
+r28	Get the text layer of a PDF
+m47	Put a JPEG into a PDF document
+h65	Extract raster images embedded in a PDF
+-	Write raw uninterpreted bytes to a pipe
+-	Compress files with gzip for backup
+-	Check the incoming argument count and that an input path can be opened
+-	Summarize text as a JSON dictionary of counts
+-	Offer a priority queue sorted by urgency
+-	Track a rolling average per device and plot it
+-	Validate a JSON Schema document

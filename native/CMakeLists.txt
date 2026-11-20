@@ -341,3 +341,22 @@ target_link_libraries(interpretation_role_trial PRIVATE unllm_native_core unllm_
 add_executable(algorithm_goal_probe EXCLUDE_FROM_ALL
   "${ALGORITHM_DIR}/goal_selection/probe.cpp")
 target_link_libraries(algorithm_goal_probe PRIVATE unllm_native_core)
+
+add_executable(brick-provider-plan "${UNLLM_ROOT}/experiments/boilerplate/integrated/provider_emit.cpp")
+target_include_directories(brick-provider-plan PRIVATE "${UNLLM_ROOT}/src/symbolic")
+target_link_libraries(brick-provider-plan PRIVATE unllm_native_core)
+add_dependencies(brick-provider-plan unllm_logic_worker)
+add_test(NAME brick_provider_composition COMMAND bash "${UNLLM_ROOT}/experiments/boilerplate/integrated/test-provider-plan.sh"
+  "$<TARGET_FILE:brick-provider-plan>" "${UNLLM_ROOT}" "$<TARGET_FILE:unllm_logic_worker>")
+add_executable(brick-header-emit "${UNLLM_ROOT}/experiments/boilerplate/integrated/header_emit.cpp")
+target_include_directories(brick-header-emit PRIVATE "${UNLLM_ROOT}/src/symbolic")
+target_link_libraries(brick-header-emit PRIVATE unllm_native_core)
+add_test(NAME brick_header_composition COMMAND "${UNLLM_ROOT}/experiments/boilerplate/integrated/test-header-emit.sh" "$<TARGET_FILE:brick-header-emit>")
+
+find_package(pugixml CONFIG QUIET)
+if(TARGET pugixml::pugixml)
+  add_executable(brick-gir-adapter "${UNLLM_ROOT}/experiments/boilerplate/component-trial/learning/gir_adapter.cpp")
+  target_link_libraries(brick-gir-adapter PRIVATE unllm_native_core pugixml::pugixml)
+  add_test(NAME brick_gir_discovery COMMAND bash "${UNLLM_ROOT}/experiments/boilerplate/stress/brick-learning/test-discovery.sh"
+    "$<TARGET_FILE:brick-gir-adapter>")
+endif()
