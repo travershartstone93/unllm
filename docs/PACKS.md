@@ -201,6 +201,12 @@ conversation, leaves after `UNLLM_IDLE` seconds idle (600), and answers only
 runs with the same `UNLLM_*` settings as its own; others answer in-process,
 as does `UNLLM_NO_SERVER=1`.
 
+## Reference-pack evaluation
+
+The historical comparison used the same 50 questions from the `corpus50b` set in two CLI runs. With seed 47, the project sampled passages from its installed packs. Claude Haiku wrote the questions and answer patterns, Claude Opus checked them against the source passages, and the generator kept questions Qwen3 4B answered incorrectly from memory. The selection tests whether retrieval helps on this particular set. [Question generation and review](../bench/corpus50.py)
+
+The scorer matched each expected pattern against the first paragraph of the CLI answer, ignoring case. The October 21, 2026 `before` run of the earlier rules matched 6/50. The October 22 `after-resident` run with reranking and the local Qwen reader matched 37/50. These are end-to-end answer-pattern matches from development runs. The measure can miss a valid paraphrase or count a passage that contains the key without answering the question. [Scoring protocol](../bench/cli50.py) · [Matched question IDs and per-run verdicts](evidence/corpus50b-scores.tsv)
+
 ## Chat: follow-up questions (since 2026-10-22)
 
 `unllm` with no question is a conversation. "tell me more", "why" and "show me

@@ -70,8 +70,14 @@ if [[ -f components/typed-gaps.json ]]; then
     jq -c '{missing_outputs:.gaps,plans:[.providers[]|{function,status,steps:.plan.steps,uncovered}]}' components/emission.json
 fi
 cat request.txt calls/interpret/response.json route.json project/packages.txt
-for p in initial-build.log fixit.log fixit-build.log; do if [[ -f $p ]]; then head -c 3500 "$p"; fi; done
-for p in initial-checks.json fixit-checks.json; do if [[ -f $p ]]; then jq '.checks|with_entries(select(.value.pass_ != true))' "$p"; fi; done
+build_logs=(initial-build.log fixit.log)
+checks=initial-checks.json
+if [[ -f fixit-checks.json ]]; then
+    build_logs=(fixit-build.log)
+    checks=fixit-checks.json
+fi
+for p in "${build_logs[@]}"; do if [[ -f $p ]]; then head -c 3500 "$p"; fi; done
+if [[ -f $checks ]]; then jq '.checks|with_entries(select(.value.pass_ != true))' "$checks"; fi
 for f in "${files[@]}"; do [[ $f != bricks/gaps.hpp ]] || continue; printf '\n%s\n' "$f"; nl -ba "$f"; done
 
 if [[ -f components/helpers.json ]] && jq -e 'length>0' components/helpers.json >/dev/null; then

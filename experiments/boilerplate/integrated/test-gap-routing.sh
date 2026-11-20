@@ -13,6 +13,13 @@ export PICKER="$work/picker" PATH="$work:$PATH"
 cat > "$work/opencode" <<'SH'
 #!/bin/bash
 set -eu
+if [[ $PWD == */edit/empty && ${FIXIT_CASE:-} == link_failure ]]; then
+    # Apply a range edit only if the editor received the original, unfixed line.
+    jq -ce '(.["project/converter.cpp"] | index("int fixit_probe = external_fixit_symbol()") // empty) + 1 as $line |
+        {edits:[{file:"project/converter.cpp",start:$line,end:$line,lines:["int fixit_probe = 0;"]}],add_packages:[]} |
+        {type:"text", part:{text:tojson}}' ../../../edit-files.json
+    exit
+fi
 [[ $PWD == */interpret/empty ]]
 cat "$REFERENCE/calls/interpret/events.jsonl"
 SH
@@ -56,4 +63,42 @@ for control in ambiguous extra; do
     jq --slurpfile proposal "$out/proposals.json" --slurpfile selection "$out/selection.json" \
         --slurpfile adapters "$adapters" -f "$pilot/route.jq" "$input" |
         jq -e '.rows[0].bound and (.rows[1].bound|not)' >/dev/null
+done
+
+# Let Clang fix a missing semicolon. In one case the candidate still fails to link.
+export CHECK_CASE=A REFERENCE="$prior/run-A" ORIGINAL_B19="$CORPUS_ROOT/experiments/boilerplate-B19"
+fixture="$work/corpus/experiments"
+mkdir -p "$fixture/boilerplate-B19"
+ln -s "$CORPUS_ROOT/experiments/boilerplate-B16" "$fixture/boilerplate-B16"
+ln -s "$ORIGINAL_B19"/{bricks,library.txt,compiler-repair} "$fixture/boilerplate-B19/"
+cat > "$fixture/boilerplate-B19/emit" <<'SH'
+#!/bin/bash
+set -eu
+"$ORIGINAL_B19/emit" "$@"
+if [[ $3 == project ]]; then
+    if [[ $FIXIT_CASE == link_failure ]]; then
+        printf '%s\n' 'extern int external_fixit_symbol();' 'int fixit_probe = external_fixit_symbol()' >> project/converter.cpp
+    else
+        echo 'int fixit_probe = 0' >> project/converter.cpp
+    fi
+fi
+SH
+chmod +x "$fixture/boilerplate-B19/emit"
+export CORPUS_ROOT="$work/corpus" BRICK_EDITOR=on
+for FIXIT_CASE in link_failure success; do
+    export FIXIT_CASE
+    out="$work/fixit-$FIXIT_CASE"
+    "$pilot/run.sh" "$REFERENCE/request.txt" "$out" "$pilot/convert-check.sh"
+    if [[ $FIXIT_CASE == link_failure ]]; then
+        jq -e '.passed and .completed_at=="model_edit"' "$out/result.json" >/dev/null
+        jq -r '."project/converter.cpp"[]' "$out/edit-files.json" | cmp - "$out/before-fixit.cpp"
+        grep -Fxq 'int fixit_probe = external_fixit_symbol();' "$out/project/fixed.cpp"
+        grep -q 'external_fixit_symbol' "$out/fixit-build.log"
+        jq -ne --rawfile prompt "$out/calls/edit/prompt.txt" --rawfile rejected "$out/fixit-build.log" \
+            '$prompt | contains($rejected) | not' >/dev/null
+    else
+        jq -e '.passed and .completed_at=="compiler_fixit"' "$out/result.json" >/dev/null
+        grep -Fxq 'int fixit_probe = 0;' "$out/project/converter.cpp"
+        test ! -d "$out/calls/edit"
+    fi
 done

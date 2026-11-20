@@ -1,6 +1,6 @@
 # C++ brick picker
 
-The current converter pipeline runs `evidence-bge` first, calls `ollama` only for roles that still need a brick, and uses `resolve` to combine the assignments. For the build and commands used by the pilot, start with the [integrated runner](../integrated/README.md). The standalone comparisons below document earlier picker experiments.
+The integrated runner uses `evidence-bge` and `resolve` for whole-output bricks. With the active component catalog it uses a trained local classifier to select helpers for remaining outputs. The Ollama commands below belong to earlier standalone comparisons. [Integrated runner](../integrated/README.md) · [Local setup and corpus paths](../../../docs/local-setup.md)
 
 The picker accepts a shortlist of catalog cards and an array of atomic requirements. Each role gets exactly one existing brick ID or JSON null. The shared resolver deduplicates assigned bricks in role order and lists unfilled role IDs. A brick may serve more than one role. A model or input error exits nonzero so a caller can distinguish failure from an uncovered role.
 

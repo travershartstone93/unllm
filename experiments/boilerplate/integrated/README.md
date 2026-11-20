@@ -24,7 +24,7 @@ After component selection the planner searches all registered providers. It mini
 
 The run directory records the picker's proposals in `components/picker-helpers.json` and the actual providers, proof, assumptions and source in `components/emission.json`. If the executable passes all supplied checks but the interpreter has outstanding English requirements, `result.json` reports `completed_at: "requires_verification"`, `checks_passed: true` and the outstanding items. The executable remains in `project/converter` and the runner returns status 2. A replay can supply a previously recorded object with `responsibilities` and `requirements` via `BRICK_REQUIREMENTS_FILE`. That override retains the earlier split replay interface. Normal live provider runs obtain both parts from one interpretation.
 
-From the repository root, using the machine paths below, build the native planner and run its catalog controls with:
+With the [native build and external assets configured](../../../docs/local-setup.md), run the planner and schema controls from the repository root.
 
 ```sh
 cmake --build build --target brick-provider-plan brick-header-emit
@@ -34,20 +34,11 @@ python3 experiments/boilerplate/integrated/test-interpret-schema.py
 
 The schema regression test uses Python and jsonschema. The B32 experiment log contains the earlier local interpreter measurements.
 
-## Run on this machine
+## Hosted providers and local assets
 
 Each generative step tries `opencode/big-pickle`, then `opencode/iceman-free`. If both fail to return a JSON object, the runner tries each remaining hosted `opencode/*-free` ID once in the order reported by `opencode models`. If all OpenCode attempts fail and at least one reports a quota error or HTTP 429, the runner tries OVHcloud’s anonymous `gpt-oss-120b` endpoint, then AI Horde’s hosted `Qwen/Qwen3.8-Flash-Next` with its published anonymous credential. Each receives the stage prompt, including generated source excerpts during an edit. AI Horde dispatches that prompt to a volunteer worker. Its queue wait is bounded to six minutes, and the runner cancels an outstanding job on timeout. Each numbered directory under `calls/<stage>/attempts/` records the model, raw output and exit code. Independent provider attempts also retain the request payload, HTTP status and response body. A successful stage links its accepted JSON as `calls/<stage>/response.json`. The deterministic picker, BGE encoder, trained component classifier and C++ planner handle brick selection.
 
-Use the archived B27 picker from the USB experiment or build experiments/boilerplate/picker with ONNX Runtime as described in its README. The machine needs OpenCode access to hosted free models, curl, BGE, UDPipe, C++17, jq, pkg-config, the converter libraries, and the B16 and B19 archives. Program execution in the supplied benchmark uses bubblewrap, Poppler utilities and Pillow.
-
-```sh
-export CORPUS_ROOT=/run/media/whisper/UNLLM_CORPUS/unllm
-export PICKER="$CORPUS_ROOT/experiments/boilerplate-B27/replay-tools/brick-picker"
-export UDPIPE_MODEL="$PWD/.state/n16-bridge-8zw8jB/tools/ewt.udpipe"
-pilot="$PWD/experiments/boilerplate/integrated"
-printf '%s\n' 'Convert this JPG into a PDF' > /tmp/brick-jpg-request.txt
-CHECK_CASE=A "$pilot/run.sh" /tmp/brick-jpg-request.txt /tmp/brick-jpg-new "$pilot/convert-check.sh"
-```
+The live pilot requires an external brick bundle, archived tools, encoder weights and converter fixtures. The [local setup guide](../../../docs/local-setup.md) lists their locations, prerequisites and a complete JPG-to-PDF run.
 
 When `BRICK_COMPONENT_CATALOG` is unset the runner loads `$CORPUS_ROOT/boilerplate/active` if present. The active B32 USB bundle has 101 cards, including 58 behavior-checked components. Its immediate predecessor is the B30 100-card bundle. Set the variable to the absolute path of an archived bundle to replay it, or to `off` for a whole-output-only control. The native binaries default to `build/native`. `BRICK_PROVIDER_PLANNER`, `BRICK_LOGIC_WORKER` and `BRICK_HEADER_EMITTER` can override them. The older B27 wiring path also supports `COMPONENT_EMITTER`. [Building and verifying a bundle](../component-trial/README.md)
 

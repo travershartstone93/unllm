@@ -246,13 +246,14 @@ if (( gaps )); then
 fi
 "$b19/emit" library.txt contract.txt project
 build_program() {
+    local target=${1:-project/converter}
     local -a packages flags
     mapfile -t packages < project/packages.txt
     local result=""
     if (( ${#packages[@]} )); then result=$(pkg-config --cflags --libs "${packages[@]}") || return 1; fi
     read -r -a flags <<< "$result"
-    rm -f project/converter
-    c++ -std=c++17 -fPIC -O2 -Ibricks project/converter.cpp -o project/converter "${flags[@]}"
+    rm -f "$target"
+    c++ -std=c++17 -fPIC -O2 -Ibricks "$target.cpp" -o "$target" "${flags[@]}"
 }
 assess_candidate() {
     local tag=$1 stage=$2 edited=$3
@@ -271,7 +272,7 @@ assess_candidate() {
     exit 0
 }
 status build_test started
-if build_program initial > initial-build.log 2>&1; then
+if build_program > initial-build.log 2>&1; then
     verify initial
     assess_candidate initial deterministic false
 else
@@ -282,8 +283,9 @@ else
     read -r -a flags <<< "$cflags"
     if "$b19/compiler-repair" project/converter.cpp project/fixed.cpp -std=c++17 "-resource-dir=$(clang -print-resource-dir)" -Ibricks "${flags[@]}" 2> fixit.log; then
         cp project/converter.cpp before-fixit.cpp
-        mv project/fixed.cpp project/converter.cpp
-        if build_program fixit > fixit-build.log 2>&1; then
+        if build_program project/fixed > fixit-build.log 2>&1; then
+            mv project/fixed.cpp project/converter.cpp
+            mv project/fixed project/converter
             verify fixit
             assess_candidate fixit compiler_fixit false
         fi
@@ -334,7 +336,7 @@ jq --slurpfile files edit-files.json -f "$here/patch.jq" resolved-edit.json > ed
 while IFS= read -r file; do jq -r --arg f "$file" '.[$f][]' edited-files.json > "$file"; done < <(jq -r 'keys[]' edited-files.json)
 { cat project/packages.txt; jq -r '.add_packages[]' calls/edit/response.json; } | sort -u > packages.new
 mv packages.new project/packages.txt
-if build_program edit > edit-build.log 2>&1; then
+if build_program > edit-build.log 2>&1; then
     verify edit
     assess_candidate edit model_edit true
 fi
